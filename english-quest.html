@@ -44,7 +44,7 @@ h1{font-family:Cinzel,serif;font-size:2.5rem;text-align:center;background:linear
 .opt:hover{border-color:var(--gold);transform:translateX(5px)}
 .opt.selected{border-color:var(--gold);background:rgba(255,215,0,.15)}
 .opt.correct{border-color:var(--green);background:rgba(74,222,128,.2)}
-.opt.wrong{border-color:var(--red);background:rgba(248,113,113,.2)}
+.opt.wrong{border-color:var(--red);background:rgba(248,113,113,.2);pointer-events:none;opacity:0.6}
 .opt-letter{width:30px;height:30px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
 .opt.selected .opt-letter{background:var(--gold);color:var(--bg)}
 .explain{background:rgba(74,222,128,.1);border:1px solid var(--green);border-radius:12px;padding:15px;margin-top:20px;display:none}
@@ -334,52 +334,55 @@ reading:[
 
 var CATS={tenses:{n:"Tenses",c:"#3498db",i:"⏰"},cond:{n:"Conditionals",c:"#e74c3c",i:"🔮"},passive:{n:"Passive",c:"#9b59b6",i:"🔄"},reported:{n:"Reported Speech",c:"#2ecc71",i:"💬"},modals:{n:"Modals",c:"#f39c12",i:"💭"},gerund:{n:"Gerund/Inf",c:"#1abc9c",i:"🎯"},relative:{n:"Relative",c:"#e91e63",i:"🔗"},articles:{n:"Articles",c:"#00bcd4",i:"📝"},prep:{n:"Prepositions",c:"#ff5722",i:"📍"},phrasal:{n:"Phrasal",c:"#ff9800",i:"🧩"},vocab:{n:"Vocabulary",c:"#8bc34a",i:"📖"},reading:{n:"Reading",c:"#673ab7",i:"📚"}};
 
-var G={cat:null,ex:[],idx:0,pts:0,streak:0,maxStreak:0,corr:0,wrong:0,done:false,scores:{}};
+var G={cat:null,ex:[],idx:0,pts:0,streak:0,maxStreak:0,corr:0,wrong:0,done:false,scores:{},needsNext:false};
 
 function show(id){document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active")});document.getElementById(id).classList.add("active");document.getElementById("backBtn").style.display=id==="menu"?"none":"flex"}
 
 function shuffle(a){var arr=a.slice();for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t}return arr}
 
-function start(cat){G.cat=cat;G.idx=0;G.pts=0;G.streak=0;G.maxStreak=0;G.corr=0;G.wrong=0;G.done=false;G.scores={};
+function start(cat){G.cat=cat;G.idx=0;G.pts=0;G.streak=0;G.maxStreak=0;G.corr=0;G.wrong=0;G.done=false;G.scores={};G.needsNext=false;
 if(cat==="master"){var all=[];Object.keys(DATA).forEach(function(k){DATA[k].forEach(function(e){e.cat=k;all.push(e)})});G.ex=shuffle(all).slice(0,50)}else{G.ex=shuffle(DATA[cat].map(function(e){e.cat=cat;return e}))}
 G.ex.forEach(function(e){if(!G.scores[e.cat])G.scores[e.cat]={c:0,w:0,t:0};G.scores[e.cat].t++});
 show("game");updateStats();render()}
 
-function render(){var e=G.ex[G.idx];var cat=CATS[e.cat];G.done=false;
+function render(){var e=G.ex[G.idx];var cat=CATS[e.cat];G.done=false;G.needsNext=false;
 var h='<div class="exercise"><span class="ex-type" style="background:'+cat.c+'">'+cat.i+' '+cat.n+'</span>';
 if(e.r){h+='<div class="passage">'+e.p+'</div><div class="ex-instr">'+e.q+'</div>'}
-else{h+='<div class="ex-instr">'+(e.m===0?"Fill in the blank:":"Choose the correct answer:")+'</div><div class="sentence">'+e.q+'</div>'}
+else{h+='<div class="ex-instr">'+(e.m===0?"Fill in the blank (press Enter):":"Choose the correct answer:")+'</div><div class="sentence">'+e.q+'</div>'}
 if(e.h)h+='<div class="hint"><strong>Hint:</strong> '+e.h+'</div>';
 if(e.m===0&&!e.r){var n=e.ans.length>1&&typeof e.ans[0]==="string"&&e.q.split("___").length-1>1?e.q.split("___").length-1:1;
-var inp="";for(var i=0;i<n;i++)inp+='<input type="text" class="input-box" id="inp'+i+'" autocomplete="off"> ';
+var inp="";for(var i=0;i<n;i++)inp+='<input type="text" class="input-box" id="inp'+i+'" autocomplete="off" onkeydown="if(event.key===\'Enter\')checkFillIn()"> ';
 h+='<div style="margin-top:15px">'+inp+'</div>'}
-else{h+='<div class="options">';for(var j=0;j<e.o.length;j++)h+='<div class="opt" data-i="'+j+'" onclick="sel(this)"><span class="opt-letter">'+String.fromCharCode(65+j)+'</span><span>'+e.o[j]+'</span></div>';h+='</div>'}
+else{h+='<div class="options">';for(var j=0;j<e.o.length;j++)h+='<div class="opt" data-i="'+j+'" onclick="checkOption(this)"><span class="opt-letter">'+String.fromCharCode(65+j)+'</span><span>'+e.o[j]+'</span></div>';h+='</div>'}
 h+='<div class="explain" id="expl"></div></div>';
 document.getElementById("exContainer").innerHTML=h;
-document.getElementById("ctrlBtns").innerHTML='<button class="ctrl-btn primary" onclick="check()">Check Answer</button>';
-updateProg()}
+document.getElementById("ctrlBtns").innerHTML='';
+updateProg();
+if(e.m===0&&!e.r){setTimeout(function(){var inp=document.getElementById("inp0");if(inp)inp.focus()},100)}}
 
-function sel(el){if(G.done)return;document.querySelectorAll(".opt").forEach(function(o){o.classList.remove("selected")});el.classList.add("selected")}
+function checkOption(el){if(G.done)return;
+var e=G.ex[G.idx];var idx=parseInt(el.getAttribute("data-i"));
+if(idx===e.a){el.classList.add("correct");G.done=true;processCorrect(e);setTimeout(function(){next()},600)}
+else{el.classList.add("wrong");el.style.pointerEvents="none"}}
 
-function check(){if(G.done){next();return}
-var e=G.ex[G.idx];var ok=false;
-if(e.m===0&&!e.r){var inps=document.querySelectorAll(".input-box");var allOk=true;
+function checkFillIn(){if(G.done)return;
+var e=G.ex[G.idx];var inps=document.querySelectorAll(".input-box");var allOk=true;
 for(var i=0;i<inps.length;i++){var ua=inps[i].value.trim().toLowerCase();
 var valid=e.ans.map(function(a){return a.toLowerCase()});
 if(inps.length===1){if(valid.indexOf(ua)!==-1)inps[i].classList.add("correct");else{inps[i].classList.add("wrong");allOk=false}}
 else{if(e.ans[i]&&e.ans[i].toLowerCase()===ua)inps[i].classList.add("correct");else{inps[i].classList.add("wrong");allOk=false}}}
-ok=allOk}
-else{var s=document.querySelector(".opt.selected");
-if(s){var idx=parseInt(s.getAttribute("data-i"));if(idx===e.a){s.classList.add("correct");ok=true}else{s.classList.add("wrong");document.querySelectorAll(".opt")[e.a].classList.add("correct")}}
-else{document.querySelectorAll(".opt")[e.a].classList.add("correct")}}
-G.done=true;process(ok,e)}
+if(allOk){G.done=true;processCorrect(e);setTimeout(function(){next()},600)}
+else{G.done=true;G.needsNext=true;processWrong(e);showExplanation(e,false);document.getElementById("ctrlBtns").innerHTML='<button class="ctrl-btn primary" onclick="next()">'+(G.idx<G.ex.length-1?"Next Question":"See Results")+'</button>'}}
 
-function process(ok,e){if(ok){G.corr++;G.streak++;if(G.streak>G.maxStreak)G.maxStreak=G.streak;var p=10;if(G.streak>=3)p+=5;if(G.streak>=5)p+=5;if(G.streak>=10)p+=10;G.pts+=p;G.scores[e.cat].c++;popup(p)}else{G.wrong++;G.streak=0;G.scores[e.cat].w++}
-updateStats();
-var exp=document.getElementById("expl");var ans=e.m===0&&!e.r?e.ans.join(" / "):e.o[e.a];
-exp.innerHTML='<div class="explain-title">'+(ok?"✅ Correct!":"❌ Not quite...")+'</div><div><strong>Answer:</strong> '+ans+'</div><div style="margin-top:8px;color:var(--muted)">'+e.e+'</div>';
-exp.classList.add("show");
-document.querySelector(".ctrl-btn").textContent=G.idx<G.ex.length-1?"Next Question":"See Results"}
+function processCorrect(e){G.corr++;G.streak++;if(G.streak>G.maxStreak)G.maxStreak=G.streak;
+var p=10;if(G.streak>=3)p+=5;if(G.streak>=5)p+=5;if(G.streak>=10)p+=10;G.pts+=p;G.scores[e.cat].c++;
+popup(p);updateStats()}
+
+function processWrong(e){G.wrong++;G.streak=0;G.scores[e.cat].w++;updateStats()}
+
+function showExplanation(e,ok){var exp=document.getElementById("expl");var ans=e.m===0&&!e.r?e.ans.join(" / "):e.o[e.a];
+exp.innerHTML='<div class="explain-title">'+(ok?"✅ Correct!":"❌ Correct answer: "+ans)+'</div><div style="margin-top:8px;color:var(--muted)">'+e.e+'</div>';
+exp.classList.add("show")}
 
 function next(){G.idx++;if(G.idx>=G.ex.length)results();else render()}
 
@@ -405,8 +408,6 @@ h+='<div class="ctrl"><button class="ctrl-btn" onclick="show(\'menu\')">🏠 Men
 document.getElementById("results").innerHTML=h;show("results")}
 
 function confirmExit(){if(confirm("Leave? Progress will be lost."))show("menu")}
-
-document.addEventListener("keydown",function(e){if(e.key==="Enter"&&document.getElementById("game").classList.contains("active"))check()});
 </script>
 </body>
 </html>
