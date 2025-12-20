@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Frequently Asked Questions | Amy Lang - English Trainer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5e6e8 0%, #ffe4e9 50%, #f5e6e8 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #000000;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #000000;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: rgba(184, 134, 11, 0.1);
+            color: #000000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(184, 134, 11, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .back-link:hover {
+            background: rgba(184, 134, 11, 0.8);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .faq-section {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(184, 134, 11, 0.2);
+        }
+
+        .faq-section h2 {
+            color: #000000;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid rgba(184, 134, 11, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(184, 134, 11, 0.05);
+        }
+
+        .faq-question:hover {
+            background: rgba(184, 134, 11, 0.1);
+        }
+
+        .faq-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+            color: #D4AF37;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .faq-answer.active {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        .faq-answer p {
+            margin-bottom: 15px;
+        }
+
+        .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.15));
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #D4AF37;
+            margin: 15px 0;
+        }
+
+        .contact-promo {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.1));
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            border: 2px solid rgba(184, 134, 11, 0.3);
+        }
+
+        .contact-promo h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            background: #20A05C;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-link:hover {
+            background: #1a8c4f;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #000000;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .faq-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Frequently Asked Questions</h1>
+            <p class="subtitle">Everything you need to know about English lessons with Amy Lang</p>
+            <a href="english-training.html" class="back-link">← Back to English Training</a>
+        </header>
+
+        <section class="faq-section">
+            <h2>Getting Started</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Is there a free trial lesson?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I offer a <strong>free initial consultation</strong> (approx. 30 minutes via video call) where we get to know each other and discuss your goals. This helps us determine if we're a good fit.</p>
+                    <p>Trial lessons themselves are charged at the regular rate of €55, as they are full teaching sessions.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How much does a lesson cost?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Individual lessons:</strong> €55 per 60-minute session</p>
+                    <p>Payment is due in advance for the agreed period (weekly or monthly). Special packages and group rates are available upon request.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What levels do you teach?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I teach all levels from A1 (complete beginner) to C2 (proficient/near-native). Whether you're just starting out or preparing for advanced exams, I can help you reach your goals.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I book my first lesson?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Simply contact me via WhatsApp or email. We'll arrange a free initial consultation first, then discuss your schedule and start your lessons!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Lesson Content & Focus Areas</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What areas do you cover?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I offer the full spectrum of English training: grammar, conversation, listening and reading comprehension, writing skills, and pronunciation practice. I can teach almost anything – except highly specialized technical jargon.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Do you prepare students for exams?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! I prepare students for all common English exams including Cambridge (FCE, CAE, CPE), IELTS, TOEFL, and school-leaving exams (Matura/Abitur).</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What materials do you use?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I work flexibly with whatever materials suit your needs – from established textbooks to authentic materials like news articles, videos, and podcasts. I also create custom materials based on my 20+ years of teaching experience.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Do you provide learning materials?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! On my website, I offer many self-created materials, mostly free of charge. Some premium packages are available for purchase. Custom materials created specifically for your lessons are always free.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Lesson Format & Technical Details</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Are lessons only online?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I primarily offer online lessons, which allows for flexible scheduling and the comfort of learning from home. For individuals or groups of up to two people in Graz, Austria, in-person lessons are possible in the Lend district.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Which platform do you use for online lessons?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I use kMeet from infomaniak.com for lessons. The platform is user-friendly, GDPR-compliant, and provides a stable connection. Please download and register before your first lesson.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Do you offer individual or group lessons?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I offer both individual lessons and small group sessions. Group lessons are more cost-effective and also promote communication practice with other learners.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How long is a lesson?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>A standard lesson is 60 minutes. Longer sessions can be arranged upon request.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What do I need for online lessons?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>You just need a computer, tablet, or smartphone with an internet connection, microphone, and camera. The kMeet platform works smoothly in any modern browser – no special software required!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Flexibility & Booking</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I reschedule or cancel lessons?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, lessons can be rescheduled or cancelled free of charge up to 24 hours before the scheduled time. Later cancellations or no-shows will be charged in full.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How quickly can I book a lesson?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Very quickly! Depending on availability, same-day bookings are possible. Just send me a message!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2>Qualifications & Experience</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What are your qualifications?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>I hold a university degree (Mag.) in languages and communication, and have over 20 years of successful teaching experience in language training.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I get references from other students?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely! I'm happy to provide references from current and former students upon request.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Why do your students stay with you so long?
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>My students appreciate that my lessons are varied, engaging, well-structured, and most importantly – effective! Every lesson is individually tailored to the learner's needs and goals.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="contact-promo">
+            <h3>Still have questions?</h3>
+            <p>I'm happy to answer all your questions personally. Just get in touch!</p>
+            <a href="https://wa.me/4368120283291?text=Hello Amy! I have a question about your English lessons." class="whatsapp-link">
+                📱 Ask me on WhatsApp
+            </a>
+        </div>
+
+        <footer>
+            <p>Amy Lang - English & German Trainer | © 2025 All rights reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = element.querySelector('.faq-icon');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                icon.textContent = '+';
+            } else {
+                answer.classList.add('active');
+                icon.textContent = '−';
+            }
+        }
+
+        // Open first FAQ item by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) {
+                firstFaq.querySelector('.faq-answer').classList.add('active');
+                firstFaq.querySelector('.faq-icon').textContent = '−';
+            }
+        });
+    </script>
+</body>
+</html>
