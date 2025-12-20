@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amy Lang - English Trainer | Online Tutoring A1-C2</title>
+    <meta name="description" content="⭐ English Trainer Amy Lang - 20+ years experience, university degree. Online English lessons A1-C2, Business English, exam preparation. Contact via WhatsApp!">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f5e6e8 0%, #ffe4e9 50%, #f5e6e8 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Top Navigation */
+        .top-navigation {
+            background: linear-gradient(135deg, #2c2c2c 0%, #3d3d3d 100%);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .top-nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .top-nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        
+        .home-link {
+            background: linear-gradient(135deg, #D4AF37 0%, #C5B358 100%);
+            color: #333 !important;
+        }
+        
+        .home-link:hover {
+            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 100%);
+        }
+
+        .top-nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #000000;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #000000;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .qualification-badge {
+            background: rgba(184, 134, 11, 0.1);
+            color: #000000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
+            display: inline-block;
+            border: 1px solid rgba(184, 134, 11, 0.3);
+        }
+
+        /* Level Navigation */
+        .level-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        .level-btn {
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(184, 134, 11, 0.3);
+            border-radius: 25px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .level-btn:hover {
+            background: rgba(184, 134, 11, 0.8);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border: 2px solid rgba(184, 134, 11, 0.2);
+        }
+
+        /* Section Title */
+        .section-title {
+            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #C5B358 100%);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.4em;
+            margin: 30px 0 20px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
+        }
+
+        /* Level Title */
+        .level-title {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Level Info Box */
+        .level-info {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border-left: 5px solid #D4AF37;
+            backdrop-filter: blur(5px);
+        }
+
+        .level-info h4 {
+            color: #000000;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .level-info p {
+            margin: 8px 0;
+            color: #000000;
+        }
+
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .resource-link {
+            display: block;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            color: #000000;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: 2px solid rgba(184, 134, 11, 0.2);
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        .resource-link:hover {
+            background: rgba(184, 134, 11, 0.8);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .resource-link .icon {
+            margin-right: 8px;
+        }
+
+        /* Special Diagnostic Link */
+        .resource-link.diagnostic {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(184, 134, 11, 0.4));
+            color: #B8860B;
+            border: 3px solid rgba(184, 134, 11, 0.6);
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
+            font-size: 1.05em;
+            padding: 20px;
+        }
+
+        .resource-link.diagnostic:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(184, 134, 11, 0.9));
+            color: white;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            background: #20A05C;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(32, 160, 92, 0.3);
+        }
+
+        .whatsapp-link:hover {
+            background: #1a8c4f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(32, 160, 92, 0.4);
+        }
+
+        /* Divider */
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D4AF37, #B8860B, #D4AF37, transparent);
+            margin: 35px 0;
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section {
+            color: #000000;
+        }
+
+        .footer-section h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .footer-section p {
+            margin: 8px 0;
+            color: #000000;
+        }
+
+        .footer-section a {
+            color: #B8860B;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .faq-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .faq-button:hover {
+            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 100%);
+            transform: translateY(-2px);
+        }
+
+        .kmeet-btn {
+            display: inline-block;
+            background: #1976d2;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .kmeet-btn:hover {
+            background: #1565c0;
+            transform: translateY(-1px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .top-navigation { flex-direction: column; text-align: center; }
+            .resources-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <div class="container">
+        <nav class="top-navigation">
+            <div class="top-nav-links">
+                <a href="index.html" class="home-link">🏠 Home</a>
+                <a href="daf-training.html">🇩🇪 German (DAF)</a>
+            </div>
+            <div class="top-nav-links">
+                <a href="#a1">A1</a>
+                <a href="#a2">A2</a>
+                <a href="#b1">B1</a>
+                <a href="#b2">B2</a>
+                <a href="#c1">C1</a>
+                <a href="#c2">C2</a>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <header>
+            <h1>🇬🇧 English Training</h1>
+            <p class="subtitle">Online English Tutoring & Language Coaching for All Levels</p>
+            <div>
+                <span class="qualification-badge">📚 20+ Years Experience</span>
+                <span class="qualification-badge">🎓 University Degree</span>
+                <span class="qualification-badge">💻 Online via kMeet</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- Quick Level Navigation -->
+            <div class="level-nav">
+                <a href="#a1" class="level-btn">📗 A1 Beginner</a>
+                <a href="#a2" class="level-btn">📘 A2 Elementary</a>
+                <a href="#b1" class="level-btn">📙 B1 Intermediate</a>
+                <a href="#b2" class="level-btn">📕 B2 Upper-Int.</a>
+                <a href="#c1" class="level-btn">📓 C1 Advanced</a>
+                <a href="#c2" class="level-btn">📖 C2 Proficient</a>
+            </div>
+
+            <!-- Diagnostic Test Section -->
+            <div class="section-title">🏆 Diagnostic Test - Find Your Level</div>
+            <div class="resources-grid">
+                <a href="english-quest.html" class="resource-link diagnostic">
+                    <span class="icon">🎮</span> English Quest - B1/B1+ Diagnostic Game
+                </a>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- A1 Level -->
+            <div id="a1" class="level-title">📗 A1 - Beginner</div>
+            <div class="level-info">
+                <h4>What you can do at A1:</h4>
+                <p><strong>Grammar:</strong> Present Simple, basic questions, articles, pronouns</p>
+                <p><strong>Vocabulary:</strong> ~500 words - everyday topics, numbers, colours, family</p>
+                <p><strong>Speaking:</strong> Introduce yourself, simple conversations, basic needs</p>
+            </div>
+            <div class="resources-grid">
+                <a href="english/a1-basics.html" class="resource-link">
+                    <span class="icon">🇬🇧✍️</span> A1 Grammar Basics
+                </a>
+                <a href="english/a1-vocabulary.html" class="resource-link">
+                    <span class="icon">📖</span> A1 Vocabulary Training
+                </a>
+            </div>
+
+            <!-- A2 Level -->
+            <div id="a2" class="level-title">📘 A2 - Elementary</div>
+            <div class="level-info">
+                <h4>What you can do at A2:</h4>
+                <p><strong>Grammar:</strong> Past Simple, comparatives, future with "going to", prepositions</p>
+                <p><strong>Vocabulary:</strong> ~1000 words - travel, shopping, daily routines</p>
+                <p><strong>Speaking:</strong> Describe experiences, make plans, give simple opinions</p>
+            </div>
+            <div class="resources-grid">
+                <a href="english/a2-grammar.html" class="resource-link">
+                    <span class="icon">🇬🇧✍️</span> A2 Grammar Practice
+                </a>
+                <a href="english/a2-reading.html" class="resource-link">
+                    <span class="icon">📚</span> A2 Reading Exercises
+                </a>
+            </div>
+
+            <!-- B1 Level -->
+            <div id="b1" class="level-title">📙 B1 - Intermediate</div>
+            <div class="level-info">
+                <h4>What you can do at B1:</h4>
+                <p><strong>Grammar:</strong> Present Perfect, conditionals (1st & 2nd), passive voice, relative clauses</p>
+                <p><strong>Vocabulary:</strong> ~2000 words - work, education, current events</p>
+                <p><strong>Speaking:</strong> Express opinions, discuss abstract topics, tell stories</p>
+            </div>
+            <div class="resources-grid">
+                <a href="english-quest.html" class="resource-link diagnostic">
+                    <span class="icon">🎮</span> B1 Diagnostic Quest
+                </a>
+                <a href="english/b1-grammar.html" class="resource-link">
+                    <span class="icon">🇬🇧✍️</span> B1 Grammar Training
+                </a>
+                <a href="english/b1-conditionals.html" class="resource-link">
+                    <span class="icon">🔮</span> Conditionals Practice
+                </a>
+                <a href="english/b1-tenses.html" class="resource-link">
+                    <span class="icon">⏰</span> Tenses Overview
+                </a>
+            </div>
+
+            <!-- B2 Level -->
+            <div id="b2" class="level-title">📕 B2 - Upper-Intermediate</div>
+            <div class="level-info">
+                <h4>What you can do at B2:</h4>
+                <p><strong>Grammar:</strong> All conditionals, reported speech, advanced passive, modal perfects</p>
+                <p><strong>Vocabulary:</strong> ~4000 words - academic, professional contexts</p>
+                <p><strong>Speaking:</strong> Debate, present arguments, discuss complex topics fluently</p>
+            </div>
+            <div class="resources-grid">
+                <a href="english/b2-grammar.html" class="resource-link">
+                    <span class="icon">🇬🇧✍️</span> B2 Grammar Mastery
+                </a>
+                <a href="english/b2-reported.html" class="resource-link">
+                    <span class="icon">💬</span> Reported Speech
+                </a>
+                <a href="english/b2-phrasal.html" class="resource-link">
+                    <span class="icon">🧩</span> Phrasal Verbs
+                </a>
+            </div>
+
+            <!-- C1 Level -->
+            <div id="c1" class="level-title">📓 C1 - Advanced</div>
+            <div class="level-info">
+                <h4>What you can do at C1:</h4>
+                <p><strong>Grammar:</strong> Inversion, cleft sentences, advanced modals, subjunctive</p>
+                <p><strong>Vocabulary:</strong> ~8000 words - nuanced, idiomatic expressions</p>
+                <p><strong>Speaking:</strong> Express yourself spontaneously, fluently, precisely</p>
+            </div>
+            <div class="resources-grid">
+                <a href="english/c1-advanced.html" class="resource-link">
+                    <span class="icon">🇬🇧✍️</span> C1 Advanced Grammar
+                </a>
+                <a href="english/c1-idioms.html" class="resource-link">
+                    <span class="icon">💎</span> Idioms & Expressions
+                </a>
+            </div>
+
+            <!-- C2 Level -->
+            <div id="c2" class="level-title">📖 C2 - Proficient</div>
+            <div class="level-info">
+                <h4>What you can do at C2:</h4>
+                <p><strong>Grammar:</strong> Complete mastery of all structures and nuances</p>
+                <p><strong>Vocabulary:</strong> ~16000+ words - native-like range and precision</p>
+                <p><strong>Speaking:</strong> Express yourself with precision in any situation</p>
+            </div>
+            <div class="resources-grid">
+                <a href="english/c2-mastery.html" class="resource-link">
+                    <span class="icon">🇬🇧✍️</span> C2 Language Mastery
+                </a>
+                <a href="english/c2-writing.html" class="resource-link">
+                    <span class="icon">✍️</span> Academic Writing
+                </a>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- All Levels Section -->
+            <div class="section-title">🌟 Resources for All Levels</div>
+            <div class="resources-grid">
+                <a href="english/irregular-verbs.html" class="resource-link">
+                    <span class="icon">📋</span> Irregular Verbs List
+                </a>
+                <a href="english/pronunciation.html" class="resource-link">
+                    <span class="icon">🗣️</span> Pronunciation Guide
+                </a>
+                <a href="english/confusables.html" class="resource-link">
+                    <span class="icon">🔄</span> Common Confusables (affect/effect, etc.)
+                </a>
+                <a href="english/collocations.html" class="resource-link">
+                    <span class="icon">🔗</span> Collocations (make/do, etc.)
+                </a>
+            </div>
+
+            <!-- Book a Lesson -->
+            <div class="whatsapp-container">
+                <a href="https://wa.me/4368120283291?text=Hello%20Amy,%20I%20would%20like%20to%20book%20an%20English%20lesson!" 
+                   target="_blank" class="whatsapp-link">
+                    📱 Book a Lesson via WhatsApp
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <!-- FAQ & AGB -->
+                <div class="footer-section">
+                    <h3>📋 Information</h3>
+                    <div class="faq-buttons">
+                        <a href="faq.html" class="faq-button">❓ FAQ</a>
+                        <a href="agb.html" class="faq-button">📜 Terms</a>
+                    </div>
+                </div>
+
+                <!-- Contact & Imprint -->
+                <div class="footer-section">
+                    <h3>📞 Contact & Imprint</h3>
+                    <p><strong>Name:</strong> Amy Lang</p>
+                    <p><strong>Email:</strong> <a href="mailto:amylang@example.com">amylang@example.com</a></p>
+                    <p><strong>Phone:</strong> +43 681 20283291</p>
+                    <p><strong>VAT:</strong> AT U798 77 625</p>
+                </div>
+
+                <!-- Lesson Details -->
+                <div class="footer-section">
+                    <h3>🎓 Lesson Details</h3>
+                    <p><strong>Format:</strong> Online 
+                        <a href="https://www.infomaniak.com/de/ksuite/kmeet" target="_blank" class="kmeet-btn">kMeet</a>
+                    </p>
+                    <p style="font-size: 0.9em; color: #666;">Please download and register before lessons</p>
+                    <p><strong>Languages:</strong> English, German, Hungarian</p>
+                    <p><strong>Specialization:</strong> General English, Business English, Exam Prep</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

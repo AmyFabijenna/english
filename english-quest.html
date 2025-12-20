@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Quest - B1 Diagnostic</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f0f1a;--card:#1a1a2e;--card2:#2d2d4a;--gold:#ffd700;--green:#4ade80;--red:#f87171;--text:#fff;--muted:#a0a0c0}
+body{font-family:Nunito,sans-serif;background:var(--bg);min-height:100vh;color:var(--text);padding:20px}
+.container{max-width:900px;margin:0 auto}
+h1{font-family:Cinzel,serif;font-size:2.5rem;text-align:center;background:linear-gradient(135deg,var(--gold),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+.subtitle{text-align:center;color:var(--muted);margin-bottom:30px}
+.screen{display:none}.screen.active{display:block}
+.card{background:var(--card);border-radius:20px;padding:30px;margin-bottom:20px;border:2px solid var(--card2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px}
+.btn{background:var(--card);border:2px solid var(--card2);border-radius:12px;padding:20px;color:var(--text);cursor:pointer;transition:all .3s;text-align:center}
+.btn:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 10px 30px rgba(255,215,0,.2)}
+.btn-icon{font-size:2rem;display:block;margin-bottom:8px}
+.btn-name{font-weight:700}
+.btn-count{font-size:.75rem;color:var(--muted)}
+.btn-master{grid-column:span 2;border-color:var(--gold);background:linear-gradient(135deg,var(--card),var(--card2))}
+.btn-master .btn-name{color:var(--gold);font-size:1.2rem}
+.stats{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:var(--card);padding:15px 25px;border-radius:12px;text-align:center}
+.stat-val{font-family:Cinzel,serif;font-size:1.5rem;color:var(--gold)}
+.stat-lbl{font-size:.7rem;color:var(--muted);text-transform:uppercase}
+.progress{background:rgba(0,0,0,.3);border-radius:10px;height:12px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#ffe44d);transition:width .3s}
+.progress-text{text-align:center;color:var(--muted);margin-bottom:20px;font-size:.9rem}
+.exercise{background:var(--card);border-radius:20px;padding:25px;border:2px solid var(--card2)}
+.ex-type{display:inline-block;padding:5px 15px;border-radius:20px;font-size:.75rem;font-weight:700;margin-bottom:15px;color:#fff}
+.ex-instr{color:var(--muted);margin-bottom:15px;line-height:1.6}
+.sentence{background:rgba(0,0,0,.3);padding:20px;border-radius:12px;border-left:4px solid var(--gold);font-size:1.1rem;margin-bottom:20px;line-height:1.8}
+.hint{background:rgba(255,215,0,.1);border:1px solid var(--gold);border-radius:10px;padding:12px;margin-bottom:15px;font-size:.9rem}
+.passage{background:rgba(0,0,0,.4);padding:20px;border-radius:12px;margin-bottom:20px;max-height:250px;overflow-y:auto;line-height:1.8}
+.input-box{display:inline-block;min-width:120px;padding:10px 15px;background:var(--card);border:2px dashed var(--gold);border-radius:8px;color:var(--text);font-family:inherit;font-size:1rem;margin:5px}
+.input-box:focus{outline:none;border-style:solid;box-shadow:0 0 15px rgba(255,215,0,.4)}
+.input-box.correct{border-color:var(--green);background:rgba(74,222,128,.2);border-style:solid}
+.input-box.wrong{border-color:var(--red);background:rgba(248,113,113,.2);border-style:solid}
+.options{display:flex;flex-direction:column;gap:10px;margin-top:15px}
+.opt{background:var(--card);border:2px solid var(--card2);border-radius:12px;padding:15px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s}
+.opt:hover{border-color:var(--gold);transform:translateX(5px)}
+.opt.selected{border-color:var(--gold);background:rgba(255,215,0,.15)}
+.opt.correct{border-color:var(--green);background:rgba(74,222,128,.2)}
+.opt.wrong{border-color:var(--red);background:rgba(248,113,113,.2)}
+.opt-letter{width:30px;height:30px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.opt.selected .opt-letter{background:var(--gold);color:var(--bg)}
+.explain{background:rgba(74,222,128,.1);border:1px solid var(--green);border-radius:12px;padding:15px;margin-top:20px;display:none}
+.explain.show{display:block}
+.explain-title{color:var(--green);font-weight:700;margin-bottom:8px}
+.ctrl{display:flex;gap:12px;justify-content:center;margin-top:25px}
+.ctrl-btn{background:var(--card);border:2px solid var(--card2);border-radius:12px;padding:12px 30px;color:var(--text);font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:all .3s}
+.ctrl-btn:hover{border-color:var(--gold)}
+.ctrl-btn.primary{background:linear-gradient(135deg,var(--gold),#ffe44d);border-color:var(--gold);color:var(--bg)}
+.ctrl-btn.primary:hover{box-shadow:0 8px 25px rgba(255,215,0,.5)}
+.back{position:fixed;top:15px;left:15px;width:45px;height:45px;border-radius:50%;background:var(--card);border:2px solid var(--gold);color:var(--gold);font-size:1.3rem;cursor:pointer;display:none;align-items:center;justify-content:center}
+.back:hover{background:var(--gold);color:var(--bg)}
+.result{text-align:center}
+.result-icon{font-size:5rem;margin-bottom:15px}
+.result-title{font-family:Cinzel,serif;font-size:2rem;margin-bottom:10px}
+.result-title.diamond{color:#b9f2ff}.result-title.gold{color:var(--gold)}.result-title.silver{color:#c0c0c0}.result-title.bronze{color:#cd7f32}
+.final-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:30px 0}
+.final-stat{background:rgba(0,0,0,.3);padding:20px;border-radius:15px}
+.final-stat-val{font-family:Cinzel,serif;font-size:1.8rem;color:var(--gold)}
+.final-stat-lbl{font-size:.75rem;color:var(--muted);text-transform:uppercase}
+.breakdown{background:rgba(0,0,0,.2);border-radius:15px;padding:20px;margin:20px 0;text-align:left}
+.breakdown-title{font-family:Cinzel,serif;color:var(--gold);margin-bottom:15px;text-align:center}
+.breakdown-item{display:flex;align-items:center;gap:15px;padding:10px;background:rgba(0,0,0,.2);border-radius:10px;margin-bottom:10px}
+.breakdown-name{flex:1;font-size:.9rem}
+.breakdown-bar{flex:2;background:rgba(255,255,255,.1);border-radius:8px;height:18px;overflow:hidden}
+.breakdown-fill{height:100%;border-radius:8px}
+.breakdown-pct{min-width:70px;text-align:right;font-weight:700}
+.breakdown-pct.good{color:var(--green)}.breakdown-pct.ok{color:var(--gold)}.breakdown-pct.bad{color:var(--red)}
+.focus-section{background:rgba(248,113,113,.1);border:1px solid var(--red);border-radius:15px;padding:20px;margin:20px 0;text-align:left}
+.focus-title{color:var(--red);font-weight:700;margin-bottom:10px}
+.focus-list{list-style:none}
+.focus-list li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.strength-section{background:rgba(74,222,128,.1);border:1px solid var(--green);border-radius:15px;padding:20px;margin:20px 0;text-align:left}
+.strength-title{color:var(--green);font-weight:700;margin-bottom:10px}
+.popup{position:fixed;font-family:Cinzel,serif;font-size:1.8rem;color:var(--gold);pointer-events:none;animation:float 1s ease forwards;z-index:999;text-shadow:0 0 15px var(--gold)}
+@keyframes float{to{opacity:0;transform:translateY(-50px)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.btn-master{grid-column:span 2}.final-stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<button class="back" id="backBtn" onclick="confirmExit()">←</button>
+<div class="container">
+<h1>English Quest 🏰</h1>
+<p class="subtitle">B1/B1+ Diagnostic Test • Grade 9</p>
+
+<div class="screen active" id="menu">
+<div class="card">
+<div class="grid">
+<button class="btn" onclick="start('tenses')"><span class="btn-icon">⏰</span><span class="btn-name">Tenses</span><span class="btn-count">25 exercises</span></button>
+<button class="btn" onclick="start('cond')"><span class="btn-icon">🔮</span><span class="btn-name">Conditionals</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('passive')"><span class="btn-icon">🔄</span><span class="btn-name">Passive</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('reported')"><span class="btn-icon">💬</span><span class="btn-name">Reported Speech</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('modals')"><span class="btn-icon">💭</span><span class="btn-name">Modals</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('gerund')"><span class="btn-icon">🎯</span><span class="btn-name">Gerund/Infinitive</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('relative')"><span class="btn-icon">🔗</span><span class="btn-name">Relative Clauses</span><span class="btn-count">12 exercises</span></button>
+<button class="btn" onclick="start('articles')"><span class="btn-icon">📝</span><span class="btn-name">Articles</span><span class="btn-count">12 exercises</span></button>
+<button class="btn" onclick="start('prep')"><span class="btn-icon">📍</span><span class="btn-name">Prepositions</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('phrasal')"><span class="btn-icon">🧩</span><span class="btn-name">Phrasal Verbs</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('vocab')"><span class="btn-icon">📖</span><span class="btn-name">Vocabulary</span><span class="btn-count">15 exercises</span></button>
+<button class="btn" onclick="start('reading')"><span class="btn-icon">📚</span><span class="btn-name">Reading</span><span class="btn-count">10 questions</span></button>
+<button class="btn btn-master" onclick="start('master')"><span class="btn-icon">🏆</span><span class="btn-name">MASTER QUEST</span><span class="btn-count">All categories mixed • Full diagnostic</span></button>
+</div>
+</div>
+</div>
+
+<div class="screen" id="game">
+<div class="stats">
+<div class="stat"><div class="stat-val" id="pts">0</div><div class="stat-lbl">Points</div></div>
+<div class="stat"><div class="stat-val"><span id="strk">0</span><span id="fire" style="display:none">🔥</span></div><div class="stat-lbl">Streak</div></div>
+<div class="stat"><div class="stat-val"><span id="corr">0</span>/<span id="tot">0</span></div><div class="stat-lbl">Correct</div></div>
+</div>
+<div class="progress"><div class="progress-fill" id="progFill"></div></div>
+<div class="progress-text" id="progTxt">Question 1 of 20</div>
+<div id="exContainer"></div>
+<div class="ctrl" id="ctrlBtns"></div>
+</div>
+
+<div class="screen" id="results"></div>
+</div>
+
+<script>
+var DATA={
+tenses:[
+{m:1,q:"Look! The children ___ in the garden.",o:["play","are playing","plays","is playing"],a:1,h:"Action in progress at this moment",e:"Present Progressive for actions happening now."},
+{m:1,q:"Water ___ at 100 degrees Celsius.",o:["is boiling","boils","boil","are boiling"],a:1,h:"Scientific truth / general fact",e:"Present Simple for scientific facts."},
+{m:1,q:"She ___ three languages fluently.",o:["is speaking","speak","speaks","are speaking"],a:2,h:"Permanent state, not temporary action",e:"Present Simple for states and abilities."},
+{m:0,q:"My father usually ___ (work) from home on Fridays.",ans:["works"],h:"Regular habit or routine",e:"Present Simple for habits and routines."},
+{m:0,q:"Be quiet! The baby ___ (sleep).",ans:["is sleeping"],h:"Action in progress at this moment",e:"Present Progressive for current actions."},
+{m:1,q:"While I ___ dinner, the phone rang.",o:["cooked","was cooking","cook","am cooking"],a:1,h:"Longer action interrupted by shorter one",e:"Past Progressive for interrupted actions."},
+{m:1,q:"At 8 pm yesterday, we ___ TV.",o:["watched","were watching","watch","are watching"],a:1,h:"Action in progress at a specific past moment",e:"Past Progressive for actions at specific past time."},
+{m:0,q:"I ___ (see) a great film yesterday.",ans:["saw"],h:"Completed action in the past",e:"Past Simple for completed actions."},
+{m:0,q:"They ___ (not go) to the party last night.",ans:["did not go","didn't go"],h:"Negative form needed",e:"Past Simple negative: did not + base form."},
+{m:1,q:"I ___ to Paris three times.",o:["have been","have gone","went","go"],a:0,h:"Life experience up to now",e:"Present Perfect for life experiences."},
+{m:1,q:"They ___ here since 2015.",o:["live","lived","have lived","are living"],a:2,h:"Starting point continuing to now",e:"Present Perfect with since for starting point."},
+{m:0,q:"She ___ (just finish) her homework.",ans:["has just finished"],h:"Very recently completed",e:"Present Perfect with just for recent actions."},
+{m:1,q:"I ___ my keys. I cannot find them!",o:["lost","have lost","lose","am losing"],a:1,h:"Past action with present consequence",e:"Present Perfect for past action with present result."},
+{m:1,q:"She told me she ___ the book.",o:["read","has read","had read","reads"],a:2,h:"Action happened before another past action",e:"Past Perfect for action before another past action."},
+{m:0,q:"When I arrived, the film ___ (already start).",ans:["had already started"],h:"Earlier of two past events",e:"Past Perfect for earlier past action."},
+{m:0,q:"By the time we got there, everyone ___ (leave).",ans:["had left"],h:"Completed before another past moment",e:"Past Perfect with by the time."},
+{m:1,q:"Look at those clouds! It ___ rain.",o:["will","is going to","shall","rains"],a:1,h:"Prediction based on visible signs",e:"Going to for predictions based on evidence."},
+{m:1,q:"The train ___ at 6:30 pm.",o:["will leave","is going to leave","leaves","is leaving"],a:2,h:"Official schedule",e:"Present Simple for schedules."},
+{m:1,q:"I think she ___ the exam.",o:["passes","is passing","will pass","is going to pass"],a:2,h:"Personal prediction/belief about future",e:"Will for opinions about future."},
+{m:0,q:"I promise I ___ (help) you tomorrow.",ans:["will help"],h:"Making a promise",e:"Will for promises."},
+{m:0,q:"We ___ (meet) at 7pm tonight. It is arranged.",ans:["are meeting"],h:"Fixed plan with others",e:"Present Progressive for arrangements."},
+{m:0,q:"By next year, I ___ (finish) university.",ans:["will have finished"],h:"Completed before a future point",e:"Future Perfect for completed future action."},
+{m:1,q:"I am tired. I ___ to bed early tonight.",o:["am going","will go","go","going"],a:0,h:"Personal plan/intention",e:"Going to for intentions."},
+{m:0,q:"She ___ (break) her leg while she was skiing.",ans:["broke"],h:"Short action during longer background action",e:"Past Simple for sudden action during ongoing action."},
+{m:0,q:"___ you ever ___ (try) sushi?",ans:["Have","tried"],h:"Asking about life experience",e:"Present Perfect for ever questions."}
+],
+cond:[
+{m:0,q:"If you heat ice, it ___ (melt).",ans:["melts"],h:"Scientific truth / general fact",e:"Zero conditional: If + present, present."},
+{m:1,q:"If you ___ water to 100C, it boils.",o:["will heat","heat","heated","would heat"],a:1,h:"Always true when condition is met",e:"Zero conditional uses present simple."},
+{m:0,q:"If it rains tomorrow, we ___ (stay) at home.",ans:["will stay"],h:"Possible future situation",e:"First conditional: If + present, will + infinitive."},
+{m:1,q:"If she ___ hard, she will pass the exam.",o:["will study","studies","studied","would study"],a:1,h:"Real chance this will happen",e:"First conditional: present in if-clause."},
+{m:0,q:"Unless you hurry, you ___ (miss) the train.",ans:["will miss"],h:"Negative condition (= if...not)",e:"Unless means if not."},
+{m:1,q:"I will lend you money if you ___ it back next week.",o:["will give","give","gave","would give"],a:1,h:"Real future condition",e:"First conditional for real possibilities."},
+{m:0,q:"If I had more money, I ___ (buy) a new car.",ans:["would buy"],h:"Imaginary/hypothetical present",e:"Second conditional: If + past, would + infinitive."},
+{m:1,q:"If I ___ you, I would accept the job.",o:["am","was","were","be"],a:2,h:"Noun (uncountable) or verb?",e:"Use were for all persons in second conditional."},
+{m:0,q:"She would travel the world if she ___ (have) enough time.",ans:["had"],h:"Imaginary present situation",e:"Second conditional for hypothetical situations."},
+{m:1,q:"What ___ you do if you won the lottery?",o:["will","do","would","did"],a:2,h:"Not real, just imagining",e:"Second conditional for imaginary situations."},
+{m:0,q:"If I had known about the party, I ___ (come).",ans:["would have come"],h:"Imaginary past - did not happen",e:"Third conditional: If + past perfect, would have + pp."},
+{m:1,q:"If she ___ earlier, she would not have missed the bus.",o:["left","had left","would leave","leaves"],a:1,h:"Expressing regret about the past",e:"Third conditional for unreal past."},
+{m:0,q:"They would not have got lost if they ___ (bring) a map.",ans:["had brought"],h:"Wishing the past was different",e:"Third conditional expresses regret."},
+{m:1,q:"If I had studied harder, I ___ a better job now.",o:["would have","will have","would had","had"],a:0,h:"Mixing past condition with present/past result",e:"Mixed conditional: past condition, present result."},
+{m:0,q:"If he were not so lazy, he ___ (finish) the project yesterday.",ans:["would have finished"],h:"Mixing past condition with present/past result",e:"Mixed conditional: present condition, past result."}
+],
+passive:[
+{m:0,q:"They make these cars in Germany. These cars ___ in Germany.",ans:["are made"],h:"General truth, passive needed",e:"Present passive: am/is/are + past participle."},
+{m:1,q:"English ___ in many countries.",o:["speaks","is speaking","is spoken","spoken"],a:2,h:"Scientific truth / general fact",e:"Present Simple passive for general facts."},
+{m:0,q:"Someone stole my bike. My bike ___.",ans:["was stolen"],h:"Past",e:"Past passive: was/were + past participle."},
+{m:1,q:"The Eiffel Tower ___ in 1889.",o:["built","was built","is built","has built"],a:1,h:"Historical fact, focus on action not doer",e:"Past Simple passive for historical facts."},
+{m:0,q:"They have repaired the road. The road ___.",ans:["has been repaired"],h:"Recently completed, focus on result",e:"Present Perfect passive: has/have been + pp."},
+{m:1,q:"The work ___ by tomorrow.",o:["will finish","will be finished","is finished","has finished"],a:1,h:"Future action, focus on receiver",e:"Future passive: will be + past participle."},
+{m:0,q:"This report must ___ (complete) by Friday.",ans:["be completed"],h:"Modal verb + passive structure",e:"Modal passive: modal + be + past participle."},
+{m:1,q:"The window ___ by the children.",o:["might break","might be broken","might broken","might have break"],a:1,h:"Modal verb + passive structure",e:"Modal passive with might."},
+{m:0,q:"The house ___ (paint) at the moment.",ans:["is being painted"],h:"Action in progress, passive",e:"Continuous passive: is/are being + pp."},
+{m:1,q:"The book was written ___ J.K. Rowling.",o:["from","with","by","of"],a:2,h:"Who performed the action?",e:"Use by for the agent in passive."},
+{m:0,q:"By the time I arrived, the cake ___ (eat).",ans:["had been eaten"],h:"Earlier past action, passive",e:"Past Perfect passive: had been + pp."},
+{m:1,q:"It ___ that the economy will improve.",o:["believes","is believed","believed","has believed"],a:1,h:"Formal/impersonal reporting",e:"Impersonal passive: It is believed/said/reported..."},
+{m:1,q:"She is getting her hair ___ tomorrow.",o:["cut","cutting","to cut","cuts"],a:0,h:"Informal: arrange for service",e:"Get something done (informal)."},
+{m:0,q:"I need to have my car ___ (repair).",ans:["repaired"],h:"Arrange for someone to do something",e:"Have something done: have + object + pp."},
+{m:0,q:"They gave her a prize. She ___ a prize.",ans:["was given"],h:"Two possible subjects in passive",e:"Either object can become subject in passive."}
+],
+reported:[
+{m:0,q:"\"I am tired,\" she said. She said she ___ tired.",ans:["was"],h:"Tense changes in reported speech",e:"Present becomes Past in reported speech."},
+{m:1,q:"He said he ___ help me the next day.",o:["will","would","can","is going to"],a:1,h:"Future changes in reported speech",e:"Will changes to would in reported speech."},
+{m:0,q:"\"I have finished,\" Tom said. Tom said he ___ his work.",ans:["had finished"],h:"Recently completed, focus on result",e:"Present Perfect becomes Past Perfect."},
+{m:1,q:"She asked me where I ___.",o:["live","lived","do live","am living"],a:1,h:"Reported question - word order?",e:"No inversion in reported questions."},
+{m:0,q:"\"Do you like pizza?\" He asked me ___ pizza.",ans:["if I liked","whether I liked"],h:"Reported yes/no question - connector?",e:"Yes/No questions: if/whether + statement order."},
+{m:1,q:"They wanted to know what time the shop ___.",o:["closes","closed","does close","will close"],a:1,h:"Reported wh-question - word order?",e:"Wh-questions keep question word, statement order."},
+{m:0,q:"\"Close the door!\" She told me ___ the door.",ans:["to close"],h:"Reporting an order/command",e:"Commands: told + object + to infinitive."},
+{m:1,q:"The teacher told us ___ quiet.",o:["be","to be","being","been"],a:1,h:"Reporting what someone told you to do",e:"Reported commands use to + infinitive."},
+{m:0,q:"\"Do not touch that!\" He warned me ___ that.",ans:["not to touch"],h:"Negative form needed",e:"Negative commands: not to + infinitive."},
+{m:1,q:"She said she would call me ___. (yesterday becomes...)",o:["yesterday","the day before","last day","before day"],a:1,h:"Preposition for clock times",e:"Yesterday becomes the day before."},
+{m:0,q:"\"I will see you tomorrow.\" He said he would see me ___.",ans:["the next day","the following day"],h:"How does tomorrow change?",e:"Tomorrow becomes the next/following day."},
+{m:1,q:"She ___ me to wait outside.",o:["said","told","spoke","talked"],a:1,h:"Say vs Tell - object needed?",e:"Tell needs an object; say does not."},
+{m:0,q:"He ___ (apologize) for being late.",ans:["apologized","apologised"],h:"Reporting verb pattern",e:"Apologize for + -ing."},
+{m:1,q:"She ___ going to the cinema.",o:["suggested","suggested me","suggested to","suggest"],a:0,h:"Pattern after suggest",e:"Suggest + -ing (no object)."},
+{m:0,q:"\"You must study harder.\" The teacher said I ___ study harder.",ans:["had to","must"],h:"How does must change?",e:"Must usually becomes had to."}
+],
+modals:[
+{m:1,q:"She ___ speak three languages when she was ten.",o:["can","could","was able to","B and C"],a:3,h:"Ability in the past",e:"Could/was able to for past ability."},
+{m:0,q:"Will you ___ (be able to) come to the party?",ans:["be able to"],h:"Future action, focus on receiver",e:"Be able to for future ability."},
+{m:1,q:"___ I use your phone, please?",o:["May","Should","Must","Need"],a:0,h:"Formal/polite request",e:"May I for formal requests."},
+{m:0,q:"You ___ (must not) smoke in the hospital.",ans:["must not","mustn't"],h:"Something is forbidden",e:"Must not = not allowed."},
+{m:1,q:"You ___ wear a uniform. It is compulsory.",o:["must","have to","should","A and B"],a:3,h:"Strong necessity/requirement",e:"Must/have to for strong obligation."},
+{m:0,q:"You ___ (should) see a doctor about that.",ans:["should","ought to"],h:"Noun (uncountable) or verb?",e:"Should/ought to for advice."},
+{m:1,q:"You ___ have told me earlier! Now it is too late.",o:["should","must","can","may"],a:0,h:"Expressing regret about the past",e:"Should have + pp for past regret."},
+{m:0,q:"She is not answering. She ___ (must) be asleep.",ans:["must"],h:"Logical conclusion based on evidence",e:"Must for logical deductions."},
+{m:1,q:"He ___ be at home. I just saw him at the shop.",o:["must","cannot","might","should"],a:1,h:"Logically not possible",e:"Cannot for logical impossibility."},
+{m:0,q:"I am not sure, but she ___ (might) be at the library.",ans:["might","may","could"],h:"Real chance this will happen",e:"Might/may/could for uncertainty."},
+{m:1,q:"You ___ hurry. We have plenty of time.",o:["must not","do not have to","should not","cannot"],a:1,h:"Not required/necessary",e:"Do not have to = not necessary."},
+{m:0,q:"He ___ (could not) have taken the train; it was cancelled.",ans:["could not have","couldn't have"],h:"Was not possible in the past",e:"Could not have + pp for past impossibility."},
+{m:1,q:"She ___ have forgotten. She is usually so organized.",o:["must","might","cannot","should"],a:1,h:"Perhaps happened in the past",e:"Might have + pp for past possibility."},
+{m:0,q:"You ___ (need not) have bought so much food.",ans:["need not have","needn't have"],h:"Was done but was not needed",e:"Need not have = did something unnecessary."},
+{m:1,q:"When I was young, I ___ go fishing every weekend.",o:["would","will","used","use"],a:0,h:"Repeated action in the past",e:"Would for repeated past habits."}
+],
+gerund:[
+{m:1,q:"I enjoy ___ to music.",o:["listen","listening","to listen","listened"],a:1,h:"What pattern follows enjoy?",e:"Enjoy + gerund."},
+{m:0,q:"She admitted ___ (steal) the money.",ans:["stealing"],h:"What pattern follows admit?",e:"Admit + gerund."},
+{m:1,q:"We decided ___ a new car.",o:["buying","to buy","buy","bought"],a:1,h:"What pattern follows decide?",e:"Decide + to infinitive."},
+{m:0,q:"I cannot afford ___ (go) on holiday this year.",ans:["to go"],h:"What pattern follows afford?",e:"Afford + to infinitive."},
+{m:1,q:"I like ___ early in the morning.",o:["running","to run","run","A and B"],a:3,h:"What patterns can follow like?",e:"Like can take both forms."},
+{m:0,q:"He started ___ (work) here in 2018.",ans:["working","to work"],h:"What patterns can follow start?",e:"Start can take both forms."},
+{m:1,q:"Remember ___ the lights before you leave.",o:["to turn off","turning off","turn off","turned off"],a:0,h:"Remember + ___ = not forget to do",e:"Remember + to = do not forget to do it."},
+{m:0,q:"I will never forget ___ (meet) you for the first time.",ans:["meeting"],h:"Forget + ___ = forget a memory",e:"Forget + gerund = forget a past memory."},
+{m:1,q:"She stopped ___ a cigarette. (purpose)",o:["to smoke","smoking","smoke","smoked"],a:0,h:"Stop + ___ = stop in order to",e:"Stop + to infinitive = stop in order to."},
+{m:0,q:"Try ___ (press) this button to see if it works.",ans:["pressing"],h:"Try + ___ = experiment",e:"Try + gerund = experiment."},
+{m:1,q:"I am interested ___ learning Japanese.",o:["in","for","to","at"],a:0,h:"Adjective + preposition + ?",e:"Adjective + preposition + gerund."},
+{m:0,q:"He apologized for ___ (be) late.",ans:["being"],h:"Verb + preposition + ?",e:"Verb + preposition + gerund."},
+{m:1,q:"___ is good for your health.",o:["Swim","Swimming","To swimming","Swam"],a:1,h:"Verb form as subject of sentence",e:"Gerund can be the subject."},
+{m:0,q:"My parents do not let me ___ (go) out late.",ans:["go"],h:"Pattern after let",e:"Let + object + bare infinitive."},
+{m:1,q:"The teacher made us ___ the exercise again.",o:["to do","doing","do","done"],a:2,h:"Fixed collocation with decision",e:"Make + object + bare infinitive."}
+],
+relative:[
+{m:1,q:"The woman ___ lives next door is a doctor.",o:["which","who","what","whom"],a:1,h:"Referring to a person",e:"Who for people."},
+{m:0,q:"The book ___ I borrowed was very interesting.",ans:["which","that"],h:"Referring to a thing",e:"Which/that for things."},
+{m:1,q:"That is the man ___ car was stolen.",o:["who","which","whose","whom"],a:2,h:"Showing possession",e:"Whose for possession."},
+{m:0,q:"This is the restaurant ___ we had dinner last week.",ans:["where"],h:"Referring to a place",e:"Where for places."},
+{m:1,q:"I remember the day ___ we first met.",o:["which","where","when","what"],a:2,h:"Preposition for clock times",e:"When for time."},
+{m:0,q:"The person to ___ I spoke was very helpful.",ans:["whom"],h:"Formal: after a preposition",e:"Whom after prepositions (formal)."},
+{m:1,q:"The students ___ passed the exam were happy.",o:["who","which",", who","- who"],a:0,h:"Essential information - no commas",e:"No commas for defining clauses."},
+{m:0,q:"My sister, ___ lives in London, is a teacher.",ans:["who"],h:"Extra information - commas needed",e:"Commas for non-defining (extra info)."},
+{m:1,q:"The film ___ I watched was boring. (Can we omit?)",o:["which - yes","which - no","who - yes","where - yes"],a:0,h:"Pronoun is object - can it be omitted?",e:"Object pronoun can be omitted."},
+{m:0,q:"I do not understand ___ you mean.",ans:["what"],h:"= the thing(s) that",e:"What = the thing(s) that."},
+{m:1,q:"The chair ___ I am sitting is broken.",o:["which","on which","in which","that"],a:1,h:"Formal structure with preposition",e:"Preposition + which (formal)."},
+{m:0,q:"The man who is standing there is my uncle. The man ___ there is my uncle.",ans:["standing"],h:"Shortened relative clause",e:"Reduce active relative to -ing."}
+],
+articles:[
+{m:1,q:"She is ___ honest person.",o:["a","an","the","-"],a:1,h:"Listen to the first SOUND, not letter",e:"An before vowel sounds (honest starts with vowel sound)."},
+{m:0,q:"He works as ___ engineer.",ans:["an"],h:"Talking about a job",e:"A/an for professions."},
+{m:1,q:"___ sun rises in the east.",o:["A","An","The","-"],a:2,h:"Only one exists",e:"The for unique things."},
+{m:0,q:"I love ___ music of Mozart.",ans:["the"],h:"Specified which one",e:"The when specified."},
+{m:1,q:"___ life is beautiful.",o:["A","The","no article","An"],a:2,h:"General concept, not specific",e:"No article for general concepts."},
+{m:1,q:"There is not ___ milk in the fridge.",o:["some","any","many","few"],a:1,h:"Negative form needed",e:"Any in negatives and questions."},
+{m:0,q:"Would you like ___ coffee?",ans:["some"],h:"Making an offer",e:"Some in offers."},
+{m:1,q:"I have ___ friends in London. (small positive number)",o:["a few","few","little","a little"],a:0,h:"Small number - positive or negative meaning?",e:"A few = positive small number."},
+{m:0,q:"There is ___ time left. We need to hurry.",ans:["little"],h:"Small amount - positive or negative meaning?",e:"Little = negative, hardly any."},
+{m:1,q:"___ students in our class are from abroad.",o:["Most","Most of","The most","Most of the"],a:0,h:"General group or specific group?",e:"Most + noun for general."},
+{m:0,q:"I go to ___ school every day.",ans:["no article","-"],h:"Place for its main purpose",e:"No article for institution purpose."},
+{m:0,q:"I had ___ breakfast at 8 am.",ans:["no article","-"],h:"Talking about a meal in general",e:"Usually no article with meals."}
+],
+prep:[
+{m:1,q:"I was born ___ July.",o:["in","on","at","by"],a:0,h:"Preposition for months/years/seasons",e:"In + month/year/season."},
+{m:0,q:"The meeting is ___ Monday.",ans:["on"],h:"Preposition for days/dates",e:"On + day/date."},
+{m:1,q:"I wake up ___ 7 o'clock.",o:["in","on","at","by"],a:2,h:"Preposition for clock times",e:"At + specific time."},
+{m:0,q:"I have not seen her ___ last Christmas.",ans:["since"],h:"Starting point continuing to now",e:"Since + starting point."},
+{m:1,q:"I have lived here ___ five years.",o:["since","for","during","from"],a:1,h:"Duration/period of time",e:"For + period of time."},
+{m:0,q:"The cat is hiding ___ the bed.",ans:["under"],h:"Position below something",e:"Under = below."},
+{m:1,q:"She lives ___ an apartment in the city.",o:["in","at","on","to"],a:0,h:"Inside an enclosed space",e:"In + enclosed space."},
+{m:0,q:"Wait for me ___ the bus stop.",ans:["at"],h:"Specific point/location",e:"At for a point."},
+{m:1,q:"She walked ___ the room and sat down.",o:["into","in","to","at"],a:0,h:"Movement from outside to inside",e:"Into for movement inside."},
+{m:0,q:"The plane flew ___ the clouds.",ans:["through"],h:"Movement from one side to the other",e:"Through = one side to other."},
+{m:1,q:"I am interested ___ art.",o:["in","for","at","about"],a:0,h:"Inside an enclosed space",e:"Interested IN."},
+{m:0,q:"She is good ___ mathematics.",ans:["at"],h:"Specific point/location",e:"Good AT."},
+{m:1,q:"This book is different ___ that one.",o:["from","than","to","with"],a:0,h:"Fixed expression with this adjective",e:"Different FROM."},
+{m:0,q:"I am afraid ___ spiders.",ans:["of"],h:"Fixed expression with this adjective",e:"Afraid OF."},
+{m:1,q:"She apologized ___ being late.",o:["for","about","of","to"],a:0,h:"Duration/period of time",e:"Apologize FOR."}
+],
+phrasal:[
+{m:1,q:"Please turn ___ the TV. It is too loud.",o:["down","up","in","out"],a:0,h:"Think about the meaning: reduce/refuse/write",e:"Turn down = reduce."},
+{m:0,q:"I need to look this word ___ in the dictionary.",ans:["up"],h:"Think about the meaning: increase/find/collect",e:"Look up = search for info."},
+{m:1,q:"Can you put ___ the meeting until next week?",o:["off","on","up","down"],a:0,h:"Think about the meaning: cancel/leave/postpone",e:"Put off = postpone."},
+{m:0,q:"I will pick you ___ at 8 pm.",ans:["up"],h:"Think about the meaning: increase/find/collect",e:"Pick up = collect."},
+{m:1,q:"I am looking ___ my keys. Have you seen them?",o:["for","at","up","after"],a:0,h:"Duration/period of time",e:"Look for = search."},
+{m:0,q:"Who will look ___ the children while you are away?",ans:["after"],h:"Think about the meaning: care/resemble/chase",e:"Look after = take care of."},
+{m:1,q:"I came ___ an old photo in the drawer.",o:["across","over","up","through"],a:0,h:"Finding something unexpectedly",e:"Come across = find by chance."},
+{m:0,q:"The plane took ___ at 6 am.",ans:["off"],h:"Think about the meaning: cancel/leave/postpone",e:"Take off = leave ground."},
+{m:1,q:"We need to set ___ early tomorrow.",o:["off","in","up","down"],a:0,h:"Think about the meaning: cancel/leave/postpone",e:"Set off = begin journey."},
+{m:0,q:"I am looking forward ___ meeting you.",ans:["to"],h:"Fixed expression - anticipating something",e:"Look forward to + -ing."},
+{m:1,q:"I cannot put ___ with this noise anymore!",o:["up","on","off","down"],a:0,h:"Think about the meaning: increase/find/collect",e:"Put up with = tolerate."},
+{m:0,q:"The fire went ___. (stopped burning)",ans:["out"],h:"Think about the meaning: extinguish/discover",e:"Go out = stop burning."},
+{m:1,q:"She takes ___ her mother. (resembles)",o:["after","off","up","on"],a:0,h:"Think about the meaning: care/resemble/chase",e:"Take after = resemble."},
+{m:0,q:"He turned ___ the job offer. (refused)",ans:["down"],h:"Think about the meaning: reduce/refuse/write",e:"Turn down = refuse."},
+{m:1,q:"The meeting has been called ___. (cancelled)",o:["off","up","in","out"],a:0,h:"Think about the meaning: cancel/leave/postpone",e:"Call off = cancel."}
+],
+vocab:[
+{m:1,q:"Can you ___ me your pen for a moment?",o:["borrow","lend","loan","give"],a:1,h:"Give temporarily vs take temporarily",e:"Lend = give temporarily."},
+{m:0,q:"I need to ___ some money from the bank.",ans:["borrow"],h:"Take temporarily vs give temporarily",e:"Borrow = take temporarily."},
+{m:1,q:"The weather ___ on my mood.",o:["effects","affects","infects","defects"],a:1,h:"Verb form meaning to influence",e:"Affect (verb) = influence."},
+{m:0,q:"Pollution has a negative ___ on health.",ans:["effect"],h:"Noun form meaning result",e:"Effect (noun) = result."},
+{m:1,q:"She gave me some good ___ about studying.",o:["advise","advice","advices","advising"],a:1,h:"Noun (uncountable) or verb?",e:"Advice (noun, uncountable)."},
+{m:0,q:"His ___ (kind) impressed everyone.",ans:["kindness"],h:"Change adjective to noun form",e:"Kind (adj) becomes kindness (noun)."},
+{m:1,q:"The film was really ___. I fell asleep.",o:["bored","boring","bore","boringly"],a:1,h:"Describes the thing causing the feeling",e:"-ing for things causing the feeling."},
+{m:0,q:"I was ___ (surprise) by the news.",ans:["surprised"],h:"Describes how someone feels",e:"-ed for how people feel."},
+{m:1,q:"I need to ___ a decision.",o:["make","do","take","have"],a:0,h:"Fixed collocation with decision",e:"Make a decision."},
+{m:0,q:"Can you ___ me a favour?",ans:["do"],h:"Fixed collocation with favour",e:"Do someone a favour."},
+{m:1,q:"She ___ a lot of money in her job.",o:["wins","earns","gains","takes"],a:1,h:"Money from work vs competition",e:"Earn money (from work)."},
+{m:0,q:"The movie was ___ (synonym for amazing).",ans:["amazing","fantastic","brilliant","excellent","wonderful"],h:"Word with similar meaning",e:"Synonyms for amazing."},
+{m:1,q:"It is ___ to park here. You will get a fine.",o:["unlegal","illegal","inlegal","dislegal"],a:1,h:"Correct prefix for legal",e:"Illegal = not legal."},
+{m:0,q:"He is very ___. He always makes mistakes. (without care)",ans:["careless"],h:"Suffix meaning without",e:"-less = without."},
+{m:1,q:"It is raining cats and ___!",o:["dogs","horses","birds","mice"],a:0,h:"Common English expression",e:"Raining cats and dogs = heavily."}
+],
+reading:[
+{r:1,p:"Climate change is one of the most pressing issues of our time. Rising temperatures are causing ice caps to melt and sea levels to rise. Scientists agree that human activities are the main cause. Many countries have committed to reducing emissions. Individuals can also help by using public transport and reducing energy use.",q:"What is the main idea?",o:["Only individuals can help","Natural factors cause it","Action needed at multiple levels","Problem is solved"],a:2,e:"The passage discusses action at country and individual levels."},
+{r:1,p:"The Great Barrier Reef is the world's largest coral reef system, stretching over 2300 km off Australia's coast. It is home to 1500 species of fish and 400 types of coral. Unfortunately, rising ocean temperatures have caused mass coral bleaching. Scientists estimate the reef has lost more than half of its coral since 1995.",q:"How much coral has been lost since 1995?",o:["About a quarter","About a third","More than half","Almost all"],a:2,e:"The passage states 'more than half since 1995'."},
+{r:1,p:"Sarah had been waiting for this moment for months. As she stood backstage, her hands were trembling and her heart was racing. She could hear the audience on the other side. 'You have practised this a thousand times,' she whispered. When her name was announced, she walked onto the stage, sat down at the grand piano, and placed her fingers on the keys.",q:"Sarah is about to:",o:["Give a speech","Perform a piano concert","Take an exam","Meet someone"],a:1,e:"Clues: backstage, grand piano, fingers on keys."},
+{r:1,p:"The new employee quickly adapted to her role. Within weeks, she became an indispensable member of the team. Her colleagues were impressed by her ability to grasp complex concepts. Her supervisor noted her remarkable aptitude for problem-solving.",q:"'Indispensable' most likely means:",o:["Unimportant","Essential","Temporary","Difficult"],a:1,e:"Context is very positive, so essential makes sense."},
+{r:1,p:"Are you tired of spending hours in traffic every day? Want to reduce your carbon footprint while saving money? Electric bicycles might be the solution! Our e-bikes combine convenience with health benefits. Range up to 80 km on one charge. Visit our showroom today! 20% off for a limited time.",q:"What is the main purpose?",o:["Inform about environment","Persuade to buy e-bikes","Explain how e-bikes work","Compare transport"],a:1,e:"Persuasive language and special offer indicate advertising."},
+{r:1,p:"Dr. Maria Santos has dedicated her life to studying endangered species in the Amazon. After her PhD, she established a research station. 'The Amazon is home to millions of species, many not yet discovered,' she explains. 'If we lose this ecosystem, we lose them forever.'",q:"In 'we lose them forever', 'them' refers to:",o:["Local communities","Research stations","Species in Amazon","Awards"],a:2,e:"'Them' refers to 'millions of species'."},
+{r:1,p:"The city council's decision to cut library funding has sparked outrage among residents. Once again, officials have shown their disregard for education. Libraries provide free internet, educational programmes, and safe spaces. The suggestion these are 'non-essential' is insulting.",q:"What is the tone?",o:["Neutral","Critical and angry","Optimistic","Humorous"],a:1,e:"Words like outrage, disregard, insulting show criticism."},
+{r:1,p:"Making Japanese matcha involves several steps. First, tea leaves are shaded from sunlight for three weeks. After harvesting, leaves are steamed to prevent oxidation, then dried and stored. When ready, they are ground into powder using stone mills. To prepare, powder is whisked with hot water until frothy.",q:"What happens after steaming?",o:["Ground into powder","Dried and stored","Shaded from light","Whisked"],a:1,e:"'Steamed...then dried and stored'."},
+{r:1,p:"There are two approaches to language learning: immersion and structured study. Immersion means surrounding yourself with the language. Structured study involves textbooks and classes. Both have advantages. Immersion develops natural pronunciation. Structured study provides foundation. Many experts recommend combining both.",q:"What do experts recommend?",o:["Only immersion","Only structured","Either method","Combination of both"],a:3,e:"Experts recommend 'combining both'."},
+{r:1,p:"AI is rapidly transforming many aspects of our lives. While bringing benefits, it raises ethical questions. One concern is job displacement. Another is privacy. Despite challenges, experts believe with proper regulation, benefits can outweigh risks.",q:"What can we conclude?",o:["AI should be banned","AI should continue with regulation","AI has no drawbacks","Jobs are not a concern"],a:1,e:"Experts believe 'benefits can outweigh risks' with 'proper regulation'."}
+]
+};
+
+var CATS={tenses:{n:"Tenses",c:"#3498db",i:"⏰"},cond:{n:"Conditionals",c:"#e74c3c",i:"🔮"},passive:{n:"Passive",c:"#9b59b6",i:"🔄"},reported:{n:"Reported Speech",c:"#2ecc71",i:"💬"},modals:{n:"Modals",c:"#f39c12",i:"💭"},gerund:{n:"Gerund/Inf",c:"#1abc9c",i:"🎯"},relative:{n:"Relative",c:"#e91e63",i:"🔗"},articles:{n:"Articles",c:"#00bcd4",i:"📝"},prep:{n:"Prepositions",c:"#ff5722",i:"📍"},phrasal:{n:"Phrasal",c:"#ff9800",i:"🧩"},vocab:{n:"Vocabulary",c:"#8bc34a",i:"📖"},reading:{n:"Reading",c:"#673ab7",i:"📚"}};
+
+var G={cat:null,ex:[],idx:0,pts:0,streak:0,maxStreak:0,corr:0,wrong:0,done:false,scores:{}};
+
+function show(id){document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active")});document.getElementById(id).classList.add("active");document.getElementById("backBtn").style.display=id==="menu"?"none":"flex"}
+
+function shuffle(a){var arr=a.slice();for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t}return arr}
+
+function start(cat){G.cat=cat;G.idx=0;G.pts=0;G.streak=0;G.maxStreak=0;G.corr=0;G.wrong=0;G.done=false;G.scores={};
+if(cat==="master"){var all=[];Object.keys(DATA).forEach(function(k){DATA[k].forEach(function(e){e.cat=k;all.push(e)})});G.ex=shuffle(all).slice(0,50)}else{G.ex=shuffle(DATA[cat].map(function(e){e.cat=cat;return e}))}
+G.ex.forEach(function(e){if(!G.scores[e.cat])G.scores[e.cat]={c:0,w:0,t:0};G.scores[e.cat].t++});
+show("game");updateStats();render()}
+
+function render(){var e=G.ex[G.idx];var cat=CATS[e.cat];G.done=false;
+var h='<div class="exercise"><span class="ex-type" style="background:'+cat.c+'">'+cat.i+' '+cat.n+'</span>';
+if(e.r){h+='<div class="passage">'+e.p+'</div><div class="ex-instr">'+e.q+'</div>'}
+else{h+='<div class="ex-instr">'+(e.m===0?"Fill in the blank:":"Choose the correct answer:")+'</div><div class="sentence">'+e.q+'</div>'}
+if(e.h)h+='<div class="hint"><strong>Hint:</strong> '+e.h+'</div>';
+if(e.m===0&&!e.r){var n=e.ans.length>1&&typeof e.ans[0]==="string"&&e.q.split("___").length-1>1?e.q.split("___").length-1:1;
+var inp="";for(var i=0;i<n;i++)inp+='<input type="text" class="input-box" id="inp'+i+'" autocomplete="off"> ';
+h+='<div style="margin-top:15px">'+inp+'</div>'}
+else{h+='<div class="options">';for(var j=0;j<e.o.length;j++)h+='<div class="opt" data-i="'+j+'" onclick="sel(this)"><span class="opt-letter">'+String.fromCharCode(65+j)+'</span><span>'+e.o[j]+'</span></div>';h+='</div>'}
+h+='<div class="explain" id="expl"></div></div>';
+document.getElementById("exContainer").innerHTML=h;
+document.getElementById("ctrlBtns").innerHTML='<button class="ctrl-btn primary" onclick="check()">Check Answer</button>';
+updateProg()}
+
+function sel(el){if(G.done)return;document.querySelectorAll(".opt").forEach(function(o){o.classList.remove("selected")});el.classList.add("selected")}
+
+function check(){if(G.done){next();return}
+var e=G.ex[G.idx];var ok=false;
+if(e.m===0&&!e.r){var inps=document.querySelectorAll(".input-box");var allOk=true;
+for(var i=0;i<inps.length;i++){var ua=inps[i].value.trim().toLowerCase();
+var valid=e.ans.map(function(a){return a.toLowerCase()});
+if(inps.length===1){if(valid.indexOf(ua)!==-1)inps[i].classList.add("correct");else{inps[i].classList.add("wrong");allOk=false}}
+else{if(e.ans[i]&&e.ans[i].toLowerCase()===ua)inps[i].classList.add("correct");else{inps[i].classList.add("wrong");allOk=false}}}
+ok=allOk}
+else{var s=document.querySelector(".opt.selected");
+if(s){var idx=parseInt(s.getAttribute("data-i"));if(idx===e.a){s.classList.add("correct");ok=true}else{s.classList.add("wrong");document.querySelectorAll(".opt")[e.a].classList.add("correct")}}
+else{document.querySelectorAll(".opt")[e.a].classList.add("correct")}}
+G.done=true;process(ok,e)}
+
+function process(ok,e){if(ok){G.corr++;G.streak++;if(G.streak>G.maxStreak)G.maxStreak=G.streak;var p=10;if(G.streak>=3)p+=5;if(G.streak>=5)p+=5;if(G.streak>=10)p+=10;G.pts+=p;G.scores[e.cat].c++;popup(p)}else{G.wrong++;G.streak=0;G.scores[e.cat].w++}
+updateStats();
+var exp=document.getElementById("expl");var ans=e.m===0&&!e.r?e.ans.join(" / "):e.o[e.a];
+exp.innerHTML='<div class="explain-title">'+(ok?"✅ Correct!":"❌ Not quite...")+'</div><div><strong>Answer:</strong> '+ans+'</div><div style="margin-top:8px;color:var(--muted)">'+e.e+'</div>';
+exp.classList.add("show");
+document.querySelector(".ctrl-btn").textContent=G.idx<G.ex.length-1?"Next Question":"See Results"}
+
+function next(){G.idx++;if(G.idx>=G.ex.length)results();else render()}
+
+function popup(p){var d=document.createElement("div");d.className="popup";d.textContent="+"+p;d.style.left=Math.random()*60+20+"%";d.style.top="40%";document.body.appendChild(d);setTimeout(function(){d.remove()},1000)}
+
+function updateStats(){document.getElementById("pts").textContent=G.pts;document.getElementById("strk").textContent=G.streak;document.getElementById("fire").style.display=G.streak>=3?"inline":"none";document.getElementById("corr").textContent=G.corr;document.getElementById("tot").textContent=G.corr+G.wrong}
+
+function updateProg(){var p=(G.idx/G.ex.length)*100;document.getElementById("progFill").style.width=p+"%";document.getElementById("progTxt").textContent="Question "+(G.idx+1)+" of "+G.ex.length}
+
+function results(){var tot=G.corr+G.wrong;var pct=tot>0?Math.round(G.corr/tot*100):0;
+var ri,rt,rc;if(pct>=90){ri="💎";rt="Diamond Scholar";rc="diamond"}else if(pct>=75){ri="🥇";rt="Gold Knight";rc="gold"}else if(pct>=60){ri="🥈";rt="Silver Squire";rc="silver"}else{ri="🥉";rt="Bronze Apprentice";rc="bronze"}
+var bh="";var weak=[],strong=[];
+Object.keys(G.scores).forEach(function(k){var s=G.scores[k];if(s.t===0)return;var cp=Math.round(s.c/s.t*100);var cat=CATS[k];var cls=cp>=80?"good":cp>=60?"ok":"bad";
+bh+='<div class="breakdown-item"><span class="breakdown-name">'+cat.i+' '+cat.n+'</span><div class="breakdown-bar"><div class="breakdown-fill" style="width:'+cp+'%;background:'+cat.c+'"></div></div><span class="breakdown-pct '+cls+'">'+s.c+'/'+s.t+' ('+cp+'%)</span></div>';
+if(cp<60)weak.push({n:cat.n,i:cat.i,p:cp});else if(cp>=80)strong.push({n:cat.n,i:cat.i,p:cp})});
+weak.sort(function(a,b){return a.p-b.p});strong.sort(function(a,b){return b.p-a.p});
+var h='<div class="result"><div class="result-icon">'+ri+'</div><div class="result-title '+rc+'">'+rt+'</div><p style="color:var(--muted);margin-bottom:20px">Diagnostic Complete!</p>';
+h+='<div class="final-stats"><div class="final-stat"><div class="final-stat-val">'+G.pts+'</div><div class="final-stat-lbl">Points</div></div><div class="final-stat"><div class="final-stat-val">'+G.corr+'/'+tot+'</div><div class="final-stat-lbl">Correct</div></div><div class="final-stat"><div class="final-stat-val">'+pct+'%</div><div class="final-stat-lbl">Accuracy</div></div><div class="final-stat"><div class="final-stat-val">'+G.maxStreak+'</div><div class="final-stat-lbl">Best Streak</div></div></div>';
+h+='<div class="breakdown"><div class="breakdown-title">📊 Category Analysis</div>'+bh+'</div>';
+if(weak.length>0){h+='<div class="focus-section"><div class="focus-title">⚠️ Areas to Focus On</div><ul class="focus-list">';for(var i=0;i<Math.min(weak.length,4);i++)h+='<li>'+weak[i].i+' <strong>'+weak[i].n+'</strong> - '+weak[i].p+'%</li>';h+='</ul></div>'}
+if(strong.length>0){h+='<div class="strength-section"><div class="strength-title">💪 Your Strengths</div><ul class="focus-list">';for(var j=0;j<Math.min(strong.length,3);j++)h+='<li>'+strong[j].i+' <strong>'+strong[j].n+'</strong> - '+strong[j].p+'%</li>';h+='</ul></div>'}
+h+='<div class="ctrl"><button class="ctrl-btn" onclick="show(\'menu\')">🏠 Menu</button><button class="ctrl-btn primary" onclick="start(G.cat)">🔄 Try Again</button></div></div>';
+document.getElementById("results").innerHTML=h;show("results")}
+
+function confirmExit(){if(confirm("Leave? Progress will be lost."))show("menu")}
+
+document.addEventListener("keydown",function(e){if(e.key==="Enter"&&document.getElementById("game").classList.contains("active"))check()});
+</script>
+</body>
+</html>
