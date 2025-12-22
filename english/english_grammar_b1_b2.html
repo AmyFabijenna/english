@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Champion B1/B2 🎯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#3d1a2e;--primary-light:#5c2945;--accent:#ff6b4a;--accent-glow:#ffaa85;--accent-dark:#e84a5f;--success:#4ade80;--error:#ff5252;--text:#fff;--text-muted:#e8b4c8;--gold:#ffd740}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Quicksand',sans-serif;background:linear-gradient(180deg,#2d1320 0%,#4a1942 40%,#7c2d5b 70%,#c45a3a 100%);min-height:100vh;color:var(--text)}
+        .container{max-width:1000px;margin:0 auto;padding:20px}
+        header{text-align:center;margin-bottom:30px}
+        h1{font-family:'Fredoka',sans-serif;font-size:2.4rem;background:linear-gradient(135deg,#ff6b4a,#ffaa85,#ffd740);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+        .subtitle{color:var(--text-muted);font-size:1.1rem}
+        .topic-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:30px}
+        .topic-btn{background:linear-gradient(135deg,rgba(61,26,46,0.9),rgba(92,41,69,0.9));border:2px solid rgba(255,107,74,0.3);border-radius:12px;padding:12px 20px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.3s}
+        .topic-btn:hover,.topic-btn.active{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent);transform:translateY(-2px);box-shadow:0 5px 20px rgba(255,107,74,0.4)}
+        .topic-btn .count{background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:10px;font-size:0.8rem;margin-left:8px}
+        .exercise-section{background:linear-gradient(135deg,rgba(61,26,46,0.95),rgba(92,41,69,0.9));border-radius:20px;padding:30px;margin-bottom:20px;border:2px solid rgba(255,107,74,0.3);box-shadow:0 10px 40px rgba(0,0,0,0.3);display:none}
+        .exercise-section.active{display:block;animation:fadeIn 0.5s}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .section-title{font-family:'Fredoka',sans-serif;font-size:1.6rem;color:var(--accent-glow);margin-bottom:10px}
+        .section-subtitle{color:var(--text-muted);margin-bottom:25px;font-size:0.95rem}
+        .subsection{margin-bottom:30px}
+        .subsection-title{font-family:'Fredoka',sans-serif;font-size:1.2rem;color:var(--gold);margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid rgba(255,215,64,0.3)}
+        .ex{background:rgba(45,19,32,0.6);border-radius:12px;padding:12px 15px;margin-bottom:10px;border:1px solid rgba(255,107,74,0.15);line-height:1.9}
+        .n{display:inline-block;background:var(--accent-dark);color:#fff;min-width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-size:0.8rem;font-weight:600;margin-right:10px}
+        input.g{background:rgba(45,19,32,0.9);border:2px solid var(--primary-light);border-radius:8px;padding:5px 10px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;min-width:100px;text-align:center;transition:all 0.3s;margin:2px 4px}
+        input.g:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px rgba(255,107,74,0.3)}
+        input.g.correct{border-color:var(--success);background:rgba(74,222,128,0.2)}
+        input.g.incorrect{border-color:var(--error);background:rgba(255,82,82,0.2)}
+        input.g.w{min-width:160px}input.g.xw{min-width:220px}
+        .hint{display:block;color:var(--text-muted);font-size:0.8rem;margin-top:5px;font-style:italic}
+        .controls{display:flex;gap:15px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+        .btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid var(--accent);border-radius:12px;padding:12px 25px;color:var(--text);font-family:'Fredoka',sans-serif;font-size:1rem;cursor:pointer;transition:all 0.3s}
+        .btn:hover{background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px);box-shadow:0 5px 20px rgba(255,107,74,0.4)}
+        .btn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent))}
+        .results{background:rgba(45,19,32,0.8);border-radius:15px;padding:20px;margin-top:20px;text-align:center;display:none}
+        .results.visible{display:block}
+        .score{font-family:'Fredoka',sans-serif;font-size:2.2rem;color:var(--accent-glow)}
+        .score-label{color:var(--text-muted);font-size:0.9rem;margin-bottom:5px}
+        .sol{color:var(--success);font-weight:600;margin-left:5px;display:none}
+        .instruction{background:rgba(255,107,74,0.1);border:1px solid rgba(255,107,74,0.3);border-radius:10px;padding:12px;margin-bottom:20px}
+        .instruction h4{color:var(--accent-glow);margin-bottom:5px;font-family:'Fredoka',sans-serif;font-size:1rem}
+        .instruction p{color:var(--text-muted);font-size:0.85rem;line-height:1.5}
+        @media(max-width:768px){h1{font-size:1.6rem}.container{padding:10px}.exercise-section{padding:15px}input.g{min-width:80px;font-size:0.85rem}input.g.w{min-width:120px}input.g.xw{min-width:160px}.topic-btn{padding:8px 12px;font-size:0.8rem}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🎓 English Grammar Champion B1/B2</h1>
+        <p class="subtitle">500 exercises for absolute grammar mastery</p>
+    </header>
+    <nav class="topic-nav">
+        <button class="topic-btn active" onclick="showSection('tenses',this)">⏰ Tenses <span class="count">200</span></button>
+        <button class="topic-btn" onclick="showSection('questions',this)">❓ Questions <span class="count">80</span></button>
+        <button class="topic-btn" onclick="showSection('comparison',this)">📊 Comparison <span class="count">80</span></button>
+        <button class="topic-btn" onclick="showSection('modals',this)">💪 Modals <span class="count">80</span></button>
+        <button class="topic-btn" onclick="showSection('stative',this)">🧠 Stative <span class="count">60</span></button>
+    </nav>
+    <!-- TENSES SECTION -->
+    <section id="tenses" class="exercise-section active">
+        <h2 class="section-title">⏰ Tense Review</h2>
+        <p class="section-subtitle">Present & Past Simple/Progressive, Past Perfect</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct verb form. Watch context and time expressions!</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Present Simple vs Progressive (1-50)</h3>
+            <div class="ex"><span class="n">1</span>My best friend always <input class="g" data-answer="helps"> (help) me with homework.</div>
+            <div class="ex"><span class="n">2</span>Right now, we <input class="g w" data-answer="are discussing"> (discuss) our weekend plans.</div>
+            <div class="ex"><span class="n">3</span>Jake usually <input class="g" data-answer="spends"> (spend) his free time playing video games.</div>
+            <div class="ex"><span class="n">4</span>Listen! Someone <input class="g w" data-answer="is knocking"> (knock) at the door.</div>
+            <div class="ex"><span class="n">5</span>Our teacher never <input class="g" data-answer="gives"> (give) us homework on Fridays.</div>
+            <div class="ex"><span class="n">6</span>Look! The new student <input class="g w" data-answer="is sitting"> (sit) alone in the cafeteria.</div>
+            <div class="ex"><span class="n">7</span>I <input class="g w" data-answer="don't understand"> (not/understand) why he <input class="g w" data-answer="is being"> (be) so unfriendly today.<span class="hint">💡 "be" progressive = temporary behaviour</span></div>
+            <div class="ex"><span class="n">8</span>We <input class="g w" data-answer="are learning"> (learn) about friendship in English this week.</div>
+            <div class="ex"><span class="n">9</span>The school bus <input class="g" data-answer="leaves"> (leave) at 7:30 every morning.</div>
+            <div class="ex"><span class="n">10</span>Shh! The baby <input class="g w" data-answer="is sleeping"> (sleep). Don't make noise!</div>
+            <div class="ex"><span class="n">11</span>My parents <input class="g xw" data-answer="are constantly complaining"> (constantly/complain) about my messy room!<span class="hint">💡 constantly + progressive = annoyance</span></div>
+            <div class="ex"><span class="n">12</span>Water <input class="g" data-answer="boils"> (boil) at 100 degrees Celsius.</div>
+            <div class="ex"><span class="n">13</span>I <input class="g w" data-answer="am seeing"> (see) the doctor tomorrow.<span class="hint">💡 "see" = have an appointment (action)</span></div>
+            <div class="ex"><span class="n">14</span>Tom never <input class="g" data-answer="remembers"> (remember) his locker combination.</div>
+            <div class="ex"><span class="n">15</span>This semester, I <input class="g w" data-answer="am taking"> (take) five different subjects.</div>
+            <div class="ex"><span class="n">16</span>The Earth <input class="g" data-answer="revolves"> (revolve) around the Sun.</div>
+            <div class="ex"><span class="n">17</span>Why <input class="g w" data-answer="are you wearing"> (you/wear) your brother's jacket?</div>
+            <div class="ex"><span class="n">18</span>My new classmate <input class="g" data-answer="comes"> (come) from Brazil.</div>
+            <div class="ex"><span class="n">19</span>These days, more teenagers <input class="g w" data-answer="are using"> (use) social media.</div>
+            <div class="ex"><span class="n">20</span>I <input class="g w" data-answer="am thinking"> (think) of joining the football team. What do you <input class="g" data-answer="think"> (think)?<span class="hint">💡 "think of" = consider vs "think" = opinion</span></div>
+            <div class="ex"><span class="n">21</span>My older brother <input class="g" data-answer="studies"> (study) medicine at university.</div>
+            <div class="ex"><span class="n">22</span>Be quiet! I <input class="g w" data-answer="am trying"> (try) to concentrate on my essay!</div>
+            <div class="ex"><span class="n">23</span>The train to Vienna <input class="g" data-answer="departs"> (depart) at 9:15.</div>
+            <div class="ex"><span class="n">24</span>I <input class="g w" data-answer="am having"> (have) a great time at this party!<span class="hint">💡 "have" = experience (action)</span></div>
+            <div class="ex"><span class="n">25</span>She <input class="g" data-answer="has"> (have) three older siblings.</div>
+            <div class="ex"><span class="n">26</span>The chef <input class="g w" data-answer="is tasting"> (taste) the soup to check seasoning.<span class="hint">💡 "taste" = try/test (action)</span></div>
+            <div class="ex"><span class="n">27</span>This pizza <input class="g" data-answer="tastes"> (taste) absolutely delicious!</div>
+            <div class="ex"><span class="n">28</span>My friend <input class="g xw" data-answer="is always borrowing"> (always/borrow) my things without asking!</div>
+            <div class="ex"><span class="n">29</span>I <input class="g" data-answer="see"> (see) what you mean now.</div>
+            <div class="ex"><span class="n">30</span>We <input class="g w" data-answer="are staying"> (stay) at my grandparents' this weekend.</div>
+            <div class="ex"><span class="n">31</span>The film <input class="g" data-answer="starts"> (start) at 8 o'clock. Don't be late!</div>
+            <div class="ex"><span class="n">32</span>I <input class="g w" data-answer="don't believe"> (not/believe) a word he <input class="g w" data-answer="is saying"> (say).</div>
+            <div class="ex"><span class="n">33</span>How often <input class="g w" data-answer="do you practise"> (you/practise) the guitar?</div>
+            <div class="ex"><span class="n">34</span>Quick! The bus <input class="g w" data-answer="is coming"> (come)!</div>
+            <div class="ex"><span class="n">35</span>I usually <input class="g" data-answer="go"> (go) to bed around 10 pm.</div>
+            <div class="ex"><span class="n">36</span>She <input class="g w" data-answer="is being"> (be) really selfish about the project work.<span class="hint">💡 Temporary behaviour = progressive</span></div>
+            <div class="ex"><span class="n">37</span>Students who <input class="g w" data-answer="are learning"> (learn) online <input class="g w" data-answer="is increasing|are increasing"> (increase) every year.</div>
+            <div class="ex"><span class="n">38</span>I <input class="g" data-answer="weigh"> (weigh) 65 kilos.</div>
+            <div class="ex"><span class="n">39</span>The nurse <input class="g w" data-answer="is weighing"> (weigh) the patient.</div>
+            <div class="ex"><span class="n">40</span>You <input class="g" data-answer="look"> (look) tired. <input class="g w" data-answer="Are you getting"> (you/get) enough sleep?</div>
+            <div class="ex"><span class="n">41</span>I <input class="g w" data-answer="am not enjoying"> (not/enjoy) this book at all.</div>
+            <div class="ex"><span class="n">42</span>What <input class="g xw" data-answer="does this word mean"> (this word/mean)?</div>
+            <div class="ex"><span class="n">43</span>The teacher <input class="g xw" data-answer="is always picking"> (always/pick) on me in class!</div>
+            <div class="ex"><span class="n">44</span>I <input class="g" data-answer="prefer"> (prefer) a few close friends rather than big groups.</div>
+            <div class="ex"><span class="n">45</span>Currently, scientists <input class="g w" data-answer="are researching"> (research) new ways to recycle.</div>
+            <div class="ex"><span class="n">46</span>I <input class="g" data-answer="smell"> (smell) something burning. Is the oven on?<span class="hint">💡 "smell" = perceive (state)</span></div>
+            <div class="ex"><span class="n">47</span>Why <input class="g w" data-answer="are you smelling"> (you/smell) that milk?<span class="hint">💡 "smell" = sniff/check (action)</span></div>
+            <div class="ex"><span class="n">48</span>I <input class="g" data-answer="know"> (know) him from primary school. We <input class="g xw" data-answer="are still keeping"> (still/keep) in touch.</div>
+            <div class="ex"><span class="n">49</span>The situation <input class="g w" data-answer="is getting"> (get) worse. We <input class="g" data-answer="need"> (need) to act.</div>
+            <div class="ex"><span class="n">50</span>I <input class="g" data-answer="admit"> (admit) I <input class="g w" data-answer="am not working"> (not/work) hard enough this term.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Past Simple vs Progressive (51-100)</h3>
+            <div class="ex"><span class="n">51</span>I <input class="g" data-answer="met"> (meet) my best friend when we <input class="g" data-answer="were"> (be) in Year 5.</div>
+            <div class="ex"><span class="n">52</span>While I <input class="g w" data-answer="was walking"> (walk) to school, I <input class="g" data-answer="found"> (find) €20.</div>
+            <div class="ex"><span class="n">53</span>We <input class="g w" data-answer="were playing"> (play) football when it <input class="g" data-answer="started"> (start) to rain.</div>
+            <div class="ex"><span class="n">54</span>Last weekend, I <input class="g" data-answer="stayed"> (stay) at home and <input class="g" data-answer="played"> (play) games.</div>
+            <div class="ex"><span class="n">55</span>At 8 pm last night, I <input class="g w" data-answer="was doing"> (do) my homework.</div>
+            <div class="ex"><span class="n">56</span>She <input class="g w" data-answer="didn't call"> (not/call) me back, so I <input class="g" data-answer="texted"> (text) her.</div>
+            <div class="ex"><span class="n">57</span>What <input class="g w" data-answer="were you doing"> (you/do) when the teacher <input class="g" data-answer="came"> (come) in?</div>
+            <div class="ex"><span class="n">58</span>Students <input class="g w" data-answer="were chatting"> (chat) while the teacher <input class="g w" data-answer="was trying"> (try) to explain.</div>
+            <div class="ex"><span class="n">59</span>I <input class="g" data-answer="broke"> (break) my phone when I <input class="g" data-answer="dropped"> (drop) it.</div>
+            <div class="ex"><span class="n">60</span>Yesterday, we <input class="g" data-answer="had"> (have) a surprise test in maths.</div>
+            <div class="ex"><span class="n">61</span>While everyone <input class="g w" data-answer="was celebrating"> (celebrate), the other team <input class="g" data-answer="scored"> (score)!</div>
+            <div class="ex"><span class="n">62</span>I <input class="g w" data-answer="wasn't listening"> (not/listen) when the teacher <input class="g" data-answer="explained"> (explain).</div>
+            <div class="ex"><span class="n">63</span>She <input class="g w" data-answer="was wearing"> (wear) new trainers when she <input class="g" data-answer="stepped"> (step) in a puddle.</div>
+            <div class="ex"><span class="n">64</span>We <input class="g" data-answer="went"> (go) to the cinema and <input class="g" data-answer="watched"> (watch) a film.</div>
+            <div class="ex"><span class="n">65</span>I <input class="g w" data-answer="was scrolling"> (scroll) through TikTok when mum <input class="g" data-answer="caught"> (catch) me.</div>
+            <div class="ex"><span class="n">66</span>The class <input class="g" data-answer="laughed"> (laugh) when Max <input class="g" data-answer="made"> (make) that joke.</div>
+            <div class="ex"><span class="n">67</span>While I <input class="g w" data-answer="was waiting"> (wait), I <input class="g" data-answer="ran"> (run) into an old friend.</div>
+            <div class="ex"><span class="n">68</span>He <input class="g xw" data-answer="was always interrupting"> (always/interrupt) during my presentation!<span class="hint">💡 Past progressive + always = irritation</span></div>
+            <div class="ex"><span class="n">69</span>As soon as the bell <input class="g" data-answer="rang"> (ring), everyone <input class="g" data-answer="rushed"> (rush) out.</div>
+            <div class="ex"><span class="n">70</span>I <input class="g w" data-answer="was studying"> (study) for hours when my friend <input class="g" data-answer="suggested"> (suggest) a break.</div>
+            <div class="ex"><span class="n">71</span>The team <input class="g" data-answer="practised"> (practise) every day last month.</div>
+            <div class="ex"><span class="n">72</span>At this time yesterday, we <input class="g w" data-answer="were having"> (have) a barbecue.</div>
+            <div class="ex"><span class="n">73</span><input class="g w" data-answer="Did you hear"> (you/hear) what <input class="g" data-answer="happened"> (happen) to Tim?</div>
+            <div class="ex"><span class="n">74</span>The sun <input class="g w" data-answer="was shining"> (shine) brightly when we <input class="g" data-answer="left"> (leave).</div>
+            <div class="ex"><span class="n">75</span>I <input class="g w" data-answer="didn't know"> (not/know) the answer, so I <input class="g" data-answer="guessed"> (guess).</div>
+            <div class="ex"><span class="n">76</span>My parents <input class="g w" data-answer="were talking"> (talk) while I <input class="g w" data-answer="was pretending"> (pretend) to study.</div>
+            <div class="ex"><span class="n">77</span>When I <input class="g" data-answer="checked"> (check) my phone, I <input class="g" data-answer="saw"> (see) 20 messages!</div>
+            <div class="ex"><span class="n">78</span>The dog <input class="g" data-answer="bit"> (bite) the postman while he <input class="g w" data-answer="was delivering"> (deliver).</div>
+            <div class="ex"><span class="n">79</span>She <input class="g" data-answer="cut"> (cut) her finger while she <input class="g w" data-answer="was making"> (make) dinner.</div>
+            <div class="ex"><span class="n">80</span>We <input class="g w" data-answer="weren't paying"> (not/pay) attention when the accident <input class="g" data-answer="happened"> (happen).</div>
+            <div class="ex"><span class="n">81</span>At 6 pm yesterday, I <input class="g w" data-answer="was having"> (have) dinner with family.</div>
+            <div class="ex"><span class="n">82</span>I <input class="g" data-answer="finished"> (finish) my project at midnight.</div>
+            <div class="ex"><span class="n">83</span>While he <input class="g w" data-answer="was running"> (run) for the train, he <input class="g" data-answer="tripped"> (trip).</div>
+            <div class="ex"><span class="n">84</span>They <input class="g w" data-answer="were getting"> (get) along until one <input class="g" data-answer="said"> (say) something rude.</div>
+            <div class="ex"><span class="n">85</span>I <input class="g" data-answer="spent"> (spend) the whole afternoon cleaning.</div>
+            <div class="ex"><span class="n">86</span>What <input class="g w" data-answer="were you thinking"> (you/think) when you <input class="g" data-answer="decided"> (decide) to skip school?</div>
+            <div class="ex"><span class="n">87</span>The teacher <input class="g w" data-answer="was explaining"> (explain) when the fire alarm <input class="g" data-answer="went"> (go) off.</div>
+            <div class="ex"><span class="n">88</span>We <input class="g w" data-answer="didn't go"> (not/go) out because it <input class="g w" data-answer="was raining"> (rain) heavily.</div>
+            <div class="ex"><span class="n">89</span>I <input class="g w" data-answer="was chatting"> (chat) online when my computer <input class="g" data-answer="crashed"> (crash).</div>
+            <div class="ex"><span class="n">90</span>She <input class="g" data-answer="gave"> (give) me a dirty look and <input class="g" data-answer="walked"> (walk) away.</div>
+            <div class="ex"><span class="n">91</span>While we <input class="g w" data-answer="were watching"> (watch) the film, someone's phone <input class="g" data-answer="rang"> (ring).</div>
+            <div class="ex"><span class="n">92</span>He <input class="g xw" data-answer="was always asking"> (always/ask) stupid questions in class.</div>
+            <div class="ex"><span class="n">93</span>I <input class="g w" data-answer="didn't realize"> (not/realize) how late it <input class="g" data-answer="was"> (be) until I <input class="g" data-answer="looked"> (look).</div>
+            <div class="ex"><span class="n">94</span>The party <input class="g w" data-answer="was getting"> (get) boring, so we <input class="g" data-answer="decided"> (decide) to leave.</div>
+            <div class="ex"><span class="n">95</span>I <input class="g" data-answer="burnt"> (burn) the toast while I <input class="g w" data-answer="was reading"> (read) messages.</div>
+            <div class="ex"><span class="n">96</span>We <input class="g" data-answer="took"> (take) photos when we <input class="g" data-answer="visited"> (visit) London.</div>
+            <div class="ex"><span class="n">97</span>At this time last year, I <input class="g w" data-answer="was preparing"> (prepare) for exams.</div>
+            <div class="ex"><span class="n">98</span>They <input class="g" data-answer="argued"> (argue) and then <input class="g" data-answer="stopped"> (stop) talking.</div>
+            <div class="ex"><span class="n">99</span>I <input class="g w" data-answer="was daydreaming"> (daydream) when the teacher <input class="g" data-answer="asked"> (ask) me.</div>
+            <div class="ex"><span class="n">100</span>While some <input class="g w" data-answer="were working"> (work), others <input class="g w" data-answer="were doing"> (do) nothing.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part C: Past Perfect vs Simple Past (101-200)</h3>
+            <div class="instruction"><h4>💡 Key Rule</h4><p>Past Perfect = earlier action (what happened first). Simple Past = later action.</p></div>
+            <div class="ex"><span class="n">101</span>Before I <input class="g" data-answer="met"> (meet) him, I <input class="g w" data-answer="had never had"> (never/have) a true best friend.</div>
+            <div class="ex"><span class="n">102</span>After she <input class="g w" data-answer="had finished"> (finish) homework, she <input class="g" data-answer="went"> (go) out.</div>
+            <div class="ex"><span class="n">103</span>I <input class="g w" data-answer="didn't know"> (not/know) what to say because I <input class="g w" data-answer="hadn't prepared"> (not/prepare).</div>
+            <div class="ex"><span class="n">104</span>The film <input class="g w" data-answer="had already started"> (already/start) by the time we <input class="g" data-answer="arrived"> (arrive).</div>
+            <div class="ex"><span class="n">105</span>After I <input class="g w" data-answer="had read"> (read) the book, I <input class="g" data-answer="understood"> (understand) better.</div>
+            <div class="ex"><span class="n">106</span>He <input class="g" data-answer="realized"> (realize) he <input class="g w" data-answer="had forgotten"> (forget) his wallet at the till.</div>
+            <div class="ex"><span class="n">107</span>Before they <input class="g" data-answer="became"> (become) friends, they <input class="g w" data-answer="had hated"> (hate) each other.</div>
+            <div class="ex"><span class="n">108</span>She <input class="g" data-answer="was"> (be) upset because her friend <input class="g w" data-answer="had told"> (tell) her secret.</div>
+            <div class="ex"><span class="n">109</span>I <input class="g w" data-answer="had never seen"> (never/see) such a difficult test before I <input class="g" data-answer="took"> (take) it.</div>
+            <div class="ex"><span class="n">110</span>After teacher <input class="g w" data-answer="had explained"> (explain) it three times, everyone <input class="g" data-answer="understood"> (understand).</div>
+            <div class="ex"><span class="n">111</span>The class <input class="g w" data-answer="had already begun"> (already/begin) when I <input class="g" data-answer="walked"> (walk) in late.</div>
+            <div class="ex"><span class="n">112</span>I <input class="g" data-answer="felt"> (feel) relieved after I <input class="g w" data-answer="had handed in"> (hand in) my project.</div>
+            <div class="ex"><span class="n">113</span>Before he <input class="g" data-answer="apologized"> (apologize), I <input class="g w" data-answer="had decided"> (decide) never to speak to him.</div>
+            <div class="ex"><span class="n">114</span>They <input class="g w" data-answer="didn't tell"> (not/tell) me they <input class="g w" data-answer="had planned"> (plan) a surprise party.</div>
+            <div class="ex"><span class="n">115</span>I <input class="g" data-answer="recognized"> (recognize) her because I <input class="g w" data-answer="had seen"> (see) her on TV.</div>
+            <div class="ex"><span class="n">116</span>After we <input class="g w" data-answer="had argued"> (argue), we <input class="g w" data-answer="didn't speak"> (not/speak) for a week.</div>
+            <div class="ex"><span class="n">117</span>He <input class="g w" data-answer="had never played"> (never/play) basketball before he <input class="g" data-answer="joined"> (join) the team.</div>
+            <div class="ex"><span class="n">118</span>I <input class="g" data-answer="found"> (find) out someone <input class="g w" data-answer="had stolen"> (steal) my bike.</div>
+            <div class="ex"><span class="n">119</span>Before the internet <input class="g" data-answer="existed"> (exist), people <input class="g w" data-answer="had communicated"> (communicate) by letters.</div>
+            <div class="ex"><span class="n">120</span>She <input class="g" data-answer="looked"> (look) exhausted because she <input class="g w" data-answer="hadn't slept"> (not/sleep) well.</div>
+            <div class="ex"><span class="n">121</span>After I <input class="g w" data-answer="had made"> (make) new friends, school <input class="g" data-answer="became"> (become) enjoyable.</div>
+            <div class="ex"><span class="n">122</span>I <input class="g w" data-answer="had just sat down"> (just/sit down) when my phone <input class="g" data-answer="rang"> (ring).</div>
+            <div class="ex"><span class="n">123</span>Before smartphones <input class="g" data-answer="became"> (become) popular, teens <input class="g w" data-answer="had spent"> (spend) more time outdoors.</div>
+            <div class="ex"><span class="n">124</span>The train <input class="g w" data-answer="had left"> (leave) by the time I <input class="g" data-answer="reached"> (reach) the station.</div>
+            <div class="ex"><span class="n">125</span>I <input class="g" data-answer="failed"> (fail) because I <input class="g w" data-answer="hadn't studied"> (not/study) enough.</div>
+            <div class="ex"><span class="n">126</span>After she <input class="g w" data-answer="had moved"> (move), she <input class="g" data-answer="missed"> (miss) her old friends.</div>
+            <div class="ex"><span class="n">127</span>I <input class="g" data-answer="knew"> (know) the answer because I <input class="g w" data-answer="had learned"> (learn) it in class.</div>
+            <div class="ex"><span class="n">128</span>Before I <input class="g" data-answer="checked"> (check) results, I <input class="g w" data-answer="had felt"> (feel) extremely nervous.</div>
+            <div class="ex"><span class="n">129</span>He <input class="g" data-answer="was"> (be) angry because I <input class="g w" data-answer="had broken"> (break) my promise.</div>
+            <div class="ex"><span class="n">130</span>After we <input class="g w" data-answer="had finished"> (finish) the project, we <input class="g" data-answer="celebrated"> (celebrate).</div>
+            <div class="ex"><span class="n">131</span>I <input class="g w" data-answer="had never tried"> (never/try) sushi before I <input class="g" data-answer="went"> (go) to Japan.</div>
+            <div class="ex"><span class="n">132</span>She <input class="g w" data-answer="didn't realize"> (not/realize) she <input class="g w" data-answer="had hurt"> (hurt) him until he <input class="g" data-answer="started"> (start) crying.</div>
+            <div class="ex"><span class="n">133</span>Before that documentary, I <input class="g w" data-answer="had thought"> (think) climate change wasn't a big deal.</div>
+            <div class="ex"><span class="n">134</span>I <input class="g" data-answer="was"> (be) tired because I <input class="g w" data-answer="had stayed"> (stay) up all night gaming.</div>
+            <div class="ex"><span class="n">135</span>After she <input class="g w" data-answer="had apologized"> (apologize), we <input class="g" data-answer="became"> (become) friends again.</div>
+            <div class="ex"><span class="n">136</span>The concert <input class="g w" data-answer="had sold out"> (sell out) before I <input class="g" data-answer="could"> (can) buy tickets.</div>
+            <div class="ex"><span class="n">137</span>I <input class="g w" data-answer="had just finished"> (just/finish) cleaning when friends <input class="g" data-answer="showed up"> (show up).</div>
+            <div class="ex"><span class="n">138</span>Before the new student <input class="g" data-answer="arrived"> (arrive), everyone <input class="g xw" data-answer="had been talking"> (talk) about him for weeks.</div>
+            <div class="ex"><span class="n">139</span>They <input class="g w" data-answer="had known"> (know) each other for years before they <input class="g" data-answer="started"> (start) dating.</div>
+            <div class="ex"><span class="n">140</span>I <input class="g" data-answer="got"> (get) angry because he <input class="g w" data-answer="had lied"> (lie) to me.</div>
+            <div class="ex"><span class="n">141</span>After I <input class="g w" data-answer="had lost"> (lose) my phone, I <input class="g" data-answer="felt"> (feel) lost without it.</div>
+            <div class="ex"><span class="n">142</span>Before we <input class="g" data-answer="started"> (start) the project, we <input class="g w" data-answer="had divided"> (divide) the tasks.</div>
+            <div class="ex"><span class="n">143</span>She <input class="g" data-answer="couldn't"> (not/can) find her keys because she <input class="g w" data-answer="had left"> (leave) them at school.</div>
+            <div class="ex"><span class="n">144</span>By the time holidays <input class="g" data-answer="started"> (start), I <input class="g xw" data-answer="had already made"> (already/make) plans.</div>
+            <div class="ex"><span class="n">145</span>I <input class="g w" data-answer="had never felt"> (never/feel) so embarrassed before I <input class="g" data-answer="tripped"> (trip) in front of everyone.</div>
+            <div class="ex"><span class="n">146</span>After he <input class="g w" data-answer="had broken up"> (break up), he <input class="g" data-answer="spent"> (spend) weeks feeling miserable.</div>
+            <div class="ex"><span class="n">147</span>I <input class="g" data-answer="passed"> (pass) easily because I <input class="g w" data-answer="had revised"> (revise) thoroughly.</div>
+            <div class="ex"><span class="n">148</span>Before I <input class="g" data-answer="got"> (get) glasses, I <input class="g w" data-answer="hadn't realized"> (not/realize) how badly I <input class="g" data-answer="needed"> (need) them.</div>
+            <div class="ex"><span class="n">149</span>He <input class="g w" data-answer="had already left"> (already/leave) when I <input class="g" data-answer="arrived"> (arrive).</div>
+            <div class="ex"><span class="n">150</span>After we <input class="g w" data-answer="had talked"> (talk) about problems, we <input class="g" data-answer="felt"> (feel) better.</div>
+            <div class="ex"><span class="n">151</span>I <input class="g w" data-answer="had never seen"> (never/see) him so happy before he <input class="g" data-answer="won"> (win).</div>
+            <div class="ex"><span class="n">152</span>Before she <input class="g" data-answer="moved"> (move) here, she <input class="g w" data-answer="had lived"> (live) in three countries.</div>
+            <div class="ex"><span class="n">153</span>The team <input class="g" data-answer="lost"> (lose) because they <input class="g w" data-answer="hadn't trained"> (not/train) properly.</div>
+            <div class="ex"><span class="n">154</span>I <input class="g w" data-answer="had just started"> (just/start) eating when my phone <input class="g" data-answer="rang"> (ring).</div>
+            <div class="ex"><span class="n">155</span>After he <input class="g w" data-answer="had worked"> (work) for a year, he <input class="g" data-answer="saved"> (save) enough for a laptop.</div>
+            <div class="ex"><span class="n">156</span>Before online learning <input class="g" data-answer="started"> (start), I <input class="g xw" data-answer="had never used"> (never/use) Zoom.</div>
+            <div class="ex"><span class="n">157</span>She <input class="g" data-answer="was"> (be) furious because I <input class="g w" data-answer="had told"> (tell) everyone her secret.</div>
+            <div class="ex"><span class="n">158</span>I <input class="g w" data-answer="had been waiting"> (wait) for an hour before the bus <input class="g" data-answer="came"> (come).</div>
+            <div class="ex"><span class="n">159</span>After the lesson <input class="g w" data-answer="had ended"> (end), we <input class="g" data-answer="discussed"> (discuss) homework.</div>
+            <div class="ex"><span class="n">160</span>I <input class="g w" data-answer="hadn't finished"> (not/finish) when the deadline <input class="g" data-answer="passed"> (pass).</div>
+            <div class="ex"><span class="n">161</span>Before I <input class="g" data-answer="started"> (start) high school, I <input class="g w" data-answer="had been"> (be) nervous about new friends.</div>
+            <div class="ex"><span class="n">162</span>He <input class="g w" data-answer="had never scored"> (never/score) a goal before that match.</div>
+            <div class="ex"><span class="n">163</span>After they <input class="g w" data-answer="had eaten"> (eat) all pizza, they <input class="g" data-answer="ordered"> (order) more!</div>
+            <div class="ex"><span class="n">164</span>I <input class="g" data-answer="wondered"> (wonder) why she <input class="g w" data-answer="hadn't replied"> (not/reply) to my messages.</div>
+            <div class="ex"><span class="n">165</span>Before he <input class="g" data-answer="confessed"> (confess), I <input class="g xw" data-answer="had already found out"> (already/find out) the truth.</div>
+            <div class="ex"><span class="n">166</span>Lesson <input class="g w" data-answer="had already started"> (already/start) when the headteacher <input class="g" data-answer="came"> (come) in.</div>
+            <div class="ex"><span class="n">167</span>I <input class="g" data-answer="felt"> (feel) confident after I <input class="g w" data-answer="had practised"> (practise) my speech.</div>
+            <div class="ex"><span class="n">168</span>Before social media <input class="g" data-answer="became"> (become) popular, people <input class="g w" data-answer="had met"> (meet) in person more.</div>
+            <div class="ex"><span class="n">169</span>She <input class="g" data-answer="was"> (be) surprised because no one <input class="g w" data-answer="had told"> (tell) her about the party.</div>
+            <div class="ex"><span class="n">170</span>After I <input class="g w" data-answer="had seen"> (see) the film, I <input class="g" data-answer="read"> (read) the book to compare.</div>
+            <div class="ex"><span class="n">171</span>I <input class="g w" data-answer="had never travelled"> (never/travel) by plane before last summer.</div>
+            <div class="ex"><span class="n">172</span>Before the internet <input class="g" data-answer="became"> (become) widespread, students <input class="g w" data-answer="had used"> (use) libraries.</div>
+            <div class="ex"><span class="n">173</span>He <input class="g" data-answer="got"> (get) a bad grade because he <input class="g w" data-answer="hadn't done"> (not/do) the assignment.</div>
+            <div class="ex"><span class="n">174</span>After she <input class="g w" data-answer="had explained"> (explain) her side, I <input class="g" data-answer="understood"> (understand).</div>
+            <div class="ex"><span class="n">175</span>I <input class="g w" data-answer="had been studying"> (study) German for 3 years before I <input class="g" data-answer="visited"> (visit) Germany.</div>
+            <div class="ex"><span class="n">176</span>By the time we <input class="g" data-answer="got"> (get) home, parents <input class="g xw" data-answer="had already gone"> (already/go) to bed.</div>
+            <div class="ex"><span class="n">177</span>Before I <input class="g" data-answer="met"> (meet) my best friend, I <input class="g w" data-answer="had felt"> (feel) lonely.</div>
+            <div class="ex"><span class="n">178</span>She <input class="g" data-answer="realized"> (realize) she <input class="g w" data-answer="had made"> (make) a huge mistake.</div>
+            <div class="ex"><span class="n">179</span>After I <input class="g w" data-answer="had watched"> (watch) the tutorial, I <input class="g" data-answer="knew"> (know) how to solve it.</div>
+            <div class="ex"><span class="n">180</span>I <input class="g w" data-answer="had never been"> (never/be) so scared before that horror film.</div>
+            <div class="ex"><span class="n">181</span>Before teacher <input class="g" data-answer="arrived"> (arrive), someone <input class="g w" data-answer="had written"> (write) something rude.</div>
+            <div class="ex"><span class="n">182</span>I <input class="g" data-answer="was"> (be) in a bad mood because I <input class="g w" data-answer="had missed"> (miss) breakfast.</div>
+            <div class="ex"><span class="n">183</span>After they <input class="g w" data-answer="had solved"> (solve) their differences, they <input class="g" data-answer="worked"> (work) well together.</div>
+            <div class="ex"><span class="n">184</span>She <input class="g w" data-answer="hadn't expected"> (not/expect) to win, so she <input class="g" data-answer="was"> (be) shocked.</div>
+            <div class="ex"><span class="n">185</span>Before YouTube <input class="g" data-answer="existed"> (exist), people <input class="g w" data-answer="had watched"> (watch) videos on TV.</div>
+            <div class="ex"><span class="n">186</span>I <input class="g xw" data-answer="had already heard"> (already/hear) the news before my friend <input class="g" data-answer="told"> (tell) me.</div>
+            <div class="ex"><span class="n">187</span>After we <input class="g w" data-answer="had learned"> (learn) about the Revolution, we <input class="g" data-answer="wrote"> (write) an essay.</div>
+            <div class="ex"><span class="n">188</span>Before I <input class="g" data-answer="started"> (start) exercising, I <input class="g w" data-answer="had been"> (be) really unfit.</div>
+            <div class="ex"><span class="n">189</span>He <input class="g" data-answer="couldn't"> (not/can) answer because he <input class="g w" data-answer="hadn't paid"> (not/pay) attention.</div>
+            <div class="ex"><span class="n">190</span>I <input class="g" data-answer="felt"> (feel) happy after I <input class="g w" data-answer="had passed"> (pass) my driving test.</div>
+            <div class="ex"><span class="n">191</span>Before I <input class="g" data-answer="understood"> (understand) the rules, I <input class="g w" data-answer="had made"> (make) many mistakes.</div>
+            <div class="ex"><span class="n">192</span>The shop <input class="g w" data-answer="had closed"> (close) by the time we <input class="g" data-answer="got"> (get) there.</div>
+            <div class="ex"><span class="n">193</span>After I <input class="g w" data-answer="had changed"> (change) schools, I <input class="g" data-answer="became"> (become) happier.</div>
+            <div class="ex"><span class="n">194</span>She <input class="g xw" data-answer="had been working"> (work) on her project for weeks before she <input class="g" data-answer="finished"> (finish).</div>
+            <div class="ex"><span class="n">195</span>Before we <input class="g" data-answer="moved"> (move) here, we <input class="g w" data-answer="had lived"> (live) in a small village.</div>
+            <div class="ex"><span class="n">196</span>I <input class="g" data-answer="was"> (be) confused because I <input class="g w" data-answer="had missed"> (miss) the first part.</div>
+            <div class="ex"><span class="n">197</span>After teacher <input class="g w" data-answer="had given"> (give) feedback, we <input class="g" data-answer="improved"> (improve).</div>
+            <div class="ex"><span class="n">198</span>I <input class="g w" data-answer="had never eaten"> (never/eat) Indian food before that restaurant.</div>
+            <div class="ex"><span class="n">199</span>Before mobile phones <input class="g" data-answer="became"> (become) common, people <input class="g w" data-answer="had arranged"> (arrange) meetings in advance.</div>
+            <div class="ex"><span class="n">200</span>By the time I <input class="g" data-answer="turned"> (turn) 15, I <input class="g xw" data-answer="had already decided"> (already/decide) what to study.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('tenses')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('tenses')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('tenses')">↺ Reset</button>
+        </div>
+        <div id="tenses-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="tenses-correct">0</span>/<span id="tenses-total">0</span></p></div>
+    </section>
+    <!-- QUESTIONS SECTION -->
+    <section id="questions" class="exercise-section">
+        <h2 class="section-title">❓ Questions & Negations</h2>
+        <p class="section-subtitle">Forming correct questions and negative sentences</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Form questions or negatives as indicated. Watch word order and auxiliaries!</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Forming Questions (201-240)</h3>
+            <div class="ex"><span class="n">201</span>Your friend plays basketball. (How often?) → <input class="g xw" data-answer="How often does your friend play basketball"></div>
+            <div class="ex"><span class="n">202</span>She is watching a film. (What?) → <input class="g xw" data-answer="What is she watching"></div>
+            <div class="ex"><span class="n">203</span>They went to the cinema. (When?) → <input class="g xw" data-answer="When did they go to the cinema"></div>
+            <div class="ex"><span class="n">204</span>Someone broke the window. (Who?) → <input class="g xw" data-answer="Who broke the window"><span class="hint">💡 Subject question - no auxiliary!</span></div>
+            <div class="ex"><span class="n">205</span>Something happened at school. (What?) → <input class="g xw" data-answer="What happened at school|What happened"></div>
+            <div class="ex"><span class="n">206</span>You borrowed someone's book. (Whose?) → <input class="g xw" data-answer="Whose book did you borrow"></div>
+            <div class="ex"><span class="n">207</span>The lesson starts at a time. (What time?) → <input class="g xw" data-answer="What time does the lesson start"></div>
+            <div class="ex"><span class="n">208</span>One student won. (Which?) → <input class="g xw" data-answer="Which student won"></div>
+            <div class="ex"><span class="n">209</span>She was talking to someone. (Who...to?) → <input class="g xw" data-answer="Who was she talking to"></div>
+            <div class="ex"><span class="n">210</span>You spent money on that. (How much?) → <input class="g xw" data-answer="How much did you spend on that"></div>
+            <div class="ex"><span class="n">211</span>Make yes/no: He has finished. → <input class="g xw" data-answer="Has he finished"></div>
+            <div class="ex"><span class="n">212</span>Make yes/no: She was waiting. → <input class="g xw" data-answer="Was she waiting"></div>
+            <div class="ex"><span class="n">213</span>Something made you angry. (What?) → <input class="g xw" data-answer="What made you angry"></div>
+            <div class="ex"><span class="n">214</span>The journey takes time. (How long?) → <input class="g xw" data-answer="How long does the journey take"></div>
+            <div class="ex"><span class="n">215</span>They had met before. (Where?) → <input class="g xw" data-answer="Where had they met"></div>
+            <div class="ex"><span class="n">216</span>He can play guitar. (How well?) → <input class="g xw" data-answer="How well can he play guitar|How well can he play the guitar"></div>
+            <div class="ex"><span class="n">217</span>She had been crying. (Why?) → <input class="g xw" data-answer="Why had she been crying"></div>
+            <div class="ex"><span class="n">218</span>This belongs to someone. (Who...to?) → <input class="g xw" data-answer="Who does this belong to"></div>
+            <div class="ex"><span class="n">219</span>He spent his weekend somehow. (How?) → <input class="g xw" data-answer="How did he spend his weekend"></div>
+            <div class="ex"><span class="n">220</span>Indirect: "Is this correct?" → Could you tell me <input class="g w" data-answer="if this is correct">?<span class="hint">💡 Indirect - no inversion!</span></div>
+            <div class="ex"><span class="n">221</span>Indirect: "Where did she go?" → Do you know <input class="g w" data-answer="where she went">?</div>
+            <div class="ex"><span class="n">222</span>Indirect: "What time does it start?" → Can you tell me <input class="g w" data-answer="what time it starts">?</div>
+            <div class="ex"><span class="n">223</span>Indirect: "Who wrote this?" → I wonder <input class="g w" data-answer="who wrote this">.</div>
+            <div class="ex"><span class="n">224</span>Tag: You like pizza, <input class="g" data-answer="don't you">?</div>
+            <div class="ex"><span class="n">225</span>Tag: She hasn't finished, <input class="g" data-answer="has she">?</div>
+            <div class="ex"><span class="n">226</span>Tag: They were playing, <input class="g" data-answer="weren't they">?</div>
+            <div class="ex"><span class="n">227</span>Tag: He can't swim, <input class="g" data-answer="can he">?</div>
+            <div class="ex"><span class="n">228</span>Tag: I'm late, <input class="g" data-answer="aren't I">?<span class="hint">💡 "I am" → "aren't I"</span></div>
+            <div class="ex"><span class="n">229</span>Tag: Nobody called, <input class="g" data-answer="did they">?<span class="hint">💡 "Nobody" = negative → positive tag</span></div>
+            <div class="ex"><span class="n">230</span>Tag: Let's go, <input class="g" data-answer="shall we">?</div>
+            <div class="ex"><span class="n">231</span>Tag: Everyone knew, <input class="g" data-answer="didn't they">?</div>
+            <div class="ex"><span class="n">232</span>Tag: There's a problem, <input class="g" data-answer="isn't there">?</div>
+            <div class="ex"><span class="n">233</span>Tag: She'd rather stay, <input class="g" data-answer="wouldn't she">?</div>
+            <div class="ex"><span class="n">234</span>Tag: You'd better go, <input class="g" data-answer="hadn't you">?</div>
+            <div class="ex"><span class="n">235</span>Tag: Nothing matters, <input class="g" data-answer="does it">?</div>
+            <div class="ex"><span class="n">236</span>Tag: Someone left this, <input class="g" data-answer="didn't they">?</div>
+            <div class="ex"><span class="n">237</span>Tag: You used to play, <input class="g" data-answer="didn't you">?</div>
+            <div class="ex"><span class="n">238</span>Tag: He has to go, <input class="g" data-answer="doesn't he">?</div>
+            <div class="ex"><span class="n">239</span>Tag: She rarely comes, <input class="g" data-answer="does she">?<span class="hint">💡 "rarely" = negative</span></div>
+            <div class="ex"><span class="n">240</span>Tag: He needn't worry, <input class="g" data-answer="need he">?</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Negations (241-280)</h3>
+            <div class="ex"><span class="n">241</span>He plays games every day. (neg.) → He <input class="g xw" data-answer="doesn't play games every day">.</div>
+            <div class="ex"><span class="n">242</span>She is listening to music. (neg.) → She <input class="g w" data-answer="isn't listening to music">.</div>
+            <div class="ex"><span class="n">243</span>They went to the party. (neg.) → They <input class="g w" data-answer="didn't go to the party">.</div>
+            <div class="ex"><span class="n">244</span>We were watching TV. (neg.) → We <input class="g w" data-answer="weren't watching TV">.</div>
+            <div class="ex"><span class="n">245</span>She had already eaten. (neg.) → She <input class="g w" data-answer="hadn't already eaten">.</div>
+            <div class="ex"><span class="n">246</span>I think he knows. (neg. main verb) → I <input class="g w" data-answer="don't think he knows">.<span class="hint">💡 With think/believe - negate the main verb!</span></div>
+            <div class="ex"><span class="n">247</span>I believe she is coming. (neg.) → I <input class="g xw" data-answer="don't believe she is coming">.</div>
+            <div class="ex"><span class="n">248</span>He can speak French. (neg.) → He <input class="g w" data-answer="can't speak French">.</div>
+            <div class="ex"><span class="n">249</span>You should stay up late. (neg.) → You <input class="g w" data-answer="shouldn't stay up late">.</div>
+            <div class="ex"><span class="n">250</span>We must tell anyone. (neg.) → We <input class="g w" data-answer="mustn't tell anyone">.</div>
+            <div class="ex"><span class="n">251</span>She has to finish today. (neg.) → She <input class="g xw" data-answer="doesn't have to finish today">.</div>
+            <div class="ex"><span class="n">252</span>I have been to America. (with "never") → I have <input class="g" data-answer="never"> been to America.</div>
+            <div class="ex"><span class="n">253</span>There is something I can do. (neg.) → There is <input class="g" data-answer="nothing"> I can do.</div>
+            <div class="ex"><span class="n">254</span>Someone told me. (neg.) → <input class="g" data-answer="Nobody|No one"> told me.</div>
+            <div class="ex"><span class="n">255</span>I found my keys somewhere. (neg.) → I couldn't find my keys <input class="g" data-answer="anywhere">.</div>
+            <div class="ex"><span class="n">256</span>He likes football and basketball. (neither...nor) → He likes <input class="g xw" data-answer="neither football nor basketball">.</div>
+            <div class="ex"><span class="n">257</span>She used to be friendly. (neg.) → She <input class="g xw" data-answer="didn't use to be friendly">.</div>
+            <div class="ex"><span class="n">258</span>He has been waiting long. (neg.) → He <input class="g w" data-answer="hasn't been waiting long">.</div>
+            <div class="ex"><span class="n">259</span>Someone is calling. (neg.) → <input class="g w" data-answer="Nobody is calling|No one is calling">.</div>
+            <div class="ex"><span class="n">260</span>Something interesting happened. (neg.) → <input class="g xw" data-answer="Nothing interesting happened">.</div>
+            <div class="ex"><span class="n">261</span>I've met him somewhere. (neg.) → I <input class="g xw" data-answer="haven't met him anywhere">.</div>
+            <div class="ex"><span class="n">262</span>He still plays. (with "no longer") → He <input class="g w" data-answer="no longer plays">.</div>
+            <div class="ex"><span class="n">263</span>She may be at home. (neg.) → She <input class="g w" data-answer="may not be at home">.</div>
+            <div class="ex"><span class="n">264</span>You need to worry. (neg.) → You <input class="g w" data-answer="don't need to worry|needn't worry">.</div>
+            <div class="ex"><span class="n">265</span>He could have known. (neg.) → He <input class="g w" data-answer="couldn't have known">.</div>
+            <div class="ex"><span class="n">266</span>Both of them passed. (neither) → <input class="g w" data-answer="Neither of them passed">.</div>
+            <div class="ex"><span class="n">267</span>All students understood. (neg.) → <input class="g xw" data-answer="None of the students understood|No students understood">.</div>
+            <div class="ex"><span class="n">268</span>They would have helped. (neg.) → They <input class="g w" data-answer="wouldn't have helped">.</div>
+            <div class="ex"><span class="n">269</span>I have much free time. (with "hardly") → I have <input class="g" data-answer="hardly"> any free time.</div>
+            <div class="ex"><span class="n">270</span>She passed the test. (with "barely") → She <input class="g" data-answer="barely"> passed the test.</div>
+            <div class="ex"><span class="n">271</span>I haven't ever seen him. → I have <input class="g" data-answer="never"> seen him.</div>
+            <div class="ex"><span class="n">272</span>I expect she will call. (neg.) → I <input class="g xw" data-answer="don't expect she will call">.</div>
+            <div class="ex"><span class="n">273</span>I suppose he is right. (neg.) → I <input class="g w" data-answer="don't suppose he is right">.</div>
+            <div class="ex"><span class="n">274</span>He arrived late AND forgot homework. → Not <input class="g" data-answer="only"> did he arrive late, but...</div>
+            <div class="ex"><span class="n">275</span>Under no circumstances <input class="g" data-answer="should"> you cheat.<span class="hint">💡 Inversion after negative expressions</span></div>
+            <div class="ex"><span class="n">276</span>He dare speak to her. (neg.) → He <input class="g w" data-answer="daren't speak to her|dare not speak to her">.</div>
+            <div class="ex"><span class="n">277</span>I can always count on him. (with "never") → I can <input class="g" data-answer="never"> count on him.</div>
+            <div class="ex"><span class="n">278</span>He had been studying long. (neg.) → He <input class="g xw" data-answer="hadn't been studying long">.</div>
+            <div class="ex"><span class="n">279</span>She should have told me. (neg.) → She <input class="g w" data-answer="shouldn't have told me">.</div>
+            <div class="ex"><span class="n">280</span>They might have known. (neg.) → They <input class="g w" data-answer="might not have known">.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('questions')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('questions')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('questions')">↺ Reset</button>
+        </div>
+        <div id="questions-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="questions-correct">0</span>/<span id="questions-total">0</span></p></div>
+    </section>
+    <!-- COMPARISON SECTION -->
+    <section id="comparison" class="exercise-section">
+        <h2 class="section-title">📊 Comparison of Adjectives</h2>
+        <p class="section-subtitle">Positive, Comparative, Superlative</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct form. Watch for irregular forms and spelling!</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Basic Comparisons (281-320)</h3>
+            <div class="ex"><span class="n">281</span>My friend is <input class="g" data-answer="taller"> (tall) than me.</div>
+            <div class="ex"><span class="n">282</span>This is the <input class="g w" data-answer="most interesting"> (interesting) book I've read.</div>
+            <div class="ex"><span class="n">283</span>He is <input class="g" data-answer="better"> (good) at maths than I am.</div>
+            <div class="ex"><span class="n">284</span>This was the <input class="g" data-answer="worst"> (bad) test I've ever taken.</div>
+            <div class="ex"><span class="n">285</span>She is the <input class="g" data-answer="prettiest"> (pretty) girl in class.</div>
+            <div class="ex"><span class="n">286</span>My room is <input class="g" data-answer="messier"> (messy) than my sister's.</div>
+            <div class="ex"><span class="n">287</span>This game is <input class="g w" data-answer="more exciting"> (exciting) than the last.</div>
+            <div class="ex"><span class="n">288</span>He speaks <input class="g w" data-answer="more fluently"> (fluently) than anyone.</div>
+            <div class="ex"><span class="n">289</span>That was the <input class="g" data-answer="funniest"> (funny) joke ever.</div>
+            <div class="ex"><span class="n">290</span>City life is <input class="g w" data-answer="more stressful"> (stressful) than country life.</div>
+            <div class="ex"><span class="n">291</span>This pizza is <input class="g w" data-answer="as delicious as"> (delicious) the one last week.<span class="hint">💡 "as...as" for equality</span></div>
+            <div class="ex"><span class="n">292</span>He isn't <input class="g w" data-answer="as fast as"> (fast) his brother.</div>
+            <div class="ex"><span class="n">293</span>My bike is <input class="g w" data-answer="less expensive"> (expensive) than yours.</div>
+            <div class="ex"><span class="n">294</span>This is by <input class="g" data-answer="far"> the best film.</div>
+            <div class="ex"><span class="n">295</span>She is getting <input class="g w" data-answer="better and better"> (good) at piano.</div>
+            <div class="ex"><span class="n">296</span>The <input class="g" data-answer="more"> you practise, the <input class="g" data-answer="better"> you become.</div>
+            <div class="ex"><span class="n">297</span>This is <input class="g xw" data-answer="much more difficult"> (difficult) than before.<span class="hint">💡 "much" intensifies comparatives</span></div>
+            <div class="ex"><span class="n">298</span>He is <input class="g w" data-answer="slightly older"> (old) than me.</div>
+            <div class="ex"><span class="n">299</span>This café is <input class="g w" data-answer="a lot quieter"> (quiet) than the other.</div>
+            <div class="ex"><span class="n">300</span>She is <input class="g w" data-answer="far more talented"> (talented) than she thinks.</div>
+            <div class="ex"><span class="n">301</span>He works <input class="g" data-answer="harder"> (hard) than anyone.</div>
+            <div class="ex"><span class="n">302</span>I can run <input class="g" data-answer="faster"> (fast) than my friend.</div>
+            <div class="ex"><span class="n">303</span>He arrived <input class="g" data-answer="earlier"> (early) than expected.</div>
+            <div class="ex"><span class="n">304</span>She sings <input class="g w" data-answer="more beautifully"> (beautifully) than anyone.</div>
+            <div class="ex"><span class="n">305</span>This is the <input class="g w" data-answer="least boring"> (boring) lesson this week.</div>
+            <div class="ex"><span class="n">306</span>He plays games <input class="g w" data-answer="less often"> (often) than before.</div>
+            <div class="ex"><span class="n">307</span>My results were <input class="g" data-answer="worse"> (bad) than expected.</div>
+            <div class="ex"><span class="n">308</span>She lives <input class="g" data-answer="farther|further"> (far) from school than I do.</div>
+            <div class="ex"><span class="n">309</span>I need <input class="g" data-answer="more"> (much) time to finish.</div>
+            <div class="ex"><span class="n">310</span>He has <input class="g" data-answer="fewer"> (few) friends than his brother.</div>
+            <div class="ex"><span class="n">311</span>There was <input class="g" data-answer="less"> (little) homework than usual.</div>
+            <div class="ex"><span class="n">312</span>He is one of the <input class="g w" data-answer="most popular"> (popular) students.</div>
+            <div class="ex"><span class="n">313</span>That was the <input class="g" data-answer="hottest"> (hot) day of summer.</div>
+            <div class="ex"><span class="n">314</span>This is a <input class="g" data-answer="bigger"> (big) problem than we thought.</div>
+            <div class="ex"><span class="n">315</span>I feel <input class="g w" data-answer="more confident"> (confident) now.</div>
+            <div class="ex"><span class="n">316</span>My <input class="g" data-answer="elder|older"> (old) brother is at university.<span class="hint">💡 "elder" for family</span></div>
+            <div class="ex"><span class="n">317</span>Is there any <input class="g" data-answer="further"> (far) information?<span class="hint">💡 "further" = additional</span></div>
+            <div class="ex"><span class="n">318</span>He is the <input class="g" data-answer="eldest|oldest"> (old) in his family.</div>
+            <div class="ex"><span class="n">319</span>The <input class="g" data-answer="latest"> (late) news is shocking.<span class="hint">💡 "latest" = most recent</span></div>
+            <div class="ex"><span class="n">320</span>She was the <input class="g" data-answer="last"> (late) person to arrive.<span class="hint">💡 "last" = final</span></div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Tricky Comparisons (321-360)</h3>
+            <div class="ex"><span class="n">321</span>The situation is getting <input class="g w" data-answer="worse and worse"> (bad).</div>
+            <div class="ex"><span class="n">322</span>The <input class="g" data-answer="sooner"> you start, the <input class="g" data-answer="sooner"> you'll finish.</div>
+            <div class="ex"><span class="n">323</span>He is nowhere near <input class="g w" data-answer="as clever as"> (clever) he thinks.</div>
+            <div class="ex"><span class="n">324</span>It's <input class="g xw" data-answer="more and more difficult"> (difficult) to make friends.</div>
+            <div class="ex"><span class="n">325</span>This game is not <input class="g w" data-answer="as easy as"> (easy) it looks.</div>
+            <div class="ex"><span class="n">326</span>He speaks almost <input class="g w" data-answer="as well as"> (well) a native.</div>
+            <div class="ex"><span class="n">327</span>Today is <input class="g w" data-answer="even colder"> (cold) than yesterday.</div>
+            <div class="ex"><span class="n">328</span>This is <input class="g xw" data-answer="by far the most challenging"> (challenging) project.</div>
+            <div class="ex"><span class="n">329</span>He is <input class="g w" data-answer="twice as old as"> (old) his sister.</div>
+            <div class="ex"><span class="n">330</span>This is three times <input class="g w" data-answer="as expensive as"> (expensive) mine.</div>
+            <div class="ex"><span class="n">331</span>Of the two, Jake is the <input class="g" data-answer="taller"> (tall).<span class="hint">💡 Two things = comparative with "the"</span></div>
+            <div class="ex"><span class="n">332</span>Which is <input class="g w" data-answer="more reliable"> (reliable) of the two?</div>
+            <div class="ex"><span class="n">333</span>I've never met a <input class="g w" data-answer="more generous"> (generous) person.</div>
+            <div class="ex"><span class="n">334</span>Nothing is <input class="g w" data-answer="more important"> (important) than health.</div>
+            <div class="ex"><span class="n">335</span>He couldn't be <input class="g w" data-answer="any happier"> (happy) with results.</div>
+            <div class="ex"><span class="n">336</span>That's the <input class="g w" data-answer="most ridiculous"> (ridiculous) thing ever!</div>
+            <div class="ex"><span class="n">337</span>This film was <input class="g w" data-answer="not as good as"> (good) the book.</div>
+            <div class="ex"><span class="n">338</span>The <input class="g" data-answer="older"> I get, the <input class="g" data-answer="more"> I appreciate my parents.</div>
+            <div class="ex"><span class="n">339</span>He's <input class="g w" data-answer="the least sporty"> (sporty) person I know.</div>
+            <div class="ex"><span class="n">340</span>Your essay is <input class="g w" data-answer="considerably longer"> (long) than required.</div>
+            <div class="ex"><span class="n">341</span>She is <input class="g w" data-answer="superior to"> (good) all classmates.<span class="hint">💡 "superior/inferior TO"</span></div>
+            <div class="ex"><span class="n">342</span>Staying in is <input class="g w" data-answer="preferable to"> going out.</div>
+            <div class="ex"><span class="n">343</span>This phone is <input class="g w" data-answer="inferior to"> (bad) the previous model.</div>
+            <div class="ex"><span class="n">344</span>He is senior <input class="g" data-answer="to"> me at work.</div>
+            <div class="ex"><span class="n">345</span>He plays <input class="g w" data-answer="just as well as"> (well) his teacher.</div>
+            <div class="ex"><span class="n">346</span>He did <input class="g w" data-answer="far better"> (well) than he thought.</div>
+            <div class="ex"><span class="n">347</span>We have at <input class="g" data-answer="least"> three exams next week.</div>
+            <div class="ex"><span class="n">348</span>He at <input class="g" data-answer="most"> sleeps six hours.</div>
+            <div class="ex"><span class="n">349</span>She works <input class="g w" data-answer="less efficiently"> (efficiently) under pressure.</div>
+            <div class="ex"><span class="n">350</span>This is the <input class="g w" data-answer="second longest"> (long) river in the world.</div>
+            <div class="ex"><span class="n">351</span>He finished <input class="g w" data-answer="third fastest"> (fast) in the race.</div>
+            <div class="ex"><span class="n">352</span>He's not the <input class="g" data-answer="brightest"> (bright) student.</div>
+            <div class="ex"><span class="n">353</span>It couldn't have gone <input class="g w" data-answer="any worse"> (bad).</div>
+            <div class="ex"><span class="n">354</span>The <input class="g" data-answer="less"> you say, the <input class="g" data-answer="better">.</div>
+            <div class="ex"><span class="n">355</span>He is <input class="g w" data-answer="no better than"> (good) a cheat.<span class="hint">💡 "no better than" = same as (neg.)</span></div>
+            <div class="ex"><span class="n">356</span>His behaviour was <input class="g w" data-answer="most unexpected"> (unexpected).<span class="hint">💡 "most" can mean "very"</span></div>
+            <div class="ex"><span class="n">357</span>It was <input class="g xw" data-answer="nothing like as difficult as"> (difficult) I expected.</div>
+            <div class="ex"><span class="n">358</span>He is <input class="g w" data-answer="more of a"> gamer than a sportsman.<span class="hint">💡 "more of a...than"</span></div>
+            <div class="ex"><span class="n">359</span>This is <input class="g w" data-answer="easily the best"> (good) restaurant in town.</div>
+            <div class="ex"><span class="n">360</span>She is <input class="g xw" data-answer="by no means the worst"> (bad) student in class.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('comparison')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('comparison')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('comparison')">↺ Reset</button>
+        </div>
+        <div id="comparison-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="comparison-correct">0</span>/<span id="comparison-total">0</span></p></div>
+    </section>
+
+    <!-- MODALS SECTION -->
+    <section id="modals" class="exercise-section">
+        <h2 class="section-title">💪 Modal Verbs</h2>
+        <p class="section-subtitle">Can, Could, May, Might, Must, Should, Would, Have to</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct modal. Watch meaning: ability, permission, obligation, advice, probability!</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Basic Modals (361-400)</h3>
+            <div class="ex"><span class="n">361</span><input class="g" data-answer="Can"> you help me? (informal request)</div>
+            <div class="ex"><span class="n">362</span>You <input class="g" data-answer="must"> wear a uniform. (obligation)</div>
+            <div class="ex"><span class="n">363</span>You <input class="g" data-answer="shouldn't"> stay up late. (advice)</div>
+            <div class="ex"><span class="n">364</span>He <input class="g" data-answer="can"> speak three languages. (ability)</div>
+            <div class="ex"><span class="n">365</span><input class="g" data-answer="May|Could"> I borrow your pen? (formal permission)</div>
+            <div class="ex"><span class="n">366</span>She <input class="g" data-answer="might"> be at home. (possibility)</div>
+            <div class="ex"><span class="n">367</span>You <input class="g w" data-answer="don't have to"> come if you don't want. (no obligation)</div>
+            <div class="ex"><span class="n">368</span>You <input class="g" data-answer="mustn't"> cheat. (prohibition)</div>
+            <div class="ex"><span class="n">369</span>I <input class="g w" data-answer="have to"> finish this by Friday. (necessity)</div>
+            <div class="ex"><span class="n">370</span>You <input class="g" data-answer="should"> apologize. (advice)</div>
+            <div class="ex"><span class="n">371</span><input class="g" data-answer="Would"> you mind closing the window? (polite)</div>
+            <div class="ex"><span class="n">372</span>He <input class="g" data-answer="could"> play chess when he was five. (past ability)</div>
+            <div class="ex"><span class="n">373</span>It <input class="g" data-answer="must"> be cold outside. Everyone is wearing coats. (deduction)</div>
+            <div class="ex"><span class="n">374</span>You <input class="g w" data-answer="ought to"> show more respect. (strong advice)</div>
+            <div class="ex"><span class="n">375</span>I <input class="g w" data-answer="was able to"> finish in time. (managed to)<span class="hint">💡 Past ability with success</span></div>
+            <div class="ex"><span class="n">376</span><input class="g" data-answer="Shall"> I help you? (offer)</div>
+            <div class="ex"><span class="n">377</span>He <input class="g" data-answer="needn't"> worry. (not necessary)</div>
+            <div class="ex"><span class="n">378</span>I <input class="g" data-answer="would"> love to come! (desire)</div>
+            <div class="ex"><span class="n">379</span>When young, I <input class="g" data-answer="would"> spend hours playing. (past habit)</div>
+            <div class="ex"><span class="n">380</span>He <input class="g" data-answer="can't"> be serious! (impossibility)</div>
+            <div class="ex"><span class="n">381</span>You <input class="g w" data-answer="had better"> tell the truth. (strong advice)</div>
+            <div class="ex"><span class="n">382</span>I <input class="g w" data-answer="used to"> hate vegetables. (past habit)</div>
+            <div class="ex"><span class="n">383</span>She <input class="g w" data-answer="must have been"> upset yesterday. (past deduction)</div>
+            <div class="ex"><span class="n">384</span>He <input class="g xw" data-answer="can't have forgotten">! I reminded him! (past impossibility)</div>
+            <div class="ex"><span class="n">385</span>You <input class="g w" data-answer="should have told"> me earlier! (past criticism)</div>
+            <div class="ex"><span class="n">386</span>I <input class="g w" data-answer="might have left"> my phone at school. (past possibility)</div>
+            <div class="ex"><span class="n">387</span>You <input class="g xw" data-answer="needn't have bought"> so much food! (unnecessary past action)</div>
+            <div class="ex"><span class="n">388</span>He <input class="g w" data-answer="could have helped"> but he didn't. (unfulfilled ability)</div>
+            <div class="ex"><span class="n">389</span>I <input class="g w" data-answer="would rather"> stay home. (preference)</div>
+            <div class="ex"><span class="n">390</span>He <input class="g w" data-answer="may not"> be the smartest, but he works hard. (concession)</div>
+            <div class="ex"><span class="n">391</span>I <input class="g" data-answer="couldn't"> care less. (idiom)</div>
+            <div class="ex"><span class="n">392</span>You <input class="g w" data-answer="should have been"> more careful. (past advice)</div>
+            <div class="ex"><span class="n">393</span>He <input class="g w" data-answer="would have won"> if he had trained. (third conditional)</div>
+            <div class="ex"><span class="n">394</span>You <input class="g w" data-answer="might as well"> give up now. (suggestion)</div>
+            <div class="ex"><span class="n">395</span>Students <input class="g w" data-answer="are to"> hand in assignments by Friday. (formal instruction)</div>
+            <div class="ex"><span class="n">396</span>We <input class="g xw" data-answer="were supposed to"> meet at 3. (expectation)</div>
+            <div class="ex"><span class="n">397</span>I <input class="g" data-answer="may|might"> come if I finish. (conditional possibility)</div>
+            <div class="ex"><span class="n">398</span>He <input class="g" data-answer="won't"> listen to anyone. (refusal)</div>
+            <div class="ex"><span class="n">399</span>I <input class="g" data-answer="daren't|dare not"> tell him. (lack of courage)</div>
+            <div class="ex"><span class="n">400</span>How <input class="g" data-answer="dare"> you speak to me like that! (indignation)</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Advanced Modals (401-440)</h3>
+            <div class="ex"><span class="n">401</span>He <input class="g xw" data-answer="must have been studying"> all night. He looks exhausted. (past continuous deduction)</div>
+            <div class="ex"><span class="n">402</span>She <input class="g xw" data-answer="can't have been waiting"> long. She just arrived. (past cont. impossibility)</div>
+            <div class="ex"><span class="n">403</span>They <input class="g xw" data-answer="might have been lying"> to us. (past cont. possibility)</div>
+            <div class="ex"><span class="n">404</span>I <input class="g xw" data-answer="couldn't have done"> it without you. (past impossibility)</div>
+            <div class="ex"><span class="n">405</span>You <input class="g xw" data-answer="shouldn't have eaten"> so much cake! (past criticism)</div>
+            <div class="ex"><span class="n">406</span>He <input class="g xw" data-answer="would have called"> if something was wrong. (third conditional)</div>
+            <div class="ex"><span class="n">407</span>They <input class="g w" data-answer="had to"> cancel due to bad weather. (past necessity)</div>
+            <div class="ex"><span class="n">408</span>We <input class="g w" data-answer="didn't have to"> wait long. (no past necessity)</div>
+            <div class="ex"><span class="n">409</span>She <input class="g w" data-answer="was able to"> convince him. (past specific success)</div>
+            <div class="ex"><span class="n">410</span>When young, he <input class="g" data-answer="could"> run really fast. (past general ability)</div>
+            <div class="ex"><span class="n">411</span>You <input class="g w" data-answer="might want to"> check your answers. (polite suggestion)</div>
+            <div class="ex"><span class="n">412</span>I <input class="g xw" data-answer="would love to have met"> your grandmother. (hypothetical wish)</div>
+            <div class="ex"><span class="n">413</span>You <input class="g w" data-answer="may as well"> tell me. I'll find out anyway. (suggestion)</div>
+            <div class="ex"><span class="n">414</span>She <input class="g w" data-answer="would rather not"> talk about it. (negative preference)</div>
+            <div class="ex"><span class="n">415</span>I <input class="g w" data-answer="could do with"> a break. (need/want)</div>
+            <div class="ex"><span class="n">416</span>He <input class="g w" data-answer="is supposed to"> be here by now. (expectation)</div>
+            <div class="ex"><span class="n">417</span>I <input class="g w" data-answer="would sooner"> stay home. (strong preference)</div>
+            <div class="ex"><span class="n">418</span>He <input class="g xw" data-answer="needn't have worried">. Everything was fine. (unnecessary action)</div>
+            <div class="ex"><span class="n">419</span>You <input class="g xw" data-answer="didn't need to buy"> anything. I had food.<span class="hint">💡 "didn't need to" = probably didn't do it</span></div>
+            <div class="ex"><span class="n">420</span>I <input class="g w" data-answer="can't help but"> wonder what happened. (involuntary)</div>
+            <div class="ex"><span class="n">421</span>He <input class="g" data-answer="will"> keep interrupting me! (criticism/annoying habit)</div>
+            <div class="ex"><span class="n">422</span>The car <input class="g" data-answer="wouldn't"> start this morning. (past refusal - thing)</div>
+            <div class="ex"><span class="n">423</span>She <input class="g w" data-answer="could hardly"> believe her eyes. (barely)</div>
+            <div class="ex"><span class="n">424</span>You <input class="g w" data-answer="might at least"> say thank you! (complaint)</div>
+            <div class="ex"><span class="n">425</span>I <input class="g xw" data-answer="would have thought"> you knew better. (expectation)</div>
+            <div class="ex"><span class="n">426</span>He <input class="g w" data-answer="should|ought to"> be arriving any minute. (expectation)</div>
+            <div class="ex"><span class="n">427</span>If only I <input class="g" data-answer="could"> turn back time! (wish)</div>
+            <div class="ex"><span class="n">428</span>I wish I <input class="g w" data-answer="could have gone"> to the party. (past wish)</div>
+            <div class="ex"><span class="n">429</span>You <input class="g w" data-answer="must have heard"> of him. He's famous! (assumption)</div>
+            <div class="ex"><span class="n">430</span>If he <input class="g" data-answer="should"> call, tell him I'm not here. (unlikely condition)</div>
+            <div class="ex"><span class="n">431</span><input class="g" data-answer="Should"> you need help, don't hesitate to ask. (formal conditional)</div>
+            <div class="ex"><span class="n">432</span>He <input class="g w" data-answer="may well"> be right. (quite possibly)</div>
+            <div class="ex"><span class="n">433</span>I <input class="g w" data-answer="might have known"> you'd say that. (not surprised)</div>
+            <div class="ex"><span class="n">434</span>They <input class="g xw" data-answer="cannot but admire"> his courage. (can only)</div>
+            <div class="ex"><span class="n">435</span>Be that <input class="g w" data-answer="as it may">, I still think we should try. (concession)</div>
+            <div class="ex"><span class="n">436</span>Try as I <input class="g" data-answer="might">, I couldn't solve the problem. (despite effort)</div>
+            <div class="ex"><span class="n">437</span>You <input class="g w" data-answer="might have warned"> me about the test! (complaint)</div>
+            <div class="ex"><span class="n">438</span>He <input class="g xw" data-answer="couldn't have been more helpful">. (maximum degree)</div>
+            <div class="ex"><span class="n">439</span>I <input class="g w" data-answer="would just as soon"> not go. (preference)</div>
+            <div class="ex"><span class="n">440</span>She <input class="g xw" data-answer="would have been waiting"> for hours. (past continuous assumption)</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('modals')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('modals')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('modals')">↺ Reset</button>
+        </div>
+        <div id="modals-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="modals-correct">0</span>/<span id="modals-total">0</span></p></div>
+    </section>
+    <!-- STATIVE SECTION -->
+    <section id="stative" class="exercise-section">
+        <h2 class="section-title">🧠 Stative & Dynamic Verbs</h2>
+        <p class="section-subtitle">When verbs can or cannot be progressive</p>
+        <div class="instruction"><h4>💡 Key Concepts</h4><p><b>Stative</b> (states, no progressive): know, believe, want, love, understand, belong, seem, own...<br><b>Dynamic</b> (actions, can be progressive): run, eat, work, play...<br><b>Tricky!</b> Some verbs can be BOTH: think, have, see, taste, smell, feel, look, weigh, be!</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Simple or Progressive? (441-500)</h3>
+            <div class="ex"><span class="n">441</span>I <input class="g" data-answer="understand"> (understand) the problem now. (= comprehend)</div>
+            <div class="ex"><span class="n">442</span>She <input class="g w" data-answer="is having"> (have) a great time at the party!<span class="hint">💡 "have" = experience (dynamic)</span></div>
+            <div class="ex"><span class="n">443</span>He <input class="g" data-answer="has"> (have) two older brothers. (= possess)</div>
+            <div class="ex"><span class="n">444</span>I <input class="g w" data-answer="am thinking"> (think) about changing schools. (= considering)</div>
+            <div class="ex"><span class="n">445</span>What do you <input class="g" data-answer="think"> (think) of my new haircut? (= opinion)</div>
+            <div class="ex"><span class="n">446</span>This soup <input class="g" data-answer="tastes"> (taste) delicious!</div>
+            <div class="ex"><span class="n">447</span>Why <input class="g w" data-answer="are you tasting"> (you/taste) the sauce?<span class="hint">💡 "taste" = try/test (dynamic)</span></div>
+            <div class="ex"><span class="n">448</span>I <input class="g" data-answer="see"> (see) what you mean. (= understand)</div>
+            <div class="ex"><span class="n">449</span>I <input class="g w" data-answer="am seeing"> (see) the doctor tomorrow. (= meeting)</div>
+            <div class="ex"><span class="n">450</span>This perfume <input class="g" data-answer="smells"> (smell) amazing!</div>
+            <div class="ex"><span class="n">451</span>Why <input class="g w" data-answer="is he smelling"> (he/smell) his food before eating?</div>
+            <div class="ex"><span class="n">452</span>You <input class="g" data-answer="look"> (look) tired today.</div>
+            <div class="ex"><span class="n">453</span>What <input class="g w" data-answer="are you looking"> (you/look) at?</div>
+            <div class="ex"><span class="n">454</span>I <input class="g" data-answer="weigh"> (weigh) 65 kilos.</div>
+            <div class="ex"><span class="n">455</span>The nurse <input class="g w" data-answer="is weighing"> (weigh) the baby.</div>
+            <div class="ex"><span class="n">456</span>He <input class="g w" data-answer="is being"> (be) really difficult today.<span class="hint">💡 "be" + progressive = temporary behaviour</span></div>
+            <div class="ex"><span class="n">457</span>She <input class="g" data-answer="is"> (be) usually very friendly.</div>
+            <div class="ex"><span class="n">458</span>I <input class="g w" data-answer="don't believe"> (not/believe) a word he says.</div>
+            <div class="ex"><span class="n">459</span>She <input class="g" data-answer="loves"> (love) spending time with friends.</div>
+            <div class="ex"><span class="n">460</span>I <input class="g w" data-answer="am loving"> (love) this new game! It's amazing!<span class="hint">💡 Informal: emphasis/enthusiasm</span></div>
+            <div class="ex"><span class="n">461</span>He <input class="g" data-answer="knows"> (know) the answer but won't tell.</div>
+            <div class="ex"><span class="n">462</span>I <input class="g w" data-answer="don't remember"> (not/remember) where I put my keys.</div>
+            <div class="ex"><span class="n">463</span>This book <input class="g" data-answer="belongs"> (belong) to the library.</div>
+            <div class="ex"><span class="n">464</span>He <input class="g" data-answer="owns"> (own) three gaming consoles.</div>
+            <div class="ex"><span class="n">465</span>I <input class="g" data-answer="feel"> (feel) that this is the right decision. (= believe)</div>
+            <div class="ex"><span class="n">466</span>I <input class="g w" data-answer="am feeling"> (feel) much better today, thanks.<span class="hint">💡 "feel" + well/better = can be progressive</span></div>
+            <div class="ex"><span class="n">467</span>She <input class="g" data-answer="appears"> (appear) to be upset.</div>
+            <div class="ex"><span class="n">468</span>He <input class="g w" data-answer="is appearing"> (appear) in a school play next week.<span class="hint">💡 "appear" = perform (dynamic)</span></div>
+            <div class="ex"><span class="n">469</span>I <input class="g" data-answer="doubt"> (doubt) he'll come to the party.</div>
+            <div class="ex"><span class="n">470</span>This situation <input class="g" data-answer="seems"> (seem) complicated.</div>
+            <div class="ex"><span class="n">471</span>I <input class="g" data-answer="prefer"> (prefer) online learning to in-person.</div>
+            <div class="ex"><span class="n">472</span>She <input class="g" data-answer="wants"> (want) to become a doctor.</div>
+            <div class="ex"><span class="n">473</span>I <input class="g" data-answer="suppose"> (suppose) you're right about that.</div>
+            <div class="ex"><span class="n">474</span>She <input class="g" data-answer="means"> (mean) well, but she's not helpful.</div>
+            <div class="ex"><span class="n">475</span>The fabric <input class="g" data-answer="feels"> (feel) really soft.</div>
+            <div class="ex"><span class="n">476</span>Why <input class="g w" data-answer="are you feeling"> (you/feel) the material?</div>
+            <div class="ex"><span class="n">477</span>I <input class="g" data-answer="agree"> (agree) with everything you said.</div>
+            <div class="ex"><span class="n">478</span>This dress <input class="g w" data-answer="doesn't fit"> (not/fit) me anymore.</div>
+            <div class="ex"><span class="n">479</span>I <input class="g w" data-answer="am fitting"> (fit) a new shelf this weekend.<span class="hint">💡 "fit" = install (dynamic)</span></div>
+            <div class="ex"><span class="n">480</span>She <input class="g" data-answer="resembles"> (resemble) her mother a lot.</div>
+            <div class="ex"><span class="n">481</span>I can't come out now. I <input class="g w" data-answer="am having"> (have) dinner.</div>
+            <div class="ex"><span class="n">482</span>He <input class="g" data-answer="has"> (have) a lot of homework to do.</div>
+            <div class="ex"><span class="n">483</span>What <input class="g w" data-answer="are you thinking"> (you/think) about? You look worried.</div>
+            <div class="ex"><span class="n">484</span>I <input class="g" data-answer="think"> (think) this is a bad idea.</div>
+            <div class="ex"><span class="n">485</span>The teacher <input class="g w" data-answer="is being"> (be) really unfair today!</div>
+            <div class="ex"><span class="n">486</span>She <input class="g" data-answer="is"> (be) normally very patient.</div>
+            <div class="ex"><span class="n">487</span>Why <input class="g w" data-answer="is he looking"> (he/look) at me like that?</div>
+            <div class="ex"><span class="n">488</span>You <input class="g" data-answer="look"> (look) like you've seen a ghost!</div>
+            <div class="ex"><span class="n">489</span>I <input class="g" data-answer="hear"> (hear) strange noises from the attic.</div>
+            <div class="ex"><span class="n">490</span>We <input class="g w" data-answer="are hearing"> (hear) from the lawyer tomorrow.<span class="hint">💡 "hear from" = receive news (action)</span></div>
+            <div class="ex"><span class="n">491</span>He <input class="g" data-answer="expects"> (expect) to pass all his exams.</div>
+            <div class="ex"><span class="n">492</span>They <input class="g w" data-answer="are expecting"> (expect) a baby in June.<span class="hint">💡 "expect" = be pregnant (action)</span></div>
+            <div class="ex"><span class="n">493</span>I <input class="g" data-answer="consider"> (consider) him to be my best friend.</div>
+            <div class="ex"><span class="n">494</span>We <input class="g w" data-answer="are considering"> (consider) moving to a new house.</div>
+            <div class="ex"><span class="n">495</span>This milk <input class="g" data-answer="smells"> (smell) off. Don't drink it!</div>
+            <div class="ex"><span class="n">496</span>Why <input class="g w" data-answer="are you smelling"> (you/smell) the flowers?</div>
+            <div class="ex"><span class="n">497</span>I <input class="g" data-answer="imagine"> (imagine) you're tired after the long journey.</div>
+            <div class="ex"><span class="n">498</span>He <input class="g w" data-answer="is imagining"> (imagine) things. There's nobody there!</div>
+            <div class="ex"><span class="n">499</span>She <input class="g" data-answer="adores"> (adore) her little brother.</div>
+            <div class="ex"><span class="n">500</span>I <input class="g" data-answer="appreciate"> (appreciate) your help with this project.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('stative')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('stative')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('stative')">↺ Reset</button>
+        </div>
+        <div id="stative-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="stative-correct">0</span>/<span id="stative-total">0</span></p></div>
+    </section>
+</div>
+<script>
+function showSection(id,btn){document.querySelectorAll('.exercise-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function norm(s){return s.toLowerCase().trim().replace(/\s+/g,' ').replace(/['']/g,"'");}
+function checkAnswers(id){const sec=document.getElementById(id),inputs=sec.querySelectorAll('input.g');let c=0,t=inputs.length;inputs.forEach(i=>{const u=norm(i.value),ans=i.dataset.answer.split('|').map(a=>norm(a));i.classList.remove('correct','incorrect');if(ans.includes(u)){i.classList.add('correct');c++;}else if(u!=='')i.classList.add('incorrect');});document.getElementById(id+'-correct').textContent=c;document.getElementById(id+'-total').textContent=t;document.getElementById(id+'-results').classList.add('visible');}
+function showSolutions(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{const ans=i.dataset.answer.split('|')[0];if(!i.classList.contains('correct')){i.classList.add('incorrect');let sol=i.nextElementSibling;if(!sol||!sol.classList.contains('sol')){sol=document.createElement('span');sol.className='sol';sol.textContent=' → '+ans;i.parentNode.insertBefore(sol,i.nextSibling);}sol.style.display='inline';}});}
+function resetSection(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');});sec.querySelectorAll('.sol').forEach(s=>s.style.display='none');document.getElementById(id+'-results').classList.remove('visible');}
+</script>
+</body>
+</html>
