@@ -41,6 +41,13 @@
         .score{font-family:'Fredoka',sans-serif;font-size:2.2rem;color:var(--accent-glow)}
         .score-label{color:var(--text-muted);font-size:0.9rem;margin-bottom:5px}
         .sol{color:var(--success);font-weight:600;margin-left:5px;display:none}
+        .wrong-list{background:rgba(255,82,82,0.15);border:1px solid rgba(255,82,82,0.4);border-radius:10px;padding:15px;margin-top:15px;display:none}
+        .wrong-list.visible{display:block}
+        .wrong-list p{color:var(--error);font-size:0.95rem;margin-bottom:10px;line-height:1.5}
+        .wrong-list .action-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+        .wrong-list .action-btn{background:rgba(45,19,32,0.8);border:1px solid var(--error);border-radius:8px;padding:8px 16px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:6px}
+        .wrong-list .action-btn:hover{background:var(--error);transform:translateY(-1px)}
+        .wrong-list .action-btn.copied{background:var(--success);border-color:var(--success)}
         .instruction{background:rgba(255,107,74,0.1);border:1px solid rgba(255,107,74,0.3);border-radius:10px;padding:12px;margin-bottom:20px}
         .instruction h4{color:var(--accent-glow);margin-bottom:5px;font-family:'Fredoka',sans-serif;font-size:1rem}
         .instruction p{color:var(--text-muted);font-size:0.85rem;line-height:1.5}
@@ -280,7 +287,7 @@
             <button class="btn" onclick="showSolutions('tenses')">👁 Solutions</button>
             <button class="btn" onclick="resetSection('tenses')">↺ Reset</button>
         </div>
-        <div id="tenses-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="tenses-correct">0</span>/<span id="tenses-total">0</span></p></div>
+        <div id="tenses-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="tenses-correct">0</span>/<span id="tenses-total">0</span></p><div id="tenses-wrong" class="wrong-list"><p id="tenses-wrong-text"></p><div class="action-btns"><button class="action-btn" onclick="copyWrong('tenses')">📋 Kopieren</button><button class="action-btn" onclick="downloadWrong('tenses')">💾 Speichern</button></div></div></div>
     </section>
     <!-- QUESTIONS SECTION -->
     <section id="questions" class="exercise-section">
@@ -378,7 +385,7 @@
             <button class="btn" onclick="showSolutions('questions')">👁 Solutions</button>
             <button class="btn" onclick="resetSection('questions')">↺ Reset</button>
         </div>
-        <div id="questions-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="questions-correct">0</span>/<span id="questions-total">0</span></p></div>
+        <div id="questions-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="questions-correct">0</span>/<span id="questions-total">0</span></p><div id="questions-wrong" class="wrong-list"><p id="questions-wrong-text"></p><div class="action-btns"><button class="action-btn" onclick="copyWrong('questions')">📋 Kopieren</button><button class="action-btn" onclick="downloadWrong('questions')">💾 Speichern</button></div></div></div>
     </section>
     <!-- COMPARISON SECTION -->
     <section id="comparison" class="exercise-section">
@@ -476,7 +483,7 @@
             <button class="btn" onclick="showSolutions('comparison')">👁 Solutions</button>
             <button class="btn" onclick="resetSection('comparison')">↺ Reset</button>
         </div>
-        <div id="comparison-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="comparison-correct">0</span>/<span id="comparison-total">0</span></p></div>
+        <div id="comparison-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="comparison-correct">0</span>/<span id="comparison-total">0</span></p><div id="comparison-wrong" class="wrong-list"><p id="comparison-wrong-text"></p><div class="action-btns"><button class="action-btn" onclick="copyWrong('comparison')">📋 Kopieren</button><button class="action-btn" onclick="downloadWrong('comparison')">💾 Speichern</button></div></div></div>
     </section>
 
     <!-- MODALS SECTION -->
@@ -575,7 +582,7 @@
             <button class="btn" onclick="showSolutions('modals')">👁 Solutions</button>
             <button class="btn" onclick="resetSection('modals')">↺ Reset</button>
         </div>
-        <div id="modals-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="modals-correct">0</span>/<span id="modals-total">0</span></p></div>
+        <div id="modals-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="modals-correct">0</span>/<span id="modals-total">0</span></p><div id="modals-wrong" class="wrong-list"><p id="modals-wrong-text"></p><div class="action-btns"><button class="action-btn" onclick="copyWrong('modals')">📋 Kopieren</button><button class="action-btn" onclick="downloadWrong('modals')">💾 Speichern</button></div></div></div>
     </section>
     <!-- STATIVE SECTION -->
     <section id="stative" class="exercise-section">
@@ -650,15 +657,17 @@
             <button class="btn" onclick="showSolutions('stative')">👁 Solutions</button>
             <button class="btn" onclick="resetSection('stative')">↺ Reset</button>
         </div>
-        <div id="stative-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="stative-correct">0</span>/<span id="stative-total">0</span></p></div>
+        <div id="stative-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="stative-correct">0</span>/<span id="stative-total">0</span></p><div id="stative-wrong" class="wrong-list"><p id="stative-wrong-text"></p><div class="action-btns"><button class="action-btn" onclick="copyWrong('stative')">📋 Kopieren</button><button class="action-btn" onclick="downloadWrong('stative')">💾 Speichern</button></div></div></div>
     </section>
 </div>
 <script>
 function showSection(id,btn){document.querySelectorAll('.exercise-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
 function norm(s){return s.toLowerCase().trim().replace(/\s+/g,' ').replace(/['']/g,"'");}
-function checkAnswers(id){const sec=document.getElementById(id),inputs=sec.querySelectorAll('input.g');let c=0,t=inputs.length;inputs.forEach(i=>{const u=norm(i.value),ans=i.dataset.answer.split('|').map(a=>norm(a));i.classList.remove('correct','incorrect');if(ans.includes(u)){i.classList.add('correct');c++;}else if(u!=='')i.classList.add('incorrect');});document.getElementById(id+'-correct').textContent=c;document.getElementById(id+'-total').textContent=t;document.getElementById(id+'-results').classList.add('visible');}
+function checkAnswers(id){const sec=document.getElementById(id),inputs=sec.querySelectorAll('input.g');let c=0,t=inputs.length,wrongNums=[];inputs.forEach(i=>{const u=norm(i.value),ans=i.dataset.answer.split('|').map(a=>norm(a));const numEl=i.closest('.ex').querySelector('.n');const num=numEl?numEl.textContent:'?';i.classList.remove('correct','incorrect');if(ans.includes(u)){i.classList.add('correct');c++;}else{if(u!=='')i.classList.add('incorrect');wrongNums.push(num);}});document.getElementById(id+'-correct').textContent=c;document.getElementById(id+'-total').textContent=t;document.getElementById(id+'-results').classList.add('visible');const wrongDiv=document.getElementById(id+'-wrong');const wrongText=document.getElementById(id+'-wrong-text');if(wrongNums.length>0){wrongText.textContent='Du hattest Nummern '+wrongNums.join(', ')+' falsch.';wrongDiv.classList.add('visible');}else{wrongDiv.classList.remove('visible');}}
+function copyWrong(id){const text=document.getElementById(id+'-wrong-text').textContent;navigator.clipboard.writeText(text).then(()=>{const btn=document.querySelector('#'+id+'-wrong .action-btn');btn.classList.add('copied');btn.innerHTML='✓ Kopiert!';setTimeout(()=>{btn.classList.remove('copied');btn.innerHTML='📋 Kopieren';},2000);});}
+function downloadWrong(id){const text=document.getElementById(id+'-wrong-text').textContent;const blob=new Blob([text],{type:'text/plain'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='fehler_'+id+'.txt';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}
 function showSolutions(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{const ans=i.dataset.answer.split('|')[0];if(!i.classList.contains('correct')){i.classList.add('incorrect');let sol=i.nextElementSibling;if(!sol||!sol.classList.contains('sol')){sol=document.createElement('span');sol.className='sol';sol.textContent=' → '+ans;i.parentNode.insertBefore(sol,i.nextSibling);}sol.style.display='inline';}});}
-function resetSection(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');});sec.querySelectorAll('.sol').forEach(s=>s.style.display='none');document.getElementById(id+'-results').classList.remove('visible');}
+function resetSection(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');});sec.querySelectorAll('.sol').forEach(s=>s.style.display='none');document.getElementById(id+'-results').classList.remove('visible');document.getElementById(id+'-wrong').classList.remove('visible');}
 </script>
 </body>
 </html>
