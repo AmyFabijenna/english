@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Champion C1/C2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#1a1a2e;--primary-light:#16213e;--accent:#e94560;--accent-glow:#ff6b6b;--accent-dark:#c73e54;--success:#4ade80;--error:#ff5252;--text:#fff;--text-muted:#a8b2d1;--gold:#ffd700}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Quicksand',sans-serif;background:linear-gradient(180deg,#0f0f1a 0%,#1a1a2e 40%,#16213e 70%,#1a1a2e 100%);min-height:100vh;color:var(--text)}
+        .container{max-width:1000px;margin:0 auto;padding:20px}
+        header{text-align:center;margin-bottom:30px}
+        h1{font-family:'Fredoka',sans-serif;font-size:2.4rem;background:linear-gradient(135deg,#e94560,#ff6b6b,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+        .subtitle{color:var(--text-muted);font-size:1.1rem}
+        .topic-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:30px}
+        .topic-btn{background:linear-gradient(135deg,rgba(26,26,46,0.9),rgba(22,33,62,0.9));border:2px solid rgba(233,69,96,0.3);border-radius:12px;padding:12px 20px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.3s}
+        .topic-btn:hover,.topic-btn.active{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent);transform:translateY(-2px);box-shadow:0 5px 20px rgba(233,69,96,0.4)}
+        .topic-btn .count{background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:10px;font-size:0.8rem;margin-left:8px}
+        .exercise-section{background:linear-gradient(135deg,rgba(26,26,46,0.95),rgba(22,33,62,0.9));border-radius:20px;padding:30px;margin-bottom:20px;border:2px solid rgba(233,69,96,0.3);box-shadow:0 10px 40px rgba(0,0,0,0.3);display:none}
+        .exercise-section.active{display:block;animation:fadeIn 0.5s}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .section-title{font-family:'Fredoka',sans-serif;font-size:1.6rem;color:var(--accent-glow);margin-bottom:10px}
+        .section-subtitle{color:var(--text-muted);margin-bottom:25px;font-size:0.95rem}
+        .subsection{margin-bottom:30px}
+        .subsection-title{font-family:'Fredoka',sans-serif;font-size:1.2rem;color:var(--gold);margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid rgba(255,215,0,0.3)}
+        .ex{background:rgba(15,15,26,0.6);border-radius:12px;padding:12px 15px;margin-bottom:10px;border:1px solid rgba(233,69,96,0.15);line-height:1.9}
+        .n{display:inline-block;background:var(--accent-dark);color:#fff;min-width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-size:0.8rem;font-weight:600;margin-right:10px}
+        input.g{background:rgba(15,15,26,0.9);border:2px solid var(--primary-light);border-radius:8px;padding:5px 10px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;min-width:100px;text-align:center;transition:all 0.3s;margin:2px 4px}
+        input.g:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px rgba(233,69,96,0.3)}
+        input.g.correct{border-color:var(--success);background:rgba(74,222,128,0.2)}
+        input.g.incorrect{border-color:var(--error);background:rgba(255,82,82,0.2)}
+        input.g.w{min-width:160px}input.g.xw{min-width:220px}input.g.xxw{min-width:280px}
+        .hint{display:block;color:var(--text-muted);font-size:0.8rem;margin-top:5px;font-style:italic}
+        .controls{display:flex;gap:15px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+        .btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid var(--accent);border-radius:12px;padding:12px 25px;color:var(--text);font-family:'Fredoka',sans-serif;font-size:1rem;cursor:pointer;transition:all 0.3s}
+        .btn:hover{background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px);box-shadow:0 5px 20px rgba(233,69,96,0.4)}
+        .btn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent))}
+        .results{background:rgba(15,15,26,0.8);border-radius:15px;padding:20px;margin-top:20px;text-align:center;display:none}
+        .results.visible{display:block}
+        .score{font-family:'Fredoka',sans-serif;font-size:2.2rem;color:var(--accent-glow)}
+        .score-label{color:var(--text-muted);font-size:0.9rem;margin-bottom:5px}
+        .sol{color:var(--success);font-weight:600;margin-left:5px;display:none}
+        .wrong-list{background:rgba(255,82,82,0.15);border:1px solid rgba(255,82,82,0.4);border-radius:10px;padding:15px;margin-top:15px;display:none}
+        .wrong-list.visible{display:block}
+        .wrong-list p{color:var(--error);font-size:0.95rem;margin-bottom:10px}
+        .wrong-list .action-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+        .wrong-list .action-btn{background:rgba(15,15,26,0.8);border:1px solid var(--error);border-radius:8px;padding:8px 16px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.3s}
+        .wrong-list .action-btn:hover{background:var(--error)}
+        .instruction{background:rgba(233,69,96,0.1);border:1px solid rgba(233,69,96,0.3);border-radius:10px;padding:12px;margin-bottom:20px}
+        .instruction h4{color:var(--accent-glow);margin-bottom:5px;font-family:'Fredoka',sans-serif;font-size:1rem}
+        .instruction p{color:var(--text-muted);font-size:0.85rem}
+        @media(max-width:768px){h1{font-size:1.6rem}.container{padding:10px}.exercise-section{padding:15px}input.g{min-width:80px;font-size:0.85rem}input.g.w{min-width:120px}input.g.xw{min-width:160px}.topic-btn{padding:8px 12px;font-size:0.8rem}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🏆 English Grammar Champion C1/C2</h1>
+        <p class="subtitle">500 exercises for mastery-level grammar refinement</p>
+    </header>
+    <nav class="topic-nav">
+        <button class="topic-btn active" onclick="showSection('subjunctive',this)">📜 Subjunctive <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('ellipsis',this)">✂️ Ellipsis <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('fronting',this)">🔀 Fronting <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('modals',this)">🎯 Modal Perfects <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('nominal',this)">📝 Nominalisation <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('verbpat',this)">🔄 Verb Patterns <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('discourse',this)">💬 Discourse <span class="count">60</span></button>
+        <button class="topic-btn" onclick="showSection('cleft',this)">✨ Adv. Cleft <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('emphatic',this)">💥 Emphatic <span class="count">55</span></button>
+    </nav>
+
+    <!-- ADVANCED SUBJUNCTIVE SECTION -->
+    <section id="subjunctive" class="exercise-section active">
+        <h2 class="section-title">📜 Advanced Subjunctive</h2>
+        <p class="section-subtitle">Lest, as if/as though, it's high time, would rather/sooner</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct subjunctive or related verb forms in these formal and literary contexts.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Lest & Formal Subjunctive (1-20)</h3>
+            <div class="ex"><span class="n">1</span>The government implemented strict measures lest the economy <input class="g" data-answer="collapse"> (collapse).<span class="hint">💡 lest + base form (formal)</span></div>
+            <div class="ex"><span class="n">2</span>She spoke quietly lest anyone <input class="g" data-answer="overhear"> (overhear) her.</div>
+            <div class="ex"><span class="n">3</span>They reinforced the dam lest it <input class="g" data-answer="give"> (give) way during the floods.</div>
+            <div class="ex"><span class="n">4</span>The diplomat chose his words carefully lest he <input class="g" data-answer="cause"> (cause) offence.</div>
+            <div class="ex"><span class="n">5</span>We must act now lest the opportunity <input class="g" data-answer="be"> (be) lost forever.</div>
+            <div class="ex"><span class="n">6</span>The museum installed alarms lest any artefacts <input class="g" data-answer="be"> (be) stolen.</div>
+            <div class="ex"><span class="n">7</span>He avoided the subject lest it <input class="g" data-answer="upset"> (upset) his colleagues.</div>
+            <div class="ex"><span class="n">8</span>The company diversified lest it <input class="g" data-answer="become"> (become) too dependent on one market.</div>
+            <div class="ex"><span class="n">9</span>She documented everything lest there <input class="g" data-answer="be"> (be) any dispute later.</div>
+            <div class="ex"><span class="n">10</span>The architect reinforced the structure lest it <input class="g" data-answer="fail"> (fail) under stress.</div>
+            <div class="ex"><span class="n">11</span>Be it <input class="g" data-answer="resolved"> (resolve) that the committee shall convene monthly.<span class="hint">💡 Be it resolved/known (formal motions)</span></div>
+            <div class="ex"><span class="n">12</span>Far <input class="g" data-answer="be"> (be) it from me to criticise your decision.</div>
+            <div class="ex"><span class="n">13</span>Suffice it <input class="g w" data-answer="to say"> (say) that the results were disappointing.</div>
+            <div class="ex"><span class="n">14</span>Be that as it <input class="g" data-answer="may">, we must proceed with the plan.</div>
+            <div class="ex"><span class="n">15</span>Come what <input class="g" data-answer="may">, we shall not abandon our principles.</div>
+            <div class="ex"><span class="n">16</span>God <input class="g" data-answer="save"> the King! (formal/archaic)</div>
+            <div class="ex"><span class="n">17</span>Heaven <input class="g" data-answer="forbid"> that such a tragedy should occur again.</div>
+            <div class="ex"><span class="n">18</span>Long <input class="g" data-answer="live"> the Republic!</div>
+            <div class="ex"><span class="n">19</span>So <input class="g" data-answer="be"> it. We accept your terms.</div>
+            <div class="ex"><span class="n">20</span>Truth <input class="g" data-answer="be"> told, I never believed in the project's success.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: As if / As though (21-35)</h3>
+            <div class="ex"><span class="n">21</span>She acts as if she <input class="g" data-answer="owned|were"> (own) the company.<span class="hint">💡 as if/though + past (unreal present)</span></div>
+            <div class="ex"><span class="n">22</span>He speaks as though he <input class="g" data-answer="were"> (be) an expert on the subject.</div>
+            <div class="ex"><span class="n">23</span>The CEO behaves as if the shareholders <input class="g" data-answer="didn't exist|did not exist"> (not/exist).</div>
+            <div class="ex"><span class="n">24</span>She looked at me as though I <input class="g" data-answer="had said|'d said"> (say) something offensive.<span class="hint">💡 as if/though + past perfect (unreal past)</span></div>
+            <div class="ex"><span class="n">25</span>He talked about the project as if it <input class="g" data-answer="had already been"> (already/be) approved.</div>
+            <div class="ex"><span class="n">26</span>The politician denied the allegations as though they <input class="g w" data-answer="had never been made"> (never/make).</div>
+            <div class="ex"><span class="n">27</span>She reacted as if she <input class="g w" data-answer="had never heard"> (never/hear) the news before.</div>
+            <div class="ex"><span class="n">28</span>He continued working as though nothing <input class="g w" data-answer="had happened"> (happen).</div>
+            <div class="ex"><span class="n">29</span>The witness testified as if he <input class="g w" data-answer="had been"> (be) present at the scene.</div>
+            <div class="ex"><span class="n">30</span>She spends money as if it <input class="g" data-answer="grew"> (grow) on trees.</div>
+            <div class="ex"><span class="n">31</span>It looks as if it <input class="g w" data-answer="is going to|were going to"> (go) rain.<span class="hint">💡 Real possibility: as if + normal tenses</span></div>
+            <div class="ex"><span class="n">32</span>It sounds as though the negotiations <input class="g w" data-answer="are progressing|were progressing"> (progress) well.</div>
+            <div class="ex"><span class="n">33</span>It seems as if the market <input class="g w" data-answer="has stabilised|has stabilized"> (stabilise).</div>
+            <div class="ex"><span class="n">34</span>It appears as though the suspect <input class="g" data-answer="has fled|fled"> (flee) the country.</div>
+            <div class="ex"><span class="n">35</span>It felt as if the world <input class="g w" data-answer="had stopped|were stopping"> (stop) turning.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part C: It's (high/about) time, Would rather/sooner (36-55)</h3>
+            <div class="ex"><span class="n">36</span>It's high time the government <input class="g" data-answer="took|take"> (take) action on climate change.<span class="hint">💡 It's (high) time + past tense</span></div>
+            <div class="ex"><span class="n">37</span>It's about time you <input class="g" data-answer="started"> (start) taking responsibility.</div>
+            <div class="ex"><span class="n">38</span>It's time we <input class="g" data-answer="had"> (have) an honest conversation about this.</div>
+            <div class="ex"><span class="n">39</span>It's high time the board <input class="g" data-answer="addressed"> (address) these concerns.</div>
+            <div class="ex"><span class="n">40</span>It's about time the company <input class="g" data-answer="invested"> (invest) in new technology.</div>
+            <div class="ex"><span class="n">41</span>Isn't it time you <input class="g" data-answer="made"> (make) a decision?</div>
+            <div class="ex"><span class="n">42</span>It's high time something <input class="g w" data-answer="were done|was done"> (do) about corruption.</div>
+            <div class="ex"><span class="n">43</span>It's about time the truth <input class="g" data-answer="came"> (come) out.</div>
+            <div class="ex"><span class="n">44</span>I'd rather you <input class="g" data-answer="didn't|did not"> (not) mention this to anyone.<span class="hint">💡 would rather + past (other person)</span></div>
+            <div class="ex"><span class="n">45</span>She'd rather we <input class="g" data-answer="waited"> (wait) until tomorrow.</div>
+            <div class="ex"><span class="n">46</span>He'd rather you <input class="g" data-answer="hadn't told|had not told"> (not/tell) her about the surprise.<span class="hint">💡 would rather + past perfect (past action)</span></div>
+            <div class="ex"><span class="n">47</span>I'd sooner you <input class="g" data-answer="came"> (come) with me than stayed here alone.</div>
+            <div class="ex"><span class="n">48</span>They'd rather the meeting <input class="g w" data-answer="were held|was held"> (hold) in private.</div>
+            <div class="ex"><span class="n">49</span>We'd rather you <input class="g" data-answer="spoke"> (speak) to the manager directly.</div>
+            <div class="ex"><span class="n">50</span>I'd rather he <input class="g w" data-answer="hadn't been|had not been"> (not/be) so blunt about it.</div>
+            <div class="ex"><span class="n">51</span>She'd sooner we <input class="g" data-answer="postponed"> (postpone) the launch than risk failure.</div>
+            <div class="ex"><span class="n">52</span>I'd rather <input class="g" data-answer="resign"> (resign) than compromise my integrity.<span class="hint">💡 would rather + base form (same person)</span></div>
+            <div class="ex"><span class="n">53</span>He'd sooner <input class="g" data-answer="die"> (die) than betray his country.</div>
+            <div class="ex"><span class="n">54</span>We'd rather <input class="g w" data-answer="have stayed|have remained"> (stay) neutral in this dispute.</div>
+            <div class="ex"><span class="n">55</span>I'd sooner <input class="g w" data-answer="not have known|not know"> (not/know) than live with this burden.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('subjunctive')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('subjunctive')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('subjunctive')">↺ Reset</button>
+        </div>
+        <div id="subjunctive-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="subjunctive-correct">0</span>/<span id="subjunctive-total">0</span></p></div>
+    </section>
+
+    <!-- ELLIPSIS & SUBSTITUTION SECTION -->
+    <section id="ellipsis" class="exercise-section">
+        <h2 class="section-title">✂️ Ellipsis & Substitution</h2>
+        <p class="section-subtitle">Omitting words and using substitutes for cohesion</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the missing words or identify what has been ellipted. Use substitution where indicated.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Ellipsis in Clauses (56-80)</h3>
+            <div class="ex"><span class="n">56</span>A: "Will the proposal be accepted?" B: "I hope <input class="g" data-answer="so">."<span class="hint">💡 so/not as substitutes</span></div>
+            <div class="ex"><span class="n">57</span>A: "Is the market going to crash?" B: "I don't think <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">58</span>A: "Will they approve the merger?" B: "I'm afraid <input class="g" data-answer="not">."</div>
+            <div class="ex"><span class="n">59</span>A: "Has the contract been signed?" B: "It would appear <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">60</span>A: "Are redundancies likely?" B: "I hope <input class="g" data-answer="not">."</div>
+            <div class="ex"><span class="n">61</span>A: "Did she resign?" B: "It seems <input class="g" data-answer="so">, but I can't confirm it."</div>
+            <div class="ex"><span class="n">62</span>A: "Will they reach an agreement?" B: "I expect <input class="g" data-answer="so">, given the pressure."</div>
+            <div class="ex"><span class="n">63</span>A: "Is the economy recovering?" B: "Experts believe <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">64</span>She can speak Mandarin and her colleague can <input class="g" data-answer="too|as well">.<span class="hint">💡 Auxiliary ellipsis</span></div>
+            <div class="ex"><span class="n">65</span>The board hasn't approved the budget, and the shareholders haven't <input class="g" data-answer="either">.</div>
+            <div class="ex"><span class="n">66</span>A: "I've submitted my report." B: "So <input class="g" data-answer="have I">."</div>
+            <div class="ex"><span class="n">67</span>A: "I didn't attend the conference." B: "Neither <input class="g" data-answer="did I">."</div>
+            <div class="ex"><span class="n">68</span>He said he would finish by Friday, and finish he <input class="g" data-answer="did">.</div>
+            <div class="ex"><span class="n">69</span>A: "Can you complete this by Monday?" B: "I'll try <input class="g" data-answer="to">."<span class="hint">💡 Infinitive ellipsis (to without verb)</span></div>
+            <div class="ex"><span class="n">70</span>A: "Are you going to apply for the position?" B: "I'd like <input class="g" data-answer="to">, but I'm not qualified."</div>
+            <div class="ex"><span class="n">71</span>She hasn't resigned yet, but she's threatening <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">72</span>A: "Will you help with the project?" B: "I'd be happy <input class="g" data-answer="to">."</div>
+            <div class="ex"><span class="n">73</span>He didn't want to compromise, but eventually he was forced <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">74</span>I haven't finished the analysis, but I'm about <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">75</span>A: "Should I inform the stakeholders?" B: "You ought <input class="g" data-answer="to">."</div>
+            <div class="ex"><span class="n">76</span>She wanted to object but didn't dare <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">77</span>They may not succeed, but they deserve <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">78</span>I'd love to attend the gala. — You're welcome <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">79</span>Take the opportunity if you want <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">80</span>A: "Will you reconsider?" B: "I refuse <input class="g" data-answer="to">."</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Substitution with One/Ones, Do, So, Such (81-110)</h3>
+            <div class="ex"><span class="n">81</span>This report is outdated. We need a more current <input class="g" data-answer="one">.<span class="hint">💡 one/ones as noun substitutes</span></div>
+            <div class="ex"><span class="n">82</span>These regulations are stricter than the previous <input class="g" data-answer="ones">.</div>
+            <div class="ex"><span class="n">83</span>The new software is faster than the old <input class="g" data-answer="one">.</div>
+            <div class="ex"><span class="n">84</span>Among the candidates, she was the most qualified <input class="g" data-answer="one">.</div>
+            <div class="ex"><span class="n">85</span>The red files are confidential; the blue <input class="g" data-answer="ones"> are public.</div>
+            <div class="ex"><span class="n">86</span>A: "Which proposal did they accept?" B: "The <input class="g" data-answer="one"> submitted by the marketing team."</div>
+            <div class="ex"><span class="n">87</span>The economy grew faster than analysts had predicted it would <input class="g" data-answer="do">.<span class="hint">💡 do as verb substitute</span></div>
+            <div class="ex"><span class="n">88</span>A: "Did they implement the changes?" B: "Yes, they <input class="g" data-answer="did">."</div>
+            <div class="ex"><span class="n">89</span>The company expanded more rapidly than its competitors <input class="g" data-answer="did">.</div>
+            <div class="ex"><span class="n">90</span>A: "Does the policy cover overseas travel?" B: "I believe it <input class="g" data-answer="does">."</div>
+            <div class="ex"><span class="n">91</span>She performs better under pressure than most people <input class="g" data-answer="do">.</div>
+            <div class="ex"><span class="n">92</span>The market recovered, and it <input class="g w" data-answer="did so|did"> remarkably quickly.<span class="hint">💡 do so for formal contexts</span></div>
+            <div class="ex"><span class="n">93</span>If you wish to appeal, you may <input class="g w" data-answer="do so"> within 30 days.</div>
+            <div class="ex"><span class="n">94</span>She demanded an apology and received <input class="g" data-answer="one">.</div>
+            <div class="ex"><span class="n">95</span>The board rejected the proposal, and rightly <input class="g" data-answer="so">.</div>
+            <div class="ex"><span class="n">96</span>He claims to be an expert. If <input class="g" data-answer="so">, why does he make such basic errors?</div>
+            <div class="ex"><span class="n">97</span>She's extremely ambitious, and has always been <input class="g" data-answer="so">.</div>
+            <div class="ex"><span class="n">98</span>The situation is critical, and should be treated as <input class="g" data-answer="such">.<span class="hint">💡 such as substitute</span></div>
+            <div class="ex"><span class="n">99</span>He's the CEO and should behave as <input class="g" data-answer="such">.</div>
+            <div class="ex"><span class="n">100</span>This is a formal complaint and will be dealt with as <input class="g" data-answer="such">.</div>
+            <div class="ex"><span class="n">101</span>The evidence, <input class="g w" data-answer="such as it is">, doesn't support their claims.</div>
+            <div class="ex"><span class="n">102</span>You wanted transparency, and <input class="g" data-answer="such"> you shall have.</div>
+            <div class="ex"><span class="n">103</span>A: "Is the project on schedule?" B: "More or less <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">104</span>A: "Are they satisfied with the outcome?" B: "Apparently <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">105</span>A: "Will prices rise?" B: "Inevitably <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">106</span>The minister denied the allegations but couldn't prove otherwise, and was forced to resign. — Quite <input class="g" data-answer="so">.</div>
+            <div class="ex"><span class="n">107</span>A: "Should the regulations be tightened?" B: "I should think <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">108</span>A: "Is the company profitable?" B: "Just barely <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">109</span>A: "Will the merger proceed?" B: "It would seem <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">110</span>A: "Are employees concerned?" B: "Understandably <input class="g" data-answer="so">."</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('ellipsis')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('ellipsis')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('ellipsis')">↺ Reset</button>
+        </div>
+        <div id="ellipsis-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="ellipsis-correct">0</span>/<span id="ellipsis-total">0</span></p></div>
+    </section>
+
+    <!-- FRONTING & PREPOSING SECTION -->
+    <section id="fronting" class="exercise-section">
+        <h2 class="section-title">🔀 Fronting & Preposing</h2>
+        <p class="section-subtitle">Moving elements to the front for emphasis</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Rewrite sentences using fronting or fill in the fronted structures.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Object & Complement Fronting (111-135)</h3>
+            <div class="ex"><span class="n">111</span>I have never experienced such incompetence. → Such incompetence <input class="g xw" data-answer="I have never experienced">.<span class="hint">💡 Object fronting for emphasis</span></div>
+            <div class="ex"><span class="n">112</span>I cannot tolerate this behaviour. → This behaviour <input class="g xw" data-answer="I cannot tolerate">.</div>
+            <div class="ex"><span class="n">113</span>He said he would resign, and resign <input class="g w" data-answer="he did">.<span class="hint">💡 Verb fronting with auxiliary</span></div>
+            <div class="ex"><span class="n">114</span>She promised to deliver, and deliver <input class="g w" data-answer="she did">.</div>
+            <div class="ex"><span class="n">115</span>They wanted transparency, and transparency <input class="g xw" data-answer="they got|they received">.</div>
+            <div class="ex"><span class="n">116</span>He demanded respect, and respect <input class="g xw" data-answer="he commanded|he received">.</div>
+            <div class="ex"><span class="n">117</span>His arrogance I can tolerate; his dishonesty <input class="g xw" data-answer="I cannot">.</div>
+            <div class="ex"><span class="n">118</span>Their concerns we understand; their methods <input class="g xw" data-answer="we do not|we don't">.</div>
+            <div class="ex"><span class="n">119</span>Talented she may be, but reliable <input class="g xw" data-answer="she is not|she isn't">.<span class="hint">💡 Adjective fronting</span></div>
+            <div class="ex"><span class="n">120</span>Expensive the project was, but worthwhile <input class="g xw" data-answer="it proved|it was">.</div>
+            <div class="ex"><span class="n">121</span>Difficult though the negotiations <input class="g" data-answer="were">, an agreement was reached.</div>
+            <div class="ex"><span class="n">122</span>Try as he <input class="g" data-answer="might|may">, he couldn't convince them.<span class="hint">💡 Try/Search/Hard as + subject + might/may</span></div>
+            <div class="ex"><span class="n">123</span>Search as they <input class="g" data-answer="might|may">, they couldn't find the documents.</div>
+            <div class="ex"><span class="n">124</span>Much as I <input class="g" data-answer="admire"> (admire) her work, I cannot support her candidacy.</div>
+            <div class="ex"><span class="n">125</span>Hard as it <input class="g w" data-answer="may seem|might seem">, we must accept the decision.</div>
+            <div class="ex"><span class="n">126</span>Strange as it <input class="g w" data-answer="may sound|might sound">, the plan actually worked.</div>
+            <div class="ex"><span class="n">127</span>Surprising though it <input class="g w" data-answer="may be|might be">, the company made a profit.</div>
+            <div class="ex"><span class="n">128</span>Odd as it <input class="g w" data-answer="may appear|might appear">, the strategy was sound.</div>
+            <div class="ex"><span class="n">129</span>Tempting as the offer <input class="g" data-answer="was">, she declined.</div>
+            <div class="ex"><span class="n">130</span>Brilliant though her analysis <input class="g" data-answer="was">, it was ignored.</div>
+            <div class="ex"><span class="n">131</span>Be the consequences what they <input class="g" data-answer="may">, we must act.</div>
+            <div class="ex"><span class="n">132</span>Say what you <input class="g" data-answer="will">, I won't change my mind.</div>
+            <div class="ex"><span class="n">133</span>Cost what it <input class="g" data-answer="may">, we'll complete the project.</div>
+            <div class="ex"><span class="n">134</span>Come what <input class="g" data-answer="may">, we'll stand by our decision.</div>
+            <div class="ex"><span class="n">135</span>Whatever the outcome <input class="g w" data-answer="may be|might be">, we've learned valuable lessons.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Adverbial & Locative Fronting (136-165)</h3>
+            <div class="ex"><span class="n">136</span>At no point <input class="g xw" data-answer="did the company admit|did they admit"> liability.<span class="hint">💡 Negative adverbial + inversion</span></div>
+            <div class="ex"><span class="n">137</span>Under no circumstances <input class="g xw" data-answer="should this information be|will this information be"> disclosed.</div>
+            <div class="ex"><span class="n">138</span>Not until the audit was complete <input class="g xw" data-answer="did the board realise|did the board realize"> the extent of the problem.</div>
+            <div class="ex"><span class="n">139</span>Only after prolonged negotiations <input class="g xw" data-answer="did they reach|was an agreement reached"> an agreement.</div>
+            <div class="ex"><span class="n">140</span>Not only did she exceed her targets, but she <input class="g" data-answer="also"> mentored her team.</div>
+            <div class="ex"><span class="n">141</span>Barely had the markets opened <input class="g" data-answer="when|before"> prices began to plummet.</div>
+            <div class="ex"><span class="n">142</span>Scarcely had the announcement been made <input class="g" data-answer="when|before"> protests erupted.</div>
+            <div class="ex"><span class="n">143</span>No sooner had the CEO resigned <input class="g" data-answer="than"> shares began to recover.</div>
+            <div class="ex"><span class="n">144</span>So severe was the crisis <input class="g" data-answer="that"> emergency measures were implemented.<span class="hint">💡 So + adj + inversion + that</span></div>
+            <div class="ex"><span class="n">145</span>Such was the demand <input class="g" data-answer="that"> production was doubled.</div>
+            <div class="ex"><span class="n">146</span>So complex were the regulations <input class="g" data-answer="that"> compliance became impossible.</div>
+            <div class="ex"><span class="n">147</span>Such was her reputation <input class="g" data-answer="that"> clients sought her specifically.</div>
+            <div class="ex"><span class="n">148</span>Here <input class="g" data-answer="lies"> the fundamental problem with their approach.<span class="hint">💡 Locative fronting (no inversion with pronouns)</span></div>
+            <div class="ex"><span class="n">149</span>There <input class="g" data-answer="goes"> our last chance of reconciliation.</div>
+            <div class="ex"><span class="n">150</span>In the corner of the boardroom <input class="g" data-answer="stood"> an imposing portrait.</div>
+            <div class="ex"><span class="n">151</span>At the heart of the dispute <input class="g" data-answer="lay|lies"> a fundamental disagreement.</div>
+            <div class="ex"><span class="n">152</span>Among the ruins <input class="g w" data-answer="were found|was found"> evidence of the ancient civilisation.</div>
+            <div class="ex"><span class="n">153</span>Along the corridor <input class="g" data-answer="came"> the sound of approaching footsteps.</div>
+            <div class="ex"><span class="n">154</span>Down the hall <input class="g" data-answer="walked|came"> the delegation.</div>
+            <div class="ex"><span class="n">155</span>Out of the negotiations <input class="g" data-answer="emerged|came"> a surprising compromise.</div>
+            <div class="ex"><span class="n">156</span>First <input class="g" data-answer="comes|came"> the proposal, then the debate.<span class="hint">💡 Sequencing fronting</span></div>
+            <div class="ex"><span class="n">157</span>Next on the agenda <input class="g" data-answer="is|comes"> the budget review.</div>
+            <div class="ex"><span class="n">158</span>Last but not least <input class="g" data-answer="comes|is"> the question of succession.</div>
+            <div class="ex"><span class="n">159</span>Particularly concerning <input class="g" data-answer="is|was"> the lack of oversight.<span class="hint">💡 Evaluative fronting</span></div>
+            <div class="ex"><span class="n">160</span>Equally important <input class="g" data-answer="is|was"> the need for transparency.</div>
+            <div class="ex"><span class="n">161</span>More significant <input class="g" data-answer="is|was"> the long-term impact.</div>
+            <div class="ex"><span class="n">162</span>Of particular interest <input class="g" data-answer="is|was"> the demographic data.</div>
+            <div class="ex"><span class="n">163</span>Also under scrutiny <input class="g" data-answer="is|are|was|were"> the accounting practices.</div>
+            <div class="ex"><span class="n">164</span>Especially noteworthy <input class="g" data-answer="is|was"> the speed of implementation.</div>
+            <div class="ex"><span class="n">165</span>No less remarkable <input class="g" data-answer="is|was"> the public's response.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('fronting')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('fronting')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('fronting')">↺ Reset</button>
+        </div>
+        <div id="fronting-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="fronting-correct">0</span>/<span id="fronting-total">0</span></p></div>
+    </section>
+
+    <!-- ADVANCED MODAL PERFECTS SECTION -->
+    <section id="modals" class="exercise-section">
+        <h2 class="section-title">🎯 Advanced Modal Perfects</h2>
+        <p class="section-subtitle">Deduction, criticism, and unrealised possibility in the past</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct modal perfect forms based on the context.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Deduction about the Past (166-190)</h3>
+            <div class="ex"><span class="n">166</span>He's not answering. He <input class="g xw" data-answer="must have left"> (must/leave) already.<span class="hint">💡 Logical certainty about past</span></div>
+            <div class="ex"><span class="n">167</span>The project succeeded. The team <input class="g xw" data-answer="must have worked"> (must/work) incredibly hard.</div>
+            <div class="ex"><span class="n">168</span>She looks exhausted. She <input class="g xw" data-answer="can't have slept|couldn't have slept"> (can't/sleep) well last night.<span class="hint">💡 Logical impossibility</span></div>
+            <div class="ex"><span class="n">169</span>He claims he wasn't there, but I saw him. He <input class="g xw" data-answer="must have been"> (must/be) lying.</div>
+            <div class="ex"><span class="n">170</span>The documents are gone. Someone <input class="g xw" data-answer="must have taken"> (must/take) them.</div>
+            <div class="ex"><span class="n">171</span>She can't find her keys. She <input class="g xw" data-answer="may have left|might have left"> (may/leave) them at the office.<span class="hint">💡 Possibility</span></div>
+            <div class="ex"><span class="n">172</span>The meeting was cancelled. There <input class="g xw" data-answer="could have been|might have been"> (could/be) an emergency.</div>
+            <div class="ex"><span class="n">173</span>He didn't respond to the email. He <input class="g xw" data-answer="might not have received|may not have received"> (might/not/receive) it.</div>
+            <div class="ex"><span class="n">174</span>The server crashed. It <input class="g xw" data-answer="could have been"> (could/be) a cyber attack.</div>
+            <div class="ex"><span class="n">175</span>She resigned suddenly. She <input class="g xw" data-answer="may have been|might have been"> (may/be) offered a better position.</div>
+            <div class="ex"><span class="n">176</span>He's been promoted. He <input class="g xw" data-answer="can't have been|couldn't have been"> (can't/be) as incompetent as you said.</div>
+            <div class="ex"><span class="n">177</span>The stock price collapsed. Investors <input class="g xw" data-answer="must have lost"> (must/lose) confidence.</div>
+            <div class="ex"><span class="n">178</span>She passed all exams with distinction. She <input class="g xw" data-answer="can't have found|couldn't have found"> (can't/find) them difficult.</div>
+            <div class="ex"><span class="n">179</span>The negotiations failed. They <input class="g xw" data-answer="can't have been|couldn't have been"> (can't/be) willing to compromise.</div>
+            <div class="ex"><span class="n">180</span>He recovered quickly. The injury <input class="g xw" data-answer="can't have been|couldn't have been"> (can't/be) as serious as first thought.</div>
+            <div class="ex"><span class="n">181</span>She got the job despite limited experience. She <input class="g xw" data-answer="must have impressed"> (must/impress) them in the interview.</div>
+            <div class="ex"><span class="n">182</span>The company survived the crisis. Management <input class="g xw" data-answer="must have made"> (must/make) the right decisions.</div>
+            <div class="ex"><span class="n">183</span>He's fluent after one year. He <input class="g xw" data-answer="must have studied|must have practised"> (must/study) intensively.</div>
+            <div class="ex"><span class="n">184</span>The deal collapsed. Something <input class="g xw" data-answer="must have gone"> (must/go) wrong at the last minute.</div>
+            <div class="ex"><span class="n">185</span>She wasn't surprised by the news. She <input class="g xw" data-answer="must have known|must have heard"> (must/know) already.</div>
+            <div class="ex"><span class="n">186</span>The email wasn't sent. There <input class="g xw" data-answer="might have been|may have been"> (might/be) a technical problem.</div>
+            <div class="ex"><span class="n">187</span>He seemed familiar with the building. He <input class="g xw" data-answer="could have worked|may have worked"> (could/work) here before.</div>
+            <div class="ex"><span class="n">188</span>They arrived before us. They <input class="g xw" data-answer="must have taken"> (must/take) a shortcut.</div>
+            <div class="ex"><span class="n">189</span>He won't discuss it. Something bad <input class="g xw" data-answer="must have happened"> (must/happen).</div>
+            <div class="ex"><span class="n">190</span>The system failed repeatedly. It <input class="g xw" data-answer="can't have been|couldn't have been"> (can't/be) properly tested.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Criticism & Unrealised Actions (191-220)</h3>
+            <div class="ex"><span class="n">191</span>You <input class="g xw" data-answer="should have told|ought to have told"> (should/tell) me about the problem earlier.<span class="hint">💡 Criticism of past inaction</span></div>
+            <div class="ex"><span class="n">192</span>They <input class="g xw" data-answer="shouldn't have invested|should not have invested"> (should/not/invest) in such a risky venture.</div>
+            <div class="ex"><span class="n">193</span>She <input class="g xw" data-answer="ought to have consulted|should have consulted"> (ought/consult) a lawyer before signing.</div>
+            <div class="ex"><span class="n">194</span>He <input class="g xw" data-answer="needn't have worried|didn't need to worry"> (needn't/worry); everything worked out fine.<span class="hint">💡 Unnecessary past action</span></div>
+            <div class="ex"><span class="n">195</span>You <input class="g xw" data-answer="needn't have rushed|didn't need to rush"> (needn't/rush); there was plenty of time.</div>
+            <div class="ex"><span class="n">196</span>We <input class="g xw" data-answer="needn't have prepared"> (needn't/prepare) so many documents; they only wanted a summary.</div>
+            <div class="ex"><span class="n">197</span>I <input class="g xw" data-answer="could have helped|might have helped"> (could/help) if you had asked.<span class="hint">💡 Unrealised past ability/possibility</span></div>
+            <div class="ex"><span class="n">198</span>She <input class="g xw" data-answer="could have been"> (could/be) CEO by now if she'd stayed.</div>
+            <div class="ex"><span class="n">199</span>They <input class="g xw" data-answer="might have avoided|could have avoided"> (might/avoid) the crisis with better planning.</div>
+            <div class="ex"><span class="n">200</span>He <input class="g xw" data-answer="would have succeeded"> (would/succeed) if he'd had more support.</div>
+            <div class="ex"><span class="n">201</span>You <input class="g xw" data-answer="could have warned"> (could/warn) us about the changes.</div>
+            <div class="ex"><span class="n">202</span>She <input class="g xw" data-answer="should have been promoted|ought to have been promoted"> (should/promote) years ago.</div>
+            <div class="ex"><span class="n">203</span>The company <input class="g xw" data-answer="might have survived|could have survived"> (might/survive) with better management.</div>
+            <div class="ex"><span class="n">204</span>He <input class="g xw" data-answer="shouldn't have resigned|should not have resigned"> (should/not/resign) without another job lined up.</div>
+            <div class="ex"><span class="n">205</span>They <input class="g xw" data-answer="ought to have anticipated|should have anticipated"> (ought/anticipate) these problems.</div>
+            <div class="ex"><span class="n">206</span>We <input class="g xw" data-answer="could have finished"> (could/finish) earlier if we'd started on time.</div>
+            <div class="ex"><span class="n">207</span>You <input class="g xw" data-answer="might have mentioned"> (might/mention) that there would be delays!</div>
+            <div class="ex"><span class="n">208</span>She <input class="g xw" data-answer="needn't have apologised|needn't have apologized"> (needn't/apologise); it wasn't her fault.</div>
+            <div class="ex"><span class="n">209</span>The report <input class="g xw" data-answer="should have been submitted"> (should/submit) last week.</div>
+            <div class="ex"><span class="n">210</span>I <input class="g xw" data-answer="would rather have stayed|would sooner have stayed"> (would rather/stay) silent than lie.<span class="hint">💡 Would rather + perfect infinitive</span></div>
+            <div class="ex"><span class="n">211</span>He <input class="g xw" data-answer="would rather not have been|would sooner not have been"> (would rather/not/be) involved in the scandal.</div>
+            <div class="ex"><span class="n">212</span>She <input class="g xw" data-answer="was to have attended|was supposed to have attended"> (be/to/attend) the summit but fell ill.<span class="hint">💡 was/were to + perfect (unfulfilled plan)</span></div>
+            <div class="ex"><span class="n">213</span>The merger <input class="g xw" data-answer="was to have been completed|was supposed to have been completed"> (be/to/complete) by June.</div>
+            <div class="ex"><span class="n">214</span>He <input class="g xw" data-answer="was to have become|was supposed to become"> (be/to/become) the next CEO.</div>
+            <div class="ex"><span class="n">215</span>They <input class="g xw" data-answer="were to have announced|were supposed to announce"> (be/to/announce) the results yesterday.</div>
+            <div class="ex"><span class="n">216</span>You <input class="g xw" data-answer="might at least have tried|could at least have tried"> (might at least/try) to negotiate.</div>
+            <div class="ex"><span class="n">217</span>She <input class="g xw" data-answer="could at least have explained|might at least have explained"> (could at least/explain) her reasons.</div>
+            <div class="ex"><span class="n">218</span>He <input class="g xw" data-answer="had better have finished|better have finished"> (had better/finish) that report by now.</div>
+            <div class="ex"><span class="n">219</span>You <input class="g xw" data-answer="had better not have told|better not have told"> (had better/not/tell) anyone about this.</div>
+            <div class="ex"><span class="n">220</span>She <input class="g xw" data-answer="would have preferred to have been|would have preferred to be"> (would prefer/to be) consulted beforehand.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('modals')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('modals')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('modals')">↺ Reset</button>
+        </div>
+        <div id="modals-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="modals-correct">0</span>/<span id="modals-total">0</span></p></div>
+    </section>
+
+    <!-- NOMINALISATION SECTION -->
+    <section id="nominal" class="exercise-section">
+        <h2 class="section-title">📝 Nominalisation</h2>
+        <p class="section-subtitle">Converting verbs and adjectives to nouns for academic/formal writing</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Rewrite sentences using nominalisation or provide the correct noun form.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Verb to Noun Conversion (221-255)</h3>
+            <div class="ex"><span class="n">221</span>The company expanded rapidly. → The rapid <input class="g w" data-answer="expansion"> of the company...<span class="hint">💡 Verb → noun + of</span></div>
+            <div class="ex"><span class="n">222</span>The government decided to intervene. → The government's <input class="g w" data-answer="decision"> to intervene...</div>
+            <div class="ex"><span class="n">223</span>Scientists discovered a new element. → The <input class="g w" data-answer="discovery"> of a new element...</div>
+            <div class="ex"><span class="n">224</span>The board approved the proposal. → The board's <input class="g w" data-answer="approval"> of the proposal...</div>
+            <div class="ex"><span class="n">225</span>The economy grew significantly. → The significant <input class="g w" data-answer="growth"> of the economy...</div>
+            <div class="ex"><span class="n">226</span>The minister resigned unexpectedly. → The unexpected <input class="g w" data-answer="resignation"> of the minister...</div>
+            <div class="ex"><span class="n">227</span>The company acquired its competitor. → The company's <input class="g w" data-answer="acquisition"> of its competitor...</div>
+            <div class="ex"><span class="n">228</span>Researchers analysed the data. → The <input class="g w" data-answer="analysis"> of the data...</div>
+            <div class="ex"><span class="n">229</span>The policy was implemented successfully. → The successful <input class="g w" data-answer="implementation"> of the policy...</div>
+            <div class="ex"><span class="n">230</span>Employees participated in the survey. → Employee <input class="g w" data-answer="participation"> in the survey...</div>
+            <div class="ex"><span class="n">231</span>The CEO announced major changes. → The CEO's <input class="g w" data-answer="announcement"> of major changes...</div>
+            <div class="ex"><span class="n">232</span>The organisation transformed rapidly. → The rapid <input class="g w" data-answer="transformation"> of the organisation...</div>
+            <div class="ex"><span class="n">233</span>We need to reduce costs. → Cost <input class="g w" data-answer="reduction"> is necessary.</div>
+            <div class="ex"><span class="n">234</span>They failed to comply with regulations. → Their <input class="g w" data-answer="failure"> to comply...</div>
+            <div class="ex"><span class="n">235</span>The witness described the incident. → The witness's <input class="g w" data-answer="description"> of the incident...</div>
+            <div class="ex"><span class="n">236</span>The candidate withdrew from the race. → The candidate's <input class="g w" data-answer="withdrawal"> from the race...</div>
+            <div class="ex"><span class="n">237</span>The team performed exceptionally. → The exceptional <input class="g w" data-answer="performance"> of the team...</div>
+            <div class="ex"><span class="n">238</span>Critics argued against the proposal. → Critical <input class="g w" data-answer="arguments"> against the proposal...</div>
+            <div class="ex"><span class="n">239</span>The market fluctuated wildly. → Wild <input class="g w" data-answer="fluctuations|fluctuation"> in the market...</div>
+            <div class="ex"><span class="n">240</span>The government regulated the industry. → Government <input class="g w" data-answer="regulation"> of the industry...</div>
+            <div class="ex"><span class="n">241</span>Authorities investigated the matter. → The <input class="g w" data-answer="investigation"> of the matter...</div>
+            <div class="ex"><span class="n">242</span>The countries cooperated on security. → <input class="g w" data-answer="Cooperation"> between the countries...</div>
+            <div class="ex"><span class="n">243</span>Inflation increased dramatically. → The dramatic <input class="g w" data-answer="increase"> in inflation...</div>
+            <div class="ex"><span class="n">244</span>The parties negotiated for months. → Months of <input class="g w" data-answer="negotiations|negotiation">...</div>
+            <div class="ex"><span class="n">245</span>The suspect was detained overnight. → The overnight <input class="g w" data-answer="detention"> of the suspect...</div>
+            <div class="ex"><span class="n">246</span>The system malfunctioned repeatedly. → Repeated <input class="g w" data-answer="malfunctions|malfunction"> of the system...</div>
+            <div class="ex"><span class="n">247</span>The currency depreciated sharply. → The sharp <input class="g w" data-answer="depreciation"> of the currency...</div>
+            <div class="ex"><span class="n">248</span>Workers protested against the conditions. → Worker <input class="g w" data-answer="protests"> against the conditions...</div>
+            <div class="ex"><span class="n">249</span>The company diversified its portfolio. → The <input class="g w" data-answer="diversification"> of the company's portfolio...</div>
+            <div class="ex"><span class="n">250</span>Scientists hypothesised about the cause. → Scientists' <input class="g w" data-answer="hypothesis|hypotheses"> about the cause...</div>
+            <div class="ex"><span class="n">251</span>The two companies merged. → The <input class="g w" data-answer="merger"> of the two companies...</div>
+            <div class="ex"><span class="n">252</span>The committee recommended changes. → The committee's <input class="g w" data-answer="recommendations|recommendation">...</div>
+            <div class="ex"><span class="n">253</span>The project succeeded beyond expectations. → The <input class="g w" data-answer="success"> of the project...</div>
+            <div class="ex"><span class="n">254</span>Experts interpreted the data differently. → Different <input class="g w" data-answer="interpretations"> of the data...</div>
+            <div class="ex"><span class="n">255</span>The government privatised state assets. → The <input class="g w" data-answer="privatisation|privatization"> of state assets...</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Adjective to Noun & Complex Nominalisation (256-275)</h3>
+            <div class="ex"><span class="n">256</span>The solution was complex. → The <input class="g w" data-answer="complexity"> of the solution...<span class="hint">💡 Adjective → abstract noun</span></div>
+            <div class="ex"><span class="n">257</span>The data was accurate. → The <input class="g w" data-answer="accuracy"> of the data...</div>
+            <div class="ex"><span class="n">258</span>The results were significant. → The <input class="g w" data-answer="significance"> of the results...</div>
+            <div class="ex"><span class="n">259</span>The system is efficient. → The <input class="g w" data-answer="efficiency"> of the system...</div>
+            <div class="ex"><span class="n">260</span>The evidence was relevant. → The <input class="g w" data-answer="relevance"> of the evidence...</div>
+            <div class="ex"><span class="n">261</span>Her argument was valid. → The <input class="g w" data-answer="validity"> of her argument...</div>
+            <div class="ex"><span class="n">262</span>The policy is flexible. → The <input class="g w" data-answer="flexibility"> of the policy...</div>
+            <div class="ex"><span class="n">263</span>The approach is diverse. → The <input class="g w" data-answer="diversity"> of the approach...</div>
+            <div class="ex"><span class="n">264</span>The decision was urgent. → The <input class="g w" data-answer="urgency"> of the decision...</div>
+            <div class="ex"><span class="n">265</span>The candidate was suitable. → The <input class="g w" data-answer="suitability"> of the candidate...</div>
+            <div class="ex"><span class="n">266</span>The measurements were precise. → The <input class="g w" data-answer="precision"> of the measurements...</div>
+            <div class="ex"><span class="n">267</span>The conditions were stable. → The <input class="g w" data-answer="stability"> of the conditions...</div>
+            <div class="ex"><span class="n">268</span>The information was scarce. → The <input class="g w" data-answer="scarcity"> of information...</div>
+            <div class="ex"><span class="n">269</span>Their approach was consistent. → The <input class="g w" data-answer="consistency"> of their approach...</div>
+            <div class="ex"><span class="n">270</span>The market is volatile. → Market <input class="g w" data-answer="volatility">...</div>
+            <div class="ex"><span class="n">271</span>The workers are dissatisfied because they earn poorly. → Worker <input class="g w" data-answer="dissatisfaction"> due to poor <input class="g w" data-answer="earnings">...<span class="hint">💡 Complex nominalisation</span></div>
+            <div class="ex"><span class="n">272</span>People are increasingly concerned about how technology affects privacy. → Growing <input class="g w" data-answer="concern|concerns"> about the <input class="g w" data-answer="impact|effect"> of technology on privacy...</div>
+            <div class="ex"><span class="n">273</span>The economy weakened, which led to higher unemployment. → Economic <input class="g w" data-answer="weakness|weakening"> led to an <input class="g w" data-answer="increase|rise"> in unemployment.</div>
+            <div class="ex"><span class="n">274</span>The population is ageing rapidly, which puts pressure on healthcare. → Rapid population <input class="g w" data-answer="ageing|aging"> is putting <input class="g w" data-answer="pressure"> on healthcare.</div>
+            <div class="ex"><span class="n">275</span>She was unable to attend, which meant we postponed the meeting. → Her <input class="g w" data-answer="inability"> to attend resulted in the <input class="g w" data-answer="postponement"> of the meeting.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('nominal')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('nominal')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('nominal')">↺ Reset</button>
+        </div>
+        <div id="nominal-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="nominal-correct">0</span>/<span id="nominal-total">0</span></p></div>
+    </section>
+
+    <!-- COMPLEX VERB PATTERNS SECTION -->
+    <section id="verbpat" class="exercise-section">
+        <h2 class="section-title">🔄 Complex Verb Patterns</h2>
+        <p class="section-subtitle">Verbs with gerund/infinitive with meaning changes</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct form (gerund or infinitive) based on meaning.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Remember, Forget, Regret, Stop, Try (276-305)</h3>
+            <div class="ex"><span class="n">276</span>I remember <input class="g w" data-answer="meeting"> (meet) her at the conference last year.<span class="hint">💡 remember + -ing = past memory</span></div>
+            <div class="ex"><span class="n">277</span>Please remember <input class="g w" data-answer="to submit"> (submit) your report by Friday.<span class="hint">💡 remember + to = future task</span></div>
+            <div class="ex"><span class="n">278</span>I'll never forget <input class="g w" data-answer="seeing"> (see) the Northern Lights for the first time.</div>
+            <div class="ex"><span class="n">279</span>Don't forget <input class="g w" data-answer="to lock"> (lock) the safe before you leave.</div>
+            <div class="ex"><span class="n">280</span>We regret <input class="g w" data-answer="to inform"> (inform) you that your application was unsuccessful.<span class="hint">💡 regret + to = formal announcement</span></div>
+            <div class="ex"><span class="n">281</span>I regret <input class="g w" data-answer="not taking|not having taken"> (not/take) that opportunity when it arose.<span class="hint">💡 regret + -ing = past action</span></div>
+            <div class="ex"><span class="n">282</span>He stopped <input class="g w" data-answer="smoking"> (smoke) after his health scare.<span class="hint">💡 stop + -ing = quit activity</span></div>
+            <div class="ex"><span class="n">283</span>She stopped <input class="g w" data-answer="to answer"> (answer) a phone call during the presentation.<span class="hint">💡 stop + to = pause for purpose</span></div>
+            <div class="ex"><span class="n">284</span>Try <input class="g w" data-answer="restarting"> (restart) the computer if it freezes.<span class="hint">💡 try + -ing = experiment</span></div>
+            <div class="ex"><span class="n">285</span>I tried <input class="g w" data-answer="to reach|to contact"> (reach) him all day but couldn't get through.<span class="hint">💡 try + to = attempt</span></div>
+            <div class="ex"><span class="n">286</span>I distinctly remember <input class="g w" data-answer="telling"> (tell) you about the deadline.</div>
+            <div class="ex"><span class="n">287</span>Did you remember <input class="g w" data-answer="to send"> (send) the invoice?</div>
+            <div class="ex"><span class="n">288</span>She'll never forget <input class="g w" data-answer="being awarded|receiving"> (be/award) the prize.</div>
+            <div class="ex"><span class="n">289</span>We regret <input class="g w" data-answer="to say"> (say) that the position has been filled.</div>
+            <div class="ex"><span class="n">290</span>He regrets <input class="g w" data-answer="not studying|not having studied"> (not/study) harder at university.</div>
+            <div class="ex"><span class="n">291</span>They stopped <input class="g w" data-answer="to consider"> (consider) the implications before proceeding.</div>
+            <div class="ex"><span class="n">292</span>The company stopped <input class="g w" data-answer="producing"> (produce) that product line.</div>
+            <div class="ex"><span class="n">293</span>Have you tried <input class="g w" data-answer="using"> (use) a different browser?</div>
+            <div class="ex"><span class="n">294</span>We tried <input class="g w" data-answer="to negotiate"> (negotiate) but they refused to engage.</div>
+            <div class="ex"><span class="n">295</span>I don't remember <input class="g w" data-answer="agreeing"> (agree) to those terms.</div>
+            <div class="ex"><span class="n">296</span>Remember <input class="g w" data-answer="to attach"> (attach) all supporting documents.</div>
+            <div class="ex"><span class="n">297</span>She forgot <input class="g w" data-answer="to mention"> (mention) the most important point.</div>
+            <div class="ex"><span class="n">298</span>I forgot <input class="g w" data-answer="telling"> (tell) her, so I told her again.</div>
+            <div class="ex"><span class="n">299</span>We regret <input class="g w" data-answer="to announce"> (announce) the closure of the branch.</div>
+            <div class="ex"><span class="n">300</span>He regrets <input class="g w" data-answer="leaving|having left"> (leave) his previous company.</div>
+            <div class="ex"><span class="n">301</span>Stop <input class="g w" data-answer="interrupting"> (interrupt) and let me finish.</div>
+            <div class="ex"><span class="n">302</span>We stopped <input class="g w" data-answer="to review"> (review) the contract more carefully.</div>
+            <div class="ex"><span class="n">303</span>Try <input class="g w" data-answer="adjusting"> (adjust) the settings if the quality is poor.</div>
+            <div class="ex"><span class="n">304</span>I've been trying <input class="g w" data-answer="to understand"> (understand) this concept for hours.</div>
+            <div class="ex"><span class="n">305</span>He tried <input class="g w" data-answer="to warn|warning"> (warn) them, but they wouldn't listen.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Go on, Mean, Need, Allow, Advise (306-330)</h3>
+            <div class="ex"><span class="n">306</span>She went on <input class="g w" data-answer="to become"> (become) a leading expert in her field.<span class="hint">💡 go on + to = next action</span></div>
+            <div class="ex"><span class="n">307</span>He went on <input class="g w" data-answer="talking"> (talk) despite the interruptions.<span class="hint">💡 go on + -ing = continue same action</span></div>
+            <div class="ex"><span class="n">308</span>I didn't mean <input class="g w" data-answer="to offend"> (offend) anyone with my comments.<span class="hint">💡 mean + to = intend</span></div>
+            <div class="ex"><span class="n">309</span>Taking this job will mean <input class="g w" data-answer="relocating"> (relocate) to another city.<span class="hint">💡 mean + -ing = involve/result in</span></div>
+            <div class="ex"><span class="n">310</span>The report needs <input class="g w" data-answer="revising|to be revised"> (revise) before publication.<span class="hint">💡 need + -ing = passive meaning</span></div>
+            <div class="ex"><span class="n">311</span>You need <input class="g w" data-answer="to submit"> (submit) your application by midnight.</div>
+            <div class="ex"><span class="n">312</span>After the introduction, she went on <input class="g w" data-answer="to discuss"> (discuss) the main findings.</div>
+            <div class="ex"><span class="n">313</span>The speaker went on <input class="g w" data-answer="describing"> (describe) the methodology in detail.</div>
+            <div class="ex"><span class="n">314</span>I meant <input class="g w" data-answer="to call"> (call) you yesterday but got distracted.</div>
+            <div class="ex"><span class="n">315</span>Success means <input class="g w" data-answer="working|having to work"> (work) harder than everyone else.</div>
+            <div class="ex"><span class="n">316</span>The roof needs <input class="g w" data-answer="repairing|to be repaired"> (repair) urgently.</div>
+            <div class="ex"><span class="n">317</span>We need <input class="g w" data-answer="to address"> (address) these concerns immediately.</div>
+            <div class="ex"><span class="n">318</span>They don't allow <input class="g w" data-answer="smoking"> (smoke) in the building.<span class="hint">💡 allow + -ing (no object)</span></div>
+            <div class="ex"><span class="n">319</span>They don't allow employees <input class="g w" data-answer="to work"> (work) from home.<span class="hint">💡 allow + object + to</span></div>
+            <div class="ex"><span class="n">320</span>We advise <input class="g w" data-answer="booking"> (book) well in advance.<span class="hint">💡 advise + -ing (general)</span></div>
+            <div class="ex"><span class="n">321</span>We advise you <input class="g w" data-answer="to consult"> (consult) a specialist.<span class="hint">💡 advise + object + to</span></div>
+            <div class="ex"><span class="n">322</span>The company permits <input class="g w" data-answer="working"> (work) remotely on Fridays.</div>
+            <div class="ex"><span class="n">323</span>The company permits employees <input class="g w" data-answer="to take"> (take) additional leave.</div>
+            <div class="ex"><span class="n">324</span>I recommend <input class="g w" data-answer="reading"> (read) the full report.</div>
+            <div class="ex"><span class="n">325</span>I recommend you <input class="g w" data-answer="to seek|seek"> (seek) legal advice.</div>
+            <div class="ex"><span class="n">326</span>Regulations forbid <input class="g w" data-answer="disclosing"> (disclose) confidential information.</div>
+            <div class="ex"><span class="n">327</span>Regulations forbid employees <input class="g w" data-answer="to disclose|from disclosing"> (disclose) confidential information.</div>
+            <div class="ex"><span class="n">328</span>His comments require <input class="g w" data-answer="clarifying|clarification|to be clarified"> (clarify).</div>
+            <div class="ex"><span class="n">329</span>The situation warrants <input class="g w" data-answer="investigating|investigation"> (investigate) further.</div>
+            <div class="ex"><span class="n">330</span>Your proposal deserves <input class="g w" data-answer="considering|consideration|to be considered"> (consider) carefully.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('verbpat')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('verbpat')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('verbpat')">↺ Reset</button>
+        </div>
+        <div id="verbpat-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="verbpat-correct">0</span>/<span id="verbpat-total">0</span></p></div>
+    </section>
+</span>Costs have risen sharply, <input class="g xw" data-answer="not to mention|let alone"> the impact on quality.</div>
+            <div class="ex"><span class="n">367</span>The plan failed, and <input class="g xw" data-answer="what's more|to make matters worse">, it damaged our credibility.</div>
+            <div class="ex"><span class="n">368</span>The market is saturated; <input class="g w" data-answer="on top of that|besides">, new regulations are imminent.</div>
+            <div class="ex"><span class="n">369</span>She is talented, <input class="g xw" data-answer="above all|most importantly">, she is dedicated.</div>
+            <div class="ex"><span class="n">370</span>The study was rigorous, <input class="g w" data-answer="in particular|especially"> in its methodology.</div>
+            <div class="ex"><span class="n">371</span>The data is concerning, <input class="g xw" data-answer="to put it mildly|to say the least">.<span class="hint">💡 Understating</span></div>
+            <div class="ex"><span class="n">372</span>The negotiations are complex, <input class="g xw" data-answer="to say nothing of|not to mention"> the political implications.</div>
+            <div class="ex"><span class="n">373</span>The strategy was flawed, <input class="g xw" data-answer="if I may say so|frankly speaking">.</div>
+            <div class="ex"><span class="n">374</span>The results are inconclusive, <input class="g w" data-answer="or rather">, contradictory.<span class="hint">💡 Reformulation</span></div>
+            <div class="ex"><span class="n">375</span>The deadline is flexible — <input class="g xw" data-answer="that is to say|in other words">, negotiable.</div>
+            <div class="ex"><span class="n">376</span>The approach is holistic, <input class="g xw" data-answer="that is|i.e.">, it considers all factors.</div>
+            <div class="ex"><span class="n">377</span>They sought a paradigm shift, <input class="g xw" data-answer="in other words|that is">, a fundamental change.</div>
+            <div class="ex"><span class="n">378</span>The policy is counterproductive, <input class="g xw" data-answer="or to put it another way|in other words">, it makes things worse.</div>
+            <div class="ex"><span class="n">379</span>The solution is elegant, <input class="g w" data-answer="so to speak">, beautiful in its simplicity.</div>
+            <div class="ex"><span class="n">380</span>He is the <input class="g xw" data-answer="so-called|self-styled"> expert on the subject.</div>
+            <div class="ex"><span class="n">381</span><input class="g xw" data-answer="As it were|So to speak">, the economy is running on empty.</div>
+            <div class="ex"><span class="n">382</span>The company is, <input class="g xw" data-answer="for want of a better word|so to speak">, dying.</div>
+            <div class="ex"><span class="n">383</span>The strategy worked, <input class="g xw" data-answer="after a fashion|in a manner of speaking">.</div>
+            <div class="ex"><span class="n">384</span>He's a visionary — <input class="g xw" data-answer="at least|or so"> he claims.</div>
+            <div class="ex"><span class="n">385</span><input class="g xw" data-answer="Strictly speaking|Technically">, the contract is void.</div>
+            <div class="ex"><span class="n">386</span><input class="g xw" data-answer="In essence|Essentially">, the two proposals are identical.</div>
+            <div class="ex"><span class="n">387</span><input class="g xw" data-answer="In a nutshell|To put it briefly">, the project has failed.</div>
+            <div class="ex"><span class="n">388</span>The reforms are, <input class="g xw" data-answer="in effect|effectively">, a reversal of previous policy.</div>
+            <div class="ex"><span class="n">389</span><input class="g w" data-answer="To sum up|In summary">, the evidence supports our conclusion.</div>
+            <div class="ex"><span class="n">390</span><input class="g xw" data-answer="All things considered|On balance">, the outcome was positive.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('discourse')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('discourse')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('discourse')">↺ Reset</button>
+        </div>
+        <div id="discourse-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="discourse-correct">0</span>/<span id="discourse-total">0</span></p></div>
+    </section>
+
+    <!-- ADVANCED CLEFT SECTION -->
+    <section id="cleft" class="exercise-section">
+        <h2 class="section-title">✨ Advanced Cleft Structures</h2>
+        <p class="section-subtitle">It-clefts, wh-clefts, pseudo-clefts, and reverse clefts</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Rewrite using cleft structures for emphasis or fill in the correct forms.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: It-Clefts & Variations (391-420)</h3>
+            <div class="ex"><span class="n">391</span>The lack of oversight caused the crisis. → It was <input class="g xw" data-answer="the lack of oversight that|the lack of oversight which"> caused the crisis.<span class="hint">💡 It + be + focus + that/who</span></div>
+            <div class="ex"><span class="n">392</span>She needs clarity, not reassurance. → It is <input class="g xw" data-answer="clarity that|clarity which"> she needs, not reassurance.</div>
+            <div class="ex"><span class="n">393</span>The shareholders objected, not the board. → It was <input class="g xw" data-answer="the shareholders who|the shareholders that"> objected, not the board.</div>
+            <div class="ex"><span class="n">394</span>We should focus on outcomes, not processes. → It is <input class="g xw" data-answer="outcomes that|outcomes which"> we should focus on, not processes.</div>
+            <div class="ex"><span class="n">395</span>His arrogance lost him the election. → It was <input class="g xw" data-answer="his arrogance that|his arrogance which"> lost him the election.</div>
+            <div class="ex"><span class="n">396</span>Only then did we realise the truth. → It was <input class="g xw" data-answer="only then that|not until then that"> we realised the truth.</div>
+            <div class="ex"><span class="n">397</span>She made the breakthrough in 2019. → It was <input class="g xw" data-answer="in 2019 that|in 2019 when"> she made the breakthrough.</div>
+            <div class="ex"><span class="n">398</span>The evidence, not speculation, matters. → It is <input class="g xw" data-answer="the evidence that|the evidence which"> matters, not speculation.</div>
+            <div class="ex"><span class="n">399</span>The committee reached a decision only after much debate. → It was <input class="g xw" data-answer="only after much debate that|not until after much debate that"> the committee reached a decision.</div>
+            <div class="ex"><span class="n">400</span>The timing of the announcement was problematic. → It was <input class="g xw" data-answer="the timing of the announcement that|the timing that"> was problematic.</div>
+            <div class="ex"><span class="n">401</span>Why they rejected the proposal remains unclear. → <input class="g xw" data-answer="It remains unclear why|Why it is that"> they rejected the proposal.</div>
+            <div class="ex"><span class="n">402</span>Her determination, rather than talent, secured success. → It was <input class="g xw" data-answer="her determination, rather than talent, that|her determination that">, rather than talent, secured success.</div>
+            <div class="ex"><span class="n">403</span>The analysis began not with theory but with data. → It was <input class="g xw" data-answer="not with theory but with data that|with data, not theory, that"> the analysis began.</div>
+            <div class="ex"><span class="n">404</span>His resignation surprised everyone. → It was <input class="g xw" data-answer="his resignation that|his resignation which"> surprised everyone.</div>
+            <div class="ex"><span class="n">405</span>Here the real problems begin. → It is <input class="g xw" data-answer="here that|here where"> the real problems begin.</div>
+            <div class="ex"><span class="n">406</span>They chose her, not him. → It was <input class="g xw" data-answer="her that|her whom|her who"> they chose, not him.</div>
+            <div class="ex"><span class="n">407</span>The minister made the final decision. → It was <input class="g xw" data-answer="the minister who|the minister that"> made the final decision.</div>
+            <div class="ex"><span class="n">408</span>We need reform, not rhetoric. → It is <input class="g xw" data-answer="reform that|reform which"> we need, not rhetoric.</div>
+            <div class="ex"><span class="n">409</span>She discovered the discrepancy by chance. → It was <input class="g xw" data-answer="by chance that|by chance when"> she discovered the discrepancy.</div>
+            <div class="ex"><span class="n">410</span>Their concerns matter, not ours. → It is <input class="g xw" data-answer="their concerns that|their concerns which"> matter, not ours.</div>
+            <div class="ex"><span class="n">411</span>What I need is time. → <input class="g xw" data-answer="Time is what"> I need.<span class="hint">💡 Reversed wh-cleft</span></div>
+            <div class="ex"><span class="n">412</span>What concerns me is the lack of oversight. → <input class="g xw" data-answer="The lack of oversight is what"> concerns me.</div>
+            <div class="ex"><span class="n">413</span>What we require is transparency. → <input class="g xw" data-answer="Transparency is what"> we require.</div>
+            <div class="ex"><span class="n">414</span>What he said was unacceptable. → <input class="g xw" data-answer="Unacceptable is what|What was unacceptable was what"> he said.</div>
+            <div class="ex"><span class="n">415</span>What they wanted was a compromise. → <input class="g xw" data-answer="A compromise was what"> they wanted.</div>
+            <div class="ex"><span class="n">416</span>The way she handled it impressed everyone. → <input class="g xw" data-answer="What impressed everyone was the way|The way"> she handled it.</div>
+            <div class="ex"><span class="n">417</span>How they achieved this remains mysterious. → <input class="g xw" data-answer="What remains mysterious is how|How they achieved this is what"> remains mysterious.</div>
+            <div class="ex"><span class="n">418</span>Where the funding came from is unclear. → <input class="g xw" data-answer="What is unclear is where|Unclear is where"> the funding came from.</div>
+            <div class="ex"><span class="n">419</span>The reason we failed was poor planning. → <input class="g xw" data-answer="What caused us to fail was|Poor planning was why"> we failed.</div>
+            <div class="ex"><span class="n">420</span>When they will announce it is anyone's guess. → <input class="g xw" data-answer="Anyone's guess is when|What is anyone's guess is when"> they will announce it.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: All/Thing/What Clefts (421-445)</h3>
+            <div class="ex"><span class="n">421</span>I want only an explanation. → All I want <input class="g xw" data-answer="is an explanation">.<span class="hint">💡 All + subject + verb + is</span></div>
+            <div class="ex"><span class="n">422</span>He did nothing but complain. → All he did <input class="g xw" data-answer="was complain|was to complain">.</div>
+            <div class="ex"><span class="n">423</span>We need only patience. → All we need <input class="g xw" data-answer="is patience">.</div>
+            <div class="ex"><span class="n">424</span>They asked for nothing except a fair hearing. → All they asked for <input class="g xw" data-answer="was a fair hearing">.</div>
+            <div class="ex"><span class="n">425</span>She said nothing of value. → All she said <input class="g xw" data-answer="was of little value|was worthless">.</div>
+            <div class="ex"><span class="n">426</span>They did nothing but delay. → All they did <input class="g xw" data-answer="was delay|was to delay">.</div>
+            <div class="ex"><span class="n">427</span>We achieved only a minor improvement. → All we achieved <input class="g xw" data-answer="was a minor improvement">.</div>
+            <div class="ex"><span class="n">428</span>The cost worries me. → The thing that worries me <input class="g xw" data-answer="is the cost">.<span class="hint">💡 The thing/problem/point</span></div>
+            <div class="ex"><span class="n">429</span>They don't listen. → The problem is that <input class="g xw" data-answer="they don't listen">.</div>
+            <div class="ex"><span class="n">430</span>We must act now. → The point is that <input class="g xw" data-answer="we must act now">.</div>
+            <div class="ex"><span class="n">431</span>The timing was wrong. → The thing that was wrong <input class="g xw" data-answer="was the timing">.</div>
+            <div class="ex"><span class="n">432</span>I want honesty. → What I want <input class="g xw" data-answer="is honesty">.<span class="hint">💡 Wh-cleft</span></div>
+            <div class="ex"><span class="n">433</span>His resignation surprised us. → What surprised us <input class="g xw" data-answer="was his resignation">.</div>
+            <div class="ex"><span class="n">434</span>She proposed a merger. → What she proposed <input class="g xw" data-answer="was a merger">.</div>
+            <div class="ex"><span class="n">435</span>They ignored the evidence. → What they ignored <input class="g xw" data-answer="was the evidence">.</div>
+            <div class="ex"><span class="n">436</span>His attitude bothers me. → What bothers me <input class="g xw" data-answer="is his attitude">.</div>
+            <div class="ex"><span class="n">437</span>We need is reform. → What we need <input class="g xw" data-answer="is reform">.</div>
+            <div class="ex"><span class="n">438</span>She did was resign. → What she did <input class="g xw" data-answer="was resign|was to resign">.</div>
+            <div class="ex"><span class="n">439</span>They failed to do was consult stakeholders. → What they failed to do <input class="g xw" data-answer="was consult stakeholders|was to consult stakeholders">.</div>
+            <div class="ex"><span class="n">440</span>He should do is apologise. → What he should do <input class="g xw" data-answer="is apologise|is apologize">.</div>
+            <div class="ex"><span class="n">441</span>This means is that we must adapt. → What this means <input class="g xw" data-answer="is that we must adapt">.</div>
+            <div class="ex"><span class="n">442</span>Happened next was unexpected. → What happened next <input class="g xw" data-answer="was unexpected">.</div>
+            <div class="ex"><span class="n">443</span>Matters now is the response. → What matters now <input class="g xw" data-answer="is the response">.</div>
+            <div class="ex"><span class="n">444</span>We're dealing with is a crisis. → What we're dealing with <input class="g xw" data-answer="is a crisis">.</div>
+            <div class="ex"><span class="n">445</span>Struck me was her confidence. → What struck me <input class="g xw" data-answer="was her confidence">.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('cleft')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('cleft')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('cleft')">↺ Reset</button>
+        </div>
+        <div id="cleft-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="cleft-correct">0</span>/<span id="cleft-total">0</span></p></div>
+    </section>
+
+    <!-- EMPHATIC STRUCTURES SECTION -->
+    <section id="emphatic" class="exercise-section">
+        <h2 class="section-title">💥 Emphatic Structures</h2>
+        <p class="section-subtitle">Do/does/did emphasis, own, very, the fact that, and intensifiers</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in emphatic forms or rewrite for emphasis.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part A: Emphatic Do/Does/Did (446-470)</h3>
+            <div class="ex"><span class="n">446</span>I understand your concerns. (emphatic) → I <input class="g" data-answer="do"> understand your concerns.<span class="hint">💡 do/does/did + base verb for emphasis</span></div>
+            <div class="ex"><span class="n">447</span>She warned us about the risks. (emphatic) → She <input class="g" data-answer="did"> warn us about the risks.</div>
+            <div class="ex"><span class="n">448</span>The evidence supports our theory. (emphatic) → The evidence <input class="g" data-answer="does"> support our theory.</div>
+            <div class="ex"><span class="n">449</span>They apologised eventually. (emphatic) → They <input class="g" data-answer="did"> apologise eventually.</div>
+            <div class="ex"><span class="n">450</span>We appreciate your patience. (emphatic) → We <input class="g" data-answer="do"> appreciate your patience.</div>
+            <div class="ex"><span class="n">451</span>He makes a valid point. (emphatic) → He <input class="g" data-answer="does"> make a valid point.</div>
+            <div class="ex"><span class="n">452</span>The policy works in theory. (emphatic) → The policy <input class="g" data-answer="does"> work in theory.</div>
+            <div class="ex"><span class="n">453</span>I hope you reconsider. (emphatic) → I <input class="g" data-answer="do"> hope you reconsider.</div>
+            <div class="ex"><span class="n">454</span>They achieved their objectives. (emphatic) → They <input class="g" data-answer="did"> achieve their objectives.</div>
+            <div class="ex"><span class="n">455</span>She deserves the recognition. (emphatic) → She <input class="g" data-answer="does"> deserve the recognition.</div>
+            <div class="ex"><span class="n">456</span>We considered your proposal. (emphatic) → We <input class="g" data-answer="did"> consider your proposal.</div>
+            <div class="ex"><span class="n">457</span>The system needs reform. (emphatic) → The system <input class="g" data-answer="does"> need reform.</div>
+            <div class="ex"><span class="n">458</span>He completed the project on time. (emphatic) → He <input class="g" data-answer="did"> complete the project on time.</div>
+            <div class="ex"><span class="n">459</span>I believe in the company's potential. (emphatic) → I <input class="g" data-answer="do"> believe in the company's potential.</div>
+            <div class="ex"><span class="n">460</span>The results confirm our hypothesis. (emphatic) → The results <input class="g" data-answer="do"> confirm our hypothesis.</div>
+            <div class="ex"><span class="n">461</span>She acknowledged the mistake. (emphatic) → She <input class="g" data-answer="did"> acknowledge the mistake.</div>
+            <div class="ex"><span class="n">462</span>The committee meets regularly. (emphatic) → The committee <input class="g" data-answer="does"> meet regularly.</div>
+            <div class="ex"><span class="n">463</span>I regret the misunderstanding. (emphatic) → I <input class="g" data-answer="do"> regret the misunderstanding.</div>
+            <div class="ex"><span class="n">464</span>He raised valid objections. (emphatic) → He <input class="g" data-answer="did"> raise valid objections.</div>
+            <div class="ex"><span class="n">465</span>They contribute to the community. (emphatic) → They <input class="g" data-answer="do"> contribute to the community.</div>
+            <div class="ex"><span class="n">466</span>Please <input class="g" data-answer="do"> sit down. (emphatic invitation)</div>
+            <div class="ex"><span class="n">467</span><input class="g" data-answer="Do"> be careful with those documents. (emphatic imperative)</div>
+            <div class="ex"><span class="n">468</span><input class="g" data-answer="Do"> come in and make yourself comfortable.</div>
+            <div class="ex"><span class="n">469</span><input class="g" data-answer="Do"> let me know if you have any questions.</div>
+            <div class="ex"><span class="n">470</span><input class="g" data-answer="Do"> forgive me for the interruption.</div>
+        </div>
+        <div class="subsection">
+            <h3 class="subsection-title">Part B: Own, Very, The Fact That, Intensifiers (471-500)</h3>
+            <div class="ex"><span class="n">471</span>She wrote the entire report herself. → She wrote the entire report <input class="g xw" data-answer="on her own|by herself">.<span class="hint">💡 on one's own / by oneself</span></div>
+            <div class="ex"><span class="n">472</span>The CEO personally approved the decision. → The CEO <input class="g" data-answer="himself|herself"> approved the decision.</div>
+            <div class="ex"><span class="n">473</span>This is the precise document we need. → This is the <input class="g" data-answer="very"> document we need.<span class="hint">💡 very = exact/precise</span></div>
+            <div class="ex"><span class="n">474</span>At the exact moment of the announcement... → At the <input class="g" data-answer="very"> moment of the announcement...</div>
+            <div class="ex"><span class="n">475</span>The mere thought of failure is unacceptable. → The <input class="g" data-answer="very"> thought of failure is unacceptable.</div>
+            <div class="ex"><span class="n">476</span>She's interested in the idea itself. → She's interested in the <input class="g" data-answer="very"> idea itself.</div>
+            <div class="ex"><span class="n">477</span>The exact same problem occurred before. → The <input class="g w" data-answer="very same"> problem occurred before.</div>
+            <div class="ex"><span class="n">478</span>At the earliest opportunity... → At the <input class="g" data-answer="very"> first opportunity...</div>
+            <div class="ex"><span class="n">479</span>They disagreed is significant. → <input class="g xw" data-answer="The fact that|That"> they disagreed is significant.<span class="hint">💡 The fact that + clause</span></div>
+            <div class="ex"><span class="n">480</span>She was even considered shows progress. → <input class="g xw" data-answer="The fact that|That"> she was even considered shows progress.</div>
+            <div class="ex"><span class="n">481</span>The board ignored the warnings is troubling. → <input class="g xw" data-answer="The fact that|That"> the board ignored the warnings is troubling.</div>
+            <div class="ex"><span class="n">482</span>Given <input class="g xw" data-answer="the fact that|that"> resources are limited, we must prioritise.</div>
+            <div class="ex"><span class="n">483</span>Despite <input class="g xw" data-answer="the fact that|that"> the policy failed, they continued.</div>
+            <div class="ex"><span class="n">484</span>In view of <input class="g xw" data-answer="the fact that|that"> demand has fallen, we're reducing production.</div>
+            <div class="ex"><span class="n">485</span>Notwithstanding <input class="g xw" data-answer="the fact that|that"> costs have risen, profits remain stable.</div>
+            <div class="ex"><span class="n">486</span>The proposal is flawed, and <input class="g w" data-answer="what's more|moreover|furthermore">, impractical.<span class="hint">💡 Emphatic addition</span></div>
+            <div class="ex"><span class="n">487</span>The results were disappointing, <input class="g xw" data-answer="to say the least|if not disastrous">.</div>
+            <div class="ex"><span class="n">488</span>It is <input class="g w" data-answer="absolutely|utterly|completely"> essential that we act now.<span class="hint">💡 Intensifying adverbs</span></div>
+            <div class="ex"><span class="n">489</span>The situation is <input class="g xw" data-answer="by no means|far from"> hopeless.</div>
+            <div class="ex"><span class="n">490</span>This is <input class="g w" data-answer="by far|easily"> the best proposal we've received.</div>
+            <div class="ex"><span class="n">491</span>The decision was <input class="g xw" data-answer="nothing short of|tantamount to"> a disaster.</div>
+            <div class="ex"><span class="n">492</span>We are <input class="g" data-answer="fully|entirely|completely"> committed to the project.</div>
+            <div class="ex"><span class="n">493</span>I am <input class="g w" data-answer="well|fully|perfectly"> aware of the risks involved.</div>
+            <div class="ex"><span class="n">494</span>The evidence is <input class="g xw" data-answer="all but|virtually|practically"> conclusive.</div>
+            <div class="ex"><span class="n">495</span>Success is <input class="g xw" data-answer="by no means|far from"> guaranteed.</div>
+            <div class="ex"><span class="n">496</span>The criticism was <input class="g w" data-answer="entirely|wholly|completely"> unjustified.</div>
+            <div class="ex"><span class="n">497</span>The plan is <input class="g w" data-answer="utterly|completely|totally"> unworkable.</div>
+            <div class="ex"><span class="n">498</span>I <input class="g xw" data-answer="wholeheartedly|strongly|fully"> support the initiative.</div>
+            <div class="ex"><span class="n">499</span>The report <input class="g xw" data-answer="categorically|flatly|firmly"> rejects the allegations.</div>
+            <div class="ex"><span class="n">500</span>We <input class="g w" data-answer="strongly|firmly|highly"> recommend further consultation.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('emphatic')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('emphatic')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('emphatic')">↺ Reset</button>
+        </div>
+        <div id="emphatic-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="emphatic-correct">0</span>/<span id="emphatic-total">0</span></p></div>
+    </section>
+</div>
+<script>
+function showSection(id,btn){document.querySelectorAll('.exercise-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function norm(s){return s.toLowerCase().trim().replace(/\s+/g,' ').replace(/['']/g,"'");}
+function checkAnswers(id){const sec=document.getElementById(id),inputs=sec.querySelectorAll('input.g');let c=0,t=inputs.length,wrongNums=[];inputs.forEach(i=>{const u=norm(i.value),ans=i.dataset.answer.split('|').map(a=>norm(a));const numEl=i.closest('.ex').querySelector('.n');const num=numEl?numEl.textContent:'?';i.classList.remove('correct','incorrect');if(ans.includes(u)){i.classList.add('correct');c++;}else{if(u!=='')i.classList.add('incorrect');wrongNums.push(num);}});document.getElementById(id+'-correct').textContent=c;document.getElementById(id+'-total').textContent=t;document.getElementById(id+'-results').classList.add('visible');}
+function showSolutions(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{const ans=i.dataset.answer.split('|')[0];if(!i.classList.contains('correct')){i.classList.add('incorrect');let sol=i.nextElementSibling;if(!sol||!sol.classList.contains('sol')){sol=document.createElement('span');sol.className='sol';sol.textContent=' → '+ans;i.parentNode.insertBefore(sol,i.nextSibling);}sol.style.display='inline';}});}
+function resetSection(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');});sec.querySelectorAll('.sol').forEach(s=>s.style.display='none');document.getElementById(id+'-results').classList.remove('visible');}
+</script>
+</body>
+</html>

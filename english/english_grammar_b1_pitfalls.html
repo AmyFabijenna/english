@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Pitfalls B1 🎯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#1a2e3d;--primary-light:#2d4555;--accent:#4ac1ff;--accent-glow:#85d4ff;--accent-dark:#2196f3;--success:#4ade80;--error:#ff5252;--text:#fff;--text-muted:#b4d4e8;--gold:#ffd740}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Quicksand',sans-serif;background:linear-gradient(180deg,#0d1a26 0%,#1a3a4a 40%,#2d5a6b 70%,#3a7c8c 100%);min-height:100vh;color:var(--text)}
+        .container{max-width:1000px;margin:0 auto;padding:20px}
+        header{text-align:center;margin-bottom:30px}
+        h1{font-family:'Fredoka',sans-serif;font-size:2.2rem;background:linear-gradient(135deg,#4ac1ff,#85d4ff,#ffd740);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+        .subtitle{color:var(--text-muted);font-size:1.1rem}
+        .topic-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px}
+        .topic-btn{background:linear-gradient(135deg,rgba(26,46,61,0.9),rgba(45,69,85,0.9));border:2px solid rgba(74,193,255,0.3);border-radius:12px;padding:10px 16px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s}
+        .topic-btn:hover,.topic-btn.active{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent);transform:translateY(-2px);box-shadow:0 5px 20px rgba(74,193,255,0.4)}
+        .topic-btn .count{background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:10px;font-size:0.75rem;margin-left:6px}
+        .exercise-section{background:linear-gradient(135deg,rgba(26,46,61,0.95),rgba(45,69,85,0.9));border-radius:20px;padding:30px;margin-bottom:20px;border:2px solid rgba(74,193,255,0.3);box-shadow:0 10px 40px rgba(0,0,0,0.3);display:none}
+        .exercise-section.active{display:block;animation:fadeIn 0.5s}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .section-title{font-family:'Fredoka',sans-serif;font-size:1.5rem;color:var(--accent-glow);margin-bottom:10px}
+        .section-subtitle{color:var(--text-muted);margin-bottom:25px;font-size:0.95rem}
+        .subsection{margin-bottom:30px}
+        .subsection-title{font-family:'Fredoka',sans-serif;font-size:1.15rem;color:var(--gold);margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid rgba(255,215,64,0.3)}
+        .ex{background:rgba(13,26,38,0.6);border-radius:12px;padding:12px 15px;margin-bottom:10px;border:1px solid rgba(74,193,255,0.15);line-height:1.9}
+        .n{display:inline-block;background:var(--accent-dark);color:#fff;min-width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-size:0.8rem;font-weight:600;margin-right:10px}
+        input.g{background:rgba(13,26,38,0.9);border:2px solid var(--primary-light);border-radius:8px;padding:5px 10px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;min-width:100px;text-align:center;transition:all 0.3s;margin:2px 4px}
+        input.g:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px rgba(74,193,255,0.3)}
+        input.g.correct{border-color:var(--success);background:rgba(74,222,128,0.2)}
+        input.g.incorrect{border-color:var(--error);background:rgba(255,82,82,0.2)}
+        input.g.w{min-width:160px}input.g.xw{min-width:220px}
+        .hint{display:block;color:var(--text-muted);font-size:0.8rem;margin-top:5px;font-style:italic}
+        .controls{display:flex;gap:15px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+        .btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid var(--accent);border-radius:12px;padding:12px 25px;color:var(--text);font-family:'Fredoka',sans-serif;font-size:1rem;cursor:pointer;transition:all 0.3s}
+        .btn:hover{background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px);box-shadow:0 5px 20px rgba(74,193,255,0.4)}
+        .btn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent))}
+        .results{background:rgba(13,26,38,0.8);border-radius:15px;padding:20px;margin-top:20px;text-align:center;display:none}
+        .results.visible{display:block}
+        .score{font-family:'Fredoka',sans-serif;font-size:2.2rem;color:var(--accent-glow)}
+        .score-label{color:var(--text-muted);font-size:0.9rem;margin-bottom:5px}
+        .sol{color:var(--success);font-weight:600;margin-left:5px;display:none}
+        .instruction{background:rgba(74,193,255,0.1);border:1px solid rgba(74,193,255,0.3);border-radius:10px;padding:12px;margin-bottom:20px}
+        .instruction h4{color:var(--accent-glow);margin-bottom:5px;font-family:'Fredoka',sans-serif;font-size:1rem}
+        .instruction p{color:var(--text-muted);font-size:0.85rem;line-height:1.5}
+        @media(max-width:768px){h1{font-size:1.5rem}.container{padding:10px}.exercise-section{padding:15px}input.g{min-width:80px;font-size:0.85rem}input.g.w{min-width:120px}input.g.xw{min-width:160px}.topic-btn{padding:8px 12px;font-size:0.75rem}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>📚 English Grammar Pitfalls B1</h1>
+        <p class="subtitle">300 exercises on common grammar challenges for German speakers</p>
+    </header>
+    <nav class="topic-nav">
+        <button class="topic-btn active" onclick="showSection('tenses',this)">⏰ Tenses <span class="count">40</span></button>
+        <button class="topic-btn" onclick="showSection('articles',this)">📰 Articles <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('prepositions',this)">📍 Prepositions <span class="count">35</span></button>
+        <button class="topic-btn" onclick="showSection('pronouns',this)">👤 Pronouns <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('questions',this)">❓ Questions <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('modals',this)">🔧 Modals <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('countable',this)">🔢 Count/Uncount <span class="count">25</span></button>
+        <button class="topic-btn" onclick="showSection('comparatives',this)">📊 Comparatives <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('confusing',this)">🔄 Confusing Words <span class="count">25</span></button>
+        <button class="topic-btn" onclick="showSection('wordorder',this)">🏗️ Word Order <span class="count">25</span></button>
+    </nav>
+
+    <!-- TENSES SECTION -->
+    <section id="tenses" class="exercise-section active">
+        <h2 class="section-title">⏰ Tense Basics</h2>
+        <p class="section-subtitle">Present Simple vs. Continuous, Past Simple vs. Continuous, Present Perfect</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Choose the correct tense. Think about when to use each tense!</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Present Simple vs. Present Continuous</h3>
+            <div class="ex"><span class="n">1</span>She <input class="g" data-answer="works"> (work) in a bank.</div>
+            <div class="ex"><span class="n">2</span>He <input class="g w" data-answer="is reading|'s reading"> (read) a book right now.</div>
+            <div class="ex"><span class="n">3</span>I <input class="g" data-answer="don't like"> (not/like) coffee.</div>
+            <div class="ex"><span class="n">4</span>They <input class="g w" data-answer="are watching|'re watching"> (watch) TV at the moment.</div>
+            <div class="ex"><span class="n">5</span>We <input class="g" data-answer="go"> (go) to the gym every Monday.</div>
+            <div class="ex"><span class="n">6</span>Listen! Someone <input class="g w" data-answer="is singing|'s singing"> (sing).</div>
+            <div class="ex"><span class="n">7</span>Water <input class="g" data-answer="boils"> (boil) at 100°C.</div>
+            <div class="ex"><span class="n">8</span>I <input class="g" data-answer="understand"> (understand) you. <span class="hint">💡 State verbs: no -ing!</span></div>
+            <div class="ex"><span class="n">9</span>She <input class="g" data-answer="wants"> (want) a new phone. <span class="hint">💡 State verbs: no -ing!</span></div>
+            <div class="ex"><span class="n">10</span>Look! The baby <input class="g w" data-answer="is sleeping|'s sleeping"> (sleep).</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Past Simple: Regular & Irregular Verbs</h3>
+            <div class="ex"><span class="n">11</span>I <input class="g" data-answer="went"> (go) to London last week.</div>
+            <div class="ex"><span class="n">12</span>She <input class="g" data-answer="watched"> (watch) a film yesterday.</div>
+            <div class="ex"><span class="n">13</span>He <input class="g" data-answer="didn't come"> (not/come) to the party.</div>
+            <div class="ex"><span class="n">14</span>We <input class="g" data-answer="bought"> (buy) a new car last month.</div>
+            <div class="ex"><span class="n">15</span>They <input class="g" data-answer="ate"> (eat) pizza for dinner.</div>
+            <div class="ex"><span class="n">16</span>I <input class="g" data-answer="saw"> (see) a great movie last night.</div>
+            <div class="ex"><span class="n">17</span>She <input class="g" data-answer="made"> (make) breakfast this morning.</div>
+            <div class="ex"><span class="n">18</span>We <input class="g" data-answer="had"> (have) a wonderful holiday.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Past Simple vs. Past Continuous</h3>
+            <div class="ex"><span class="n">19</span>While I <input class="g w" data-answer="was walking"> (walk), it <input class="g" data-answer="started"> (start) to rain.</div>
+            <div class="ex"><span class="n">20</span>She <input class="g w" data-answer="was cooking"> (cook) when the phone <input class="g" data-answer="rang"> (ring).</div>
+            <div class="ex"><span class="n">21</span>They <input class="g w" data-answer="were playing"> (play) football at 3 p.m. yesterday.</div>
+            <div class="ex"><span class="n">22</span>I <input class="g" data-answer="met"> (meet) him while I <input class="g w" data-answer="was shopping"> (shop).</div>
+            <div class="ex"><span class="n">23</span>What <input class="g w" data-answer="were you doing"> (you/do) at 8 o'clock last night?</div>
+            <div class="ex"><span class="n">24</span>He <input class="g" data-answer="broke"> (break) his leg while he <input class="g w" data-answer="was skiing"> (ski).</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Present Perfect: have/has + past participle</h3>
+            <div class="ex"><span class="n">25</span>I <input class="g w" data-answer="have visited|'ve visited"> (visit) Paris three times.</div>
+            <div class="ex"><span class="n">26</span>She <input class="g w" data-answer="has never been|'s never been"> (never/be) to Japan.</div>
+            <div class="ex"><span class="n">27</span>We <input class="g w" data-answer="have known|'ve known"> (know) each other for ten years.</div>
+            <div class="ex"><span class="n">28</span><input class="g w" data-answer="Have you seen"> (you/see) the new film yet?</div>
+            <div class="ex"><span class="n">29</span>He <input class="g w" data-answer="has just finished|'s just finished"> (just/finish) his homework.</div>
+            <div class="ex"><span class="n">30</span>They <input class="g w" data-answer="have already left|'ve already left"> (already/leave).</div>
+            <div class="ex"><span class="n">31</span>I <input class="g w" data-answer="haven't eaten"> (not/eat) anything today.</div>
+            <div class="ex"><span class="n">32</span>She <input class="g w" data-answer="has worked|'s worked"> (work) here since 2020.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Present Perfect vs. Past Simple</h3>
+            <div class="ex"><span class="n">33</span>I <input class="g" data-answer="went"> (go) to Rome last summer. <span class="hint">💡 finished time = Past Simple</span></div>
+            <div class="ex"><span class="n">34</span>I <input class="g w" data-answer="have been|'ve been"> (be) to Rome twice. <span class="hint">💡 life experience = Present Perfect</span></div>
+            <div class="ex"><span class="n">35</span>She <input class="g" data-answer="started"> (start) this job in 2019.</div>
+            <div class="ex"><span class="n">36</span>She <input class="g w" data-answer="has worked|'s worked"> (work) here for five years.</div>
+            <div class="ex"><span class="n">37</span>When <input class="g w" data-answer="did you arrive"> (you/arrive)?</div>
+            <div class="ex"><span class="n">38</span><input class="g w" data-answer="Have you ever tried"> (you/ever/try) sushi?</div>
+            <div class="ex"><span class="n">39</span>He <input class="g" data-answer="lived"> (live) in Berlin from 2010 to 2015.</div>
+            <div class="ex"><span class="n">40</span>They <input class="g w" data-answer="have lived|'ve lived"> (live) in Berlin since 2015.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('tenses')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('tenses')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('tenses')">↺ Reset</button>
+        </div>
+        <div id="tenses-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="tenses-correct">0</span>/<span id="tenses-total">0</span></p></div>
+    </section>
+
+    <!-- ARTICLES SECTION -->
+    <section id="articles" class="exercise-section">
+        <h2 class="section-title">📰 Articles: a, an, the, or Ø</h2>
+        <p class="section-subtitle">When to use a/an, the, or no article</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in "a", "an", "the", or leave empty (type "-" for no article).</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">A vs. An</h3>
+            <div class="ex"><span class="n">1</span>She is <input class="g" data-answer="a"> teacher.</div>
+            <div class="ex"><span class="n">2</span>He is <input class="g" data-answer="an"> engineer.</div>
+            <div class="ex"><span class="n">3</span>I need <input class="g" data-answer="an"> umbrella.</div>
+            <div class="ex"><span class="n">4</span>It was <input class="g" data-answer="an"> honest mistake. <span class="hint">💡 "h" is silent!</span></div>
+            <div class="ex"><span class="n">5</span>She goes to <input class="g" data-answer="a"> university. <span class="hint">💡 sounds like "yoo"</span></div>
+            <div class="ex"><span class="n">6</span>I waited for <input class="g" data-answer="an"> hour.</div>
+            <div class="ex"><span class="n">7</span>He's <input class="g" data-answer="a"> European citizen. <span class="hint">💡 sounds like "yoo"</span></div>
+            <div class="ex"><span class="n">8</span>She ate <input class="g" data-answer="an"> apple.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">The: Specific or Unique</h3>
+            <div class="ex"><span class="n">9</span>Can you close <input class="g" data-answer="the"> door, please?</div>
+            <div class="ex"><span class="n">10</span><input class="g" data-answer="The"> sun rises in the east.</div>
+            <div class="ex"><span class="n">11</span>I went to <input class="g" data-answer="the"> cinema last night.</div>
+            <div class="ex"><span class="n">12</span>She is <input class="g" data-answer="the"> best student in the class.</div>
+            <div class="ex"><span class="n">13</span><input class="g" data-answer="The"> President gave a speech.</div>
+            <div class="ex"><span class="n">14</span>I live near <input class="g" data-answer="the"> river.</div>
+            <div class="ex"><span class="n">15</span><input class="g" data-answer="The"> coffee you made is delicious!</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">No Article: General Statements</h3>
+            <div class="ex"><span class="n">16</span><input class="g" data-answer="-"> Dogs are friendly animals. <span class="hint">💡 general = no article</span></div>
+            <div class="ex"><span class="n">17</span>I love <input class="g" data-answer="-"> music.</div>
+            <div class="ex"><span class="n">18</span><input class="g" data-answer="-"> Water is essential for life.</div>
+            <div class="ex"><span class="n">19</span>She speaks <input class="g" data-answer="-"> German fluently.</div>
+            <div class="ex"><span class="n">20</span>I have <input class="g" data-answer="-"> breakfast at 7 a.m.</div>
+            <div class="ex"><span class="n">21</span>He goes to <input class="g" data-answer="-"> work by bus.</div>
+            <div class="ex"><span class="n">22</span>She is at <input class="g" data-answer="-"> home right now.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Mixed Practice</h3>
+            <div class="ex"><span class="n">23</span>I have <input class="g" data-answer="a"> cat and <input class="g" data-answer="a"> dog. <input class="g" data-answer="The"> cat is black.</div>
+            <div class="ex"><span class="n">24</span>Can you play <input class="g" data-answer="the"> piano?</div>
+            <div class="ex"><span class="n">25</span>He works in <input class="g" data-answer="a"> hospital in <input class="g" data-answer="-"> Vienna.</div>
+            <div class="ex"><span class="n">26</span>I go to <input class="g" data-answer="-"> school by <input class="g" data-answer="-"> bus.</div>
+            <div class="ex"><span class="n">27</span>She is <input class="g" data-answer="a"> doctor at <input class="g" data-answer="the"> local hospital.</div>
+            <div class="ex"><span class="n">28</span><input class="g" data-answer="The"> Alps are beautiful in winter.</div>
+            <div class="ex"><span class="n">29</span>I'm reading <input class="g" data-answer="a"> book about <input class="g" data-answer="the"> Second World War.</div>
+            <div class="ex"><span class="n">30</span><input class="g" data-answer="-"> Life is beautiful!</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('articles')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('articles')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('articles')">↺ Reset</button>
+        </div>
+        <div id="articles-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="articles-correct">0</span>/<span id="articles-total">0</span></p></div>
+    </section>
+
+    <!-- PREPOSITIONS SECTION -->
+    <section id="prepositions" class="exercise-section">
+        <h2 class="section-title">📍 Prepositions</h2>
+        <p class="section-subtitle">in, on, at for time and place</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct preposition. These often differ from German!</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Time: in, on, at</h3>
+            <div class="ex"><span class="n">1</span>The meeting is <input class="g" data-answer="at"> 3 o'clock.</div>
+            <div class="ex"><span class="n">2</span>I was born <input class="g" data-answer="in"> 1990.</div>
+            <div class="ex"><span class="n">3</span>We have a party <input class="g" data-answer="on"> Saturday.</div>
+            <div class="ex"><span class="n">4</span>It's cold <input class="g" data-answer="in"> winter.</div>
+            <div class="ex"><span class="n">5</span>I wake up <input class="g" data-answer="at"> 7 a.m.</div>
+            <div class="ex"><span class="n">6</span>She was born <input class="g" data-answer="on"> the 5th of March.</div>
+            <div class="ex"><span class="n">7</span>I go to bed <input class="g" data-answer="at"> night.</div>
+            <div class="ex"><span class="n">8</span>We're going on holiday <input class="g" data-answer="in"> August.</div>
+            <div class="ex"><span class="n">9</span>I always feel tired <input class="g" data-answer="in"> the morning.</div>
+            <div class="ex"><span class="n">10</span>See you <input class="g" data-answer="on"> Monday!</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Place: in, on, at</h3>
+            <div class="ex"><span class="n">11</span>She lives <input class="g" data-answer="in"> Vienna.</div>
+            <div class="ex"><span class="n">12</span>The book is <input class="g" data-answer="on"> the table.</div>
+            <div class="ex"><span class="n">13</span>He's waiting <input class="g" data-answer="at"> the bus stop.</div>
+            <div class="ex"><span class="n">14</span>I live <input class="g" data-answer="in"> Austria.</div>
+            <div class="ex"><span class="n">15</span>The picture is <input class="g" data-answer="on"> the wall.</div>
+            <div class="ex"><span class="n">16</span>She's sitting <input class="g" data-answer="in"> the garden.</div>
+            <div class="ex"><span class="n">17</span>We met <input class="g" data-answer="at"> the station.</div>
+            <div class="ex"><span class="n">18</span>He works <input class="g" data-answer="in"> an office.</div>
+            <div class="ex"><span class="n">19</span>I'll meet you <input class="g" data-answer="at"> the airport.</div>
+            <div class="ex"><span class="n">20</span>The cat is sleeping <input class="g" data-answer="on"> the sofa.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Movement: to, into, from</h3>
+            <div class="ex"><span class="n">21</span>I'm going <input class="g" data-answer="to"> the supermarket.</div>
+            <div class="ex"><span class="n">22</span>She walked <input class="g" data-answer="into"> the room.</div>
+            <div class="ex"><span class="n">23</span>He comes <input class="g" data-answer="from"> Germany.</div>
+            <div class="ex"><span class="n">24</span>We drove <input class="g" data-answer="to"> the airport.</div>
+            <div class="ex"><span class="n">25</span>The cat jumped <input class="g" data-answer="onto|on"> the table.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Common Expressions (different from German!)</h3>
+            <div class="ex"><span class="n">26</span>I'm interested <input class="g" data-answer="in"> music. <span class="hint">💡 DE: interessiert AN</span></div>
+            <div class="ex"><span class="n">27</span>She's married <input class="g" data-answer="to"> a doctor. <span class="hint">💡 DE: verheiratet MIT</span></div>
+            <div class="ex"><span class="n">28</span>I'm waiting <input class="g" data-answer="for"> the bus. <span class="hint">💡 DE: warten AUF</span></div>
+            <div class="ex"><span class="n">29</span>He's good <input class="g" data-answer="at"> sports. <span class="hint">💡 DE: gut IN</span></div>
+            <div class="ex"><span class="n">30</span>I'm afraid <input class="g" data-answer="of"> dogs. <span class="hint">💡 DE: Angst VOR</span></div>
+            <div class="ex"><span class="n">31</span>I'm looking <input class="g" data-answer="for"> my keys.</div>
+            <div class="ex"><span class="n">32</span>She depends <input class="g" data-answer="on"> her parents.</div>
+            <div class="ex"><span class="n">33</span>I dream <input class="g" data-answer="of|about"> becoming a pilot.</div>
+            <div class="ex"><span class="n">34</span>He apologized <input class="g" data-answer="for"> being late.</div>
+            <div class="ex"><span class="n">35</span>She's listening <input class="g" data-answer="to"> music.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('prepositions')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('prepositions')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('prepositions')">↺ Reset</button>
+        </div>
+        <div id="prepositions-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="prepositions-correct">0</span>/<span id="prepositions-total">0</span></p></div>
+    </section>
+
+    <!-- PRONOUNS SECTION -->
+    <section id="pronouns" class="exercise-section">
+        <h2 class="section-title">👤 Pronouns</h2>
+        <p class="section-subtitle">Subject, object, possessive, reflexive pronouns</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct pronoun.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Subject vs. Object Pronouns</h3>
+            <div class="ex"><span class="n">1</span><input class="g" data-answer="She"> is my best friend. (she/her)</div>
+            <div class="ex"><span class="n">2</span>Can you help <input class="g" data-answer="me">? (I/me)</div>
+            <div class="ex"><span class="n">3</span>I saw <input class="g" data-answer="them"> at the party. (they/them)</div>
+            <div class="ex"><span class="n">4</span><input class="g" data-answer="We"> went to the cinema. (we/us)</div>
+            <div class="ex"><span class="n">5</span>She gave <input class="g" data-answer="him"> a present. (he/him)</div>
+            <div class="ex"><span class="n">6</span>This is between you and <input class="g" data-answer="me">. (I/me)</div>
+            <div class="ex"><span class="n">7</span>Tell <input class="g" data-answer="her"> to come here. (she/her)</div>
+            <div class="ex"><span class="n">8</span><input class="g" data-answer="He"> and <input class="g" data-answer="I"> are friends. (He/Him, I/Me)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Possessive Adjectives vs. Pronouns</h3>
+            <div class="ex"><span class="n">9</span>This is <input class="g" data-answer="my"> book. (my/mine)</div>
+            <div class="ex"><span class="n">10</span>Is this book <input class="g" data-answer="yours">? (your/yours)</div>
+            <div class="ex"><span class="n">11</span>The blue car is <input class="g" data-answer="theirs">. (their/theirs)</div>
+            <div class="ex"><span class="n">12</span><input class="g" data-answer="Her"> name is Lisa. (Her/Hers)</div>
+            <div class="ex"><span class="n">13</span>A friend of <input class="g" data-answer="mine"> lives here. (my/mine)</div>
+            <div class="ex"><span class="n">14</span><input class="g" data-answer="Our"> house is big. (Our/Ours)</div>
+            <div class="ex"><span class="n">15</span>This isn't my phone, it's <input class="g" data-answer="hers">. (her/hers)</div>
+            <div class="ex"><span class="n">16</span>The dog wagged <input class="g" data-answer="its"> tail. (its/it's)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Reflexive Pronouns</h3>
+            <div class="ex"><span class="n">17</span>I hurt <input class="g" data-answer="myself">. (me/myself)</div>
+            <div class="ex"><span class="n">18</span>She made <input class="g" data-answer="herself"> a coffee.</div>
+            <div class="ex"><span class="n">19</span>He cut <input class="g" data-answer="himself"> while cooking.</div>
+            <div class="ex"><span class="n">20</span>They enjoyed <input class="g" data-answer="themselves"> at the party.</div>
+            <div class="ex"><span class="n">21</span>Help <input class="g" data-answer="yourself|yourselves"> to some cake!</div>
+            <div class="ex"><span class="n">22</span>We taught <input class="g" data-answer="ourselves"> to swim.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Each other vs. Reflexive (German speakers often confuse!)</h3>
+            <div class="ex"><span class="n">23</span>They love <input class="g w" data-answer="each other">. <span class="hint">💡 mutual action</span></div>
+            <div class="ex"><span class="n">24</span>We see <input class="g w" data-answer="each other"> every day.</div>
+            <div class="ex"><span class="n">25</span>They helped <input class="g w" data-answer="each other"> with homework.</div>
+            <div class="ex"><span class="n">26</span>She looked at <input class="g" data-answer="herself"> in the mirror. <span class="hint">💡 same person</span></div>
+            <div class="ex"><span class="n">27</span>They looked at <input class="g w" data-answer="each other"> and smiled.</div>
+            <div class="ex"><span class="n">28</span>We email <input class="g w" data-answer="each other"> often.</div>
+            <div class="ex"><span class="n">29</span>He talks to <input class="g" data-answer="himself"> sometimes.</div>
+            <div class="ex"><span class="n">30</span>They talk to <input class="g w" data-answer="each other"> every day.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('pronouns')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('pronouns')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('pronouns')">↺ Reset</button>
+        </div>
+        <div id="pronouns-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="pronouns-correct">0</span>/<span id="pronouns-total">0</span></p></div>
+    </section>
+
+    <!-- QUESTIONS SECTION -->
+    <section id="questions" class="exercise-section">
+        <h2 class="section-title">❓ Questions & Negations</h2>
+        <p class="section-subtitle">Do/does, did, question words, short answers</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Form correct questions or complete the negations.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Present Simple Questions (do/does)</h3>
+            <div class="ex"><span class="n">1</span><input class="g" data-answer="Do"> you like pizza? (Do/Does)</div>
+            <div class="ex"><span class="n">2</span><input class="g" data-answer="Does"> she speak English? (Do/Does)</div>
+            <div class="ex"><span class="n">3</span>Where <input class="g" data-answer="do"> they live? (do/does)</div>
+            <div class="ex"><span class="n">4</span>What time <input class="g" data-answer="does"> the train leave? (do/does)</div>
+            <div class="ex"><span class="n">5</span>Why <input class="g" data-answer="don't"> you like coffee? (don't/doesn't)</div>
+            <div class="ex"><span class="n">6</span><input class="g w" data-answer="How often do"> you go to the gym? (how often)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Past Simple Questions (did)</h3>
+            <div class="ex"><span class="n">7</span><input class="g" data-answer="Did"> you see the film? (Did/Do)</div>
+            <div class="ex"><span class="n">8</span>Where <input class="g" data-answer="did"> you go yesterday?</div>
+            <div class="ex"><span class="n">9</span>What <input class="g" data-answer="did"> she say?</div>
+            <div class="ex"><span class="n">10</span>When <input class="g" data-answer="did"> they arrive?</div>
+            <div class="ex"><span class="n">11</span>Why <input class="g" data-answer="didn't"> he come to the party?</div>
+            <div class="ex"><span class="n">12</span><input class="g w" data-answer="How long did"> you stay there? (how long)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Question Words</h3>
+            <div class="ex"><span class="n">13</span><input class="g" data-answer="What"> is your name?</div>
+            <div class="ex"><span class="n">14</span><input class="g" data-answer="Where"> do you live?</div>
+            <div class="ex"><span class="n">15</span><input class="g" data-answer="When"> is your birthday?</div>
+            <div class="ex"><span class="n">16</span><input class="g" data-answer="Why"> are you sad?</div>
+            <div class="ex"><span class="n">17</span><input class="g" data-answer="How"> are you?</div>
+            <div class="ex"><span class="n">18</span><input class="g" data-answer="Who|Whom"> did you call? <span class="hint">💡 who = person</span></div>
+            <div class="ex"><span class="n">19</span><input class="g" data-answer="Which"> one do you want?</div>
+            <div class="ex"><span class="n">20</span><input class="g" data-answer="Whose"> book is this?</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Short Answers</h3>
+            <div class="ex"><span class="n">21</span>"Do you like tea?" – "Yes, <input class="g" data-answer="I do">."</div>
+            <div class="ex"><span class="n">22</span>"Does she work here?" – "No, <input class="g w" data-answer="she doesn't">."</div>
+            <div class="ex"><span class="n">23</span>"Did you see him?" – "Yes, <input class="g" data-answer="I did">."</div>
+            <div class="ex"><span class="n">24</span>"Are you coming?" – "No, <input class="g" data-answer="I'm not">."</div>
+            <div class="ex"><span class="n">25</span>"Can you swim?" – "Yes, <input class="g" data-answer="I can">."</div>
+            <div class="ex"><span class="n">26</span>"Have you been to Paris?" – "No, <input class="g w" data-answer="I haven't">."</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Negations</h3>
+            <div class="ex"><span class="n">27</span>I <input class="g w" data-answer="don't like"> (not/like) coffee.</div>
+            <div class="ex"><span class="n">28</span>She <input class="g w" data-answer="doesn't work"> (not/work) on Sundays.</div>
+            <div class="ex"><span class="n">29</span>He <input class="g w" data-answer="didn't come"> (not/come) to the party.</div>
+            <div class="ex"><span class="n">30</span>They <input class="g w" data-answer="aren't|are not"> coming. (not/be)</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('questions')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('questions')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('questions')">↺ Reset</button>
+        </div>
+        <div id="questions-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="questions-correct">0</span>/<span id="questions-total">0</span></p></div>
+    </section>
+
+    <!-- MODALS SECTION -->
+    <section id="modals" class="exercise-section">
+        <h2 class="section-title">🔧 Modal Verbs</h2>
+        <p class="section-subtitle">can, could, must, have to, should, may, might</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Choose the correct modal verb. Remember: no "to" after modals!</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Can vs. Could (ability)</h3>
+            <div class="ex"><span class="n">1</span>I <input class="g" data-answer="can"> speak three languages.</div>
+            <div class="ex"><span class="n">2</span><input class="g" data-answer="Can"> you swim?</div>
+            <div class="ex"><span class="n">3</span>She <input class="g" data-answer="can't|cannot"> come today. (negative)</div>
+            <div class="ex"><span class="n">4</span>When I was young, I <input class="g" data-answer="could"> run very fast. <span class="hint">💡 past ability</span></div>
+            <div class="ex"><span class="n">5</span>He <input class="g" data-answer="couldn't"> find his keys.</div>
+            <div class="ex"><span class="n">6</span><input class="g" data-answer="Could"> you help me, please? <span class="hint">💡 polite request</span></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Must vs. Have to (obligation)</h3>
+            <div class="ex"><span class="n">7</span>You <input class="g" data-answer="must"> wear a seatbelt. <span class="hint">💡 strong rule</span></div>
+            <div class="ex"><span class="n">8</span>I <input class="g w" data-answer="have to"> get up early tomorrow. <span class="hint">💡 external obligation</span></div>
+            <div class="ex"><span class="n">9</span>She <input class="g w" data-answer="has to"> work on Saturdays.</div>
+            <div class="ex"><span class="n">10</span>Do you <input class="g w" data-answer="have to"> wear a uniform?</div>
+            <div class="ex"><span class="n">11</span>You <input class="g" data-answer="mustn't"> smoke here! <span class="hint">💡 prohibition</span></div>
+            <div class="ex"><span class="n">12</span>I <input class="g w" data-answer="don't have to"> work tomorrow. <span class="hint">💡 not necessary</span></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Should (advice)</h3>
+            <div class="ex"><span class="n">13</span>You <input class="g" data-answer="should"> see a doctor.</div>
+            <div class="ex"><span class="n">14</span>She <input class="g" data-answer="shouldn't"> eat so much sugar.</div>
+            <div class="ex"><span class="n">15</span><input class="g" data-answer="Should"> I call him?</div>
+            <div class="ex"><span class="n">16</span>You <input class="g" data-answer="should"> study harder.</div>
+            <div class="ex"><span class="n">17</span>They <input class="g" data-answer="shouldn't"> be so loud.</div>
+            <div class="ex"><span class="n">18</span>What <input class="g" data-answer="should"> I do?</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">May & Might (possibility)</h3>
+            <div class="ex"><span class="n">19</span>It <input class="g" data-answer="might|may"> rain later. <span class="hint">💡 maybe, not sure</span></div>
+            <div class="ex"><span class="n">20</span>She <input class="g" data-answer="might|may"> be at home.</div>
+            <div class="ex"><span class="n">21</span>They <input class="g" data-answer="might not|may not"> come to the party.</div>
+            <div class="ex"><span class="n">22</span><input class="g" data-answer="May"> I use your phone? <span class="hint">💡 polite permission</span></div>
+            <div class="ex"><span class="n">23</span>He <input class="g" data-answer="might|may"> be late.</div>
+            <div class="ex"><span class="n">24</span><input class="g" data-answer="May"> I come in?</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Mixed Practice</h3>
+            <div class="ex"><span class="n">25</span>You <input class="g" data-answer="must"> be tired after that long journey!</div>
+            <div class="ex"><span class="n">26</span>I <input class="g" data-answer="can't|cannot"> understand this. It's too difficult.</div>
+            <div class="ex"><span class="n">27</span>You <input class="g" data-answer="should"> drink more water.</div>
+            <div class="ex"><span class="n">28</span>She <input class="g" data-answer="might|may|could"> be at the office. I'm not sure.</div>
+            <div class="ex"><span class="n">29</span>I <input class="g w" data-answer="have to"> finish this report by Friday.</div>
+            <div class="ex"><span class="n">30</span>You <input class="g" data-answer="mustn't"> tell anyone! It's a secret.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('modals')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('modals')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('modals')">↺ Reset</button>
+        </div>
+        <div id="modals-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="modals-correct">0</span>/<span id="modals-total">0</span></p></div>
+    </section>
+
+    <!-- COUNTABLE SECTION -->
+    <section id="countable" class="exercise-section">
+        <h2 class="section-title">🔢 Countable & Uncountable</h2>
+        <p class="section-subtitle">some, any, much, many, a lot of, a few, a little</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Choose the correct word. Remember: much/little = uncountable, many/few = countable.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Some vs. Any</h3>
+            <div class="ex"><span class="n">1</span>There is <input class="g" data-answer="some"> milk in the fridge.</div>
+            <div class="ex"><span class="n">2</span>Is there <input class="g" data-answer="any"> bread left?</div>
+            <div class="ex"><span class="n">3</span>I don't have <input class="g" data-answer="any"> money.</div>
+            <div class="ex"><span class="n">4</span>Would you like <input class="g" data-answer="some"> coffee? <span class="hint">💡 offer = some</span></div>
+            <div class="ex"><span class="n">5</span>Can I have <input class="g" data-answer="some"> water, please? <span class="hint">💡 request = some</span></div>
+            <div class="ex"><span class="n">6</span>There aren't <input class="g" data-answer="any"> eggs.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Much vs. Many</h3>
+            <div class="ex"><span class="n">7</span>How <input class="g" data-answer="much"> money do you have?</div>
+            <div class="ex"><span class="n">8</span>How <input class="g" data-answer="many"> people came to the party?</div>
+            <div class="ex"><span class="n">9</span>I don't have <input class="g" data-answer="much"> time.</div>
+            <div class="ex"><span class="n">10</span>There aren't <input class="g" data-answer="many"> students in the class.</div>
+            <div class="ex"><span class="n">11</span>We don't have <input class="g" data-answer="much"> information.</div>
+            <div class="ex"><span class="n">12</span>She doesn't have <input class="g" data-answer="many"> friends.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">A lot of / Lots of (both)</h3>
+            <div class="ex"><span class="n">13</span>I have <input class="g w" data-answer="a lot of"> work to do.</div>
+            <div class="ex"><span class="n">14</span>There are <input class="g w" data-answer="a lot of|lots of"> books on the shelf.</div>
+            <div class="ex"><span class="n">15</span>She drinks <input class="g w" data-answer="a lot of|lots of"> water every day.</div>
+            <div class="ex"><span class="n">16</span>We have <input class="g w" data-answer="a lot of|lots of"> friends.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">A few (countable) vs. A little (uncountable)</h3>
+            <div class="ex"><span class="n">17</span>I have <input class="g w" data-answer="a few"> questions.</div>
+            <div class="ex"><span class="n">18</span>There's <input class="g w" data-answer="a little"> milk left.</div>
+            <div class="ex"><span class="n">19</span>I speak <input class="g w" data-answer="a little"> German.</div>
+            <div class="ex"><span class="n">20</span>She has <input class="g w" data-answer="a few"> good ideas.</div>
+            <div class="ex"><span class="n">21</span>We need <input class="g w" data-answer="a little"> more time.</div>
+            <div class="ex"><span class="n">22</span>I have <input class="g w" data-answer="a few"> friends in Vienna.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Tricky Uncountables (German speakers' pitfalls!)</h3>
+            <div class="ex"><span class="n">23</span>I need some <input class="g" data-answer="information">. (NOT: informations)</div>
+            <div class="ex"><span class="n">24</span>She gave me good <input class="g" data-answer="advice">. (NOT: advices)</div>
+            <div class="ex"><span class="n">25</span>I have too much <input class="g" data-answer="homework">. (NOT: homeworks)</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('countable')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('countable')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('countable')">↺ Reset</button>
+        </div>
+        <div id="countable-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="countable-correct">0</span>/<span id="countable-total">0</span></p></div>
+    </section>
+
+    <!-- COMPARATIVES SECTION -->
+    <section id="comparatives" class="exercise-section">
+        <h2 class="section-title">📊 Comparatives & Superlatives</h2>
+        <p class="section-subtitle">-er/-est, more/most, as...as, irregular forms</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Form the correct comparative or superlative.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Short Adjectives: -er / -est</h3>
+            <div class="ex"><span class="n">1</span>She is <input class="g" data-answer="taller"> than me. (tall)</div>
+            <div class="ex"><span class="n">2</span>This is the <input class="g" data-answer="longest"> river in the world. (long)</div>
+            <div class="ex"><span class="n">3</span>It's <input class="g" data-answer="colder"> today than yesterday. (cold)</div>
+            <div class="ex"><span class="n">4</span>He is the <input class="g" data-answer="oldest"> person in the family. (old)</div>
+            <div class="ex"><span class="n">5</span>This room is <input class="g" data-answer="bigger"> than that one. (big)</div>
+            <div class="ex"><span class="n">6</span>She is the <input class="g" data-answer="youngest"> in her class. (young)</div>
+            <div class="ex"><span class="n">7</span>This road is <input class="g" data-answer="narrower"> than that one. (narrow)</div>
+            <div class="ex"><span class="n">8</span>It was the <input class="g" data-answer="hottest"> day of the year. (hot)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Long Adjectives: more / most</h3>
+            <div class="ex"><span class="n">9</span>This book is <input class="g w" data-answer="more interesting"> than that one. (interesting)</div>
+            <div class="ex"><span class="n">10</span>She is the <input class="g w" data-answer="most beautiful"> woman I know. (beautiful)</div>
+            <div class="ex"><span class="n">11</span>He is <input class="g w" data-answer="more careful"> than his brother. (careful)</div>
+            <div class="ex"><span class="n">12</span>This is the <input class="g w" data-answer="most expensive"> hotel in the city. (expensive)</div>
+            <div class="ex"><span class="n">13</span>The exam was <input class="g w" data-answer="more difficult"> than I expected. (difficult)</div>
+            <div class="ex"><span class="n">14</span>She's the <input class="g w" data-answer="most intelligent"> student. (intelligent)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Irregular Forms</h3>
+            <div class="ex"><span class="n">15</span>This coffee is <input class="g" data-answer="better"> than that one. (good)</div>
+            <div class="ex"><span class="n">16</span>He is the <input class="g" data-answer="best"> player in the team. (good)</div>
+            <div class="ex"><span class="n">17</span>The weather is <input class="g" data-answer="worse"> today. (bad)</div>
+            <div class="ex"><span class="n">18</span>This was the <input class="g" data-answer="worst"> day of my life. (bad)</div>
+            <div class="ex"><span class="n">19</span>I need <input class="g" data-answer="more"> time. (much)</div>
+            <div class="ex"><span class="n">20</span>She has the <input class="g" data-answer="most"> money. (much)</div>
+            <div class="ex"><span class="n">21</span>The station is <input class="g" data-answer="farther|further"> than I thought. (far)</div>
+            <div class="ex"><span class="n">22</span>I have <input class="g" data-answer="less"> time than you. (little)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">As...as / Not as...as</h3>
+            <div class="ex"><span class="n">23</span>She is <input class="g w" data-answer="as tall as"> her brother. (tall)</div>
+            <div class="ex"><span class="n">24</span>This isn't <input class="g w" data-answer="as expensive as"> that one. (expensive)</div>
+            <div class="ex"><span class="n">25</span>He's <input class="g w" data-answer="not as fast as"> me. (fast)</div>
+            <div class="ex"><span class="n">26</span>My car is <input class="g w" data-answer="as old as"> yours. (old)</div>
+            <div class="ex"><span class="n">27</span>She's <input class="g w" data-answer="not as good as|as good as"> her sister at tennis. (good)</div>
+            <div class="ex"><span class="n">28</span>The film wasn't <input class="g w" data-answer="as boring as"> I expected. (boring)</div>
+            <div class="ex"><span class="n">29</span>He works <input class="g w" data-answer="as hard as"> his father. (hard)</div>
+            <div class="ex"><span class="n">30</span>I don't earn <input class="g w" data-answer="as much as"> you. (much)</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('comparatives')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('comparatives')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('comparatives')">↺ Reset</button>
+        </div>
+        <div id="comparatives-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="comparatives-correct">0</span>/<span id="comparatives-total">0</span></p></div>
+    </section>
+
+    <!-- CONFUSING WORDS SECTION -->
+    <section id="confusing" class="exercise-section">
+        <h2 class="section-title">🔄 Confusing Word Pairs</h2>
+        <p class="section-subtitle">make/do, go/come, bring/take, there/their/they're</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Choose the correct word.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Make vs. Do</h3>
+            <div class="ex"><span class="n">1</span>I need to <input class="g" data-answer="do"> my homework.</div>
+            <div class="ex"><span class="n">2</span>She <input class="g" data-answer="made"> a cake for my birthday.</div>
+            <div class="ex"><span class="n">3</span>Can you <input class="g" data-answer="do"> me a favour?</div>
+            <div class="ex"><span class="n">4</span>He <input class="g" data-answer="made"> a mistake.</div>
+            <div class="ex"><span class="n">5</span>I have to <input class="g" data-answer="do"> the washing up.</div>
+            <div class="ex"><span class="n">6</span>She <input class="g" data-answer="makes"> a lot of money.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Go vs. Come</h3>
+            <div class="ex"><span class="n">7</span>"Where are you?" – "I'm <input class="g" data-answer="coming">!" <span class="hint">💡 towards the speaker</span></div>
+            <div class="ex"><span class="n">8</span>Can you <input class="g" data-answer="come"> to my party? <span class="hint">💡 towards the speaker</span></div>
+            <div class="ex"><span class="n">9</span>I <input class="g" data-answer="go"> to work by bus every day.</div>
+            <div class="ex"><span class="n">10</span>She <input class="g" data-answer="went"> to the cinema last night.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Bring vs. Take</h3>
+            <div class="ex"><span class="n">11</span>Don't forget to <input class="g" data-answer="take"> your umbrella when you leave!</div>
+            <div class="ex"><span class="n">12</span>Can you <input class="g" data-answer="bring"> some wine to the party? <span class="hint">💡 towards speaker/event</span></div>
+            <div class="ex"><span class="n">13</span>I'll <input class="g" data-answer="take"> these books back to the library.</div>
+            <div class="ex"><span class="n">14</span>She <input class="g" data-answer="brought"> flowers when she visited me.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">There / Their / They're</h3>
+            <div class="ex"><span class="n">15</span><input class="g" data-answer="There"> is a cat in the garden.</div>
+            <div class="ex"><span class="n">16</span><input class="g" data-answer="Their"> house is very big.</div>
+            <div class="ex"><span class="n">17</span><input class="g" data-answer="They're"> coming to dinner.</div>
+            <div class="ex"><span class="n">18</span>I put the book over <input class="g" data-answer="there">.</div>
+            <div class="ex"><span class="n">19</span><input class="g" data-answer="They're"> my best friends.</div>
+            <div class="ex"><span class="n">20</span>Have you seen <input class="g" data-answer="their"> new car?</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Its vs. It's</h3>
+            <div class="ex"><span class="n">21</span>The dog wagged <input class="g" data-answer="its"> tail. <span class="hint">💡 its = possessive</span></div>
+            <div class="ex"><span class="n">22</span><input class="g" data-answer="It's"> raining outside. <span class="hint">💡 it's = it is</span></div>
+            <div class="ex"><span class="n">23</span>The cat ate <input class="g" data-answer="its"> food.</div>
+            <div class="ex"><span class="n">24</span><input class="g" data-answer="It's"> a beautiful day!</div>
+            <div class="ex"><span class="n">25</span>The company changed <input class="g" data-answer="its"> name.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('confusing')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('confusing')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('confusing')">↺ Reset</button>
+        </div>
+        <div id="confusing-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="confusing-correct">0</span>/<span id="confusing-total">0</span></p></div>
+    </section>
+
+    <!-- WORD ORDER SECTION -->
+    <section id="wordorder" class="exercise-section">
+        <h2 class="section-title">🏗️ Basic Word Order</h2>
+        <p class="section-subtitle">Subject-Verb-Object, adverb position, adjective order</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Put the words in the correct order or fill in correctly.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Frequency Adverbs: before main verb, after "be"</h3>
+            <div class="ex"><span class="n">1</span>She <input class="g w" data-answer="always drinks"> coffee in the morning. (always / drinks)</div>
+            <div class="ex"><span class="n">2</span>He <input class="g w" data-answer="is never"> late. (is / never)</div>
+            <div class="ex"><span class="n">3</span>I <input class="g w" data-answer="usually go"> to bed at 10. (usually / go)</div>
+            <div class="ex"><span class="n">4</span>We <input class="g w" data-answer="sometimes eat"> out. (sometimes / eat)</div>
+            <div class="ex"><span class="n">5</span>They <input class="g w" data-answer="are always"> happy. (are / always)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Time + Place: Place before Time (German is different!)</h3>
+            <div class="ex"><span class="n">6</span>I went <input class="g xw" data-answer="to the cinema yesterday">. (yesterday / to the cinema)</div>
+            <div class="ex"><span class="n">7</span>She arrived <input class="g xw" data-answer="at the airport at 5">. (at 5 / at the airport)</div>
+            <div class="ex"><span class="n">8</span>We're meeting <input class="g xw" data-answer="at the restaurant tonight">. (tonight / at the restaurant)</div>
+            <div class="ex"><span class="n">9</span>He was <input class="g xw" data-answer="at home all day">. (all day / at home)</div>
+            <div class="ex"><span class="n">10</span>They played <input class="g xw" data-answer="in the park yesterday">. (yesterday / in the park)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Adjective Order: Opinion before Fact</h3>
+            <div class="ex"><span class="n">11</span>She has a <input class="g w" data-answer="beautiful big"> house. (big / beautiful)</div>
+            <div class="ex"><span class="n">12</span>He drives a <input class="g w" data-answer="nice old"> car. (old / nice)</div>
+            <div class="ex"><span class="n">13</span>I bought a <input class="g w" data-answer="lovely small"> bag. (small / lovely)</div>
+            <div class="ex"><span class="n">14</span>She wore a <input class="g w" data-answer="pretty red"> dress. (red / pretty)</div>
+            <div class="ex"><span class="n">15</span>It's a <input class="g w" data-answer="wonderful old"> building. (old / wonderful)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Questions: Word Order (auxiliary before subject)</h3>
+            <div class="ex"><span class="n">16</span>Where <input class="g w" data-answer="do you live">? (do / you / live)</div>
+            <div class="ex"><span class="n">17</span>What time <input class="g w" data-answer="does it start">? (does / it / start)</div>
+            <div class="ex"><span class="n">18</span>When <input class="g w" data-answer="did they arrive">? (did / they / arrive)</div>
+            <div class="ex"><span class="n">19</span>Why <input class="g w" data-answer="are you crying">? (are / you / crying)</div>
+            <div class="ex"><span class="n">20</span>How <input class="g w" data-answer="does she know">? (does / she / know)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Too & Enough</h3>
+            <div class="ex"><span class="n">21</span>The coffee is <input class="g w" data-answer="too hot">. (hot / too)</div>
+            <div class="ex"><span class="n">22</span>She isn't <input class="g w" data-answer="old enough"> to vote. (enough old / old enough)</div>
+            <div class="ex"><span class="n">23</span>We don't have <input class="g w" data-answer="enough time">. (time enough / enough time)</div>
+            <div class="ex"><span class="n">24</span>This bag is <input class="g w" data-answer="too heavy">. (heavy / too)</div>
+            <div class="ex"><span class="n">25</span>He isn't <input class="g w" data-answer="tall enough">. (enough tall / tall enough)</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('wordorder')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('wordorder')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('wordorder')">↺ Reset</button>
+        </div>
+        <div id="wordorder-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="wordorder-correct">0</span>/<span id="wordorder-total">0</span></p></div>
+    </section>
+
+</div>
+<script>
+function showSection(id,btn){document.querySelectorAll('.exercise-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function norm(s){return s.toLowerCase().trim().replace(/\s+/g,' ').replace(/['']/g,"'");}
+function checkAnswers(id){const sec=document.getElementById(id),inputs=sec.querySelectorAll('input.g');let c=0,t=inputs.length;inputs.forEach(i=>{const u=norm(i.value),ans=i.dataset.answer.split('|').map(a=>norm(a));i.classList.remove('correct','incorrect');if(ans.includes(u)){i.classList.add('correct');c++;}else if(u!=='')i.classList.add('incorrect');});document.getElementById(id+'-correct').textContent=c;document.getElementById(id+'-total').textContent=t;document.getElementById(id+'-results').classList.add('visible');}
+function showSolutions(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{const ans=i.dataset.answer.split('|')[0];if(!i.classList.contains('correct')){i.classList.add('incorrect');let sol=i.nextElementSibling;if(!sol||!sol.classList.contains('sol')){sol=document.createElement('span');sol.className='sol';sol.textContent=' → '+ans;i.parentNode.insertBefore(sol,i.nextSibling);}sol.style.display='inline';}});}
+function resetSection(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');});sec.querySelectorAll('.sol').forEach(s=>s.style.display='none');document.getElementById(id+'-results').classList.remove('visible');}
+</script>
+</body>
+</html>

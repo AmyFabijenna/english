@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Pitfalls C2 🎯</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#1a2e3d;--primary-light:#2d4555;--accent:#4ac1ff;--accent-glow:#85d4ff;--accent-dark:#2196f3;--success:#4ade80;--error:#ff5252;--text:#fff;--text-muted:#b4d4e8;--gold:#ffd740}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Quicksand',sans-serif;background:linear-gradient(180deg,#0d1a26 0%,#1a3a4a 40%,#2d5a6b 70%,#3a7c8c 100%);min-height:100vh;color:var(--text)}
+        .container{max-width:1000px;margin:0 auto;padding:20px}
+        header{text-align:center;margin-bottom:30px}
+        h1{font-family:'Fredoka',sans-serif;font-size:2.2rem;background:linear-gradient(135deg,#4ac1ff,#85d4ff,#ffd740);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+        .subtitle{color:var(--text-muted);font-size:1.1rem}
+        .topic-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:30px}
+        .topic-btn{background:linear-gradient(135deg,rgba(26,46,61,0.9),rgba(45,69,85,0.9));border:2px solid rgba(74,193,255,0.3);border-radius:12px;padding:10px 16px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.3s}
+        .topic-btn:hover,.topic-btn.active{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent);transform:translateY(-2px);box-shadow:0 5px 20px rgba(74,193,255,0.4)}
+        .topic-btn .count{background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:10px;font-size:0.75rem;margin-left:6px}
+        .exercise-section{background:linear-gradient(135deg,rgba(26,46,61,0.95),rgba(45,69,85,0.9));border-radius:20px;padding:30px;margin-bottom:20px;border:2px solid rgba(74,193,255,0.3);box-shadow:0 10px 40px rgba(0,0,0,0.3);display:none}
+        .exercise-section.active{display:block;animation:fadeIn 0.5s}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .section-title{font-family:'Fredoka',sans-serif;font-size:1.5rem;color:var(--accent-glow);margin-bottom:10px}
+        .section-subtitle{color:var(--text-muted);margin-bottom:25px;font-size:0.95rem}
+        .subsection{margin-bottom:30px}
+        .subsection-title{font-family:'Fredoka',sans-serif;font-size:1.15rem;color:var(--gold);margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid rgba(255,215,64,0.3)}
+        .ex{background:rgba(13,26,38,0.6);border-radius:12px;padding:12px 15px;margin-bottom:10px;border:1px solid rgba(74,193,255,0.15);line-height:1.9}
+        .n{display:inline-block;background:var(--accent-dark);color:#fff;min-width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-size:0.8rem;font-weight:600;margin-right:10px}
+        input.g{background:rgba(13,26,38,0.9);border:2px solid var(--primary-light);border-radius:8px;padding:5px 10px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;min-width:100px;text-align:center;transition:all 0.3s;margin:2px 4px}
+        input.g:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px rgba(74,193,255,0.3)}
+        input.g.correct{border-color:var(--success);background:rgba(74,222,128,0.2)}
+        input.g.incorrect{border-color:var(--error);background:rgba(255,82,82,0.2)}
+        input.g.w{min-width:160px}input.g.xw{min-width:220px}
+        .hint{display:block;color:var(--text-muted);font-size:0.8rem;margin-top:5px;font-style:italic}
+        .controls{display:flex;gap:15px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+        .btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid var(--accent);border-radius:12px;padding:12px 25px;color:var(--text);font-family:'Fredoka',sans-serif;font-size:1rem;cursor:pointer;transition:all 0.3s}
+        .btn:hover{background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px);box-shadow:0 5px 20px rgba(74,193,255,0.4)}
+        .btn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent))}
+        .results{background:rgba(13,26,38,0.8);border-radius:15px;padding:20px;margin-top:20px;text-align:center;display:none}
+        .results.visible{display:block}
+        .score{font-family:'Fredoka',sans-serif;font-size:2.2rem;color:var(--accent-glow)}
+        .score-label{color:var(--text-muted);font-size:0.9rem;margin-bottom:5px}
+        .sol{color:var(--success);font-weight:600;margin-left:5px;display:none}
+        .instruction{background:rgba(74,193,255,0.1);border:1px solid rgba(74,193,255,0.3);border-radius:10px;padding:12px;margin-bottom:20px}
+        .instruction h4{color:var(--accent-glow);margin-bottom:5px;font-family:'Fredoka',sans-serif;font-size:1rem}
+        .instruction p{color:var(--text-muted);font-size:0.85rem;line-height:1.5}
+        @media(max-width:768px){h1{font-size:1.5rem}.container{padding:10px}.exercise-section{padding:15px}input.g{min-width:80px;font-size:0.85rem}input.g.w{min-width:120px}input.g.xw{min-width:160px}.topic-btn{padding:8px 12px;font-size:0.75rem}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🏆 English Grammar Pitfalls C2</h1>
+        <p class="subtitle">300 exercises on the subtlest grammar nuances for near-native mastery</p>
+    </header>
+    <nav class="topic-nav">
+        <button class="topic-btn active" onclick="showSection('subjunctive',this)">🎭 Subjunctive <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('inversion',this)">🔄 Inversion <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('cleft',this)">✂️ Cleft <span class="count">25</span></button>
+        <button class="topic-btn" onclick="showSection('modals',this)">🔮 Modal Nuances <span class="count">35</span></button>
+        <button class="topic-btn" onclick="showSection('aspect',this)">⏱️ Perfect Aspect <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('articles',this)">📰 Subtle Articles <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('collocations',this)">🔗 Collocations <span class="count">35</span></button>
+        <button class="topic-btn" onclick="showSection('register',this)">📝 Register <span class="count">30</span></button>
+        <button class="topic-btn" onclick="showSection('ellipsis',this)">... Ellipsis <span class="count">25</span></button>
+        <button class="topic-btn" onclick="showSection('idiom',this)">💎 Idioms <span class="count">30</span></button>
+    </nav>
+
+    <!-- SUBJUNCTIVE SECTION -->
+    <section id="subjunctive" class="exercise-section active">
+        <h2 class="section-title">🎭 The Subjunctive Mood</h2>
+        <p class="section-subtitle">Mandative subjunctive, formulaic expressions, were-subjunctive</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Complete with the correct subjunctive form. The subjunctive uses the base form (no -s, no past tense markers).</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Mandative Subjunctive (demand, insist, suggest, require...)</h3>
+            <div class="ex"><span class="n">1</span>The committee demanded that he <input class="g" data-answer="resign"> immediately. <span class="hint">💡 NOT: resigns</span></div>
+            <div class="ex"><span class="n">2</span>She insisted that the report <input class="g" data-answer="be"> finished by Friday.</div>
+            <div class="ex"><span class="n">3</span>It is essential that every student <input class="g" data-answer="attend"> the meeting.</div>
+            <div class="ex"><span class="n">4</span>The doctor recommended that she <input class="g" data-answer="take"> the medication twice daily.</div>
+            <div class="ex"><span class="n">5</span>They proposed that the law <input class="g" data-answer="be"> amended.</div>
+            <div class="ex"><span class="n">6</span>It is imperative that this information <input class="g" data-answer="remain"> confidential.</div>
+            <div class="ex"><span class="n">7</span>The judge ordered that the defendant <input class="g" data-answer="be"> released on bail.</div>
+            <div class="ex"><span class="n">8</span>We suggest that he <input class="g" data-answer="reconsider"> his decision.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Negative Subjunctive</h3>
+            <div class="ex"><span class="n">9</span>She requested that he <input class="g w" data-answer="not be"> present at the meeting. <span class="hint">💡 NOT: isn't / not is</span></div>
+            <div class="ex"><span class="n">10</span>It is vital that this mistake <input class="g w" data-answer="not be repeated|not be made again">.</div>
+            <div class="ex"><span class="n">11</span>The board recommended that the CEO <input class="g w" data-answer="not resign">.</div>
+            <div class="ex"><span class="n">12</span>We insist that you <input class="g w" data-answer="not leave"> before the end.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Were-subjunctive (Hypothetical/Unreal)</h3>
+            <div class="ex"><span class="n">13</span>If I <input class="g" data-answer="were"> you, I would accept the offer. <span class="hint">💡 formal: were for all persons</span></div>
+            <div class="ex"><span class="n">14</span>She acts as if she <input class="g" data-answer="were"> the boss.</div>
+            <div class="ex"><span class="n">15</span>I wish he <input class="g" data-answer="were"> here right now.</div>
+            <div class="ex"><span class="n">16</span>If it <input class="g" data-answer="were"> not for his help, we would have failed.</div>
+            <div class="ex"><span class="n">17</span>She speaks as though English <input class="g" data-answer="were"> her native language.</div>
+            <div class="ex"><span class="n">18</span>Would that it <input class="g" data-answer="were"> so simple! <span class="hint">💡 literary/archaic</span></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Formulaic Subjunctives</h3>
+            <div class="ex"><span class="n">19</span><input class="g w" data-answer="Be that as it may">, we must proceed. (= Nevertheless)</div>
+            <div class="ex"><span class="n">20</span><input class="g w" data-answer="Far be it from me"> to criticize, but... (= I don't want to...)</div>
+            <div class="ex"><span class="n">21</span><input class="g w" data-answer="God forbid"> that anything should happen to them!</div>
+            <div class="ex"><span class="n">22</span><input class="g w" data-answer="Heaven help"> us if this fails!</div>
+            <div class="ex"><span class="n">23</span><input class="g w" data-answer="So be it">. (= Let it be that way)</div>
+            <div class="ex"><span class="n">24</span><input class="g w" data-answer="Suffice it to say"> that we were not pleased.</div>
+            <div class="ex"><span class="n">25</span>Long <input class="g" data-answer="live"> the king!</div>
+            <div class="ex"><span class="n">26</span><input class="g w" data-answer="Come what may">, I will be there.</div>
+            <div class="ex"><span class="n">27</span><input class="g w" data-answer="Truth be told">, I never liked him.</div>
+            <div class="ex"><span class="n">28</span><input class="g w" data-answer="As it were">, he became the de facto leader. (= so to speak)</div>
+            <div class="ex"><span class="n">29</span><input class="g w" data-answer="Lest we forget">, many sacrificed their lives.</div>
+            <div class="ex"><span class="n">30</span><input class="g" data-answer="If need be">, we can postpone the meeting.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('subjunctive')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('subjunctive')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('subjunctive')">↺ Reset</button>
+        </div>
+        <div id="subjunctive-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="subjunctive-correct">0</span>/<span id="subjunctive-total">0</span></p></div>
+    </section>
+
+    <!-- INVERSION SECTION -->
+    <section id="inversion" class="exercise-section">
+        <h2 class="section-title">🔄 Inversion</h2>
+        <p class="section-subtitle">Negative adverbials, conditionals without if, emphatic structures</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Rewrite or complete using inversion for emphasis or formal style.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Negative Adverbials at the Start</h3>
+            <div class="ex"><span class="n">1</span>Never <input class="g w" data-answer="have I seen"> such a beautiful sunset. (I have never seen...)</div>
+            <div class="ex"><span class="n">2</span>Rarely <input class="g w" data-answer="does she complain"> about anything. (She rarely complains...)</div>
+            <div class="ex"><span class="n">3</span>Seldom <input class="g w" data-answer="had we experienced"> such hospitality. (We had seldom experienced...)</div>
+            <div class="ex"><span class="n">4</span>Not only <input class="g w" data-answer="did he apologize">, but he also offered compensation.</div>
+            <div class="ex"><span class="n">5</span>Hardly <input class="g w" data-answer="had I arrived"> when the phone rang. (I had hardly arrived...)</div>
+            <div class="ex"><span class="n">6</span>No sooner <input class="g w" data-answer="had she left"> than it started raining.</div>
+            <div class="ex"><span class="n">7</span>Under no circumstances <input class="g w" data-answer="should you|must you"> reveal this information.</div>
+            <div class="ex"><span class="n">8</span>At no time <input class="g w" data-answer="was I aware"> of the danger.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Little, only, so, such</h3>
+            <div class="ex"><span class="n">9</span>Little <input class="g w" data-answer="did he know"> what awaited him.</div>
+            <div class="ex"><span class="n">10</span>Only later <input class="g w" data-answer="did I realize"> my mistake.</div>
+            <div class="ex"><span class="n">11</span>Only after the meeting <input class="g w" data-answer="did she understand"> the implications.</div>
+            <div class="ex"><span class="n">12</span>So beautiful <input class="g w" data-answer="was the view"> that we stopped to take photos.</div>
+            <div class="ex"><span class="n">13</span>Such <input class="g w" data-answer="was his charm"> that everyone adored him.</div>
+            <div class="ex"><span class="n">14</span>Only when you leave <input class="g w" data-answer="will you understand">.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Conditionals without "if" (Inversion)</h3>
+            <div class="ex"><span class="n">15</span><input class="g" data-answer="Had"> I known, I would have helped. (If I had known...)</div>
+            <div class="ex"><span class="n">16</span><input class="g" data-answer="Were"> she here, she would agree. (If she were here...)</div>
+            <div class="ex"><span class="n">17</span><input class="g" data-answer="Should"> you need anything, just call. (If you should need...)</div>
+            <div class="ex"><span class="n">18</span><input class="g" data-answer="Had"> it not been for your help, I would have failed.</div>
+            <div class="ex"><span class="n">19</span><input class="g" data-answer="Were"> it not for the traffic, we would be on time.</div>
+            <div class="ex"><span class="n">20</span><input class="g" data-answer="Should"> the opportunity arise, seize it.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Place Adverbials (Formal/Literary)</h3>
+            <div class="ex"><span class="n">21</span>Here <input class="g" data-answer="comes"> the bus! <span class="hint">💡 full noun = inversion</span></div>
+            <div class="ex"><span class="n">22</span>There <input class="g" data-answer="goes"> my chance of promotion.</div>
+            <div class="ex"><span class="n">23</span>Down <input class="g" data-answer="came"> the rain in torrents.</div>
+            <div class="ex"><span class="n">24</span>Up <input class="g" data-answer="went"> the prices again.</div>
+            <div class="ex"><span class="n">25</span>On the table <input class="g" data-answer="lay"> an ancient manuscript.</div>
+            <div class="ex"><span class="n">26</span>In the corner <input class="g" data-answer="stood"> a magnificent grandfather clock.</div>
+            <div class="ex"><span class="n">27</span>Among the guests <input class="g" data-answer="was"> the famous author herself.</div>
+            <div class="ex"><span class="n">28</span>Not until midnight <input class="g w" data-answer="did the party end">.</div>
+            <div class="ex"><span class="n">29</span>In no way <input class="g w" data-answer="am I suggesting"> that you are wrong.</div>
+            <div class="ex"><span class="n">30</span>Neither <input class="g w" data-answer="could I|did I"> understand, nor did I want to.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('inversion')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('inversion')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('inversion')">↺ Reset</button>
+        </div>
+        <div id="inversion-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="inversion-correct">0</span>/<span id="inversion-total">0</span></p></div>
+    </section>
+
+    <!-- CLEFT SENTENCES SECTION -->
+    <section id="cleft" class="exercise-section">
+        <h2 class="section-title">✂️ Cleft Sentences</h2>
+        <p class="section-subtitle">It-clefts, wh-clefts, all-clefts for emphasis</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Rewrite using cleft structures to emphasize the underlined element.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">It-clefts (It is/was... that/who...)</h3>
+            <div class="ex"><span class="n">1</span>It was <input class="g" data-answer="John"> who broke the window. (John broke the window.)</div>
+            <div class="ex"><span class="n">2</span>It was <input class="g w" data-answer="in Paris"> that they first met.</div>
+            <div class="ex"><span class="n">3</span>It is <input class="g w" data-answer="honesty"> that I value most.</div>
+            <div class="ex"><span class="n">4</span>It was <input class="g w" data-answer="only yesterday"> that I heard the news.</div>
+            <div class="ex"><span class="n">5</span>It was <input class="g w" data-answer="because of the rain"> that the match was cancelled.</div>
+            <div class="ex"><span class="n">6</span>It is <input class="g w" data-answer="the government"> that should take responsibility.</div>
+            <div class="ex"><span class="n">7</span>It was <input class="g w" data-answer="not until 2020"> that we moved here.</div>
+            <div class="ex"><span class="n">8</span>It is <input class="g w" data-answer="what you do">, not what you say, that matters.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Wh-clefts (What... is/was...)</h3>
+            <div class="ex"><span class="n">9</span>What I need is <input class="g w" data-answer="a good night's sleep|some rest">.</div>
+            <div class="ex"><span class="n">10</span>What happened was <input class="g xw" data-answer="that the system crashed|a complete disaster">.</div>
+            <div class="ex"><span class="n">11</span>What annoys me is <input class="g w" data-answer="his arrogance|their attitude">.</div>
+            <div class="ex"><span class="n">12</span>What she said was <input class="g w" data-answer="completely true|absolutely right">.</div>
+            <div class="ex"><span class="n">13</span>What we should do is <input class="g" data-answer="wait">. <span class="hint">💡 base form after "do is"</span></div>
+            <div class="ex"><span class="n">14</span>What I did was <input class="g" data-answer="apologize">.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">All-clefts & The thing/reason/place clefts</h3>
+            <div class="ex"><span class="n">15</span>All I want is <input class="g w" data-answer="some peace and quiet|to be left alone">.</div>
+            <div class="ex"><span class="n">16</span>All you need to do is <input class="g" data-answer="sign"> here.</div>
+            <div class="ex"><span class="n">17</span>The reason I called is <input class="g xw" data-answer="that I need your help|to ask for advice">.</div>
+            <div class="ex"><span class="n">18</span>The thing that bothers me is <input class="g w" data-answer="his dishonesty|the lack of transparency">.</div>
+            <div class="ex"><span class="n">19</span>The place where we met was <input class="g w" data-answer="a small café|at university">.</div>
+            <div class="ex"><span class="n">20</span>The person who helped me was <input class="g w" data-answer="my neighbor|a stranger">.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Reverse/Inverted Wh-clefts</h3>
+            <div class="ex"><span class="n">21</span>A good rest is <input class="g w" data-answer="what I need">.</div>
+            <div class="ex"><span class="n">22</span>Complete honesty is <input class="g w" data-answer="what we expect">.</div>
+            <div class="ex"><span class="n">23</span>That he lied is <input class="g w" data-answer="what upset me|what I can't accept">.</div>
+            <div class="ex"><span class="n">24</span>To give up now is <input class="g xw" data-answer="what I refuse to do|the last thing I want">.</div>
+            <div class="ex"><span class="n">25</span>More funding is <input class="g xw" data-answer="what this project needs|what we're asking for">.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('cleft')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('cleft')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('cleft')">↺ Reset</button>
+        </div>
+        <div id="cleft-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="cleft-correct">0</span>/<span id="cleft-total">0</span></p></div>
+    </section>
+
+    <!-- MODALS SECTION -->
+    <section id="modals" class="exercise-section">
+        <h2 class="section-title">🔮 Subtle Modal Nuances</h2>
+        <p class="section-subtitle">Epistemic vs. deontic, perfect modals, modal + continuous</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Choose the modal that best fits the context and nuance.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Epistemic Modals (Deduction/Probability)</h3>
+            <div class="ex"><span class="n">1</span>She <input class="g w" data-answer="must be"> exhausted after that flight. <span class="hint">💡 logical certainty</span></div>
+            <div class="ex"><span class="n">2</span>He <input class="g w" data-answer="can't be|couldn't be"> the murderer—he has an alibi. <span class="hint">💡 logical impossibility</span></div>
+            <div class="ex"><span class="n">3</span>They <input class="g w" data-answer="might be|may be|could be"> stuck in traffic. <span class="hint">💡 possibility</span></div>
+            <div class="ex"><span class="n">4</span>She <input class="g w" data-answer="should be|ought to be"> home by now. <span class="hint">💡 reasonable expectation</span></div>
+            <div class="ex"><span class="n">5</span>That <input class="g" data-answer="will"> be the postman. <span class="hint">💡 confident prediction</span></div>
+            <div class="ex"><span class="n">6</span>He <input class="g w" data-answer="must have been"> very tired—he fell asleep immediately.</div>
+            <div class="ex"><span class="n">7</span>She <input class="g xw" data-answer="can't have forgotten|couldn't have forgotten">! I reminded her this morning.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Perfect Modals (Past Speculation & Criticism)</h3>
+            <div class="ex"><span class="n">8</span>You <input class="g xw" data-answer="should have told|ought to have told"> me earlier! <span class="hint">💡 criticism of past action</span></div>
+            <div class="ex"><span class="n">9</span>He <input class="g xw" data-answer="needn't have bought|didn't need to buy"> a new one—the old one was fine.</div>
+            <div class="ex"><span class="n">10</span>She <input class="g xw" data-answer="could have warned|might have warned"> us about the delay.</div>
+            <div class="ex"><span class="n">11</span>They <input class="g xw" data-answer="must have left"> already—the house is dark.</div>
+            <div class="ex"><span class="n">12</span>I <input class="g xw" data-answer="would have helped"> if you had asked.</div>
+            <div class="ex"><span class="n">13</span>He <input class="g xw" data-answer="might have been injured|could have been killed"> in that accident!</div>
+            <div class="ex"><span class="n">14</span>You <input class="g xw" data-answer="shouldn't have said|oughtn't to have said"> that—it was rude.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Modal + Continuous (ongoing action)</h3>
+            <div class="ex"><span class="n">15</span>She <input class="g xw" data-answer="must be working"> late again. <span class="hint">💡 deduction about now</span></div>
+            <div class="ex"><span class="n">16</span>He <input class="g xw" data-answer="can't be sleeping">—the lights are on.</div>
+            <div class="ex"><span class="n">17</span>They <input class="g xw" data-answer="might be having|could be having"> dinner right now.</div>
+            <div class="ex"><span class="n">18</span>She <input class="g xw" data-answer="should be arriving"> any minute now.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Subtle Distinctions</h3>
+            <div class="ex"><span class="n">19</span>You <input class="g" data-answer="may"> leave now. (permission—formal) vs. You <input class="g" data-answer="can"> leave. (informal)</div>
+            <div class="ex"><span class="n">20</span>He <input class="g" data-answer="will"> insist on interrupting. <span class="hint">💡 characteristic behavior (annoying)</span></div>
+            <div class="ex"><span class="n">21</span>She <input class="g" data-answer="would"> often sit by the window for hours. <span class="hint">💡 past habit</span></div>
+            <div class="ex"><span class="n">22</span>That <input class="g w" data-answer="would be"> John at the door. <span class="hint">💡 tentative deduction</span></div>
+            <div class="ex"><span class="n">23</span>Children <input class="g" data-answer="will"> be children. <span class="hint">💡 inevitable truth</span></div>
+            <div class="ex"><span class="n">24</span>The door <input class="g" data-answer="won't|wouldn't"> open. <span class="hint">💡 refusal of inanimate object</span></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Shall (Formal/Legal)</h3>
+            <div class="ex"><span class="n">25</span>The tenant <input class="g" data-answer="shall"> pay rent on the first of each month. <span class="hint">💡 legal obligation</span></div>
+            <div class="ex"><span class="n">26</span><input class="g" data-answer="Shall"> I open the window? <span class="hint">💡 offer/suggestion (1st person)</span></div>
+            <div class="ex"><span class="n">27</span>You <input class="g" data-answer="shall"> not pass! <span class="hint">💡 emphatic prohibition</span></div>
+            <div class="ex"><span class="n">28</span><input class="g" data-answer="Shall"> we dance?</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Mixed Advanced Modals</h3>
+            <div class="ex"><span class="n">29</span>He <input class="g xw" data-answer="must have been waiting"> for hours before she arrived.</div>
+            <div class="ex"><span class="n">30</span>You <input class="g xw" data-answer="could have been killed|might have been hurt">! Be more careful!</div>
+            <div class="ex"><span class="n">31</span>I <input class="g" data-answer="dare say|daresay"> you're right. <span class="hint">💡 I suppose</span></div>
+            <div class="ex"><span class="n">32</span>You <input class="g" data-answer="might|could"> at least have called. <span class="hint">💡 reproach</span></div>
+            <div class="ex"><span class="n">33</span>I <input class="g w" data-answer="would rather"> not discuss it.</div>
+            <div class="ex"><span class="n">34</span>He <input class="g w" data-answer="would sooner"> die than surrender.</div>
+            <div class="ex"><span class="n">35</span>I <input class="g w" data-answer="had better|'d better"> go now or I'll be late.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('modals')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('modals')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('modals')">↺ Reset</button>
+        </div>
+        <div id="modals-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="modals-correct">0</span>/<span id="modals-total">0</span></p></div>
+    </section>
+
+    <!-- ASPECT SECTION -->
+    <section id="aspect" class="exercise-section">
+        <h2 class="section-title">⏱️ Perfect Aspect Nuances</h2>
+        <p class="section-subtitle">Present Perfect vs. Simple Past, Perfect Continuous, Future Perfect</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Choose the tense/aspect that best captures the subtle meaning.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Present Perfect: Current Relevance</h3>
+            <div class="ex"><span class="n">1</span>I <input class="g w" data-answer="have lost|'ve lost"> my keys. (= I still don't have them)</div>
+            <div class="ex"><span class="n">2</span>I <input class="g" data-answer="lost"> my keys yesterday. (= finished past event)</div>
+            <div class="ex"><span class="n">3</span>She <input class="g w" data-answer="has been|'s been"> to Paris. (= life experience, relevant now)</div>
+            <div class="ex"><span class="n">4</span>She <input class="g" data-answer="went"> to Paris in 2019. (= specific past time)</div>
+            <div class="ex"><span class="n">5</span>He <input class="g w" data-answer="has written|'s written"> a new book. (= news, announcement)</div>
+            <div class="ex"><span class="n">6</span>Shakespeare <input class="g" data-answer="wrote"> many plays. (= historical fact, dead person)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Perfect Continuous: Duration & Visible Evidence</h3>
+            <div class="ex"><span class="n">7</span>You look tired. <input class="g xw" data-answer="Have you been working|You've been working"> all night?</div>
+            <div class="ex"><span class="n">8</span>Your eyes are red. <input class="g xw" data-answer="Have you been crying|You've been crying">?</div>
+            <div class="ex"><span class="n">9</span>I <input class="g xw" data-answer="have been meaning|'ve been meaning"> to call you for weeks.</div>
+            <div class="ex"><span class="n">10</span>She <input class="g xw" data-answer="has been learning|'s been learning"> German for three years. <span class="hint">💡 still ongoing</span></div>
+            <div class="ex"><span class="n">11</span>I <input class="g w" data-answer="have read|'ve read"> three books this month. <span class="hint">💡 completed number</span></div>
+            <div class="ex"><span class="n">12</span>I <input class="g xw" data-answer="have been reading|'ve been reading"> a lot lately. <span class="hint">💡 activity, not result</span></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Past Perfect: The "Earlier Past"</h3>
+            <div class="ex"><span class="n">13</span>When I arrived, the train <input class="g w" data-answer="had already left">.</div>
+            <div class="ex"><span class="n">14</span>She told me she <input class="g w" data-answer="had never been"> to Asia.</div>
+            <div class="ex"><span class="n">15</span>I realized I <input class="g w" data-answer="had forgotten"> my wallet.</div>
+            <div class="ex"><span class="n">16</span>No sooner <input class="g w" data-answer="had I sat down"> than the phone rang.</div>
+            <div class="ex"><span class="n">17</span>It was the first time I <input class="g w" data-answer="had seen"> such beauty.</div>
+            <div class="ex"><span class="n">18</span>By the time help arrived, the fire <input class="g xw" data-answer="had already destroyed|had burned down"> the building.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Future Perfect & Future Perfect Continuous</h3>
+            <div class="ex"><span class="n">19</span>By next June, I <input class="g xw" data-answer="will have worked|'ll have worked"> here for 20 years.</div>
+            <div class="ex"><span class="n">20</span>This time tomorrow, she <input class="g xw" data-answer="will have finished|'ll have finished"> her exams.</div>
+            <div class="ex"><span class="n">21</span>By 2030, scientists <input class="g xw" data-answer="will have discovered"> new treatments.</div>
+            <div class="ex"><span class="n">22</span>Next month, we <input class="g xw" data-answer="will have been living|'ll have been living"> here for a decade.</div>
+            <div class="ex"><span class="n">23</span>By midnight, I <input class="g xw" data-answer="will have been driving|'ll have been driving"> for 12 hours.</div>
+            <div class="ex"><span class="n">24</span>The project <input class="g xw" data-answer="will have been completed"> by then.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Tricky Cases</h3>
+            <div class="ex"><span class="n">25</span>This is the first time I <input class="g w" data-answer="have eaten|'ve eaten"> sushi. <span class="hint">💡 present perfect after "first time"</span></div>
+            <div class="ex"><span class="n">26</span>It's time we <input class="g" data-answer="left">. <span class="hint">💡 past after "It's time"</span></div>
+            <div class="ex"><span class="n">27</span>I wish I <input class="g w" data-answer="had known"> earlier.</div>
+            <div class="ex"><span class="n">28</span>If only she <input class="g w" data-answer="had told"> me the truth.</div>
+            <div class="ex"><span class="n">29</span>I'd rather you <input class="g" data-answer="didn't"> mention it. <span class="hint">💡 past for present meaning</span></div>
+            <div class="ex"><span class="n">30</span>It's high time the government <input class="g" data-answer="took"> action.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('aspect')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('aspect')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('aspect')">↺ Reset</button>
+        </div>
+        <div id="aspect-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="aspect-correct">0</span>/<span id="aspect-total">0</span></p></div>
+    </section>
+
+    <!-- ARTICLES SECTION -->
+    <section id="articles" class="exercise-section">
+        <h2 class="section-title">📰 Subtle Article Usage</h2>
+        <p class="section-subtitle">Abstract nouns, institutions, geographical names, unique reference</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in "a", "an", "the", or "-" (zero article). Focus on subtle distinctions.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Abstract Nouns: General vs. Specific</h3>
+            <div class="ex"><span class="n">1</span><input class="g" data-answer="-"> Love conquers all. <span class="hint">💡 general concept</span></div>
+            <div class="ex"><span class="n">2</span><input class="g" data-answer="The"> love she felt was overwhelming. <span class="hint">💡 specific love</span></div>
+            <div class="ex"><span class="n">3</span><input class="g" data-answer="-"> Life is unpredictable.</div>
+            <div class="ex"><span class="n">4</span><input class="g" data-answer="The"> life of a diplomat is demanding.</div>
+            <div class="ex"><span class="n">5</span>She showed <input class="g" data-answer="-"> great courage.</div>
+            <div class="ex"><span class="n">6</span>She showed <input class="g" data-answer="the"> courage of a lion.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Institutions (dual meaning)</h3>
+            <div class="ex"><span class="n">7</span>She's in <input class="g" data-answer="-"> hospital. <span class="hint">💡 as a patient (BE)</span></div>
+            <div class="ex"><span class="n">8</span>I visited her at <input class="g" data-answer="the"> hospital. <span class="hint">💡 as a visitor</span></div>
+            <div class="ex"><span class="n">9</span>He's at <input class="g" data-answer="-"> university. <span class="hint">💡 as a student</span></div>
+            <div class="ex"><span class="n">10</span>The lecture was held at <input class="g" data-answer="the"> university.</div>
+            <div class="ex"><span class="n">11</span>She's in <input class="g" data-answer="-"> prison. <span class="hint">💡 as an inmate</span></div>
+            <div class="ex"><span class="n">12</span>The lawyer visited <input class="g" data-answer="the"> prison.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Geographical Names & Proper Nouns</h3>
+            <div class="ex"><span class="n">13</span><input class="g" data-answer="The"> Netherlands is known for its tulips.</div>
+            <div class="ex"><span class="n">14</span><input class="g" data-answer="-"> Austria is a landlocked country.</div>
+            <div class="ex"><span class="n">15</span>We sailed across <input class="g" data-answer="the"> Atlantic.</div>
+            <div class="ex"><span class="n">16</span>She climbed <input class="g" data-answer="-"> Mount Everest.</div>
+            <div class="ex"><span class="n">17</span>We visited <input class="g" data-answer="the"> Grand Canyon.</div>
+            <div class="ex"><span class="n">18</span><input class="g" data-answer="The"> Times published the story.</div>
+            <div class="ex"><span class="n">19</span>He graduated from <input class="g" data-answer="-"> Harvard.</div>
+            <div class="ex"><span class="n">20</span>She studied at <input class="g" data-answer="the"> University of Vienna.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Unique Reference & Shared Knowledge</h3>
+            <div class="ex"><span class="n">21</span>Can you pass <input class="g" data-answer="the"> salt? <span class="hint">💡 obvious from context</span></div>
+            <div class="ex"><span class="n">22</span>She's <input class="g" data-answer="the"> woman I mentioned.</div>
+            <div class="ex"><span class="n">23</span>He's <input class="g" data-answer="the"> only person who knows.</div>
+            <div class="ex"><span class="n">24</span>She plays <input class="g" data-answer="the"> violin beautifully.</div>
+            <div class="ex"><span class="n">25</span><input class="g" data-answer="The"> rich should help <input class="g" data-answer="the"> poor.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Set Phrases & Idiomatic Usage</h3>
+            <div class="ex"><span class="n">26</span>He took her by <input class="g" data-answer="the"> hand.</div>
+            <div class="ex"><span class="n">27</span>She looked him straight in <input class="g" data-answer="the"> eye.</div>
+            <div class="ex"><span class="n">28</span>They went from <input class="g" data-answer="-"> door to <input class="g" data-answer="-"> door.</div>
+            <div class="ex"><span class="n">29</span>Let's discuss this <input class="g" data-answer="-"> face to <input class="g" data-answer="-"> face.</div>
+            <div class="ex"><span class="n">30</span>We sat <input class="g" data-answer="-"> side by <input class="g" data-answer="-"> side.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('articles')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('articles')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('articles')">↺ Reset</button>
+        </div>
+        <div id="articles-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="articles-correct">0</span>/<span id="articles-total">0</span></p></div>
+    </section>
+
+    <!-- COLLOCATIONS SECTION -->
+    <section id="collocations" class="exercise-section">
+        <h2 class="section-title">🔗 Advanced Collocations</h2>
+        <p class="section-subtitle">Fixed expressions, delexical verbs, academic collocations</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Complete with the word that forms a natural collocation.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Verb + Noun (Fixed Collocations)</h3>
+            <div class="ex"><span class="n">1</span>to <input class="g" data-answer="conduct"> research (NOT: make/do research - formal)</div>
+            <div class="ex"><span class="n">2</span>to <input class="g" data-answer="raise"> concerns</div>
+            <div class="ex"><span class="n">3</span>to <input class="g" data-answer="draw"> conclusions</div>
+            <div class="ex"><span class="n">4</span>to <input class="g" data-answer="pose"> a threat</div>
+            <div class="ex"><span class="n">5</span>to <input class="g" data-answer="exert"> influence</div>
+            <div class="ex"><span class="n">6</span>to <input class="g" data-answer="lodge"> a complaint</div>
+            <div class="ex"><span class="n">7</span>to <input class="g" data-answer="nurture"> talent</div>
+            <div class="ex"><span class="n">8</span>to <input class="g" data-answer="wield"> power</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Adjective + Noun (Typical Pairings)</h3>
+            <div class="ex"><span class="n">9</span>a <input class="g" data-answer="stark"> contrast</div>
+            <div class="ex"><span class="n">10</span>an <input class="g" data-answer="integral"> part</div>
+            <div class="ex"><span class="n">11</span>a <input class="g" data-answer="sweeping"> change</div>
+            <div class="ex"><span class="n">12</span>a <input class="g" data-answer="steep|sharp"> decline</div>
+            <div class="ex"><span class="n">13</span>a <input class="g" data-answer="vested"> interest</div>
+            <div class="ex"><span class="n">14</span>the <input class="g" data-answer="foreseeable"> future</div>
+            <div class="ex"><span class="n">15</span><input class="g" data-answer="uncharted"> territory</div>
+            <div class="ex"><span class="n">16</span>a <input class="g" data-answer="foregone"> conclusion</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Adverb + Adjective/Verb</h3>
+            <div class="ex"><span class="n">17</span><input class="g" data-answer="deeply|profoundly"> concerned</div>
+            <div class="ex"><span class="n">18</span><input class="g" data-answer="bitterly"> disappointed</div>
+            <div class="ex"><span class="n">19</span><input class="g" data-answer="widely"> regarded as</div>
+            <div class="ex"><span class="n">20</span><input class="g" data-answer="hotly"> debated</div>
+            <div class="ex"><span class="n">21</span><input class="g" data-answer="readily"> available</div>
+            <div class="ex"><span class="n">22</span><input class="g" data-answer="highly"> unlikely</div>
+            <div class="ex"><span class="n">23</span><input class="g" data-answer="utterly|completely"> absurd</div>
+            <div class="ex"><span class="n">24</span><input class="g" data-answer="woefully"> inadequate</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Academic & Formal Collocations</h3>
+            <div class="ex"><span class="n">25</span>to <input class="g" data-answer="address"> an issue</div>
+            <div class="ex"><span class="n">26</span>to <input class="g" data-answer="warrant"> further investigation</div>
+            <div class="ex"><span class="n">27</span>to <input class="g" data-answer="yield"> results</div>
+            <div class="ex"><span class="n">28</span>to <input class="g" data-answer="undertake"> a study</div>
+            <div class="ex"><span class="n">29</span>to <input class="g" data-answer="bridge"> a gap</div>
+            <div class="ex"><span class="n">30</span>to <input class="g" data-answer="espouse"> a theory</div>
+            <div class="ex"><span class="n">31</span>to <input class="g" data-answer="corroborate"> evidence</div>
+            <div class="ex"><span class="n">32</span>to <input class="g" data-answer="scrutinize|examine"> closely</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Binomials & Trinomials</h3>
+            <div class="ex"><span class="n">33</span>by and <input class="g" data-answer="large"> (= generally)</div>
+            <div class="ex"><span class="n">34</span>null and <input class="g" data-answer="void"> (= invalid)</div>
+            <div class="ex"><span class="n">35</span><input class="g" data-answer="hook">, line, and sinker (= completely)</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('collocations')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('collocations')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('collocations')">↺ Reset</button>
+        </div>
+        <div id="collocations-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="collocations-correct">0</span>/<span id="collocations-total">0</span></p></div>
+    </section>
+
+    <!-- REGISTER SECTION -->
+    <section id="register" class="exercise-section">
+        <h2 class="section-title">📝 Register & Style</h2>
+        <p class="section-subtitle">Formal vs. informal, hedging, academic tone</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Choose the option appropriate for the given register.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Formal Alternatives</h3>
+            <div class="ex"><span class="n">1</span>get → <input class="g" data-answer="obtain|acquire|receive"></div>
+            <div class="ex"><span class="n">2</span>need → <input class="g" data-answer="require"></div>
+            <div class="ex"><span class="n">3</span>help → <input class="g" data-answer="assist|aid"></div>
+            <div class="ex"><span class="n">4</span>show → <input class="g" data-answer="demonstrate|indicate"></div>
+            <div class="ex"><span class="n">5</span>about → <input class="g" data-answer="regarding|concerning|with respect to"></div>
+            <div class="ex"><span class="n">6</span>so → <input class="g" data-answer="therefore|consequently|thus"></div>
+            <div class="ex"><span class="n">7</span>but → <input class="g" data-answer="however|nevertheless|yet"></div>
+            <div class="ex"><span class="n">8</span>also → <input class="g" data-answer="moreover|furthermore|additionally"></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Hedging Language</h3>
+            <div class="ex"><span class="n">9</span>It <input class="g" data-answer="appears|seems"> that the results are inconclusive. <span class="hint">💡 tentative</span></div>
+            <div class="ex"><span class="n">10</span>This <input class="g" data-answer="would|may|might"> suggest a correlation.</div>
+            <div class="ex"><span class="n">11</span>The data <input class="g w" data-answer="tend to|tends to"> support this hypothesis.</div>
+            <div class="ex"><span class="n">12</span>It is <input class="g" data-answer="possible|probable|likely"> that further research is needed.</div>
+            <div class="ex"><span class="n">13</span>There is <input class="g w" data-answer="some|a certain"> evidence to suggest that...</div>
+            <div class="ex"><span class="n">14</span>This <input class="g" data-answer="might|could|may"> be interpreted as...</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Impersonal Constructions</h3>
+            <div class="ex"><span class="n">15</span>It is <input class="g" data-answer="argued|believed|thought"> that climate change is accelerating.</div>
+            <div class="ex"><span class="n">16</span>It has been <input class="g" data-answer="suggested|proposed|noted"> that...</div>
+            <div class="ex"><span class="n">17</span>It <input class="g w" data-answer="should be noted|is worth noting"> that the sample size was small.</div>
+            <div class="ex"><span class="n">18</span>It <input class="g w" data-answer="goes without saying|is self-evident"> that integrity is essential.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Nominalizations (Academic Style)</h3>
+            <div class="ex"><span class="n">19</span>"They arrived unexpectedly" → Their <input class="g" data-answer="arrival"> was unexpected.</div>
+            <div class="ex"><span class="n">20</span>"They failed to comply" → Their <input class="g" data-answer="failure"> to comply...</div>
+            <div class="ex"><span class="n">21</span>"The project succeeded" → The <input class="g" data-answer="success"> of the project...</div>
+            <div class="ex"><span class="n">22</span>"People increasingly rely on..." → The <input class="g" data-answer="increasing"> reliance on...</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Discourse Markers (Formal)</h3>
+            <div class="ex"><span class="n">23</span><input class="g w" data-answer="Notwithstanding"> these limitations, the study offers valuable insights.</div>
+            <div class="ex"><span class="n">24</span><input class="g" data-answer="Hitherto">, little attention has been paid to this issue. <span class="hint">💡 = until now</span></div>
+            <div class="ex"><span class="n">25</span>The evidence is, <input class="g w" data-answer="at best">, inconclusive.</div>
+            <div class="ex"><span class="n">26</span>This is, <input class="g w" data-answer="to say the least">, problematic.</div>
+            <div class="ex"><span class="n">27</span><input class="g" data-answer="Accordingly">, we recommend further investigation.</div>
+            <div class="ex"><span class="n">28</span><input class="g w" data-answer="By the same token">, we must consider the costs.</div>
+            <div class="ex"><span class="n">29</span><input class="g w" data-answer="That being said|That said">, there are exceptions.</div>
+            <div class="ex"><span class="n">30</span>This remains, <input class="g w" data-answer="as yet">, unexplained.</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('register')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('register')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('register')">↺ Reset</button>
+        </div>
+        <div id="register-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="register-correct">0</span>/<span id="register-total">0</span></p></div>
+    </section>
+
+    <!-- ELLIPSIS SECTION -->
+    <section id="ellipsis" class="exercise-section">
+        <h2 class="section-title">... Ellipsis & Substitution</h2>
+        <p class="section-subtitle">Omitting words, auxiliary substitution, so/neither</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Complete the sentences using appropriate ellipsis or substitution.</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Auxiliary-based Ellipsis</h3>
+            <div class="ex"><span class="n">1</span>"Have you finished?" – "Yes, I <input class="g" data-answer="have">."</div>
+            <div class="ex"><span class="n">2</span>"Can she swim?" – "No, she <input class="g" data-answer="can't|cannot">."</div>
+            <div class="ex"><span class="n">3</span>I thought he would call, but he <input class="g" data-answer="didn't">.</div>
+            <div class="ex"><span class="n">4</span>She may come, or she <input class="g w" data-answer="may not|might not">.</div>
+            <div class="ex"><span class="n">5</span>He said he would help, and he <input class="g" data-answer="did">.</div>
+            <div class="ex"><span class="n">6</span>I haven't seen it, but I'd like <input class="g" data-answer="to">. <span class="hint">💡 infinitive marker alone</span></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">So/Neither/Nor + Auxiliary</h3>
+            <div class="ex"><span class="n">7</span>"I love jazz." – "<input class="g w" data-answer="So do I">."</div>
+            <div class="ex"><span class="n">8</span>"I can't swim." – "<input class="g w" data-answer="Neither can I|Nor can I">."</div>
+            <div class="ex"><span class="n">9</span>"She's been to Japan." – "<input class="g w" data-answer="So have I">."</div>
+            <div class="ex"><span class="n">10</span>"He won't agree." – "<input class="g w" data-answer="Neither will she|Nor will she">."</div>
+            <div class="ex"><span class="n">11</span>"I'd love to go." – "<input class="g w" data-answer="So would I">."</div>
+            <div class="ex"><span class="n">12</span>"She hadn't noticed." – "<input class="g w" data-answer="Neither had I|Nor had I">."</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Substitution with "so", "not", "one(s)"</h3>
+            <div class="ex"><span class="n">13</span>"Is it going to rain?" – "I think <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">14</span>"Will he pass?" – "I hope <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">15</span>"Is she coming?" – "I'm afraid <input class="g" data-answer="not">."</div>
+            <div class="ex"><span class="n">16</span>"Did they win?" – "I suppose <input class="g" data-answer="so">."</div>
+            <div class="ex"><span class="n">17</span>I need a pen. Have you got <input class="g" data-answer="one">?</div>
+            <div class="ex"><span class="n">18</span>These cakes look nice. I'll take the chocolate <input class="g" data-answer="one|ones">.</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Comparative & Contrastive Ellipsis</h3>
+            <div class="ex"><span class="n">19</span>She works harder than I <input class="g" data-answer="do">.</div>
+            <div class="ex"><span class="n">20</span>He earns more than she <input class="g" data-answer="does">.</div>
+            <div class="ex"><span class="n">21</span>You can if you want <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">22</span>I'll go if I have <input class="g" data-answer="to">.</div>
+            <div class="ex"><span class="n">23</span>Some agreed, others <input class="g" data-answer="didn't">.</div>
+            <div class="ex"><span class="n">24</span>You could have helped but <input class="g" data-answer="didn't">.</div>
+            <div class="ex"><span class="n">25</span>A: "She seems upset." B: "She certainly <input class="g" data-answer="does">."</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('ellipsis')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('ellipsis')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('ellipsis')">↺ Reset</button>
+        </div>
+        <div id="ellipsis-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="ellipsis-correct">0</span>/<span id="ellipsis-total">0</span></p></div>
+    </section>
+
+    <!-- IDIOMS SECTION -->
+    <section id="idiom" class="exercise-section">
+        <h2 class="section-title">💎 Idiomatic & Figurative Language</h2>
+        <p class="section-subtitle">Idioms, metaphors, fixed expressions</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Complete the idiom or expression with the missing word(s).</p></div>
+        
+        <div class="subsection">
+            <h3 class="subsection-title">Common Idioms</h3>
+            <div class="ex"><span class="n">1</span>to beat around the <input class="g" data-answer="bush"> (= avoid the main topic)</div>
+            <div class="ex"><span class="n">2</span>to bite off more than you can <input class="g" data-answer="chew"> (= overcommit)</div>
+            <div class="ex"><span class="n">3</span>to burn the midnight <input class="g" data-answer="oil"> (= work late)</div>
+            <div class="ex"><span class="n">4</span>a blessing in <input class="g" data-answer="disguise"> (= hidden benefit)</div>
+            <div class="ex"><span class="n">5</span>to kill two birds with one <input class="g" data-answer="stone"> (= achieve two aims)</div>
+            <div class="ex"><span class="n">6</span>the ball is in your <input class="g" data-answer="court"> (= your turn to act)</div>
+            <div class="ex"><span class="n">7</span>to be on the same <input class="g" data-answer="page|wavelength"> (= in agreement)</div>
+            <div class="ex"><span class="n">8</span>to let the cat out of the <input class="g" data-answer="bag"> (= reveal a secret)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Formal/Literary Expressions</h3>
+            <div class="ex"><span class="n">9</span>to add insult to <input class="g" data-answer="injury"> (= make it worse)</div>
+            <div class="ex"><span class="n">10</span>a double-edged <input class="g" data-answer="sword"> (= has good and bad effects)</div>
+            <div class="ex"><span class="n">11</span>the tip of the <input class="g" data-answer="iceberg"> (= small visible part)</div>
+            <div class="ex"><span class="n">12</span>to read between the <input class="g" data-answer="lines"> (= understand hidden meaning)</div>
+            <div class="ex"><span class="n">13</span>a Pyrrhic <input class="g" data-answer="victory"> (= costly win)</div>
+            <div class="ex"><span class="n">14</span>a Catch-<input class="g" data-answer="22"> (= no-win situation)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Similes</h3>
+            <div class="ex"><span class="n">15</span>as cold as <input class="g" data-answer="ice"></div>
+            <div class="ex"><span class="n">16</span>as clear as <input class="g" data-answer="day|crystal"></div>
+            <div class="ex"><span class="n">17</span>as stubborn as a <input class="g" data-answer="mule"></div>
+            <div class="ex"><span class="n">18</span>to sleep like a <input class="g" data-answer="log|baby"></div>
+            <div class="ex"><span class="n">19</span>to fit like a <input class="g" data-answer="glove"></div>
+            <div class="ex"><span class="n">20</span>as different as chalk and <input class="g" data-answer="cheese"></div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Prepositional Expressions</h3>
+            <div class="ex"><span class="n">21</span>against all <input class="g" data-answer="odds"> (= despite difficulties)</div>
+            <div class="ex"><span class="n">22</span>beyond a shadow of a <input class="g" data-answer="doubt"> (= certainly)</div>
+            <div class="ex"><span class="n">23</span>in the nick of <input class="g" data-answer="time"> (= just in time)</div>
+            <div class="ex"><span class="n">24</span>at the drop of a <input class="g" data-answer="hat"> (= immediately)</div>
+            <div class="ex"><span class="n">25</span>on the spur of the <input class="g" data-answer="moment"> (= spontaneously)</div>
+            <div class="ex"><span class="n">26</span>for the time <input class="g" data-answer="being"> (= temporarily)</div>
+        </div>
+
+        <div class="subsection">
+            <h3 class="subsection-title">Business & Professional Idioms</h3>
+            <div class="ex"><span class="n">27</span>to get the ball <input class="g" data-answer="rolling"> (= start something)</div>
+            <div class="ex"><span class="n">28</span>to cut <input class="g" data-answer="corners"> (= reduce quality/effort)</div>
+            <div class="ex"><span class="n">29</span>to think outside the <input class="g" data-answer="box"> (= be creative)</div>
+            <div class="ex"><span class="n">30</span>to be in the <input class="g" data-answer="loop"> (= be informed)</div>
+        </div>
+
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('idiom')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('idiom')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('idiom')">↺ Reset</button>
+        </div>
+        <div id="idiom-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="idiom-correct">0</span>/<span id="idiom-total">0</span></p></div>
+    </section>
+
+</div>
+<script>
+function showSection(id,btn){document.querySelectorAll('.exercise-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function norm(s){return s.toLowerCase().trim().replace(/\s+/g,' ').replace(/['']/g,"'");}
+function checkAnswers(id){const sec=document.getElementById(id),inputs=sec.querySelectorAll('input.g');let c=0,t=inputs.length;inputs.forEach(i=>{const u=norm(i.value),ans=i.dataset.answer.split('|').map(a=>norm(a));i.classList.remove('correct','incorrect');if(ans.includes(u)){i.classList.add('correct');c++;}else if(u!=='')i.classList.add('incorrect');});document.getElementById(id+'-correct').textContent=c;document.getElementById(id+'-total').textContent=t;document.getElementById(id+'-results').classList.add('visible');}
+function showSolutions(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{const ans=i.dataset.answer.split('|')[0];if(!i.classList.contains('correct')){i.classList.add('incorrect');let sol=i.nextElementSibling;if(!sol||!sol.classList.contains('sol')){sol=document.createElement('span');sol.className='sol';sol.textContent=' → '+ans;i.parentNode.insertBefore(sol,i.nextSibling);}sol.style.display='inline';}});}
+function resetSection(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');});sec.querySelectorAll('.sol').forEach(s=>s.style.display='none');document.getElementById(id+'-results').classList.remove('visible');}
+</script>
+</body>
+</html>

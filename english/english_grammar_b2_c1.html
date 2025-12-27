@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Champion B2/C1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{--primary:#1a2e3d;--primary-light:#2a4560;--accent:#4ecdc4;--accent-glow:#7ee8e2;--accent-dark:#35a79c;--success:#4ade80;--error:#ff5252;--text:#fff;--text-muted:#b8d4e8;--gold:#ffd740}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Quicksand',sans-serif;background:linear-gradient(180deg,#0d1a26 0%,#1a3a4a 40%,#2d5a5a 70%,#3a7a6a 100%);min-height:100vh;color:var(--text)}
+        .container{max-width:1000px;margin:0 auto;padding:20px}
+        header{text-align:center;margin-bottom:30px}
+        h1{font-family:'Fredoka',sans-serif;font-size:2.4rem;background:linear-gradient(135deg,#4ecdc4,#7ee8e2,#ffd740);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+        .subtitle{color:var(--text-muted);font-size:1.1rem}
+        .topic-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:30px}
+        .topic-btn{background:linear-gradient(135deg,rgba(26,46,61,0.9),rgba(42,69,96,0.9));border:2px solid rgba(78,205,196,0.3);border-radius:12px;padding:12px 20px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.3s}
+        .topic-btn:hover,.topic-btn.active{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent);transform:translateY(-2px);box-shadow:0 5px 20px rgba(78,205,196,0.4)}
+        .topic-btn .count{background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:10px;font-size:0.8rem;margin-left:8px}
+        .exercise-section{background:linear-gradient(135deg,rgba(26,46,61,0.95),rgba(42,69,96,0.9));border-radius:20px;padding:30px;margin-bottom:20px;border:2px solid rgba(78,205,196,0.3);box-shadow:0 10px 40px rgba(0,0,0,0.3);display:none}
+        .exercise-section.active{display:block;animation:fadeIn 0.5s}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .section-title{font-family:'Fredoka',sans-serif;font-size:1.6rem;color:var(--accent-glow);margin-bottom:10px}
+        .section-subtitle{color:var(--text-muted);margin-bottom:25px;font-size:0.95rem}
+        .subsection{margin-bottom:30px}
+        .subsection-title{font-family:'Fredoka',sans-serif;font-size:1.2rem;color:var(--gold);margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid rgba(255,215,64,0.3)}
+        .ex{background:rgba(13,26,38,0.6);border-radius:12px;padding:12px 15px;margin-bottom:10px;border:1px solid rgba(78,205,196,0.15);line-height:1.9}
+        .n{display:inline-block;background:var(--accent-dark);color:#fff;min-width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-size:0.8rem;font-weight:600;margin-right:10px}
+        input.g{background:rgba(13,26,38,0.9);border:2px solid var(--primary-light);border-radius:8px;padding:5px 10px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.95rem;min-width:100px;text-align:center;transition:all 0.3s;margin:2px 4px}
+        input.g:focus{outline:none;border-color:var(--accent);box-shadow:0 0 15px rgba(78,205,196,0.3)}
+        input.g.correct{border-color:var(--success);background:rgba(74,222,128,0.2)}
+        input.g.incorrect{border-color:var(--error);background:rgba(255,82,82,0.2)}
+        input.g.w{min-width:160px}input.g.xw{min-width:220px}input.g.xxw{min-width:280px}
+        .hint{display:block;color:var(--text-muted);font-size:0.8rem;margin-top:5px;font-style:italic}
+        .controls{display:flex;gap:15px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+        .btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid var(--accent);border-radius:12px;padding:12px 25px;color:var(--text);font-family:'Fredoka',sans-serif;font-size:1rem;cursor:pointer;transition:all 0.3s}
+        .btn:hover{background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px);box-shadow:0 5px 20px rgba(78,205,196,0.4)}
+        .btn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent))}
+        .results{background:rgba(13,26,38,0.8);border-radius:15px;padding:20px;margin-top:20px;text-align:center;display:none}
+        .results.visible{display:block}
+        .score{font-family:'Fredoka',sans-serif;font-size:2.2rem;color:var(--accent-glow)}
+        .score-label{color:var(--text-muted);font-size:0.9rem;margin-bottom:5px}
+        .sol{color:var(--success);font-weight:600;margin-left:5px;display:none}
+        .wrong-list{background:rgba(255,82,82,0.15);border:1px solid rgba(255,82,82,0.4);border-radius:10px;padding:15px;margin-top:15px;display:none}
+        .wrong-list.visible{display:block}
+        .wrong-list p{color:var(--error);font-size:0.95rem;margin-bottom:10px}
+        .wrong-list .action-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+        .wrong-list .action-btn{background:rgba(13,26,38,0.8);border:1px solid var(--error);border-radius:8px;padding:8px 16px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.3s}
+        .wrong-list .action-btn:hover{background:var(--error)}
+        .instruction{background:rgba(78,205,196,0.1);border:1px solid rgba(78,205,196,0.3);border-radius:10px;padding:12px;margin-bottom:20px}
+        .instruction h4{color:var(--accent-glow);margin-bottom:5px;font-family:'Fredoka',sans-serif;font-size:1rem}
+        .instruction p{color:var(--text-muted);font-size:0.85rem}
+        @media(max-width:768px){h1{font-size:1.6rem}.container{padding:10px}.exercise-section{padding:15px}input.g{min-width:80px;font-size:0.85rem}input.g.w{min-width:120px}input.g.xw{min-width:160px}.topic-btn{padding:8px 12px;font-size:0.8rem}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🎓 English Grammar Champion B2/C1</h1>
+        <p class="subtitle">500 exercises for advanced grammar mastery</p>
+    </header>
+    <nav class="topic-nav">
+        <button class="topic-btn active" onclick="showSection('conditionals',this)">🔀 Mixed Conditionals <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('passive',this)">🔄 Advanced Passive <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('subjunctive',this)">💭 Wish & Subjunctive <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('inversion',this)">🔃 Inversion <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('relatives',this)">🔗 Relatives <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('perfect',this)">⏳ Perfect <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('reported',this)">💬 Reported <span class="count">60</span></button>
+        <button class="topic-btn" onclick="showSection('participles',this)">📝 Participles <span class="count">55</span></button>
+        <button class="topic-btn" onclick="showSection('cleft',this)">✨ Cleft <span class="count">55</span></button>
+    </nav>
+
+    <section id="conditionals" class="exercise-section active">
+        <h2 class="section-title">🔀 Mixed Conditionals</h2>
+        <p class="section-subtitle">Combining different time references in conditional sentences</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct verb forms. Pay attention to the time reference in each clause!</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Mixed Conditionals (1-55)</h3>
+            <div class="ex"><span class="n">1</span>If I <input class="g w" data-answer="had studied"> (study) medicine, I <input class="g w" data-answer="would be"> (be) a doctor now.</div>
+            <div class="ex"><span class="n">2</span>If she <input class="g w" data-answer="hadn't missed"> (not/miss) her flight, she <input class="g w" data-answer="would be"> (be) in Tokyo today.</div>
+            <div class="ex"><span class="n">3</span>If we <input class="g w" data-answer="had invested"> (invest) in that startup, we <input class="g w" data-answer="would be"> (be) millionaires now.</div>
+            <div class="ex"><span class="n">4</span>If he <input class="g w" data-answer="had taken"> (take) the job offer, he <input class="g w" data-answer="wouldn't be"> (not/be) unemployed.</div>
+            <div class="ex"><span class="n">5</span>If I <input class="g w" data-answer="hadn't eaten"> (not/eat) so much, I <input class="g w" data-answer="wouldn't feel"> (not/feel) sick today.</div>
+            <div class="ex"><span class="n">6</span>If they <input class="g w" data-answer="had moved"> (move) to the city, they <input class="g w" data-answer="would have"> (have) more opportunities now.</div>
+            <div class="ex"><span class="n">7</span>If she <input class="g w" data-answer="had married"> (marry) him, she <input class="g w" data-answer="would be"> (be) living in Paris now.</div>
+            <div class="ex"><span class="n">8</span>If I <input class="g w" data-answer="had learned"> (learn) to code, I <input class="g w" data-answer="would have"> (have) a tech job today.</div>
+            <div class="ex"><span class="n">9</span>If the company <input class="g w" data-answer="hadn't gone"> (not/go) bankrupt, we <input class="g w" data-answer="would still be"> (still/be) employed.</div>
+            <div class="ex"><span class="n">10</span>If he <input class="g w" data-answer="had listened"> (listen) to my advice, he <input class="g w" data-answer="wouldn't be"> (not/be) in this mess.</div>
+            <div class="ex"><span class="n">11</span>If I <input class="g w" data-answer="hadn't broken"> (not/break) my leg, I <input class="g w" data-answer="would be playing"> (play) football now.</div>
+            <div class="ex"><span class="n">12</span>If she <input class="g w" data-answer="had accepted"> (accept) the scholarship, she <input class="g w" data-answer="would be studying"> (study) at Harvard.</div>
+            <div class="ex"><span class="n">13</span>If they <input class="g w" data-answer="hadn't sold"> (not/sell) their house, they <input class="g w" data-answer="would still own"> (still/own) property.</div>
+            <div class="ex"><span class="n">14</span>If I <input class="g w" data-answer="had saved"> (save) more money, I <input class="g w" data-answer="would be"> (be) financially secure now.</div>
+            <div class="ex"><span class="n">15</span>If the government <input class="g w" data-answer="had acted"> (act) sooner, the situation <input class="g w" data-answer="would be"> (be) under control.</div>
+            <div class="ex"><span class="n">16</span>If we <input class="g w" data-answer="hadn't wasted"> (not/waste) time, we <input class="g w" data-answer="would be finishing"> (finish) the project.</div>
+            <div class="ex"><span class="n">17</span>If he <input class="g w" data-answer="had quit"> (quit) smoking, he <input class="g w" data-answer="would be"> (be) in better health today.</div>
+            <div class="ex"><span class="n">18</span>If I <input class="g w" data-answer="hadn't lost"> (not/lose) my passport, I <input class="g w" data-answer="would be travelling"> (travel) through Asia.</div>
+            <div class="ex"><span class="n">19</span>If she <input class="g w" data-answer="had stayed"> (stay) in her hometown, she <input class="g w" data-answer="wouldn't have"> (not/have) such a career.</div>
+            <div class="ex"><span class="n">20</span>If they <input class="g w" data-answer="had built"> (build) more infrastructure, traffic <input class="g w" data-answer="wouldn't be"> (not/be) a problem.</div>
+            <div class="ex"><span class="n">21</span>If I <input class="g" data-answer="were"> (be) more confident, I <input class="g xw" data-answer="would have applied"> (apply) for that promotion.</div>
+            <div class="ex"><span class="n">22</span>If she <input class="g" data-answer="weren't|wasn't"> (not/be) so stubborn, she <input class="g xw" data-answer="would have accepted"> (accept) help.</div>
+            <div class="ex"><span class="n">23</span>If he <input class="g" data-answer="spoke"> (speak) better English, he <input class="g xw" data-answer="would have got|would have gotten"> (get) the contract.</div>
+            <div class="ex"><span class="n">24</span>If I <input class="g" data-answer="had"> (have) more patience, I <input class="g xw" data-answer="wouldn't have quit"> (not/quit) the course.</div>
+            <div class="ex"><span class="n">25</span>If we <input class="g" data-answer="weren't"> (not/be) risk-averse, we <input class="g xw" data-answer="would have invested"> (invest) in Bitcoin.</div>
+            <div class="ex"><span class="n">26</span>If she <input class="g" data-answer="weren't|wasn't"> (not/be) afraid of flying, she <input class="g xw" data-answer="would have visited"> (visit) more.</div>
+            <div class="ex"><span class="n">27</span>If I <input class="g" data-answer="knew"> (know) about cars, I <input class="g xw" data-answer="wouldn't have paid"> (not/pay) so much.</div>
+            <div class="ex"><span class="n">28</span>If he <input class="g" data-answer="weren't|wasn't"> (not/be) arrogant, people <input class="g xw" data-answer="would have helped"> (help) him.</div>
+            <div class="ex"><span class="n">29</span>If I <input class="g" data-answer="liked"> (like) networking, I <input class="g xw" data-answer="would have made"> (make) more contacts.</div>
+            <div class="ex"><span class="n">30</span>If she <input class="g" data-answer="were"> (be) more organised, she <input class="g xw" data-answer="wouldn't have missed"> (not/miss) the deadline.</div>
+            <div class="ex"><span class="n">31</span>If we <input class="g" data-answer="lived"> (live) closer, we <input class="g xw" data-answer="wouldn't have been"> (not/be) late so often.</div>
+            <div class="ex"><span class="n">32</span>If I <input class="g" data-answer="weren't|wasn't"> (not/be) allergic to cats, I <input class="g xw" data-answer="would have adopted"> (adopt) one.</div>
+            <div class="ex"><span class="n">33</span>If he <input class="g" data-answer="trusted"> (trust) people more, he <input class="g xw" data-answer="would have had"> (have) more friends.</div>
+            <div class="ex"><span class="n">34</span>If I <input class="g" data-answer="were"> (be) better at maths, I <input class="g xw" data-answer="would have studied"> (study) engineering.</div>
+            <div class="ex"><span class="n">35</span>If she <input class="g" data-answer="weren't|wasn't"> (not/be) so shy, she <input class="g xw" data-answer="would have spoken"> (speak) up in the meeting.</div>
+            <div class="ex"><span class="n">36</span>If we <input class="g" data-answer="had"> (have) more money, we <input class="g xw" data-answer="would have bought"> (buy) a bigger house.</div>
+            <div class="ex"><span class="n">37</span>If I <input class="g" data-answer="didn't"> (not/do) shift work, I <input class="g xw" data-answer="would have attended"> (attend) more events.</div>
+            <div class="ex"><span class="n">38</span>If he <input class="g" data-answer="weren't|wasn't"> (not/be) colour-blind, he <input class="g xw" data-answer="would have become"> (become) a pilot.</div>
+            <div class="ex"><span class="n">39</span>If I <input class="g" data-answer="enjoyed"> (enjoy) public speaking, I <input class="g xw" data-answer="would have pursued"> (pursue) politics.</div>
+            <div class="ex"><span class="n">40</span>If she <input class="g" data-answer="weren't|wasn't"> (not/be) vegetarian, she <input class="g xw" data-answer="would have tried"> (try) the steak.</div>
+            <div class="ex"><span class="n">41</span>If the internet <input class="g w" data-answer="hadn't been"> (not/be) invented, we <input class="g xw" data-answer="would be living|would live"> (live) differently.</div>
+            <div class="ex"><span class="n">42</span>If I <input class="g" data-answer="were"> (be) you, I <input class="g xw" data-answer="would have taken"> (take) the opportunity.</div>
+            <div class="ex"><span class="n">43</span>If humans <input class="g w" data-answer="hadn't evolved"> (not/evolve) to walk upright, we <input class="g xw" data-answer="wouldn't be"> (not/be) dominant.</div>
+            <div class="ex"><span class="n">44</span>If she <input class="g" data-answer="weren't|wasn't"> (not/be) talented, she <input class="g xw" data-answer="wouldn't have been offered"> (not/offer) the lead role.</div>
+            <div class="ex"><span class="n">45</span>If I <input class="g w" data-answer="had known"> (know) then what I <input class="g" data-answer="know"> (know) now, I <input class="g xw" data-answer="would have made"> (make) different choices.</div>
+            <div class="ex"><span class="n">46</span>If climate change <input class="g w" data-answer="weren't|wasn't"> (not/be) real, sea levels <input class="g xw" data-answer="wouldn't have risen"> (not/rise) dramatically.</div>
+            <div class="ex"><span class="n">47</span>If the vaccine <input class="g w" data-answer="hadn't been"> (not/be) developed quickly, the pandemic <input class="g w" data-answer="would still be"> (still/be) raging.</div>
+            <div class="ex"><span class="n">48</span>If I <input class="g" data-answer="could"> (can) speak Japanese, I <input class="g xw" data-answer="would have understood"> (understand) the conversation.</div>
+            <div class="ex"><span class="n">49</span>If he <input class="g w" data-answer="hadn't inherited"> (not/inherit) that fortune, he <input class="g xw" data-answer="would be working|would work"> (work) like us.</div>
+            <div class="ex"><span class="n">50</span>If smartphones <input class="g w" data-answer="hadn't been"> (not/be) invented, people <input class="g w" data-answer="would interact"> (interact) more face-to-face.</div>
+            <div class="ex"><span class="n">51</span>If I <input class="g" data-answer="weren't|wasn't"> (not/be) forgetful, I <input class="g xw" data-answer="wouldn't have left"> (not/leave) my wallet.</div>
+            <div class="ex"><span class="n">52</span>If the company <input class="g w" data-answer="had adapted"> (adapt) earlier, it <input class="g xw" data-answer="wouldn't be struggling"> (not/struggle) now.</div>
+            <div class="ex"><span class="n">53</span>If renewable energy <input class="g" data-answer="were"> (be) cheaper, we <input class="g xw" data-answer="would have switched"> (switch) long ago.</div>
+            <div class="ex"><span class="n">54</span>If I <input class="g w" data-answer="had been born"> (be born) elsewhere, I <input class="g w" data-answer="would speak"> (speak) a different language.</div>
+            <div class="ex"><span class="n">55</span>If we <input class="g w" data-answer="hadn't met"> (not/meet) at that conference, we <input class="g xw" data-answer="wouldn't be married"> (not/be) married today.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('conditionals')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('conditionals')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('conditionals')">↺ Reset</button>
+        </div>
+        <div id="conditionals-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="conditionals-correct">0</span>/<span id="conditionals-total">0</span></p></div>
+    </section>
+
+    <!-- PASSIVE SECTION -->
+    <section id="passive" class="exercise-section">
+        <h2 class="section-title">🔄 Advanced Passive</h2>
+        <p class="section-subtitle">Causative have/get, reporting passive, double object passive</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Transform sentences or fill in the correct passive forms.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Causative & Reporting Passive (56-110)</h3>
+            <div class="ex"><span class="n">56</span>I need to <input class="g xw" data-answer="have my car serviced|get my car serviced"> (my car/service) before the trip.</div>
+            <div class="ex"><span class="n">57</span>She <input class="g xw" data-answer="had her hair cut|got her hair cut"> (her hair/cut) at an expensive salon.</div>
+            <div class="ex"><span class="n">58</span>We're going to <input class="g xw" data-answer="have the house painted|get the house painted"> (the house/paint) next month.</div>
+            <div class="ex"><span class="n">59</span>He <input class="g xw" data-answer="has his suits made|gets his suits made"> (his suits/make) in Italy.</div>
+            <div class="ex"><span class="n">60</span>I must <input class="g xw" data-answer="have my eyes tested|get my eyes tested"> (my eyes/test).</div>
+            <div class="ex"><span class="n">61</span>They <input class="g xw" data-answer="had their windows broken|got their windows broken"> (their windows/break) during the storm.</div>
+            <div class="ex"><span class="n">62</span>She <input class="g xw" data-answer="had her wallet stolen|got her wallet stolen"> (her wallet/steal) on the underground.</div>
+            <div class="ex"><span class="n">63</span>We <input class="g xw" data-answer="are having the kitchen renovated|are getting the kitchen renovated"> (the kitchen/renovate) now.</div>
+            <div class="ex"><span class="n">64</span>He <input class="g xw" data-answer="had his appendix removed|got his appendix removed"> (his appendix/remove) last week.</div>
+            <div class="ex"><span class="n">65</span>I <input class="g xw" data-answer="had my computer fixed|got my computer fixed"> (my computer/fix) by a specialist.</div>
+            <div class="ex"><span class="n">66</span>They <input class="g xw" data-answer="have had the contract reviewed|have got the contract reviewed"> (the contract/review) by lawyers.</div>
+            <div class="ex"><span class="n">67</span>She needs to <input class="g xw" data-answer="have her passport renewed|get her passport renewed"> (her passport/renew).</div>
+            <div class="ex"><span class="n">68</span>We <input class="g xw" data-answer="had the documents translated|got the documents translated"> (the documents/translate) into German.</div>
+            <div class="ex"><span class="n">69</span>He <input class="g xw" data-answer="is having his portrait painted|is getting his portrait painted"> (his portrait/paint) by an artist.</div>
+            <div class="ex"><span class="n">70</span>I <input class="g xw" data-answer="had my luggage lost|got my luggage lost"> (my luggage/lose) by the airline.</div>
+            <div class="ex"><span class="n">71</span>People say he is a genius. → He <input class="g xw" data-answer="is said to be"> a genius.</div>
+            <div class="ex"><span class="n">72</span>They believe she has left the country. → She <input class="g xw" data-answer="is believed to have left"> the country.</div>
+            <div class="ex"><span class="n">73</span>People think the company is losing money. → The company <input class="g xw" data-answer="is thought to be losing"> money.</div>
+            <div class="ex"><span class="n">74</span>They reported that the minister had resigned. → The minister <input class="g xw" data-answer="was reported to have resigned">.</div>
+            <div class="ex"><span class="n">75</span>People consider him to be an expert. → He <input class="g xw" data-answer="is considered to be"> an expert.</div>
+            <div class="ex"><span class="n">76</span>They expect the negotiations will fail. → The negotiations <input class="g xw" data-answer="are expected to fail">.</div>
+            <div class="ex"><span class="n">77</span>People know that she was involved. → She <input class="g xw" data-answer="is known to have been involved">.</div>
+            <div class="ex"><span class="n">78</span>They allege the CEO committed fraud. → The CEO <input class="g xw" data-answer="is alleged to have committed"> fraud.</div>
+            <div class="ex"><span class="n">79</span>People assume he is wealthy. → He <input class="g xw" data-answer="is assumed to be"> wealthy.</div>
+            <div class="ex"><span class="n">80</span>They claim the product cures diseases. → The product <input class="g xw" data-answer="is claimed to cure"> diseases.</div>
+            <div class="ex"><span class="n">81</span>People understood that the deal had collapsed. → The deal <input class="g xw" data-answer="was understood to have collapsed">.</div>
+            <div class="ex"><span class="n">82</span>They suppose he is hiding something. → He <input class="g xw" data-answer="is supposed to be hiding"> something.</div>
+            <div class="ex"><span class="n">83</span>People estimate the damage will cost millions. → The damage <input class="g xw" data-answer="is estimated to cost"> millions.</div>
+            <div class="ex"><span class="n">84</span>They feared the situation would escalate. → The situation <input class="g xw" data-answer="was feared to escalate">.</div>
+            <div class="ex"><span class="n">85</span>People acknowledge she is the best. → She <input class="g xw" data-answer="is acknowledged to be"> the best.</div>
+            <div class="ex"><span class="n">86</span>They gave the employees a bonus. → The employees <input class="g xw" data-answer="were given a bonus">.</div>
+            <div class="ex"><span class="n">87</span>They gave the employees a bonus. → A bonus <input class="g xw" data-answer="was given to the employees">.</div>
+            <div class="ex"><span class="n">88</span>Someone should tell him the truth. → He <input class="g xw" data-answer="should be told the truth">.</div>
+            <div class="ex"><span class="n">89</span>They have offered her the position. → She <input class="g xw" data-answer="has been offered the position">.</div>
+            <div class="ex"><span class="n">90</span>People must show visitors ID. → Visitors <input class="g xw" data-answer="must be shown ID">.</div>
+            <div class="ex"><span class="n">91</span>They are teaching students calculus. → Students <input class="g xxw" data-answer="are being taught calculus">.</div>
+            <div class="ex"><span class="n">92</span>Nobody had told us about changes. → We <input class="g xxw" data-answer="hadn't been told about the changes">.</div>
+            <div class="ex"><span class="n">93</span>The committee will award a prize. → The winner <input class="g xw" data-answer="will be awarded a prize">.</div>
+            <div class="ex"><span class="n">94</span>They are going to send us the invoice. → We <input class="g xxw" data-answer="are going to be sent the invoice">.</div>
+            <div class="ex"><span class="n">95</span>Someone ought to show them the exits. → They <input class="g xxw" data-answer="ought to be shown the exits">.</div>
+            <div class="ex"><span class="n">96</span>The situation needs <input class="g xw" data-answer="to be addressed|addressing"> (address) immediately.</div>
+            <div class="ex"><span class="n">97</span>The car wants <input class="g w" data-answer="washing|to be washed"> (wash). It's filthy.</div>
+            <div class="ex"><span class="n">98</span>The report requires <input class="g xw" data-answer="editing|to be edited"> (edit) before submission.</div>
+            <div class="ex"><span class="n">99</span>He hates <input class="g w" data-answer="being told"> (tell) what to do.</div>
+            <div class="ex"><span class="n">100</span>She resents <input class="g w" data-answer="being treated"> (treat) like a child.</div>
+            <div class="ex"><span class="n">101</span>The painting is believed <input class="g w" data-answer="to be"> authentic.</div>
+            <div class="ex"><span class="n">102</span>Several people were reported <input class="g xw" data-answer="to have been injured">.</div>
+            <div class="ex"><span class="n">103</span>The ruins are thought <input class="g w" data-answer="to date back"> 3,000 years.</div>
+            <div class="ex"><span class="n">104</span>The company is alleged <input class="g xw" data-answer="to have evaded"> taxes.</div>
+            <div class="ex"><span class="n">105</span>The ship was presumed <input class="g xw" data-answer="to have sunk">.</div>
+            <div class="ex"><span class="n">106</span>I'm <input class="g xw" data-answer="having my teeth whitened|getting my teeth whitened"> (my teeth/whiten) for the wedding.</div>
+            <div class="ex"><span class="n">107</span>She <input class="g xw" data-answer="has just had her nails done|has just got her nails done"> (just/her nails/do).</div>
+            <div class="ex"><span class="n">108</span>We should <input class="g xw" data-answer="have the alarm upgraded|get the alarm upgraded"> (the alarm/upgrade).</div>
+            <div class="ex"><span class="n">109</span>He <input class="g xw" data-answer="had his car towed|got his car towed"> (his car/tow) for illegal parking.</div>
+            <div class="ex"><span class="n">110</span>They <input class="g xw" data-answer="will have the results sent|will get the results sent"> (the results/send) by email.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('passive')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('passive')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('passive')">↺ Reset</button>
+        </div>
+        <div id="passive-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="passive-correct">0</span>/<span id="passive-total">0</span></p></div>
+    </section>
+
+    <!-- SUBJUNCTIVE SECTION -->
+    <section id="subjunctive" class="exercise-section">
+        <h2 class="section-title">💭 Wish & Subjunctive</h2>
+        <p class="section-subtitle">Expressing unreal situations, regrets, and formal subjunctive</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct verb forms after wish, if only, and subjunctive triggers.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Wish & Subjunctive (111-165)</h3>
+            <div class="ex"><span class="n">111</span>I wish I <input class="g" data-answer="had"> (have) more free time.</div>
+            <div class="ex"><span class="n">112</span>She wishes she <input class="g" data-answer="were|was"> (be) taller.</div>
+            <div class="ex"><span class="n">113</span>If only I <input class="g" data-answer="knew"> (know) the answer!</div>
+            <div class="ex"><span class="n">114</span>I wish it <input class="g w" data-answer="weren't|wasn't"> (not/be) raining.</div>
+            <div class="ex"><span class="n">115</span>He wishes he <input class="g" data-answer="could"> (can) afford a new car.</div>
+            <div class="ex"><span class="n">116</span>If only the train <input class="g w" data-answer="weren't|wasn't"> (not/be) so crowded!</div>
+            <div class="ex"><span class="n">117</span>I wish I <input class="g" data-answer="lived"> (live) closer to work.</div>
+            <div class="ex"><span class="n">118</span>She wishes she <input class="g" data-answer="spoke"> (speak) fluent French.</div>
+            <div class="ex"><span class="n">119</span>If only he <input class="g" data-answer="understood"> (understand) how I feel!</div>
+            <div class="ex"><span class="n">120</span>I wish my neighbours <input class="g w" data-answer="weren't|wasn't"> (not/be) so noisy.</div>
+            <div class="ex"><span class="n">121</span>He wishes he <input class="g w" data-answer="didn't have"> (not/have) to work weekends.</div>
+            <div class="ex"><span class="n">122</span>If only I <input class="g" data-answer="were|was"> (be) more patient.</div>
+            <div class="ex"><span class="n">123</span>I wish she <input class="g" data-answer="would"> (will) stop complaining.</div>
+            <div class="ex"><span class="n">124</span>If only he <input class="g" data-answer="would"> (will) listen to advice!</div>
+            <div class="ex"><span class="n">125</span>I wish the government <input class="g" data-answer="would"> (will) do something.</div>
+            <div class="ex"><span class="n">126</span>She wishes her boss <input class="g" data-answer="would"> (will) give her more responsibility.</div>
+            <div class="ex"><span class="n">127</span>If only it <input class="g" data-answer="would"> (will) stop snowing!</div>
+            <div class="ex"><span class="n">128</span>I wish you <input class="g" data-answer="would"> (will) make up your mind!</div>
+            <div class="ex"><span class="n">129</span>He wishes his parents <input class="g" data-answer="would"> (will) stop interfering.</div>
+            <div class="ex"><span class="n">130</span>If only the economy <input class="g" data-answer="would"> (will) recover soon.</div>
+            <div class="ex"><span class="n">131</span>I wish I <input class="g w" data-answer="had studied"> (study) harder at university.</div>
+            <div class="ex"><span class="n">132</span>She wishes she <input class="g w" data-answer="hadn't said"> (not/say) those hurtful things.</div>
+            <div class="ex"><span class="n">133</span>If only we <input class="g w" data-answer="had bought"> (buy) that house when it was cheaper!</div>
+            <div class="ex"><span class="n">134</span>He wishes he <input class="g w" data-answer="had taken"> (take) the job offer in New York.</div>
+            <div class="ex"><span class="n">135</span>If only I <input class="g w" data-answer="had listened"> (listen) to my parents' advice!</div>
+            <div class="ex"><span class="n">136</span>They wish they <input class="g w" data-answer="hadn't invested"> (not/invest) all their savings.</div>
+            <div class="ex"><span class="n">137</span>If only she <input class="g w" data-answer="had been"> (be) more careful with her words.</div>
+            <div class="ex"><span class="n">138</span>I wish I <input class="g w" data-answer="had kept"> (keep) in touch with old friends.</div>
+            <div class="ex"><span class="n">139</span>He wishes he <input class="g w" data-answer="hadn't wasted"> (not/waste) so many years.</div>
+            <div class="ex"><span class="n">140</span>If only we <input class="g w" data-answer="had known"> (know) about the risks!</div>
+            <div class="ex"><span class="n">141</span>She wishes she <input class="g w" data-answer="had travelled"> (travel) more when younger.</div>
+            <div class="ex"><span class="n">142</span>If only I <input class="g w" data-answer="hadn't trusted"> (not/trust) him with my money!</div>
+            <div class="ex"><span class="n">143</span>I wish I <input class="g w" data-answer="had told"> (tell) her how I felt.</div>
+            <div class="ex"><span class="n">144</span>He wishes he <input class="g w" data-answer="had spent"> (spend) more time with his children.</div>
+            <div class="ex"><span class="n">145</span>If only the doctors <input class="g w" data-answer="had diagnosed"> (diagnose) the illness earlier!</div>
+            <div class="ex"><span class="n">146</span>I wish I <input class="g w" data-answer="hadn't given up"> (not/give up) learning the piano.</div>
+            <div class="ex"><span class="n">147</span>She wishes she <input class="g w" data-answer="had saved"> (save) more money.</div>
+            <div class="ex"><span class="n">148</span>If only we <input class="g w" data-answer="had left"> (leave) earlier!</div>
+            <div class="ex"><span class="n">149</span>I wish I <input class="g w" data-answer="had learned"> (learn) to cook properly.</div>
+            <div class="ex"><span class="n">150</span>He wishes he <input class="g w" data-answer="hadn't been"> (not/be) so stubborn in his youth.</div>
+            <div class="ex"><span class="n">151</span>It's essential that he <input class="g" data-answer="be"> (be) on time for the interview.</div>
+            <div class="ex"><span class="n">152</span>The doctor insisted that she <input class="g" data-answer="take"> (take) the medication.</div>
+            <div class="ex"><span class="n">153</span>I suggest that the meeting <input class="g w" data-answer="be postponed"> (be/postpone).</div>
+            <div class="ex"><span class="n">154</span>It's vital that every employee <input class="g" data-answer="understand"> (understand) the policy.</div>
+            <div class="ex"><span class="n">155</span>The committee demanded that he <input class="g" data-answer="resign"> (resign).</div>
+            <div class="ex"><span class="n">156</span>I recommend that she <input class="g" data-answer="apply"> (apply) for the scholarship.</div>
+            <div class="ex"><span class="n">157</span>It's imperative that the report <input class="g w" data-answer="be submitted"> (be/submit) by Friday.</div>
+            <div class="ex"><span class="n">158</span>The lawyer requested that his client <input class="g w" data-answer="be released"> (be/release).</div>
+            <div class="ex"><span class="n">159</span>It's important that everyone <input class="g" data-answer="be"> (be) present.</div>
+            <div class="ex"><span class="n">160</span>The manager proposed that staff <input class="g" data-answer="work"> (work) from home on Fridays.</div>
+            <div class="ex"><span class="n">161</span>It's crucial that the evidence <input class="g w" data-answer="be preserved"> (be/preserve).</div>
+            <div class="ex"><span class="n">162</span>She asked that I <input class="g" data-answer="be"> (be) discreet about the matter.</div>
+            <div class="ex"><span class="n">163</span>They urged that the government <input class="g" data-answer="take"> (take) action.</div>
+            <div class="ex"><span class="n">164</span>It's desirable that a solution <input class="g w" data-answer="be found"> (be/find) quickly.</div>
+            <div class="ex"><span class="n">165</span>The contract stipulates that payment <input class="g w" data-answer="be made"> (be/make) within 30 days.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('subjunctive')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('subjunctive')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('subjunctive')">↺ Reset</button>
+        </div>
+        <div id="subjunctive-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="subjunctive-correct">0</span>/<span id="subjunctive-total">0</span></p></div>
+    </section>
+
+    <!-- INVERSION SECTION -->
+    <section id="inversion" class="exercise-section">
+        <h2 class="section-title">🔃 Inversion</h2>
+        <p class="section-subtitle">Formal and emphatic word order changes</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Rewrite sentences using inversion or fill in the inverted forms.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Inversion (166-220)</h3>
+            <div class="ex"><span class="n">166</span>I have never seen such beauty. → Never <input class="g xw" data-answer="have I seen"> such beauty.</div>
+            <div class="ex"><span class="n">167</span>She rarely goes to the cinema. → Rarely <input class="g xw" data-answer="does she go"> to the cinema.</div>
+            <div class="ex"><span class="n">168</span>I had hardly sat down when the phone rang. → Hardly <input class="g xw" data-answer="had I sat down"> when the phone rang.</div>
+            <div class="ex"><span class="n">169</span>We little knew what awaited us. → Little <input class="g xw" data-answer="did we know"> what awaited us.</div>
+            <div class="ex"><span class="n">170</span>He not only lied but also stole. → Not only <input class="g xw" data-answer="did he lie"> but he also stole.</div>
+            <div class="ex"><span class="n">171</span>I had no sooner arrived than it rained. → No sooner <input class="g xw" data-answer="had I arrived"> than it rained.</div>
+            <div class="ex"><span class="n">172</span>She seldom eats out. → Seldom <input class="g xw" data-answer="does she eat"> out.</div>
+            <div class="ex"><span class="n">173</span>I have never been so insulted. → Never <input class="g xw" data-answer="have I been"> so insulted.</div>
+            <div class="ex"><span class="n">174</span>We can under no circumstances accept. → Under no circumstances <input class="g xw" data-answer="can we accept"> this.</div>
+            <div class="ex"><span class="n">175</span>I had scarcely finished when she arrived. → Scarcely <input class="g xw" data-answer="had I finished"> when she arrived.</div>
+            <div class="ex"><span class="n">176</span>You should on no account open this. → On no account <input class="g xw" data-answer="should you open"> this.</div>
+            <div class="ex"><span class="n">177</span>He not only speaks French but also Japanese. → Not only <input class="g xw" data-answer="does he speak"> French but also Japanese.</div>
+            <div class="ex"><span class="n">178</span>I realised only then what happened. → Only then <input class="g xw" data-answer="did I realise|did I realize"> what happened.</div>
+            <div class="ex"><span class="n">179</span>She had barely finished when he interrupted. → Barely <input class="g xw" data-answer="had she finished"> when he interrupted.</div>
+            <div class="ex"><span class="n">180</span>He has nowhere shown more skill. → Nowhere <input class="g xw" data-answer="has he shown"> more skill.</div>
+            <div class="ex"><span class="n">181</span>They will not at any time be allowed. → At no time <input class="g xw" data-answer="will they be allowed"> to enter.</div>
+            <div class="ex"><span class="n">182</span>He understood only later why she left. → Only later <input class="g xw" data-answer="did he understand"> why she left.</div>
+            <div class="ex"><span class="n">183</span>I had never experienced such hostility. → Never <input class="g xw" data-answer="had I experienced"> such hostility.</div>
+            <div class="ex"><span class="n">184</span>She spoke only after he apologised. → Only after he apologised <input class="g xw" data-answer="did she speak"> to him.</div>
+            <div class="ex"><span class="n">185</span>We do not in any way support this. → In no way <input class="g xw" data-answer="do we support"> this decision.</div>
+            <div class="ex"><span class="n">186</span>They had hardly begun when the alarm went off. → Hardly <input class="g xw" data-answer="had they begun"> when the alarm went off.</div>
+            <div class="ex"><span class="n">187</span>He didn't say a single word. → Not a single word <input class="g xw" data-answer="did he say">.</div>
+            <div class="ex"><span class="n">188</span>I had only just left when it happened. → Only just <input class="g xw" data-answer="had I left"> when it happened.</div>
+            <div class="ex"><span class="n">189</span>She not only works hard but also efficiently. → Not only <input class="g xw" data-answer="does she work"> hard but efficiently.</div>
+            <div class="ex"><span class="n">190</span>I will never again trust him. → Never again <input class="g xw" data-answer="will I trust"> him.</div>
+            <div class="ex"><span class="n">191</span>If I had known, I would have helped. → <input class="g xw" data-answer="Had I known">, I would have helped.</div>
+            <div class="ex"><span class="n">192</span>If she were here, she would know. → <input class="g xw" data-answer="Were she here">, she would know.</div>
+            <div class="ex"><span class="n">193</span>If you should need help, please call. → <input class="g xw" data-answer="Should you need"> help, please call.</div>
+            <div class="ex"><span class="n">194</span>If they had arrived earlier, they would have seen her. → <input class="g xw" data-answer="Had they arrived"> earlier, they would have seen her.</div>
+            <div class="ex"><span class="n">195</span>If it were not for his help, we would fail. → <input class="g xw" data-answer="Were it not for"> his help, we would fail.</div>
+            <div class="ex"><span class="n">196</span>If you should have questions, ask. → <input class="g xw" data-answer="Should you have"> questions, ask.</div>
+            <div class="ex"><span class="n">197</span>If I were in your position, I would resign. → <input class="g xw" data-answer="Were I in your position">, I would resign.</div>
+            <div class="ex"><span class="n">198</span>If he had been careful, the accident wouldn't have happened. → <input class="g xw" data-answer="Had he been"> careful, the accident wouldn't have happened.</div>
+            <div class="ex"><span class="n">199</span>If it had not been for rain, we would have had a picnic. → <input class="g xw" data-answer="Had it not been for"> the rain, we would have had a picnic.</div>
+            <div class="ex"><span class="n">200</span>If anyone should call, take a message. → <input class="g xw" data-answer="Should anyone call">, take a message.</div>
+            <div class="ex"><span class="n">201</span>If we were to offer you more, would you accept? → <input class="g xw" data-answer="Were we to offer"> you more, would you accept?</div>
+            <div class="ex"><span class="n">202</span>If there should be problems, contact me. → <input class="g xw" data-answer="Should there be"> problems, contact me.</div>
+            <div class="ex"><span class="n">203</span>If he had not intervened, things would be worse. → <input class="g xw" data-answer="Had he not intervened">, things would be worse.</div>
+            <div class="ex"><span class="n">204</span>If I were to tell you the truth, you wouldn't believe me. → <input class="g xw" data-answer="Were I to tell"> you the truth, you wouldn't believe me.</div>
+            <div class="ex"><span class="n">205</span>If she had accepted, she would be wealthy now. → <input class="g xw" data-answer="Had she accepted">, she would be wealthy now.</div>
+            <div class="ex"><span class="n">206</span>If it were possible, I would change the past. → <input class="g xw" data-answer="Were it possible">, I would change the past.</div>
+            <div class="ex"><span class="n">207</span>If the situation should deteriorate, we will evacuate. → <input class="g xw" data-answer="Should the situation deteriorate">, we will evacuate.</div>
+            <div class="ex"><span class="n">208</span>If I had invested, I would be rich today. → <input class="g xw" data-answer="Had I invested">, I would be rich today.</div>
+            <div class="ex"><span class="n">209</span>If it were not for your support, I would have given up. → <input class="g xw" data-answer="Were it not for"> your support, I would have given up.</div>
+            <div class="ex"><span class="n">210</span>If you should see him, give him my regards. → <input class="g xw" data-answer="Should you see"> him, give him my regards.</div>
+            <div class="ex"><span class="n">211</span>A tall stranger stood at the door. → At the door <input class="g xw" data-answer="stood a tall stranger">.</div>
+            <div class="ex"><span class="n">212</span>Here comes the bus. → Here <input class="g w" data-answer="comes the bus">.</div>
+            <div class="ex"><span class="n">213</span>His theories were interesting, and so <input class="g xw" data-answer="were his experiments">.</div>
+            <div class="ex"><span class="n">214</span>She didn't attend, and neither <input class="g xw" data-answer="did her colleague">.</div>
+            <div class="ex"><span class="n">215</span>On the hill stood a castle. → On the hill <input class="g xw" data-answer="stood an ancient castle">.</div>
+            <div class="ex"><span class="n">216</span>So beautiful was the view that we stopped. → So <input class="g xw" data-answer="beautiful was the view"> that we stopped.</div>
+            <div class="ex"><span class="n">217</span>Such was his anger that he couldn't speak. → Such <input class="g xw" data-answer="was his anger"> that he couldn't speak.</div>
+            <div class="ex"><span class="n">218</span>Down the street came the parade. → Down the street <input class="g xw" data-answer="came the parade">.</div>
+            <div class="ex"><span class="n">219</span>Away flew the birds. → Away <input class="g w" data-answer="flew the birds">.</div>
+            <div class="ex"><span class="n">220</span>So impressed were they that they offered her the job. → So impressed <input class="g xw" data-answer="were they"> that they offered her the job.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('inversion')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('inversion')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('inversion')">↺ Reset</button>
+        </div>
+        <div id="inversion-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="inversion-correct">0</span>/<span id="inversion-total">0</span></p></div>
+    </section>
+
+    <!-- RELATIVE CLAUSES SECTION -->
+    <section id="relatives" class="exercise-section">
+        <h2 class="section-title">🔗 Advanced Relative Clauses</h2>
+        <p class="section-subtitle">Defining, non-defining, reduced relatives</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct relative pronoun or reduce the clause.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Relative Clauses (221-275)</h3>
+            <div class="ex"><span class="n">221</span>The manager <input class="g w" data-answer="who|that"> hired me has retired.</div>
+            <div class="ex"><span class="n">222</span>My sister, <input class="g" data-answer="who"> lives in Berlin, is visiting.</div>
+            <div class="ex"><span class="n">223</span>The book <input class="g w" data-answer="which|that"> I borrowed was fascinating.</div>
+            <div class="ex"><span class="n">224</span>Dr Smith, <input class="g" data-answer="whose"> research won the Nobel Prize, is lecturing.</div>
+            <div class="ex"><span class="n">225</span>The hotel <input class="g w" data-answer="where|in which"> we stayed was excellent.</div>
+            <div class="ex"><span class="n">226</span>Paris, <input class="g" data-answer="which"> is the capital of France, attracts millions.</div>
+            <div class="ex"><span class="n">227</span>The reason <input class="g" data-answer="why"> he resigned is unclear.</div>
+            <div class="ex"><span class="n">228</span>2020, <input class="g" data-answer="when"> the pandemic began, changed everything.</div>
+            <div class="ex"><span class="n">229</span>The company <input class="g w" data-answer="which|that"> I work for is expanding.</div>
+            <div class="ex"><span class="n">230</span>My boss, <input class="g" data-answer="whom|who"> I greatly respect, is retiring.</div>
+            <div class="ex"><span class="n">231</span>The café <input class="g w" data-answer="where|in which"> we first met has closed.</div>
+            <div class="ex"><span class="n">232</span>Her latest novel, <input class="g" data-answer="which"> was published last month, is a bestseller.</div>
+            <div class="ex"><span class="n">233</span>The lawyer <input class="g w" data-answer="whose"> advice we followed won the case.</div>
+            <div class="ex"><span class="n">234</span>The Louvre, <input class="g" data-answer="which"> is home to the Mona Lisa, is in Paris.</div>
+            <div class="ex"><span class="n">235</span>The day <input class="g" data-answer="when"> I graduated was the happiest.</div>
+            <div class="ex"><span class="n">236</span>My grandfather, <input class="g" data-answer="who"> fought in the war, never spoke about it.</div>
+            <div class="ex"><span class="n">237</span>The report <input class="g w" data-answer="which|that"> you submitted has errors.</div>
+            <div class="ex"><span class="n">238</span>Venice, <input class="g" data-answer="which"> is built on water, is sinking.</div>
+            <div class="ex"><span class="n">239</span>The candidate <input class="g w" data-answer="who|that"> gets the most votes wins.</div>
+            <div class="ex"><span class="n">240</span>Einstein, <input class="g" data-answer="whose"> theories revolutionised physics, was German.</div>
+            <div class="ex"><span class="n">241</span>The town <input class="g w" data-answer="where|in which"> I grew up has changed.</div>
+            <div class="ex"><span class="n">242</span>The witness <input class="g w" data-answer="who|that"> police interviewed was unreliable.</div>
+            <div class="ex"><span class="n">243</span>July, <input class="g" data-answer="when"> temperatures peak, is the hottest month.</div>
+            <div class="ex"><span class="n">244</span>The solution <input class="g w" data-answer="which|that"> they proposed was innovative.</div>
+            <div class="ex"><span class="n">245</span>Stephen Hawking, <input class="g" data-answer="who"> had ALS, was a brilliant physicist.</div>
+            <div class="ex"><span class="n">246</span>The colleague <input class="g xw" data-answer="with whom|who ... with"> I share an office is tidy.</div>
+            <div class="ex"><span class="n">247</span>The house <input class="g xw" data-answer="in which|which ... in"> she grew up has been demolished.</div>
+            <div class="ex"><span class="n">248</span>The person <input class="g xw" data-answer="to whom|who ... to"> I spoke was helpful.</div>
+            <div class="ex"><span class="n">249</span>The project <input class="g xw" data-answer="on which|which ... on"> we're working is almost complete.</div>
+            <div class="ex"><span class="n">250</span>The chair <input class="g xw" data-answer="on which|which ... on"> you're sitting is antique.</div>
+            <div class="ex"><span class="n">251</span>The company <input class="g xw" data-answer="for which|which ... for"> he works is multinational.</div>
+            <div class="ex"><span class="n">252</span>The issue <input class="g xw" data-answer="about which|which ... about"> they complained has been resolved.</div>
+            <div class="ex"><span class="n">253</span>The people <input class="g xw" data-answer="with whom|who ... with"> I travelled were friendly.</div>
+            <div class="ex"><span class="n">254</span>The school <input class="g xw" data-answer="at which|which ... at"> she teaches is prestigious.</div>
+            <div class="ex"><span class="n">255</span>The pen <input class="g xw" data-answer="with which|which ... with"> I signed was expensive.</div>
+            <div class="ex"><span class="n">256</span>The situation <input class="g xw" data-answer="in which|which ... in"> we found ourselves was difficult.</div>
+            <div class="ex"><span class="n">257</span>The man <input class="g xw" data-answer="from whom|who ... from"> I bought the car was a dealer.</div>
+            <div class="ex"><span class="n">258</span>The candidates <input class="g xw" data-answer="among whom|who ... among"> she was chosen were qualified.</div>
+            <div class="ex"><span class="n">259</span>The research <input class="g xw" data-answer="on which|which ... on"> the article is based is flawed.</div>
+            <div class="ex"><span class="n">260</span>The topic <input class="g xw" data-answer="about which|which ... about"> we argued is sensitive.</div>
+            <div class="ex"><span class="n">261</span>The woman standing by the window is my aunt. → The woman <input class="g w" data-answer="standing"> by the window is my aunt.</div>
+            <div class="ex"><span class="n">262</span>The documents signed yesterday are ready. → The documents <input class="g w" data-answer="signed"> yesterday are ready.</div>
+            <div class="ex"><span class="n">263</span>Anyone wishing to apply must submit a CV. → Anyone <input class="g w" data-answer="wishing"> to apply must submit a CV.</div>
+            <div class="ex"><span class="n">264</span>The books listed below are required. → The books <input class="g w" data-answer="listed"> below are required.</div>
+            <div class="ex"><span class="n">265</span>Employees working overtime get extra pay. → Employees <input class="g w" data-answer="working"> overtime get extra pay.</div>
+            <div class="ex"><span class="n">266</span>The money raised went to charity. → The money <input class="g w" data-answer="raised"> went to charity.</div>
+            <div class="ex"><span class="n">267</span>People living in glass houses shouldn't throw stones. → People <input class="g w" data-answer="living"> in glass houses shouldn't throw stones.</div>
+            <div class="ex"><span class="n">268</span>The bridge built in 1900 collapsed. → The bridge <input class="g w" data-answer="built"> in 1900 collapsed.</div>
+            <div class="ex"><span class="n">269</span>Anyone caught cheating will be expelled. → Anyone <input class="g w" data-answer="caught"> cheating will be expelled.</div>
+            <div class="ex"><span class="n">270</span>The problems facing us are serious. → The problems <input class="g w" data-answer="facing"> us are serious.</div>
+            <div class="ex"><span class="n">271</span>The letter written in 1940 was discovered. → The letter <input class="g w" data-answer="written"> in 1940 was discovered.</div>
+            <div class="ex"><span class="n">272</span>Students studying abroad need a visa. → Students <input class="g w" data-answer="studying"> abroad need a visa.</div>
+            <div class="ex"><span class="n">273</span>The information provided is confidential. → The information <input class="g w" data-answer="provided"> is confidential.</div>
+            <div class="ex"><span class="n">274</span>Those wishing to leave early may do so. → Those <input class="g w" data-answer="wishing"> to leave early may do so.</div>
+            <div class="ex"><span class="n">275</span>The paintings stolen were priceless. → The paintings <input class="g w" data-answer="stolen"> were priceless.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('relatives')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('relatives')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('relatives')">↺ Reset</button>
+        </div>
+        <div id="relatives-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="relatives-correct">0</span>/<span id="relatives-total">0</span></p></div>
+    </section>
+
+    <!-- PERFECT ASPECT SECTION -->
+    <section id="perfect" class="exercise-section">
+        <h2 class="section-title">⏳ Perfect Aspect</h2>
+        <p class="section-subtitle">Present, Past, and Future Perfect</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Fill in the correct perfect tense forms.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Perfect Aspect (276-330)</h3>
+            <div class="ex"><span class="n">276</span>I <input class="g xw" data-answer="have been working"> (work) on this all morning.</div>
+            <div class="ex"><span class="n">277</span>She <input class="g xw" data-answer="has written"> (write) three novels so far.</div>
+            <div class="ex"><span class="n">278</span>We <input class="g xw" data-answer="have been waiting"> (wait) for over an hour.</div>
+            <div class="ex"><span class="n">279</span>I <input class="g xw" data-answer="have visited"> (visit) that museum twice.</div>
+            <div class="ex"><span class="n">280</span>He <input class="g xw" data-answer="has been learning"> (learn) Japanese for five years.</div>
+            <div class="ex"><span class="n">281</span>They <input class="g xw" data-answer="have built"> (build) a new shopping centre.</div>
+            <div class="ex"><span class="n">282</span>Why are your eyes red? <input class="g xw" data-answer="Have you been crying"> (you/cry)?</div>
+            <div class="ex"><span class="n">283</span>I <input class="g xw" data-answer="have known"> (know) her since childhood.</div>
+            <div class="ex"><span class="n">284</span>The neighbours <input class="g xw" data-answer="have been playing"> (play) loud music all night!</div>
+            <div class="ex"><span class="n">285</span>She <input class="g xw" data-answer="has read"> (read) over 50 books this year.</div>
+            <div class="ex"><span class="n">286</span>I'm tired because I <input class="g xw" data-answer="have been running"> (run).</div>
+            <div class="ex"><span class="n">287</span>The company <input class="g xw" data-answer="has announced"> (announce) major layoffs.</div>
+            <div class="ex"><span class="n">288</span>He <input class="g xw" data-answer="has been trying"> (try) to reach you all day.</div>
+            <div class="ex"><span class="n">289</span>I <input class="g xw" data-answer="have never seen"> (never/see) such incompetence.</div>
+            <div class="ex"><span class="n">290</span>Scientists <input class="g xw" data-answer="have been studying"> (study) this for decades.</div>
+            <div class="ex"><span class="n">291</span>The price <input class="g xw" data-answer="has risen"> (rise) again.</div>
+            <div class="ex"><span class="n">292</span>I <input class="g xw" data-answer="have been meaning"> (mean) to call you for ages.</div>
+            <div class="ex"><span class="n">293</span>She <input class="g xw" data-answer="has passed"> (pass) all her exams.</div>
+            <div class="ex"><span class="n">294</span>It <input class="g xw" data-answer="has been raining"> (rain) since Monday.</div>
+            <div class="ex"><span class="n">295</span>The government <input class="g xw" data-answer="has introduced"> (introduce) new regulations.</div>
+            <div class="ex"><span class="n">296</span>I <input class="g xw" data-answer="have been thinking"> (think) about what you said.</div>
+            <div class="ex"><span class="n">297</span>We <input class="g xw" data-answer="have made"> (make) significant progress.</div>
+            <div class="ex"><span class="n">298</span>She <input class="g xw" data-answer="has been working"> (work) overtime recently.</div>
+            <div class="ex"><span class="n">299</span>I <input class="g xw" data-answer="have already finished"> (already/finish) the assignment.</div>
+            <div class="ex"><span class="n">300</span>He <input class="g xw" data-answer="has been complaining"> (complain) for months.</div>
+            <div class="ex"><span class="n">301</span>By the time we arrived, the meeting <input class="g xw" data-answer="had already started"> (already/start).</div>
+            <div class="ex"><span class="n">302</span>She <input class="g xw" data-answer="had been living"> (live) in Paris for ten years before moving.</div>
+            <div class="ex"><span class="n">303</span>I realised I <input class="g xw" data-answer="had left"> (leave) my wallet at home.</div>
+            <div class="ex"><span class="n">304</span>They <input class="g xw" data-answer="had been waiting"> (wait) for hours when the train arrived.</div>
+            <div class="ex"><span class="n">305</span>The patient <input class="g xw" data-answer="had died"> (die) before the ambulance arrived.</div>
+            <div class="ex"><span class="n">306</span>He was exhausted because he <input class="g xw" data-answer="had been driving"> (drive) for twelve hours.</div>
+            <div class="ex"><span class="n">307</span>She <input class="g xw" data-answer="had never experienced"> (never/experience) such rudeness.</div>
+            <div class="ex"><span class="n">308</span>I <input class="g xw" data-answer="had been trying"> (try) to contact him for weeks.</div>
+            <div class="ex"><span class="n">309</span>By 2020, the company <input class="g xw" data-answer="had expanded"> (expand) to 50 countries.</div>
+            <div class="ex"><span class="n">310</span>She was upset because she <input class="g xw" data-answer="had been hoping"> (hope) for a promotion.</div>
+            <div class="ex"><span class="n">311</span>I <input class="g xw" data-answer="had forgotten"> (forget) how beautiful it was.</div>
+            <div class="ex"><span class="n">312</span>They <input class="g xw" data-answer="had been negotiating"> (negotiate) for months.</div>
+            <div class="ex"><span class="n">313</span>She <input class="g xw" data-answer="had read"> (read) the book, so she knew the ending.</div>
+            <div class="ex"><span class="n">314</span>I was annoyed because I <input class="g xw" data-answer="had been standing"> (stand) in the queue for an hour.</div>
+            <div class="ex"><span class="n">315</span>By the end of the year, they <input class="g xw" data-answer="had saved"> (save) enough.</div>
+            <div class="ex"><span class="n">316</span>He <input class="g xw" data-answer="had been working"> (work) all day before finding the solution.</div>
+            <div class="ex"><span class="n">317</span>I <input class="g xw" data-answer="had visited"> (visit) Rome before.</div>
+            <div class="ex"><span class="n">318</span>She was tired because she <input class="g xw" data-answer="had been exercising"> (exercise).</div>
+            <div class="ex"><span class="n">319</span>We <input class="g xw" data-answer="had finished"> (finish) dinner before they arrived.</div>
+            <div class="ex"><span class="n">320</span>He <input class="g xw" data-answer="had been running"> (run) a company for years.</div>
+            <div class="ex"><span class="n">321</span>By next year, I <input class="g xw" data-answer="will have finished"> (finish) my degree.</div>
+            <div class="ex"><span class="n">322</span>By 2030, scientists <input class="g xw" data-answer="will have found"> (find) a cure.</div>
+            <div class="ex"><span class="n">323</span>She <input class="g xw" data-answer="will have been working"> (work) here for 20 years by December.</div>
+            <div class="ex"><span class="n">324</span>By the time you arrive, we <input class="g xw" data-answer="will have left"> (leave).</div>
+            <div class="ex"><span class="n">325</span>They <input class="g xw" data-answer="will have been married"> (be married) for 50 years next month.</div>
+            <div class="ex"><span class="n">326</span>By the end, we <input class="g xw" data-answer="will have discussed"> (discuss) all items.</div>
+            <div class="ex"><span class="n">327</span>I <input class="g xw" data-answer="will have been living"> (live) here for a decade next year.</div>
+            <div class="ex"><span class="n">328</span>By midnight, the results <input class="g xw" data-answer="will have been announced"> (announce).</div>
+            <div class="ex"><span class="n">329</span>She <input class="g xw" data-answer="will have completed"> (complete) her training by then.</div>
+            <div class="ex"><span class="n">330</span>By next week, I <input class="g xw" data-answer="will have been studying"> (study) for a month.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('perfect')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('perfect')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('perfect')">↺ Reset</button>
+        </div>
+        <div id="perfect-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="perfect-correct">0</span>/<span id="perfect-total">0</span></p></div>
+    </section>
+
+    <!-- REPORTED SPEECH SECTION -->
+    <section id="reported" class="exercise-section">
+        <h2 class="section-title">💬 Advanced Reported Speech</h2>
+        <p class="section-subtitle">Reporting verbs, modals, and complex structures</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Transform direct to reported speech or fill in the correct form.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Reported Speech (331-390)</h3>
+            <div class="ex"><span class="n">331</span>"I'll definitely come." → He <input class="g xw" data-answer="promised to come|promised he would come">.</div>
+            <div class="ex"><span class="n">332</span>"Don't touch the paint." → She <input class="g xw" data-answer="warned us not to touch|warned me not to touch"> the paint.</div>
+            <div class="ex"><span class="n">333</span>"You should see a doctor." → He <input class="g xw" data-answer="advised me to see|suggested I see"> a doctor.</div>
+            <div class="ex"><span class="n">334</span>"I didn't take the money!" → She <input class="g xw" data-answer="denied taking|denied having taken"> the money.</div>
+            <div class="ex"><span class="n">335</span>"Would you like dinner with me?" → He <input class="g xw" data-answer="invited me to have|invited her to have"> dinner.</div>
+            <div class="ex"><span class="n">336</span>"I'm sorry I broke the vase." → He <input class="g xw" data-answer="apologised for breaking|apologized for breaking"> the vase.</div>
+            <div class="ex"><span class="n">337</span>"Yes, I ate the cake." → She <input class="g xw" data-answer="admitted eating|admitted to eating"> the cake.</div>
+            <div class="ex"><span class="n">338</span>"I'll help you move." → He <input class="g xw" data-answer="offered to help"> us move.</div>
+            <div class="ex"><span class="n">339</span>"Please, please help me." → She <input class="g xw" data-answer="begged me to help|begged him to help"> her.</div>
+            <div class="ex"><span class="n">340</span>"Don't forget to lock the door." → He <input class="g xw" data-answer="reminded me to lock|reminded her to lock"> the door.</div>
+            <div class="ex"><span class="n">341</span>"You stole my idea!" → She <input class="g xw" data-answer="accused him of stealing|accused me of stealing"> her idea.</div>
+            <div class="ex"><span class="n">342</span>"I'll call you back later." → He <input class="g xw" data-answer="promised to call|promised he would call"> me back.</div>
+            <div class="ex"><span class="n">343</span>"You must complete this by Friday." → She <input class="g xw" data-answer="insisted that I complete|insisted I complete"> it by Friday.</div>
+            <div class="ex"><span class="n">344</span>"It wasn't me." → He <input class="g xw" data-answer="denied breaking|denied having broken"> the window.</div>
+            <div class="ex"><span class="n">345</span>"Why don't we go to the beach?" → She <input class="g xw" data-answer="suggested going to|suggested that we go to"> the beach.</div>
+            <div class="ex"><span class="n">346</span>"If you come late again, you're fired." → The boss <input class="g xw" data-answer="threatened to fire|warned he would fire"> him.</div>
+            <div class="ex"><span class="n">347</span>"Don't drive so fast." → She <input class="g xw" data-answer="urged him not to drive|told him not to drive"> so fast.</div>
+            <div class="ex"><span class="n">348</span>"Could you lend me £50?" → He <input class="g xw" data-answer="asked me to lend|asked if I could lend"> him £50.</div>
+            <div class="ex"><span class="n">349</span>"I definitely saw them together." → She <input class="g xw" data-answer="insisted that she had seen|insisted she had seen"> them together.</div>
+            <div class="ex"><span class="n">350</span>"I won't tell anyone." → He <input class="g xw" data-answer="promised not to tell|promised he wouldn't tell"> anyone.</div>
+            <div class="ex"><span class="n">351</span>"Let's postpone the meeting." → She <input class="g xw" data-answer="suggested postponing|proposed postponing"> the meeting.</div>
+            <div class="ex"><span class="n">352</span>"You should invest in property." → He <input class="g xw" data-answer="recommended investing|recommended that I invest"> in property.</div>
+            <div class="ex"><span class="n">353</span>"I won't work overtime." → She <input class="g xw" data-answer="refused to work"> overtime.</div>
+            <div class="ex"><span class="n">354</span>"You're always late!" → He <input class="g xw" data-answer="complained that I was|complained about me being"> always late.</div>
+            <div class="ex"><span class="n">355</span>"Please don't leave me." → She <input class="g xw" data-answer="begged him not to leave"> her.</div>
+            <div class="ex"><span class="n">356</span>"I'm sorry I forgot your birthday." → He <input class="g xw" data-answer="apologised for forgetting|apologized for forgetting"> her birthday.</div>
+            <div class="ex"><span class="n">357</span>"You'd better see a lawyer." → She <input class="g xw" data-answer="advised me to see|advised him to see"> a lawyer.</div>
+            <div class="ex"><span class="n">358</span>"This was the right decision." → He <input class="g xw" data-answer="maintained that it had been|maintained it had been"> the right decision.</div>
+            <div class="ex"><span class="n">359</span>"I'll pay for the damage." → She <input class="g xw" data-answer="agreed to pay|offered to pay"> for the damage.</div>
+            <div class="ex"><span class="n">360</span>"You broke my computer!" → He <input class="g xw" data-answer="accused me of breaking|blamed me for breaking"> his computer.</div>
+            <div class="ex"><span class="n">361</span>"I can speak five languages." → She said she <input class="g" data-answer="could"> speak five languages.</div>
+            <div class="ex"><span class="n">362</span>"I must finish this today." → He said he <input class="g w" data-answer="had to|must"> finish it that day.</div>
+            <div class="ex"><span class="n">363</span>"I may be late." → She said she <input class="g" data-answer="might"> be late.</div>
+            <div class="ex"><span class="n">364</span>"You must be joking!" → He said I <input class="g" data-answer="must"> be joking.</div>
+            <div class="ex"><span class="n">365</span>"I'll help you tomorrow." → She said she <input class="g" data-answer="would"> help me the next day.</div>
+            <div class="ex"><span class="n">366</span>"You should apologise." → He said I <input class="g" data-answer="should"> apologise.</div>
+            <div class="ex"><span class="n">367</span>"I could swim when I was five." → She said she <input class="g" data-answer="could"> swim when she was five.</div>
+            <div class="ex"><span class="n">368</span>"You needn't come." → He said I <input class="g w" data-answer="needn't|didn't need to"> come.</div>
+            <div class="ex"><span class="n">369</span>"I might go to the party." → She said she <input class="g" data-answer="might"> go.</div>
+            <div class="ex"><span class="n">370</span>"You ought to see a specialist." → He said I <input class="g w" data-answer="ought to"> see a specialist.</div>
+            <div class="ex"><span class="n">371</span>"Where do you live?" → She asked me where I <input class="g" data-answer="lived">.</div>
+            <div class="ex"><span class="n">372</span>"Are you coming?" → He asked if I <input class="g" data-answer="was"> coming.</div>
+            <div class="ex"><span class="n">373</span>"What time does the train leave?" → She asked what time the train <input class="g" data-answer="left">.</div>
+            <div class="ex"><span class="n">374</span>"Have you been to Japan?" → He asked if I <input class="g w" data-answer="had ever been"> to Japan.</div>
+            <div class="ex"><span class="n">375</span>"Why didn't you call me?" → She asked why I <input class="g w" data-answer="hadn't called"> her.</div>
+            <div class="ex"><span class="n">376</span>"Will you be at home?" → He asked if I <input class="g w" data-answer="would be"> at home.</div>
+            <div class="ex"><span class="n">377</span>"How long have you been waiting?" → She asked how long I <input class="g w" data-answer="had been waiting">.</div>
+            <div class="ex"><span class="n">378</span>"Can you help me?" → He asked if I <input class="g" data-answer="could"> help him.</div>
+            <div class="ex"><span class="n">379</span>"What are you doing?" → She asked what I <input class="g w" data-answer="was doing">.</div>
+            <div class="ex"><span class="n">380</span>"Who broke the window?" → He asked who <input class="g w" data-answer="had broken"> the window.</div>
+            <div class="ex"><span class="n">381</span>"Don't be late!" → She told me <input class="g w" data-answer="not to be"> late.</div>
+            <div class="ex"><span class="n">382</span>"Please sit down." → He asked me <input class="g w" data-answer="to sit"> down.</div>
+            <div class="ex"><span class="n">383</span>"Let's meet at 6pm." → She suggested <input class="g w" data-answer="meeting|that we meet"> at 6pm.</div>
+            <div class="ex"><span class="n">384</span>"I'd rather stay home." → He said he <input class="g w" data-answer="would rather"> stay home.</div>
+            <div class="ex"><span class="n">385</span>"You'd better hurry." → She told me I <input class="g w" data-answer="had better|'d better"> hurry.</div>
+            <div class="ex"><span class="n">386</span>"Shall I open the window?" → He asked if he <input class="g" data-answer="should"> open the window.</div>
+            <div class="ex"><span class="n">387</span>"I used to live in London." → She said she <input class="g w" data-answer="used to|had used to"> live in London.</div>
+            <div class="ex"><span class="n">388</span>"I'd like a coffee." → He said he <input class="g w" data-answer="would like"> a coffee.</div>
+            <div class="ex"><span class="n">389</span>"What would you do in my situation?" → She asked what I <input class="g w" data-answer="would do"> in her situation.</div>
+            <div class="ex"><span class="n">390</span>"I wish I had more time." → He said he <input class="g" data-answer="wished"> he had more time.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('reported')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('reported')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('reported')">↺ Reset</button>
+        </div>
+        <div id="reported-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="reported-correct">0</span>/<span id="reported-total">0</span></p></div>
+    </section>
+
+    <!-- PARTICIPLE CLAUSES SECTION -->
+    <section id="participles" class="exercise-section">
+        <h2 class="section-title">📝 Participle Clauses</h2>
+        <p class="section-subtitle">Present, past, and perfect participle constructions</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Combine sentences using participle clauses.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Participle Clauses (391-445)</h3>
+            <div class="ex"><span class="n">391</span>She walked along the beach. She collected shells. → <input class="g xw" data-answer="Walking along the beach">, she collected shells.</div>
+            <div class="ex"><span class="n">392</span>Because I didn't know what to say, I remained silent. → <input class="g xw" data-answer="Not knowing what to say">, I remained silent.</div>
+            <div class="ex"><span class="n">393</span>He stood by the window. He watched the rain. → <input class="g xw" data-answer="Standing by the window">, he watched the rain.</div>
+            <div class="ex"><span class="n">394</span>Since she works from home, she saves on commuting. → <input class="g xw" data-answer="Working from home">, she saves on commuting.</div>
+            <div class="ex"><span class="n">395</span>Because he felt unwell, he left early. → <input class="g xw" data-answer="Feeling unwell">, he left early.</div>
+            <div class="ex"><span class="n">396</span>The children ran across the playground. They laughed loudly. → <input class="g xw" data-answer="Running across the playground">, the children laughed.</div>
+            <div class="ex"><span class="n">397</span>As I didn't have a car, I walked to work. → <input class="g xw" data-answer="Not having a car">, I walked to work.</div>
+            <div class="ex"><span class="n">398</span>She sat in the café. She read her book. → <input class="g xw" data-answer="Sitting in the café">, she read her book.</div>
+            <div class="ex"><span class="n">399</span>Because they live near the airport, they hear planes. → <input class="g xw" data-answer="Living near the airport">, they hear planes.</div>
+            <div class="ex"><span class="n">400</span>He looked out of the window. He saw the accident. → <input class="g xw" data-answer="Looking out of the window">, he saw the accident.</div>
+            <div class="ex"><span class="n">401</span>Since I had no umbrella, I got soaked. → <input class="g xw" data-answer="Having no umbrella|Not having an umbrella">, I got soaked.</div>
+            <div class="ex"><span class="n">402</span>The dog lay on the rug. It wagged its tail. → <input class="g xw" data-answer="Lying on the rug">, the dog wagged its tail.</div>
+            <div class="ex"><span class="n">403</span>Because he speaks French, he got the job. → <input class="g xw" data-answer="Speaking fluent French">, he got the job.</div>
+            <div class="ex"><span class="n">404</span>She drove to work. She listened to the radio. → <input class="g xw" data-answer="Driving to work">, she listened to the radio.</div>
+            <div class="ex"><span class="n">405</span>As they didn't want to miss the flight, they left early. → <input class="g xw" data-answer="Not wanting to miss the flight">, they left early.</div>
+            <div class="ex"><span class="n">406</span>He opened the door. He found a package. → <input class="g xw" data-answer="Opening the door">, he found a package.</div>
+            <div class="ex"><span class="n">407</span>Because she believed in him, she invested. → <input class="g xw" data-answer="Believing in him">, she invested in his company.</div>
+            <div class="ex"><span class="n">408</span>The man stood at the corner. He waited for a taxi. → <input class="g xw" data-answer="Standing at the corner">, the man waited for a taxi.</div>
+            <div class="ex"><span class="n">409</span>As I didn't know anyone, I left early. → <input class="g xw" data-answer="Not knowing anyone at the party">, I left early.</div>
+            <div class="ex"><span class="n">410</span>She turned on the TV. She saw the news. → <input class="g xw" data-answer="Turning on the TV">, she saw the news.</div>
+            <div class="ex"><span class="n">411</span>Because he realized his mistake, he apologised. → <input class="g xw" data-answer="Realising his mistake|Realizing his mistake">, he apologised.</div>
+            <div class="ex"><span class="n">412</span>The tourists walked. They took photos. → <input class="g xw" data-answer="Walking through the old town">, the tourists took photos.</div>
+            <div class="ex"><span class="n">413</span>Since she needed money, she sold her car. → <input class="g xw" data-answer="Needing money">, she sold her car.</div>
+            <div class="ex"><span class="n">414</span>He entered the room. He noticed something strange. → <input class="g xw" data-answer="Entering the room">, he noticed something strange.</div>
+            <div class="ex"><span class="n">415</span>Because she knew the answer, she raised her hand. → <input class="g xw" data-answer="Knowing the answer">, she raised her hand.</div>
+            <div class="ex"><span class="n">416</span>The book was written in 1920. It remains popular. → <input class="g xw" data-answer="Written in 1920">, the book remains popular.</div>
+            <div class="ex"><span class="n">417</span>The house was built on a hill. It has stunning views. → <input class="g xw" data-answer="Built on a hill">, the house has stunning views.</div>
+            <div class="ex"><span class="n">418</span>The letter was found in the attic. It revealed secrets. → <input class="g xw" data-answer="Found in the attic">, the letter revealed secrets.</div>
+            <div class="ex"><span class="n">419</span>The painting was damaged. It was restored. → <input class="g xw" data-answer="Damaged in the fire">, the painting was restored.</div>
+            <div class="ex"><span class="n">420</span>The children were left alone. They watched TV. → <input class="g xw" data-answer="Left alone">, the children watched TV.</div>
+            <div class="ex"><span class="n">421</span>The statue was carved from marble. It stands in the square. → <input class="g xw" data-answer="Carved from marble">, the statue stands in the square.</div>
+            <div class="ex"><span class="n">422</span>The documents were signed. They are legally binding. → <input class="g xw" data-answer="Signed by the CEO">, the documents are legally binding.</div>
+            <div class="ex"><span class="n">423</span>The city was destroyed. It took years to rebuild. → <input class="g xw" data-answer="Destroyed by the earthquake">, the city took years to rebuild.</div>
+            <div class="ex"><span class="n">424</span>The patient was given wrong medication. He became ill. → <input class="g xw" data-answer="Given the wrong medication">, the patient became ill.</div>
+            <div class="ex"><span class="n">425</span>The road was blocked. It was impassable. → <input class="g xw" data-answer="Blocked by fallen trees">, the road was impassable.</div>
+            <div class="ex"><span class="n">426</span>Because she had finished her work, she went home. → <input class="g xw" data-answer="Having finished her work">, she went home early.</div>
+            <div class="ex"><span class="n">427</span>After he had lived abroad, he returned home. → <input class="g xw" data-answer="Having lived abroad for years">, he returned home.</div>
+            <div class="ex"><span class="n">428</span>Because I had seen the film, I knew the ending. → <input class="g xw" data-answer="Having seen the film before">, I knew the ending.</div>
+            <div class="ex"><span class="n">429</span>After she had considered all options, she decided. → <input class="g xw" data-answer="Having considered all options">, she made her decision.</div>
+            <div class="ex"><span class="n">430</span>Because they had arrived early, they got good seats. → <input class="g xw" data-answer="Having arrived early">, they got good seats.</div>
+            <div class="ex"><span class="n">431</span>After he had been rejected, he gave up. → <input class="g xw" data-answer="Having been rejected several times">, he gave up.</div>
+            <div class="ex"><span class="n">432</span>Because she had not been told, she missed it. → <input class="g xxw" data-answer="Not having been told about the meeting">, she missed it.</div>
+            <div class="ex"><span class="n">433</span>After he had worked for 40 years, he retired. → <input class="g xw" data-answer="Having worked for 40 years">, he retired.</div>
+            <div class="ex"><span class="n">434</span>Because they had not read the instructions, they assembled it wrong. → <input class="g xw" data-answer="Not having read the instructions">, they assembled it wrong.</div>
+            <div class="ex"><span class="n">435</span>After she had been promoted, she moved to a bigger office. → <input class="g xw" data-answer="Having been promoted">, she moved to a bigger office.</div>
+            <div class="ex"><span class="n">436</span>Because I had never tried sushi, I was hesitant. → <input class="g xw" data-answer="Never having tried sushi|Having never tried sushi">, I was hesitant.</div>
+            <div class="ex"><span class="n">437</span>After he had completed training, he started. → <input class="g xw" data-answer="Having completed his training">, he started his new job.</div>
+            <div class="ex"><span class="n">438</span>Because the company had been warned, it took precautions. → <input class="g xxw" data-answer="Having been warned about the risks">, the company took precautions.</div>
+            <div class="ex"><span class="n">439</span>After she had saved enough, she bought a house. → <input class="g xw" data-answer="Having saved enough money">, she bought a house.</div>
+            <div class="ex"><span class="n">440</span>Because he had not expected the question, he couldn't answer. → <input class="g xw" data-answer="Not having expected the question">, he couldn't answer.</div>
+            <div class="ex"><span class="n">441</span>Encouraged by her success, she started her own business. → <input class="g xw" data-answer="Encouraged by her success">, she started her own business.</div>
+            <div class="ex"><span class="n">442</span>Exhausted from the journey, we went straight to bed. → <input class="g xw" data-answer="Exhausted from the journey">, we went straight to bed.</div>
+            <div class="ex"><span class="n">443</span>Convinced of his innocence, the lawyer took the case. → <input class="g xw" data-answer="Convinced of his innocence">, the lawyer took the case.</div>
+            <div class="ex"><span class="n">444</span>Disappointed with the results, she decided to try again. → <input class="g xw" data-answer="Disappointed with the results">, she decided to try again.</div>
+            <div class="ex"><span class="n">445</span>Surrounded by reporters, the celebrity refused to comment. → <input class="g xw" data-answer="Surrounded by reporters">, the celebrity refused to comment.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('participles')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('participles')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('participles')">↺ Reset</button>
+        </div>
+        <div id="participles-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="participles-correct">0</span>/<span id="participles-total">0</span></p></div>
+    </section>
+
+    <!-- CLEFT SENTENCES SECTION -->
+    <section id="cleft" class="exercise-section">
+        <h2 class="section-title">✨ Cleft Sentences</h2>
+        <p class="section-subtitle">It-clefts, wh-clefts, and other emphatic structures</p>
+        <div class="instruction"><h4>📝 Instructions</h4><p>Rewrite sentences using cleft structures.</p></div>
+        <div class="subsection">
+            <h3 class="subsection-title">Cleft Sentences (446-500)</h3>
+            <div class="ex"><span class="n">446</span>John broke the window. → It was <input class="g xw" data-answer="John who|John that"> broke the window.</div>
+            <div class="ex"><span class="n">447</span>She needs a holiday. → It is <input class="g xw" data-answer="a holiday that|a holiday which"> she needs.</div>
+            <div class="ex"><span class="n">448</span>I met her in Paris. → It was <input class="g xw" data-answer="in Paris that|in Paris where"> I met her.</div>
+            <div class="ex"><span class="n">449</span>The noise bothered me. → It was <input class="g xw" data-answer="the noise that|the noise which"> bothered me.</div>
+            <div class="ex"><span class="n">450</span>He resigned in 2020. → It was <input class="g xw" data-answer="in 2020 that|in 2020 when"> he resigned.</div>
+            <div class="ex"><span class="n">451</span>My mother encouraged me to study. → It was <input class="g xw" data-answer="my mother who|my mother that"> encouraged me.</div>
+            <div class="ex"><span class="n">452</span>I want your honesty. → It is <input class="g xw" data-answer="your honesty that|your honesty which"> I want.</div>
+            <div class="ex"><span class="n">453</span>The accident happened on Monday. → It was <input class="g xw" data-answer="on Monday that|on Monday when"> the accident happened.</div>
+            <div class="ex"><span class="n">454</span>Her attitude annoyed everyone. → It was <input class="g xw" data-answer="her attitude that|her attitude which"> annoyed everyone.</div>
+            <div class="ex"><span class="n">455</span>They met at a conference. → It was <input class="g xw" data-answer="at a conference that|at a conference where"> they met.</div>
+            <div class="ex"><span class="n">456</span>The manager approved the plan. → It was <input class="g xw" data-answer="the manager who|the manager that"> approved the plan.</div>
+            <div class="ex"><span class="n">457</span>I admire her determination. → It is <input class="g xw" data-answer="her determination that|her determination which"> I admire.</div>
+            <div class="ex"><span class="n">458</span>She discovered the truth only yesterday. → It was <input class="g xw" data-answer="only yesterday that|only yesterday when"> she discovered the truth.</div>
+            <div class="ex"><span class="n">459</span>Your support made the difference. → It was <input class="g xw" data-answer="your support that|your support which"> made the difference.</div>
+            <div class="ex"><span class="n">460</span>They settled in Canada after the war. → It was <input class="g xw" data-answer="after the war that|after the war when"> they settled in Canada.</div>
+            <div class="ex"><span class="n">461</span>The CEO made the final decision. → It was <input class="g xw" data-answer="the CEO who|the CEO that"> made the final decision.</div>
+            <div class="ex"><span class="n">462</span>I need more time. → It is <input class="g xw" data-answer="more time that|more time which"> I need.</div>
+            <div class="ex"><span class="n">463</span>The power went out during the presentation. → It was <input class="g xw" data-answer="during the presentation that|during the presentation when"> the power went out.</div>
+            <div class="ex"><span class="n">464</span>His laziness caused the failure. → It was <input class="g xw" data-answer="his laziness that|his laziness which"> caused the failure.</div>
+            <div class="ex"><span class="n">465</span>She finally understood after he explained. → It was <input class="g xw" data-answer="only after he explained that|after he explained that"> she finally understood.</div>
+            <div class="ex"><span class="n">466</span>The rain ruined the wedding. → It was <input class="g xw" data-answer="the rain that|the rain which"> ruined the wedding.</div>
+            <div class="ex"><span class="n">467</span>I appreciate your patience. → It is <input class="g xw" data-answer="your patience that|your patience which"> I appreciate.</div>
+            <div class="ex"><span class="n">468</span>The witness identified the suspect. → It was <input class="g xw" data-answer="the witness who|the witness that"> identified the suspect.</div>
+            <div class="ex"><span class="n">469</span>She called me at midnight. → It was <input class="g xw" data-answer="at midnight that|at midnight when"> she called me.</div>
+            <div class="ex"><span class="n">470</span>The delay caused all the problems. → It was <input class="g xw" data-answer="the delay that|the delay which"> caused all the problems.</div>
+            <div class="ex"><span class="n">471</span>I need a long holiday. → What I need is <input class="g xw" data-answer="a long holiday">.</div>
+            <div class="ex"><span class="n">472</span>She said she would help. → What she said was that <input class="g xw" data-answer="she would help">.</div>
+            <div class="ex"><span class="n">473</span>I don't understand his behaviour. → What I don't understand is <input class="g xw" data-answer="his behaviour">.</div>
+            <div class="ex"><span class="n">474</span>She wants everyone to listen. → What she wants is <input class="g xw" data-answer="for everyone to listen">.</div>
+            <div class="ex"><span class="n">475</span>He did was apologise. → All he did was <input class="g xw" data-answer="apologise|apologize">.</div>
+            <div class="ex"><span class="n">476</span>You need to rest. → All you need is <input class="g xw" data-answer="to rest|rest">.</div>
+            <div class="ex"><span class="n">477</span>She did was complain. → All she did was <input class="g xw" data-answer="complain">.</div>
+            <div class="ex"><span class="n">478</span>He annoyed me with his arrogance. → What annoyed me was <input class="g xw" data-answer="his arrogance">.</div>
+            <div class="ex"><span class="n">479</span>They want is respect. → All they want is <input class="g xw" data-answer="respect">.</div>
+            <div class="ex"><span class="n">480</span>She did was smile. → All she did was <input class="g xw" data-answer="smile">.</div>
+            <div class="ex"><span class="n">481</span>He suggested was postponing the meeting. → What he suggested was <input class="g xw" data-answer="postponing the meeting">.</div>
+            <div class="ex"><span class="n">482</span>I want is a straight answer. → All I want is <input class="g xw" data-answer="a straight answer">.</div>
+            <div class="ex"><span class="n">483</span>She meant to say was goodbye. → What she meant to say was <input class="g xw" data-answer="goodbye">.</div>
+            <div class="ex"><span class="n">484</span>They need is more training. → What they need is <input class="g xw" data-answer="more training">.</div>
+            <div class="ex"><span class="n">485</span>He did was resign. → All he did was <input class="g xw" data-answer="resign">.</div>
+            <div class="ex"><span class="n">486</span>We need to do is focus. → What we need to do is <input class="g xw" data-answer="focus">.</div>
+            <div class="ex"><span class="n">487</span>She asked for was a fair chance. → All she asked for was <input class="g xw" data-answer="a fair chance">.</div>
+            <div class="ex"><span class="n">488</span>They did was argue. → All they did was <input class="g xw" data-answer="argue">.</div>
+            <div class="ex"><span class="n">489</span>He said upset her. → What he said was what <input class="g xw" data-answer="upset her">.</div>
+            <div class="ex"><span class="n">490</span>We're looking for is a solution. → What we're looking for is <input class="g xw" data-answer="a solution">.</div>
+            <div class="ex"><span class="n">491</span>She <input class="g" data-answer="did"> tell me about the meeting. I just forgot.</div>
+            <div class="ex"><span class="n">492</span>I <input class="g" data-answer="do"> appreciate your help, even if I don't always show it.</div>
+            <div class="ex"><span class="n">493</span>He <input class="g" data-answer="does"> work hard, whatever people say.</div>
+            <div class="ex"><span class="n">494</span>They <input class="g" data-answer="did"> arrive on time, but nobody noticed.</div>
+            <div class="ex"><span class="n">495</span>The thing <input class="g xw" data-answer="that worries me|which worries me"> is the cost.</div>
+            <div class="ex"><span class="n">496</span>The reason <input class="g xw" data-answer="why I left|I left"> was the low salary.</div>
+            <div class="ex"><span class="n">497</span>The problem <input class="g xw" data-answer="is that|is"> we don't have enough time.</div>
+            <div class="ex"><span class="n">498</span>The place <input class="g xw" data-answer="where I feel|I feel"> happiest is at home.</div>
+            <div class="ex"><span class="n">499</span>The person <input class="g xw" data-answer="who helped|that helped"> me most was my grandmother.</div>
+            <div class="ex"><span class="n">500</span>The moment <input class="g xw" data-answer="when I realised|when I realized|I realised|I realized"> everything was a mistake was too late.</div>
+        </div>
+        <div class="controls">
+            <button class="btn primary" onclick="checkAnswers('cleft')">✓ Check</button>
+            <button class="btn" onclick="showSolutions('cleft')">👁 Solutions</button>
+            <button class="btn" onclick="resetSection('cleft')">↺ Reset</button>
+        </div>
+        <div id="cleft-results" class="results"><p class="score-label">Score:</p><p class="score"><span id="cleft-correct">0</span>/<span id="cleft-total">0</span></p></div>
+    </section>
+</div>
+<script>
+function showSection(id,btn){document.querySelectorAll('.exercise-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.topic-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function norm(s){return s.toLowerCase().trim().replace(/\s+/g,' ').replace(/['']/g,"'");}
+function checkAnswers(id){const sec=document.getElementById(id),inputs=sec.querySelectorAll('input.g');let c=0,t=inputs.length,wrongNums=[];inputs.forEach(i=>{const u=norm(i.value),ans=i.dataset.answer.split('|').map(a=>norm(a));const numEl=i.closest('.ex').querySelector('.n');const num=numEl?numEl.textContent:'?';i.classList.remove('correct','incorrect');if(ans.includes(u)){i.classList.add('correct');c++;}else{if(u!=='')i.classList.add('incorrect');wrongNums.push(num);}});document.getElementById(id+'-correct').textContent=c;document.getElementById(id+'-total').textContent=t;document.getElementById(id+'-results').classList.add('visible');}
+function showSolutions(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{const ans=i.dataset.answer.split('|')[0];if(!i.classList.contains('correct')){i.classList.add('incorrect');let sol=i.nextElementSibling;if(!sol||!sol.classList.contains('sol')){sol=document.createElement('span');sol.className='sol';sol.textContent=' → '+ans;i.parentNode.insertBefore(sol,i.nextSibling);}sol.style.display='inline';}});}
+function resetSection(id){const sec=document.getElementById(id);sec.querySelectorAll('input.g').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');});sec.querySelectorAll('.sol').forEach(s=>s.style.display='none');document.getElementById(id+'-results').classList.remove('visible');}
+</script>
+</body>
+</html>
