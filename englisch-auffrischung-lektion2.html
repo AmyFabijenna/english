@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Englisch-Auffrischung · Lektion 2 · Fortgeschritten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Kalam:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FBF6EA;
+    --paper-line: #E4D9C0;
+    --ink: #1F3A5F;
+    --ink-soft: #4A5C74;
+    --red-pen: #C23B3B;
+    --green-check: #4F7A5A;
+    --mustard: #D9A544;
+    --margin-line: #E0A9A9;
+    --card-bg: #FFFFFF;
+    --shadow: rgba(31,58,95,0.10);
+  }
+  * { box-sizing: border-box; }
+  body{
+    margin:0;
+    background: var(--paper);
+    background-image: linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size: 100% 2.2em;
+    background-position: 0 7.4em;
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.65;
+    padding-bottom: 6em;
+  }
+  .margin-rule{ position: fixed; top:0; bottom:0; left: 3.6em; width: 2px; background: var(--margin-line); opacity:0.55; z-index: 0; }
+  header{ position: relative; z-index: 1; padding: 3em 2em 2.2em 5.5em; max-width: 880px; margin: 0 auto; }
+  .eyebrow{ font-family:'Kalam', cursive; color: var(--red-pen); font-size: 1.1em; transform: rotate(-2deg); display:inline-block; margin-bottom: 0.4em; }
+  h1{ font-family:'Fraunces', serif; font-size: 2.5em; font-weight: 700; margin: 0 0 0.2em 0; color: var(--ink); line-height: 1.1; }
+  .subtitle{ color: var(--ink-soft); font-size: 1.02em; max-width: 62ch; }
+  .meta-row{ display:flex; gap: 1.4em; flex-wrap: wrap; margin-top: 1.2em; font-size: 0.88em; color: var(--ink-soft); }
+  .meta-row span{ background: var(--card-bg); border: 1px solid var(--paper-line); padding: 0.35em 0.8em; border-radius: 100px; }
+  main{ position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 0 2em 0 5.5em; }
+  .progress-wrap{ position: sticky; top: 0; background: var(--paper); padding: 0.8em 0 0.8em 0; z-index: 5; margin-left: -1px; }
+  .progress-track{ height: 8px; background: var(--card-bg); border: 1px solid var(--paper-line); border-radius: 100px; overflow: hidden; }
+  .progress-fill{ height: 100%; width: 0%; background: var(--green-check); transition: width 0.4s ease; }
+  .progress-label{ font-size: 0.78em; color: var(--ink-soft); margin-top: 0.4em; }
+  .module{ background: var(--card-bg); border: 1px solid var(--paper-line); border-radius: 14px; padding: 2em 2.2em; margin: 2.2em 0; box-shadow: 0 4px 18px var(--shadow); position: relative; }
+  .module-number{ font-family:'Fraunces', serif; font-weight: 700; color: var(--paper-line); font-size: 3.2em; position: absolute; top: 0.1em; right: 0.4em; line-height:1; z-index:0; user-select:none; }
+  .module h2{ font-family:'Fraunces', serif; font-size: 1.5em; margin: 0 0 0.15em 0; color: var(--ink); position: relative; }
+  .module .duration{ font-size: 0.78em; color: var(--red-pen); font-family:'Kalam', cursive; margin-bottom: 1.1em; }
+  .explain{ background: #FAF3E3; border-left: 4px solid var(--mustard); padding: 1em 1.2em; border-radius: 6px; font-size: 0.95em; margin-bottom: 1.4em; }
+  .explain b{ color: var(--ink); }
+  .explain table{ border-collapse: collapse; margin-top: 0.8em; font-size: 0.92em; width:100%; }
+  .explain td, .explain th{ padding: 0.3em 0.7em; text-align:left; border-bottom: 1px solid #E9DCC3; }
+  .explain th{ color: var(--ink-soft); font-weight:700; }
+  .irregular-list{ columns: 2; column-gap: 2em; font-size: 0.9em; margin-top: 0.6em; }
+  .irregular-list div{ break-inside: avoid; padding: 0.15em 0; }
+  .exercise{ margin: 1.3em 0; padding: 1em 1.2em; border: 1px dashed var(--paper-line); border-radius: 8px; }
+  .exercise .qnum{ font-family:'Kalam', cursive; color: var(--red-pen); font-size: 0.95em; margin-right: 0.3em; }
+  .exercise p{ margin: 0 0 0.6em 0; }
+  input[type=text]{ font-family:'Space Mono', monospace; font-size: 0.95em; padding: 0.35em 0.6em; border: 1.5px solid var(--paper-line); border-radius: 6px; width: 14em; background: #FFFDF8; color: var(--ink); }
+  input[type=text]:focus{ outline: 2px solid var(--mustard); border-color: var(--mustard); }
+  .options{ display:flex; flex-wrap:wrap; gap: 0.6em; margin-top: 0.4em; }
+  .opt-btn{ font-family:'Space Mono', monospace; background: #FFFDF8; border: 1.5px solid var(--paper-line); padding: 0.5em 1em; border-radius: 100px; cursor:pointer; font-size: 0.9em; color: var(--ink); transition: all 0.15s ease; }
+  .opt-btn:hover{ border-color: var(--mustard); }
+  .opt-btn.selected{ border-color: var(--ink); background: #EEF1F6; }
+  .opt-btn.correct{ border-color: var(--green-check); background:#EAF3EC; color: var(--green-check); }
+  .opt-btn.incorrect{ border-color: var(--red-pen); background:#FBEAEA; color: var(--red-pen); }
+  .opt-btn:disabled{ cursor:default; }
+  .feedback{ margin-top: 0.6em; font-size: 0.88em; display:none; padding: 0.5em 0.8em; border-radius: 6px; }
+  .feedback.show{ display:block; }
+  .feedback.ok{ background:#EAF3EC; color: var(--green-check); }
+  .feedback.no{ background:#FBEAEA; color: var(--red-pen); }
+  .check-btn, .reveal-btn{ font-family:'Kalam', cursive; font-size: 1em; background: var(--ink); color: #fff; border: none; padding: 0.5em 1.3em; border-radius: 100px; cursor:pointer; margin-top: 0.3em; margin-right: 0.6em; }
+  .check-btn:hover{ background: var(--red-pen); }
+  .reveal-btn{ background: transparent; color: var(--ink-soft); border: 1.5px solid var(--paper-line); }
+  .reveal-btn:hover{ border-color: var(--ink-soft); }
+  .module-score{ margin-top: 1.4em; font-size: 0.85em; color: var(--ink-soft); font-style: italic; }
+  .final{ background: linear-gradient(135deg, #1F3A5F, #2E4E78); color: #FBF6EA; text-align:center; }
+  .final .module-number{ color: rgba(255,255,255,0.12); }
+  .final h2{ color: #FBF6EA; }
+  .final .duration{ color: var(--mustard); }
+  #final-score{ font-family:'Fraunces', serif; font-size: 3em; margin: 0.3em 0; }
+  .final p.msg{ max-width: 50ch; margin: 0.6em auto 0 auto; opacity: 0.9; }
+  .stamp{ display:inline-block; font-family:'Kalam', cursive; border: 2px solid var(--green-check); color: var(--green-check); padding: 0.15em 0.6em; border-radius: 6px; transform: rotate(-4deg); font-size: 0.85em; margin-left: 0.4em; }
+  .difficulty-badge{ display:inline-block; background: var(--red-pen); color: #fff; font-family:'Kalam', cursive; font-size:0.85em; padding: 0.15em 0.7em; border-radius:100px; transform: rotate(-2deg); margin-left: 0.5em; }
+  footer{ max-width: 880px; margin: 0 auto; padding: 1em 2em 2em 5.5em; font-size: 0.85em; color: var(--ink-soft); position: relative; z-index: 1; }
+  @media (max-width: 640px){
+    .margin-rule{ left: 1.4em; }
+    header, main, footer{ padding-left: 2.2em; }
+    h1{ font-size: 1.9em; }
+    .module{ padding: 1.4em 1.2em; }
+    .irregular-list{ columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="margin-rule"></div>
+
+<header>
+  <span class="eyebrow">Lektion 2 – jetzt wird's ernst</span>
+  <h1>Englisch-Auffrischung<br>Fortgeschrittene Grammatik <span class="difficulty-badge">schwieriger</span></h1>
+  <p class="subtitle">Aufbauend auf Lektion 1: neun Module von Fragewörtern über Present Continuous, Simple Past (regelmäßig &amp; unregelmäßig), Steigerung von Adjektiven, Modalverben, Possessivformen bis zu den Präpositionen von Zeit und Ort – abgeschlossen mit einem großen gemischten Test.</p>
+  <div class="meta-row">
+    <span>⏱ ca. 170–190 Minuten</span>
+    <span>🎯 Niveau: A2 → B1</span>
+    <span>✏️ Schwerpunkt: Grammatik, dichter als Lektion 1</span>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-label" id="progress-label">0 von 9 Modulen abgeschlossen</div>
+</div>
+
+<main>
+
+<!-- MODUL 1: Fragewörter -->
+<section class="module" id="mod1" data-module="1">
+  <div class="module-number">01</div>
+  <h2>Fragewörter (Wh-Questions)</h2>
+  <div class="duration">≈ 15 Minuten</div>
+
+  <div class="explain">
+    <p>Fragewörter stehen immer am Satzanfang, gefolgt von der normalen Frage-Struktur (do/does/is/are + Subjekt + Verb).</p>
+    <table>
+      <tr><th>Wort</th><th>Bedeutung</th><th>Beispiel</th></tr>
+      <tr><td>what</td><td>was</td><td>What do you do?</td></tr>
+      <tr><td>where</td><td>wo</td><td>Where do you live?</td></tr>
+      <tr><td>when</td><td>wann</td><td>When does the class start?</td></tr>
+      <tr><td>who</td><td>wer</td><td>Who is that woman?</td></tr>
+      <tr><td>why</td><td>warum</td><td>Why are you late?</td></tr>
+      <tr><td>how</td><td>wie</td><td>How are you?</td></tr>
+      <tr><td>how much / how many</td><td>wie viel / wie viele</td><td>How many students are there?</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Where">
+    <p><span class="qnum">1)</span> "___ do you live?" – "In Graz."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="What">What</button>
+      <button class="opt-btn" data-val="Where">Where</button>
+      <button class="opt-btn" data-val="Who">Who</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Why">
+    <p><span class="qnum">2)</span> "___ are you learning English?" – "Because I want to travel."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="When">When</button>
+      <button class="opt-btn" data-val="Why">Why</button>
+      <button class="opt-btn" data-val="How">How</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="how many">
+    <p><span class="qnum">3)</span> ___ ___ students are in the class? (wie viele – zählbar)</p>
+    <input type="text" placeholder="zwei Wörter">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="how much">
+    <p><span class="qnum">4)</span> ___ ___ does this cost? (wie viel – Preis)</p>
+    <input type="text" placeholder="zwei Wörter">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="who">
+    <p><span class="qnum">5)</span> "___ is your English teacher?" – "Mrs. Lang."</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(1)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(1)">Lösungen anzeigen</button>
+  <div class="module-score" id="score1"></div>
+</section>
+
+<!-- MODUL 2: Present Continuous -->
+<section class="module" id="mod2" data-module="2">
+  <div class="module-number">02</div>
+  <h2>Present Continuous – gerade jetzt</h2>
+  <div class="duration">≈ 25 Minuten</div>
+
+  <div class="explain">
+    <p>Das <b>Present Continuous</b> beschreibt eine Handlung, die <b>genau jetzt</b> passiert oder eine Situation, die vorübergehend ist. Bildung: <b>to be + Verb-ing</b>.</p>
+    <table>
+      <tr><th>Simple Present (Gewohnheit)</th><th>Present Continuous (jetzt)</th></tr>
+      <tr><td>I work every day.</td><td>I <b>am working</b> right now.</td></tr>
+      <tr><td>She reads a lot.</td><td>She <b>is reading</b> a book at the moment.</td></tr>
+    </table>
+    <p style="margin-top:0.7em"><b>Rechtschreibung bei -ing:</b> work→working, make→mak<b>ing</b> (stummes e fällt weg), run→run<b>ning</b> (Konsonant verdoppelt sich nach kurzem Vokal).</p>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="is reading">
+    <p><span class="qnum">1)</span> Look! She ___ (read) a book right now.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="are working">
+    <p><span class="qnum">2)</span> We ___ (work) on a new project at the moment.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="making">
+    <p><span class="qnum">3)</span> He is ___ (make) dinner in the kitchen. <i>(nur -ing Form, "is" schon gegeben)</i></p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="running">
+    <p><span class="qnum">4)</span> The children are ___ (run) in the garden. <i>(Konsonant verdoppeln!)</i></p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Present Continuous">
+    <p><span class="qnum">5)</span> "I usually drink tea, but today I'm drinking coffee." – welche Zeitform beschreibt "today"?</p>
+    <div class="options">
+      <button class="opt-btn" data-val="Simple Present">Simple Present</button>
+      <button class="opt-btn" data-val="Present Continuous">Present Continuous</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="isn't working">
+    <p><span class="qnum">6)</span> Verneinung: My laptop ___ (not/work) today.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(2)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(2)">Lösungen anzeigen</button>
+  <div class="module-score" id="score2"></div>
+</section>
+
+<!-- MODUL 3: Simple Past regelmäßig -->
+<section class="module" id="mod3" data-module="3">
+  <div class="module-number">03</div>
+  <h2>Simple Past – regelmäßige Verben</h2>
+  <div class="duration">≈ 20 Minuten</div>
+
+  <div class="explain">
+    <p>Das <b>Simple Past</b> beschreibt abgeschlossene Handlungen in der Vergangenheit. Regelmäßige Verben bekommen die Endung <b>-ed</b> – und zwar für <u>alle</u> Personen gleich (kein -s beim he/she/it wie im Präsens!).</p>
+    <table>
+      <tr><th>Regel</th><th>Beispiel</th></tr>
+      <tr><td>Normalfall: + ed</td><td>work → work<b>ed</b></td></tr>
+      <tr><td>Verb endet auf -e: nur + d</td><td>live → live<b>d</b></td></tr>
+      <tr><td>Konsonant + y: y → ied</td><td>study → stud<b>ied</b></td></tr>
+      <tr><td>kurzer Vokal + Konsonant: verdoppeln</td><td>stop → stop<b>ped</b></td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="worked">
+    <p><span class="qnum">1)</span> Yesterday, she ___ (work) until 8 pm.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="lived">
+    <p><span class="qnum">2)</span> They ___ (live) in Berlin for ten years.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="studied">
+    <p><span class="qnum">3)</span> I ___ (study) linguistics at university.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="stopped">
+    <p><span class="qnum">4)</span> The car ___ (stop) suddenly.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="didn't work">
+    <p><span class="qnum">5)</span> Verneinung: He ___ (not/work) yesterday. <i>(didn't + Grundform!)</i></p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Did">
+    <p><span class="qnum">6)</span> Frage: "___ you study French at school?"</p>
+    <div class="options">
+      <button class="opt-btn" data-val="Do">Do</button>
+      <button class="opt-btn" data-val="Did">Did</button>
+      <button class="opt-btn" data-val="Does">Does</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(3)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(3)">Lösungen anzeigen</button>
+  <div class="module-score" id="score3"></div>
+</section>
+
+<!-- MODUL 4: Simple Past unregelmäßig -->
+<section class="module" id="mod4" data-module="4">
+  <div class="module-number">04</div>
+  <h2>Simple Past – unregelmäßige Verben</h2>
+  <div class="duration">≈ 25 Minuten</div>
+
+  <div class="explain">
+    <p>Viele der häufigsten englischen Verben sind <b>unregelmäßig</b> – ihre Vergangenheitsform muss man auswendig lernen, da kein festes Muster dahintersteckt. Hier die wichtigsten zum Einprägen:</p>
+    <div class="irregular-list">
+      <div>go → went</div>
+      <div>have → had</div>
+      <div>be → was/were</div>
+      <div>do → did</div>
+      <div>see → saw</div>
+      <div>make → made</div>
+      <div>take → took</div>
+      <div>come → came</div>
+      <div>get → got</div>
+      <div>give → gave</div>
+      <div>know → knew</div>
+      <div>think → thought</div>
+      <div>say → said</div>
+      <div>find → found</div>
+      <div>eat → ate</div>
+      <div>drink → drank</div>
+      <div>write → wrote</div>
+      <div>speak → spoke</div>
+      <div>buy → bought</div>
+      <div>read → read <i>(gleiche Schreibung!)</i></div>
+    </div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="went">
+    <p><span class="qnum">1)</span> Last summer, we ___ (go) to Hungary.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="had">
+    <p><span class="qnum">2)</span> She ___ (have) a big breakfast this morning.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="was">
+    <p><span class="qnum">3)</span> The film ___ (be, singular) really interesting.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="saw">
+    <p><span class="qnum">4)</span> I ___ (see) my old friend at the market.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="wrote">
+    <p><span class="qnum">5)</span> He ___ (write) a long letter to his sister.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="bought">
+    <p><span class="qnum">6)</span> They ___ (buy) a new house last year.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="thought">
+    <p><span class="qnum">7)</span> I ___ (think) about you yesterday.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(4)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(4)">Lösungen anzeigen</button>
+  <div class="module-score" id="score4"></div>
+</section>
+
+<!-- MODUL 5: Komparativ & Superlativ -->
+<section class="module" id="mod5" data-module="5">
+  <div class="module-number">05</div>
+  <h2>Steigerung: Komparativ &amp; Superlativ</h2>
+  <div class="duration">≈ 20 Minuten</div>
+
+  <div class="explain">
+    <p>Kurze Adjektive (1 Silbe, manchmal 2) bekommen <b>-er / -est</b>. Längere Adjektive (meist ab 2–3 Silben) werden mit <b>more / most</b> gesteigert.</p>
+    <table>
+      <tr><th>Grundform</th><th>Komparativ</th><th>Superlativ</th></tr>
+      <tr><td>small</td><td>small<b>er</b></td><td>the small<b>est</b></td></tr>
+      <tr><td>big</td><td>big<b>ger</b> (verdoppelt!)</td><td>the big<b>gest</b></td></tr>
+      <tr><td>happy</td><td>happ<b>ier</b></td><td>the happ<b>iest</b></td></tr>
+      <tr><td>beautiful</td><td><b>more</b> beautiful</td><td>the <b>most</b> beautiful</td></tr>
+      <tr><td>good</td><td><b>better</b> (unregelmäßig)</td><td>the <b>best</b></td></tr>
+      <tr><td>bad</td><td><b>worse</b> (unregelmäßig)</td><td>the <b>worst</b></td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="bigger">
+    <p><span class="qnum">1)</span> Graz is big, but Vienna is ___ (big).</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="the most beautiful">
+    <p><span class="qnum">2)</span> This is ___ ___ ___ (beautiful) place I have ever seen.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="better">
+    <p><span class="qnum">3)</span> This exercise is ___ (good) than the last one.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="happier">
+    <p><span class="qnum">4)</span> She looks ___ (happy) today than yesterday.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="the worst">
+    <p><span class="qnum">5)</span> "This was ___ day of my life." (schlecht, Superlativ)</p>
+    <div class="options">
+      <button class="opt-btn" data-val="the baddest">the baddest</button>
+      <button class="opt-btn" data-val="the worst">the worst</button>
+      <button class="opt-btn" data-val="worse">worse</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(5)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(5)">Lösungen anzeigen</button>
+  <div class="module-score" id="score5"></div>
+</section>
+
+<!-- MODUL 6: Modalverben -->
+<section class="module" id="mod6" data-module="6">
+  <div class="module-number">06</div>
+  <h2>Modalverben: can, must, should, may</h2>
+  <div class="duration">≈ 20 Minuten</div>
+
+  <div class="explain">
+    <p>Modalverben stehen immer mit der <b>Grundform</b> des Hauptverbs (kein "to", kein -s in der 3. Person!).</p>
+    <table>
+      <tr><th>Modalverb</th><th>Bedeutung</th><th>Beispiel</th></tr>
+      <tr><td>can</td><td>können / dürfen</td><td>She can speak three languages.</td></tr>
+      <tr><td>must</td><td>müssen</td><td>You must be quiet.</td></tr>
+      <tr><td>mustn't</td><td>nicht dürfen (Verbot!)</td><td>You mustn't smoke here.</td></tr>
+      <tr><td>should</td><td>sollten (Rat)</td><td>You should drink more water.</td></tr>
+      <tr><td>may</td><td>dürfen (höflich)</td><td>May I come in?</td></tr>
+    </table>
+    <p style="margin-top:0.7em"><b>Achtung:</b> "mustn't" bedeutet ein Verbot ("darf nicht"), nicht "muss nicht"! "Muss nicht" heißt "don't have to".</p>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="can speak">
+    <p><span class="qnum">1)</span> My daughter ___ (can/speak) English fluently.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="should">
+    <p><span class="qnum">2)</span> "You look tired. You ___ go to bed early." (Rat)</p>
+    <div class="options">
+      <button class="opt-btn" data-val="must">must</button>
+      <button class="opt-btn" data-val="should">should</button>
+      <button class="opt-btn" data-val="can">can</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="mustn't">
+    <p><span class="qnum">3)</span> "You ___ park here – it's forbidden." (Verbot)</p>
+    <div class="options">
+      <button class="opt-btn" data-val="don't have to">don't have to</button>
+      <button class="opt-btn" data-val="mustn't">mustn't</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="don't have to">
+    <p><span class="qnum">4)</span> "You ___ ___ ___ come tomorrow, it's a holiday." (musst nicht – ist optional)</p>
+    <input type="text" placeholder="drei Wörter">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="may i">
+    <p><span class="qnum">5)</span> Höfliche Frage um Erlaubnis: "___ ___ open the window?"</p>
+    <input type="text" placeholder="zwei Wörter">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(6)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(6)">Lösungen anzeigen</button>
+  <div class="module-score" id="score6"></div>
+</section>
+
+<!-- MODUL 7: Possessivpronomen & Genitiv -->
+<section class="module" id="mod7" data-module="7">
+  <div class="module-number">07</div>
+  <h2>Possessivpronomen &amp; der 's-Genitiv</h2>
+  <div class="duration">≈ 15 Minuten</div>
+
+  <div class="explain">
+    <p>Besitz wird im Englischen entweder mit Possessivpronomen oder mit dem <b>'s-Genitiv</b> (bei Personen) ausgedrückt.</p>
+    <table>
+      <tr><th>Pronomen</th><th>Possessiv</th></tr>
+      <tr><td>I</td><td>my</td></tr>
+      <tr><td>you</td><td>your</td></tr>
+      <tr><td>he</td><td>his</td></tr>
+      <tr><td>she</td><td>her</td></tr>
+      <tr><td>it</td><td>its</td></tr>
+      <tr><td>we</td><td>our</td></tr>
+      <tr><td>they</td><td>their</td></tr>
+    </table>
+    <p style="margin-top:0.7em"><b>'s-Genitiv:</b> "Amy's house" (Amys Haus). Bei Plural auf -s nur Apostroph: "the students' books".</p>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="her">
+    <p><span class="qnum">1)</span> Anna is reading ___ (she) book.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="his">
+    <p><span class="qnum">2)</span> Tom lost ___ (he) keys again.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="our">
+    <p><span class="qnum">3)</span> This is ___ (we) new apartment.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="amy's">
+    <p><span class="qnum">4)</span> Bilde den Genitiv: "the house of Amy" → ___ house</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(7)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(7)">Lösungen anzeigen</button>
+  <div class="module-score" id="score7"></div>
+</section>
+
+<!-- MODUL 8: Präpositionen -->
+<section class="module" id="mod8" data-module="8">
+  <div class="module-number">08</div>
+  <h2>Präpositionen: Zeit &amp; Ort</h2>
+  <div class="duration">≈ 20 Minuten</div>
+
+  <div class="explain">
+    <p>Die drei wichtigsten Präpositionen <b>in / on / at</b> folgen bei Zeitangaben klaren Regeln:</p>
+    <table>
+      <tr><th>Präposition</th><th>verwendet für</th><th>Beispiel</th></tr>
+      <tr><td>in</td><td>Monate, Jahre, Jahreszeiten</td><td>in June, in 2024, in summer</td></tr>
+      <tr><td>on</td><td>Tage, Daten</td><td>on Monday, on 3rd May</td></tr>
+      <tr><td>at</td><td>Uhrzeiten, feste Ausdrücke</td><td>at 8 o'clock, at night, at Christmas</td></tr>
+    </table>
+    <p style="margin-top:0.7em">Bei Orten: <b>in</b> (in einem Raum/Land), <b>on</b> (auf einer Fläche), <b>at</b> (an einem Punkt/Ort: at the bus stop).</p>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="in">
+    <p><span class="qnum">1)</span> My birthday is ___ June.</p>
+    <div class="options">
+      <button class="opt-btn" data-val="in">in</button>
+      <button class="opt-btn" data-val="on">on</button>
+      <button class="opt-btn" data-val="at">at</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="on">
+    <p><span class="qnum">2)</span> The meeting is ___ Monday.</p>
+    <div class="options">
+      <button class="opt-btn" data-val="in">in</button>
+      <button class="opt-btn" data-val="on">on</button>
+      <button class="opt-btn" data-val="at">at</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="at">
+    <p><span class="qnum">3)</span> The class starts ___ 9 o'clock.</p>
+    <div class="options">
+      <button class="opt-btn" data-val="in">in</button>
+      <button class="opt-btn" data-val="on">on</button>
+      <button class="opt-btn" data-val="at">at</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="in">
+    <p><span class="qnum">4)</span> She lives ___ Graz.</p>
+    <div class="options">
+      <button class="opt-btn" data-val="in">in</button>
+      <button class="opt-btn" data-val="on">on</button>
+      <button class="opt-btn" data-val="at">at</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="at">
+    <p><span class="qnum">5)</span> He is waiting ___ the bus stop.</p>
+    <div class="options">
+      <button class="opt-btn" data-val="in">in</button>
+      <button class="opt-btn" data-val="on">on</button>
+      <button class="opt-btn" data-val="at">at</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(8)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(8)">Lösungen anzeigen</button>
+  <div class="module-score" id="score8"></div>
+</section>
+
+<!-- MODUL 9: Großer Abschlusstest -->
+<section class="module" id="mod9" data-module="9">
+  <div class="module-number">09</div>
+  <h2>Großer Abschlusstest – alles gemischt</h2>
+  <div class="duration">≈ 20 Minuten</div>
+
+  <div class="explain">
+    <p>Jetzt kommt alles zusammen: Fragewörter, Present Continuous, Simple Past, Steigerung, Modalverben, Possessiv und Präpositionen – so, wie es im echten Sprachgebrauch durcheinander vorkommt.</p>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="went">
+    <p><span class="qnum">1)</span> Last year, we ___ (go) to Hungary to visit our family.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Where">
+    <p><span class="qnum">2)</span> "___ were you yesterday? I called you three times."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="What">What</button>
+      <button class="opt-btn" data-val="Where">Where</button>
+      <button class="opt-btn" data-val="Why">Why</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="is cooking">
+    <p><span class="qnum">3)</span> Listen! Someone ___ (cook) in the kitchen right now.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="more difficult">
+    <p><span class="qnum">4)</span> This exercise is ___ ___ (difficult) than the first one.</p>
+    <input type="text" placeholder="zwei Wörter">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="mustn't">
+    <p><span class="qnum">5)</span> "You ___ be late for the exam." (Verbot – strengstens verboten)</p>
+    <div class="options">
+      <button class="opt-btn" data-val="don't have to">don't have to</button>
+      <button class="opt-btn" data-val="mustn't">mustn't</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="her">
+    <p><span class="qnum">6)</span> Maria lost ___ (she) phone at the party.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="on">
+    <p><span class="qnum">7)</span> The exam is ___ Friday.</p>
+    <div class="options">
+      <button class="opt-btn" data-val="in">in</button>
+      <button class="opt-btn" data-val="on">on</button>
+      <button class="opt-btn" data-val="at">at</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="didn't have">
+    <p><span class="qnum">8)</span> I ___ (not/have) time to answer yesterday.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="the best">
+    <p><span class="qnum">9)</span> This is ___ ___ (good) lesson I've had so far. (Superlativ)</p>
+    <input type="text" placeholder="zwei Wörter">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="How many">
+    <p><span class="qnum">10)</span> "___ languages do you speak?" – "Three."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="How much">How much</button>
+      <button class="opt-btn" data-val="How many">How many</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(9)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(9)">Lösungen anzeigen</button>
+  <div class="module-score" id="score9"></div>
+</section>
+
+<!-- FINAL -->
+<section class="module final" id="final">
+  <div class="module-number">✓</div>
+  <h2>Gesamtergebnis Lektion 2</h2>
+  <div class="duration">Bearbeite alle neun Module, um dein Ergebnis zu sehen</div>
+  <div id="final-score">–</div>
+  <p class="msg">Diese Lektion war spürbar dichter als die erste – neue Zeitformen, neue Strukturen, mehr Ausnahmen. Genau das ist der Punkt: Je öfter der Kopf zwischen den Formen hin- und herspringt, desto stabiler wird das Gefühl dafür. <span class="stamp">weiter so</span></p>
+</section>
+
+</main>
+
+<footer>
+  Tipp: Bei Lückentexten reicht die reine Wortform als Antwort (Groß-/Kleinschreibung egal). Bei Aufgaben mit "___ ___" werden zwei bzw. drei Wörter mit einem Leerzeichen dazwischen erwartet.
+</footer>
+
+<script>
+  const totalModules = 9;
+  const completedModules = new Set();
+
+  function normalize(str){
+    return str.trim().toLowerCase().replace(/\s+/g,' ').replace(/['’]/g,"'");
+  }
+
+  function checkModule(modNum){
+    const mod = document.getElementById('mod'+modNum);
+    const exercises = mod.querySelectorAll('.exercise');
+    let correct = 0;
+
+    exercises.forEach(ex => {
+      const type = ex.dataset.type;
+      const answer = normalize(ex.dataset.answer);
+      const feedback = ex.querySelector('.feedback');
+
+      if(type === 'text'){
+        const input = ex.querySelector('input');
+        const given = normalize(input.value);
+        const isCorrect = given === answer;
+        if(isCorrect){
+          correct++;
+          input.style.borderColor = 'var(--green-check)';
+          feedback.textContent = '✓ Richtig!';
+          feedback.className = 'feedback show ok';
+        } else {
+          input.style.borderColor = 'var(--red-pen)';
+          feedback.textContent = given === '' ? 'Bitte ausfüllen. Richtige Antwort: "' + ex.dataset.answer + '"' : '✗ Nicht ganz. Richtige Antwort: "' + ex.dataset.answer + '"';
+          feedback.className = 'feedback show no';
+        }
+      } else if(type === 'mc'){
+        const selected = ex.querySelector('.opt-btn.selected');
+        const buttons = ex.querySelectorAll('.opt-btn');
+        buttons.forEach(b => b.disabled = true);
+        if(selected){
+          const given = normalize(selected.dataset.val);
+          if(given === answer){
+            correct++;
+            selected.classList.add('correct');
+            feedback.textContent = '✓ Richtig!';
+            feedback.className = 'feedback show ok';
+          } else {
+            selected.classList.add('incorrect');
+            buttons.forEach(b => { if(normalize(b.dataset.val) === answer) b.classList.add('correct'); });
+            feedback.textContent = '✗ Richtige Antwort: "' + ex.dataset.answer + '"';
+            feedback.className = 'feedback show no';
+          }
+        } else {
+          buttons.forEach(b => { if(normalize(b.dataset.val) === answer) b.classList.add('correct'); });
+          feedback.textContent = 'Nichts ausgewählt. Richtige Antwort: "' + ex.dataset.answer + '"';
+          feedback.className = 'feedback show no';
+        }
+      }
+    });
+
+    document.getElementById('score'+modNum).textContent = correct + ' von ' + exercises.length + ' richtig.';
+
+    completedModules.add(modNum);
+    updateProgress();
+    updateFinal();
+  }
+
+  function revealModule(modNum){
+    const mod = document.getElementById('mod'+modNum);
+    const exercises = mod.querySelectorAll('.exercise');
+    exercises.forEach(ex => {
+      const type = ex.dataset.type;
+      if(type === 'text'){
+        const input = ex.querySelector('input');
+        input.value = ex.dataset.answer;
+        input.style.borderColor = 'var(--mustard)';
+      } else if(type === 'mc'){
+        const answer = normalize(ex.dataset.answer);
+        ex.querySelectorAll('.opt-btn').forEach(b => {
+          if(normalize(b.dataset.val) === answer) b.classList.add('correct');
+        });
+      }
+    });
+  }
+
+  document.querySelectorAll('.exercise[data-type="mc"] .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.options');
+      group.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  });
+
+  function updateProgress(){
+    const pct = Math.round((completedModules.size / totalModules) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = completedModules.size + ' von ' + totalModules + ' Modulen abgeschlossen';
+  }
+
+  function updateFinal(){
+    if(completedModules.size === totalModules){
+      let totalCorrect = 0, totalQuestions = 0;
+      for(let i=1; i<=totalModules; i++){
+        const mod = document.getElementById('mod'+i);
+        const exs = mod.querySelectorAll('.exercise');
+        totalQuestions += exs.length;
+        exs.forEach(ex => {
+          const type = ex.dataset.type;
+          const answer = normalize(ex.dataset.answer);
+          if(type === 'text'){
+            if(normalize(ex.querySelector('input').value) === answer) totalCorrect++;
+          } else {
+            const sel = ex.querySelector('.opt-btn.selected');
+            if(sel && normalize(sel.dataset.val) === answer) totalCorrect++;
+          }
+        });
+      }
+      document.getElementById('final-score').textContent = totalCorrect + ' / ' + totalQuestions;
+    }
+  }
+</script>
+
+</body>
+</html>

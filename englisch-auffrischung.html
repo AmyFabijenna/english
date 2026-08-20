@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Englisch-Auffrischung · Grammatik-Intensiv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Kalam:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FBF6EA;
+    --paper-line: #E4D9C0;
+    --ink: #1F3A5F;
+    --ink-soft: #4A5C74;
+    --red-pen: #C23B3B;
+    --green-check: #4F7A5A;
+    --mustard: #D9A544;
+    --margin-line: #E0A9A9;
+    --card-bg: #FFFFFF;
+    --shadow: rgba(31,58,95,0.10);
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size: 100% 2.2em;
+    background-position: 0 7.4em;
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.65;
+    padding-bottom: 6em;
+  }
+
+  .margin-rule{
+    position: fixed;
+    top:0; bottom:0; left: 3.6em;
+    width: 2px;
+    background: var(--margin-line);
+    opacity:0.55;
+    z-index: 0;
+  }
+
+  header{
+    position: relative;
+    z-index: 1;
+    padding: 3em 2em 2.2em 5.5em;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .eyebrow{
+    font-family:'Kalam', cursive;
+    color: var(--red-pen);
+    font-size: 1.1em;
+    transform: rotate(-2deg);
+    display:inline-block;
+    margin-bottom: 0.4em;
+  }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 0 0 0.2em 0;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .subtitle{
+    color: var(--ink-soft);
+    font-size: 1.02em;
+    max-width: 62ch;
+  }
+
+  .meta-row{
+    display:flex;
+    gap: 1.4em;
+    flex-wrap: wrap;
+    margin-top: 1.2em;
+    font-size: 0.88em;
+    color: var(--ink-soft);
+  }
+  .meta-row span{
+    background: var(--card-bg);
+    border: 1px solid var(--paper-line);
+    padding: 0.35em 0.8em;
+    border-radius: 100px;
+  }
+
+  main{
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 2em 0 5.5em;
+  }
+
+  .progress-wrap{
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    padding: 0.8em 0 0.8em 0;
+    z-index: 5;
+    margin-left: -1px;
+  }
+  .progress-track{
+    height: 8px;
+    background: var(--card-bg);
+    border: 1px solid var(--paper-line);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill{
+    height: 100%;
+    width: 0%;
+    background: var(--green-check);
+    transition: width 0.4s ease;
+  }
+  .progress-label{
+    font-size: 0.78em;
+    color: var(--ink-soft);
+    margin-top: 0.4em;
+  }
+
+  .module{
+    background: var(--card-bg);
+    border: 1px solid var(--paper-line);
+    border-radius: 14px;
+    padding: 2em 2.2em;
+    margin: 2.2em 0;
+    box-shadow: 0 4px 18px var(--shadow);
+    position: relative;
+  }
+
+  .module-number{
+    font-family:'Fraunces', serif;
+    font-weight: 700;
+    color: var(--paper-line);
+    font-size: 3.2em;
+    position: absolute;
+    top: 0.1em;
+    right: 0.4em;
+    line-height:1;
+    z-index:0;
+    user-select:none;
+  }
+
+  .module h2{
+    font-family:'Fraunces', serif;
+    font-size: 1.5em;
+    margin: 0 0 0.15em 0;
+    color: var(--ink);
+    position: relative;
+  }
+  .module .duration{
+    font-size: 0.78em;
+    color: var(--red-pen);
+    font-family:'Kalam', cursive;
+    margin-bottom: 1.1em;
+  }
+
+  .explain{
+    background: #FAF3E3;
+    border-left: 4px solid var(--mustard);
+    padding: 1em 1.2em;
+    border-radius: 6px;
+    font-size: 0.95em;
+    margin-bottom: 1.4em;
+  }
+  .explain b{ color: var(--ink); }
+  .explain table{
+    border-collapse: collapse;
+    margin-top: 0.8em;
+    font-size: 0.92em;
+    width:100%;
+  }
+  .explain td, .explain th{
+    padding: 0.3em 0.7em;
+    text-align:left;
+    border-bottom: 1px solid #E9DCC3;
+  }
+  .explain th{ color: var(--ink-soft); font-weight:700; }
+
+  .exercise{
+    margin: 1.3em 0;
+    padding: 1em 1.2em;
+    border: 1px dashed var(--paper-line);
+    border-radius: 8px;
+  }
+  .exercise .qnum{
+    font-family:'Kalam', cursive;
+    color: var(--red-pen);
+    font-size: 0.95em;
+    margin-right: 0.3em;
+  }
+  .exercise p{ margin: 0 0 0.6em 0; }
+
+  input[type=text]{
+    font-family:'Space Mono', monospace;
+    font-size: 0.95em;
+    padding: 0.35em 0.6em;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 6px;
+    width: 12em;
+    background: #FFFDF8;
+    color: var(--ink);
+  }
+  input[type=text]:focus{ outline: 2px solid var(--mustard); border-color: var(--mustard); }
+
+  .options{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 0.6em;
+    margin-top: 0.4em;
+  }
+  .opt-btn{
+    font-family:'Space Mono', monospace;
+    background: #FFFDF8;
+    border: 1.5px solid var(--paper-line);
+    padding: 0.5em 1em;
+    border-radius: 100px;
+    cursor:pointer;
+    font-size: 0.9em;
+    color: var(--ink);
+    transition: all 0.15s ease;
+  }
+  .opt-btn:hover{ border-color: var(--mustard); }
+  .opt-btn.selected{ border-color: var(--ink); background: #EEF1F6; }
+  .opt-btn.correct{ border-color: var(--green-check); background:#EAF3EC; color: var(--green-check); }
+  .opt-btn.incorrect{ border-color: var(--red-pen); background:#FBEAEA; color: var(--red-pen); }
+  .opt-btn:disabled{ cursor:default; }
+
+  .feedback{
+    margin-top: 0.6em;
+    font-size: 0.88em;
+    display:none;
+    padding: 0.5em 0.8em;
+    border-radius: 6px;
+  }
+  .feedback.show{ display:block; }
+  .feedback.ok{ background:#EAF3EC; color: var(--green-check); }
+  .feedback.no{ background:#FBEAEA; color: var(--red-pen); }
+
+  .check-btn, .reveal-btn{
+    font-family:'Kalam', cursive;
+    font-size: 1em;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    padding: 0.5em 1.3em;
+    border-radius: 100px;
+    cursor:pointer;
+    margin-top: 0.3em;
+    margin-right: 0.6em;
+  }
+  .check-btn:hover{ background: var(--red-pen); }
+  .reveal-btn{ background: transparent; color: var(--ink-soft); border: 1.5px solid var(--paper-line); }
+  .reveal-btn:hover{ border-color: var(--ink-soft); }
+
+  .module-score{
+    margin-top: 1.4em;
+    font-size: 0.85em;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .final{
+    background: linear-gradient(135deg, #1F3A5F, #2E4E78);
+    color: #FBF6EA;
+    text-align:center;
+  }
+  .final .module-number{ color: rgba(255,255,255,0.12); }
+  .final h2{ color: #FBF6EA; }
+  .final .duration{ color: var(--mustard); }
+  #final-score{
+    font-family:'Fraunces', serif;
+    font-size: 3em;
+    margin: 0.3em 0;
+  }
+  .final p.msg{ max-width: 50ch; margin: 0.6em auto 0 auto; opacity: 0.9; }
+
+  .stamp{
+    display:inline-block;
+    font-family:'Kalam', cursive;
+    border: 2px solid var(--green-check);
+    color: var(--green-check);
+    padding: 0.15em 0.6em;
+    border-radius: 6px;
+    transform: rotate(-4deg);
+    font-size: 0.85em;
+    margin-left: 0.4em;
+  }
+
+  footer{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 1em 2em 2em 5.5em;
+    font-size: 0.85em;
+    color: var(--ink-soft);
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 640px){
+    .margin-rule{ left: 1.4em; }
+    header, main, footer{ padding-left: 2.2em; }
+    h1{ font-size: 1.9em; }
+    .module{ padding: 1.4em 1.2em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="margin-rule"></div>
+
+<header>
+  <span class="eyebrow">Für alle, die "das hatten wir doch in der Schule…" schon oft gedacht haben</span>
+  <h1>Englisch-Auffrischung<br>Grammatik-Intensiv</h1>
+  <p class="subtitle">Sechs Module, die das englische Grundgerüst wieder ins Gedächtnis holen – vom Personalpronomen bis zum kleinen Abschlusstest. Aufgebaut für ein zügiges Arbeitstempo von rund zwei Stunden, mit sofortiger Rückmeldung zu jeder Übung.</p>
+  <div class="meta-row">
+    <span>⏱ ca. 120 Minuten</span>
+    <span>🎯 Niveau: Wiedereinsteigerin (A1→A2)</span>
+    <span>✏️ Schwerpunkt: Grammatik</span>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="progress-label" id="progress-label">0 von 6 Modulen abgeschlossen</div>
+</div>
+
+<main>
+
+<!-- MODUL 1 -->
+<section class="module" id="mod1" data-module="1">
+  <div class="module-number">01</div>
+  <h2>Personalpronomen &amp; das Verb "to be"</h2>
+  <div class="duration">≈ 20 Minuten</div>
+
+  <div class="explain">
+    <p><b>"to be"</b> ist das wichtigste Verb im Englischen – es entspricht "sein". Anders als im Deutschen wird es in vielen Sätzen mit Kurzformen (Contractions) benutzt.</p>
+    <table>
+      <tr><th>Pronomen</th><th>to be</th><th>Kurzform</th><th>Deutsch</th></tr>
+      <tr><td>I</td><td>am</td><td>I'm</td><td>ich bin</td></tr>
+      <tr><td>you</td><td>are</td><td>you're</td><td>du bist / ihr seid</td></tr>
+      <tr><td>he / she / it</td><td>is</td><td>he's / she's / it's</td><td>er/sie/es ist</td></tr>
+      <tr><td>we</td><td>are</td><td>we're</td><td>wir sind</td></tr>
+      <tr><td>they</td><td>are</td><td>they're</td><td>sie sind (Plural)</td></tr>
+    </table>
+    <p style="margin-top:0.7em">Merksatz: <i>I</i> bekommt immer <i>am</i>, alle Einzahl-Personen (<i>he/she/it</i>) bekommen <i>is</i>, der Rest bekommt <i>are</i>.</p>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="am">
+    <p><span class="qnum">1)</span> I ___ a teacher from Graz.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="is">
+    <p><span class="qnum">2)</span> My cat ___ very lazy.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="are">
+    <p><span class="qnum">3)</span> We ___ from Austria.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="is">
+    <p><span class="qnum">4)</span> Welche Form passt? "She ___ happy today."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="am">am</button>
+      <button class="opt-btn" data-val="is">is</button>
+      <button class="opt-btn" data-val="are">are</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="they're">
+    <p><span class="qnum">5)</span> Bilde die Kurzform von "they are" (mit Apostroph): ___</p>
+    <input type="text" placeholder="Kurzform">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(1)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(1)">Lösungen anzeigen</button>
+  <div class="module-score" id="score1"></div>
+</section>
+
+<!-- MODUL 2 -->
+<section class="module" id="mod2" data-module="2">
+  <div class="module-number">02</div>
+  <h2>Das Verb "to have" – haben</h2>
+  <div class="duration">≈ 15 Minuten</div>
+
+  <div class="explain">
+    <p><b>"to have"</b> bedeutet "haben" oder "besitzen". Es verhält sich unregelmäßig: In der 3. Person Singular (<i>he/she/it</i>) wird aus <i>have</i> das Wort <i>has</i>.</p>
+    <table>
+      <tr><th>Pronomen</th><th>to have</th></tr>
+      <tr><td>I / you / we / they</td><td>have</td></tr>
+      <tr><td>he / she / it</td><td>has</td></tr>
+    </table>
+    <p style="margin-top:0.7em">Im Alltag hört man oft auch <i>have got</i> statt <i>have</i> (v.a. britisches Englisch) – Bedeutung ist gleich: "I have a dog." = "I've got a dog."</p>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="has">
+    <p><span class="qnum">1)</span> He ___ two brothers.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="have">
+    <p><span class="qnum">2)</span> I ___ a lot of work today.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="has">
+    <p><span class="qnum">3)</span> "The house ___ a big garden." – welche Form?</p>
+    <div class="options">
+      <button class="opt-btn" data-val="have">have</button>
+      <button class="opt-btn" data-val="has">has</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="have">
+    <p><span class="qnum">4)</span> They ___ three cats and a dog.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(2)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(2)">Lösungen anzeigen</button>
+  <div class="module-score" id="score2"></div>
+</section>
+
+<!-- MODUL 3 -->
+<section class="module" id="mod3" data-module="3">
+  <div class="module-number">03</div>
+  <h2>Simple Present – die Grundzeit für Gewohnheiten</h2>
+  <div class="duration">≈ 25 Minuten</div>
+
+  <div class="explain">
+    <p>Das <b>Simple Present</b> beschreibt Gewohnheiten, Fakten und regelmäßige Handlungen ("Ich trinke jeden Morgen Tee."). Der Grundstamm des Verbs bleibt fast immer gleich – <b>außer bei he/she/it</b>: dort kommt ein <b>-s</b> dazu.</p>
+    <table>
+      <tr><th>Regel</th><th>Beispiel</th></tr>
+      <tr><td>Normalfall: + s</td><td>work → he work<b>s</b></td>
+      </tr>
+      <tr><td>Verb endet auf -s, -sh, -ch, -x, -o: + es</td><td>watch → she watch<b>es</b>, go → he go<b>es</b></td></tr>
+      <tr><td>Verb endet auf Konsonant + y: y → ies</td><td>study → she stud<b>ies</b></td></tr>
+      <tr><td>Verb endet auf Vokal + y: nur + s</td><td>play → he play<b>s</b></td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="works">
+    <p><span class="qnum">1)</span> She ___ (work) in an office.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="watches">
+    <p><span class="qnum">2)</span> He ___ (watch) TV every evening.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="studies">
+    <p><span class="qnum">3)</span> My daughter ___ (study) German at university.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="plays">
+    <p><span class="qnum">4)</span> The child ___ (play) in the garden.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="goes">
+    <p><span class="qnum">5)</span> He ___ (go) to the market on Saturdays.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="live">
+    <p><span class="qnum">6)</span> I ___ (live) in Graz. <i>(keine Endung nötig!)</i></p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(3)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(3)">Lösungen anzeigen</button>
+  <div class="module-score" id="score3"></div>
+</section>
+
+<!-- MODUL 4 -->
+<section class="module" id="mod4" data-module="4">
+  <div class="module-number">04</div>
+  <h2>Fragen bilden mit "do" / "does"</h2>
+  <div class="duration">≈ 25 Minuten</div>
+
+  <div class="explain">
+    <p>Im Simple Present braucht eine Frage (außer mit "to be") das Hilfsverb <b>do</b> bzw. <b>does</b>. Das Hauptverb bleibt dabei immer in der Grundform – ohne -s!</p>
+    <p><b>Struktur:</b> Do/Does + Subjekt + Grundform des Verbs + ... ?</p>
+    <table>
+      <tr><th>Aussage</th><th>Frage</th></tr>
+      <tr><td>You work here.</td><td><b>Do</b> you work here?</td></tr>
+      <tr><td>She works here.</td><td><b>Does</b> she work here?</td></tr>
+    </table>
+    <p style="margin-top:0.7em"><b>Faustregel:</b> he/she/it → does (und das Verb verliert das -s!). Alle anderen → do.</p>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Does">
+    <p><span class="qnum">1)</span> ___ she speak English? (he/she/it → ?)</p>
+    <div class="options">
+      <button class="opt-btn" data-val="Do">Do</button>
+      <button class="opt-btn" data-val="Does">Does</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Do">
+    <p><span class="qnum">2)</span> ___ you live in Vasvár?</p>
+    <div class="options">
+      <button class="opt-btn" data-val="Do">Do</button>
+      <button class="opt-btn" data-val="Does">Does</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="does he like">
+    <p><span class="qnum">3)</span> Bilde die Frage aus "He likes tea." → ___ tea?</p>
+    <input type="text" placeholder="z.B. does he like">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="do they live">
+    <p><span class="qnum">4)</span> Bilde die Frage aus "They live in Austria." → ___ in Austria?</p>
+    <input type="text" placeholder="z.B. do they live">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Is">
+    <p><span class="qnum">5)</span> Achtung, Ausnahme! Bei "to be" braucht man kein do/does: "___ she a teacher?"</p>
+    <div class="options">
+      <button class="opt-btn" data-val="Does">Does</button>
+      <button class="opt-btn" data-val="Is">Is</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(4)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(4)">Lösungen anzeigen</button>
+  <div class="module-score" id="score4"></div>
+</section>
+
+<!-- MODUL 5 -->
+<section class="module" id="mod5" data-module="5">
+  <div class="module-number">05</div>
+  <h2>Verneinung – "nicht" auf Englisch</h2>
+  <div class="duration">≈ 20 Minuten</div>
+
+  <div class="explain">
+    <p>Für <b>to be</b> wird einfach "not" direkt nach dem Verb angehängt: <i>isn't, aren't, I'm not</i>.</p>
+    <p>Für alle anderen Verben im Simple Present braucht man wieder <b>do/does + not</b> – meist als Kurzform <b>don't / doesn't</b>. Auch hier verliert das Hauptverb sein -s!</p>
+    <table>
+      <tr><th>Aussage</th><th>Verneinung</th></tr>
+      <tr><td>I am tired.</td><td>I <b>am not</b> (I'm not) tired.</td></tr>
+      <tr><td>She is happy.</td><td>She <b>isn't</b> happy.</td></tr>
+      <tr><td>You work here.</td><td>You <b>don't</b> work here.</td></tr>
+      <tr><td>He works here.</td><td>He <b>doesn't</b> work here.</td></tr>
+    </table>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="doesn't like">
+    <p><span class="qnum">1)</span> He ___ (not like) coffee.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="don't understand">
+    <p><span class="qnum">2)</span> I ___ (not understand) this word.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="isn't">
+    <p><span class="qnum">3)</span> "It ___ difficult." – welche Verneinung?</p>
+    <div class="options">
+      <button class="opt-btn" data-val="doesn't">doesn't</button>
+      <button class="opt-btn" data-val="isn't">isn't</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="aren't">
+    <p><span class="qnum">4)</span> We ___ (not/to be) from Germany, we are from Austria.</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(5)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(5)">Lösungen anzeigen</button>
+  <div class="module-score" id="score5"></div>
+</section>
+
+<!-- MODUL 6: Wortschatz kompakt + Mini-Test -->
+<section class="module" id="mod6" data-module="6">
+  <div class="module-number">06</div>
+  <h2>Kurzer Wortschatz-Check &amp; Mini-Abschlusstest</h2>
+  <div class="duration">≈ 15 Minuten</div>
+
+  <div class="explain">
+    <p>Ein kleiner Grundwortschatz-Warmup, bevor alles gemischt im Abschlusstest abgefragt wird: Zahlen, Familie, Farben.</p>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="seven">
+    <p><span class="qnum">1)</span> Wie heißt "sieben" auf Englisch?</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="sister">
+    <p><span class="qnum">2)</span> Wie heißt "Schwester" auf Englisch?</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="red">
+    <p><span class="qnum">3)</span> Welche Farbe ist "rot"?</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <p style="margin-top:1.6em; font-weight:bold;">Mini-Abschlusstest – jetzt gemischt, wie im echten Leben:</p>
+
+  <div class="exercise" data-type="mc" data-answer="is">
+    <p><span class="qnum">4)</span> "My brother ___ 30 years old."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="am">am</button>
+      <button class="opt-btn" data-val="is">is</button>
+      <button class="opt-btn" data-val="are">are</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="Does she work">
+    <p><span class="qnum">5)</span> Wie fragt man richtig? "She works on Sundays."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="Do she work">Do she work?</button>
+      <button class="opt-btn" data-val="Does she work">Does she work?</button>
+      <button class="opt-btn" data-val="Is she work">Is she work?</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="doesn't">
+    <p><span class="qnum">6)</span> "He ___ speak French." (Verneinung, he/she/it)</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="text" data-answer="have">
+    <p><span class="qnum">7)</span> "They ___ a new car." (haben)</p>
+    <input type="text" placeholder="Antwort eingeben">
+    <div class="feedback"></div>
+  </div>
+
+  <div class="exercise" data-type="mc" data-answer="isn't">
+    <p><span class="qnum">8)</span> "This exercise ___ difficult at all."</p>
+    <div class="options">
+      <button class="opt-btn" data-val="doesn't">doesn't</button>
+      <button class="opt-btn" data-val="isn't">isn't</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <button class="check-btn" onclick="checkModule(6)">Modul prüfen</button>
+  <button class="reveal-btn" onclick="revealModule(6)">Lösungen anzeigen</button>
+  <div class="module-score" id="score6"></div>
+</section>
+
+<!-- FINAL -->
+<section class="module final" id="final">
+  <div class="module-number">✓</div>
+  <h2>Gesamtergebnis</h2>
+  <div class="duration">Bearbeite alle sechs Module, um dein Ergebnis zu sehen</div>
+  <div id="final-score">–</div>
+  <p class="msg">Jeder richtig gelöste Satz sitzt beim nächsten Mal ein bisschen fester. Fehler sind hier ausdrücklich erlaubt – sie zeigen genau, wo sich ein zweiter Blick lohnt. <span class="stamp">gut gemacht</span></p>
+</section>
+
+</main>
+
+<footer>
+  Tipp: Bei den Lückentexten reicht die reine Verbform bzw. das reine Wort als Antwort – Groß-/Kleinschreibung spielt keine Rolle.
+</footer>
+
+<script>
+  const totalModules = 6;
+  const completedModules = new Set();
+
+  function normalize(str){
+    return str.trim().toLowerCase().replace(/\s+/g,' ').replace(/['’]/g,"'");
+  }
+
+  function checkModule(modNum){
+    const mod = document.getElementById('mod'+modNum);
+    const exercises = mod.querySelectorAll('.exercise');
+    let correct = 0;
+
+    exercises.forEach(ex => {
+      const type = ex.dataset.type;
+      const answer = normalize(ex.dataset.answer);
+      const feedback = ex.querySelector('.feedback');
+
+      if(type === 'text'){
+        const input = ex.querySelector('input');
+        const given = normalize(input.value);
+        const isCorrect = given === answer;
+        if(isCorrect){
+          correct++;
+          input.style.borderColor = 'var(--green-check)';
+          feedback.textContent = '✓ Richtig!';
+          feedback.className = 'feedback show ok';
+        } else {
+          input.style.borderColor = 'var(--red-pen)';
+          feedback.textContent = given === '' ? 'Bitte ausfüllen. Richtige Antwort: "' + ex.dataset.answer + '"' : '✗ Nicht ganz. Richtige Antwort: "' + ex.dataset.answer + '"';
+          feedback.className = 'feedback show no';
+        }
+      } else if(type === 'mc'){
+        const selected = ex.querySelector('.opt-btn.selected');
+        const buttons = ex.querySelectorAll('.opt-btn');
+        buttons.forEach(b => b.disabled = true);
+        if(selected){
+          const given = normalize(selected.dataset.val);
+          if(given === answer){
+            correct++;
+            selected.classList.add('correct');
+            feedback.textContent = '✓ Richtig!';
+            feedback.className = 'feedback show ok';
+          } else {
+            selected.classList.add('incorrect');
+            buttons.forEach(b => { if(normalize(b.dataset.val) === answer) b.classList.add('correct'); });
+            feedback.textContent = '✗ Richtige Antwort: "' + ex.dataset.answer + '"';
+            feedback.className = 'feedback show no';
+          }
+        } else {
+          buttons.forEach(b => { if(normalize(b.dataset.val) === answer) b.classList.add('correct'); });
+          feedback.textContent = 'Nichts ausgewählt. Richtige Antwort: "' + ex.dataset.answer + '"';
+          feedback.className = 'feedback show no';
+        }
+      }
+    });
+
+    document.getElementById('score'+modNum).textContent =
+      correct + ' von ' + exercises.length + ' richtig.';
+
+    completedModules.add(modNum);
+    updateProgress();
+    updateFinal();
+  }
+
+  function revealModule(modNum){
+    const mod = document.getElementById('mod'+modNum);
+    const exercises = mod.querySelectorAll('.exercise');
+    exercises.forEach(ex => {
+      const type = ex.dataset.type;
+      if(type === 'text'){
+        const input = ex.querySelector('input');
+        input.value = ex.dataset.answer;
+        input.style.borderColor = 'var(--mustard)';
+      } else if(type === 'mc'){
+        const answer = normalize(ex.dataset.answer);
+        ex.querySelectorAll('.opt-btn').forEach(b => {
+          if(normalize(b.dataset.val) === answer) b.classList.add('correct');
+        });
+      }
+    });
+  }
+
+  // option button selection
+  document.querySelectorAll('.exercise[data-type="mc"] .opt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.options');
+      group.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  });
+
+  function updateProgress(){
+    const pct = Math.round((completedModules.size / totalModules) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = completedModules.size + ' von ' + totalModules + ' Modulen abgeschlossen';
+  }
+
+  function updateFinal(){
+    if(completedModules.size === totalModules){
+      let totalCorrect = 0, totalQuestions = 0;
+      for(let i=1; i<=totalModules; i++){
+        const mod = document.getElementById('mod'+i);
+        const exs = mod.querySelectorAll('.exercise');
+        totalQuestions += exs.length;
+        exs.forEach(ex => {
+          const type = ex.dataset.type;
+          const answer = normalize(ex.dataset.answer);
+          if(type === 'text'){
+            if(normalize(ex.querySelector('input').value) === answer) totalCorrect++;
+          } else {
+            const sel = ex.querySelector('.opt-btn.selected');
+            if(sel && normalize(sel.dataset.val) === answer) totalCorrect++;
+          }
+        });
+      }
+      document.getElementById('final-score').textContent = totalCorrect + ' / ' + totalQuestions;
+    }
+  }
+</script>
+
+</body>
+</html>
