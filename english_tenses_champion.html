@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Tenses Champion 🏆</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#132033; --primary-light:#1a4262; --accent:#4a9eff; --accent-glow:#85c1ff; --accent-dark:#2d7acc;
+  --success:#4ade80; --error:#ff5252; --text:#fff; --text-muted:#b4c8e8; --gold:#ffd740;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Quicksand',sans-serif;background:linear-gradient(180deg,#0e1a2b 0%,#153454 40%,#1f4d70 70%,#2c72a8 100%);min-height:100vh;color:var(--text)}
+.container{max-width:960px;margin:0 auto;padding:20px}
+header{text-align:center;margin-bottom:26px;padding-top:6px}
+h1{font-family:'Fredoka',sans-serif;font-size:2.3rem;background:linear-gradient(135deg,#4a9eff,#85c1ff,#ffd740);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.subtitle{color:var(--text-muted);font-size:1rem}
+
+.screen{display:none;animation:fadeIn .4s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.menu-card{background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.9));border-radius:18px;padding:24px;margin-bottom:18px;border:1px solid rgba(74,158,255,.25);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.menu-card h2{font-family:'Fredoka',sans-serif;font-size:1.35rem;color:var(--accent-glow);margin-bottom:4px}
+.menu-card .group-desc{color:var(--text-muted);font-size:.88rem;margin-bottom:16px}
+
+.tense-card{background:rgba(14,26,43,.55);border:1px solid rgba(74,158,255,.18);border-radius:13px;padding:14px 16px;margin-bottom:12px}
+.tense-card:last-child{margin-bottom:0}
+.tense-name{font-family:'Fredoka',sans-serif;font-size:1.05rem;color:var(--gold);margin-bottom:10px}
+.tense-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.small-btn{flex:1;min-width:130px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:10px;padding:10px 12px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s ease;text-align:center}
+.small-btn:hover{border-color:var(--accent-glow);background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px);box-shadow:0 5px 16px rgba(74,158,255,.35)}
+
+.mode-btn{width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:15px 18px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:all .25s ease;text-align:left;margin-bottom:10px}
+.mode-btn:last-child{margin-bottom:0}
+.mode-btn:hover{border-color:var(--accent-glow);transform:translateX(6px);background:linear-gradient(135deg,var(--accent-dark),var(--accent));box-shadow:0 5px 18px rgba(74,158,255,.3)}
+.mode-btn .mode-desc{font-size:.8rem;color:var(--text-muted);font-weight:400;margin-top:3px}
+.mode-btn:hover .mode-desc{color:#eaf3ff}
+
+.game-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.mode-indicator{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff;padding:8px 18px;border-radius:20px;font-weight:700;font-size:.9rem;font-family:'Fredoka',sans-serif}
+.stats-bar{display:flex;gap:12px}
+.stat-item{background:rgba(19,32,51,.7);padding:8px 16px;border-radius:10px;border:1px solid rgba(74,158,255,.25);text-align:center;min-width:80px}
+.stat-label{font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+.stat-value{font-family:'Fredoka',sans-serif;font-size:1.25rem;color:var(--accent-glow)}
+
+.progress-bar{background:rgba(19,32,51,.7);border-radius:10px;height:16px;overflow:hidden;margin-bottom:6px;border:1px solid rgba(74,158,255,.2)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent-dark),var(--accent-glow));transition:width .4s ease}
+.progress-text{text-align:center;color:var(--text-muted);font-size:.82rem;margin-bottom:20px}
+
+.sentence-box{background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.85));border-radius:18px;padding:34px 26px;margin-bottom:22px;border:1px solid rgba(74,158,255,.3);box-shadow:0 8px 30px rgba(0,0,0,.3);text-align:center}
+.sentence{font-family:'Fredoka',sans-serif;font-size:1.5rem;line-height:2.2}
+.blank{display:inline-block;min-width:90px;padding:4px 12px;background:rgba(74,158,255,.15);border:2px dashed rgba(133,193,255,.6);border-radius:9px;color:var(--accent-glow);font-weight:700}
+.blank.correct{background:rgba(74,222,128,.25);border:2px solid var(--success);border-style:solid;color:var(--success)}
+
+.options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:24px}
+.option-btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:14px 16px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:all .25s ease}
+.option-btn:hover:not(:disabled){border-color:var(--accent-glow);background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px)}
+.option-btn:disabled{opacity:.5;cursor:not-allowed}
+.option-btn.correct{background:linear-gradient(135deg,rgba(74,222,128,.35),rgba(74,222,128,.15));border-color:var(--success);color:var(--success);animation:pulse .5s ease}
+.option-btn.wrong{background:linear-gradient(135deg,rgba(255,82,82,.35),rgba(255,82,82,.15));border-color:var(--error);color:#ffb4b4;animation:shake .4s ease}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.control-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.control-btn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:11px;padding:11px 22px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .25s ease}
+.control-btn:hover{border-color:var(--accent-glow);transform:translateY(-2px)}
+.control-btn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent-glow);font-weight:700}
+
+.back-btn{position:fixed;top:18px;left:18px;z-index:100;display:none;background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.9));border:1px solid rgba(74,158,255,.3);border-radius:11px;padding:9px 16px;color:var(--text);font-family:'Quicksand',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer}
+.back-btn:hover{border-color:var(--accent-glow)}
+
+.result-card{background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.9));border-radius:18px;padding:32px;text-align:center;border:1px solid rgba(74,158,255,.25);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.result-title{font-family:'Fredoka',sans-serif;font-size:1.8rem;color:var(--accent-glow);margin-bottom:22px}
+.result-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:26px}
+.result-stat{background:rgba(19,32,51,.7);padding:16px;border-radius:12px;border:1px solid rgba(74,158,255,.25)}
+.result-stat-label{font-size:.78rem;color:var(--text-muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
+.result-stat-value{font-family:'Fredoka',sans-serif;font-size:1.7rem;color:var(--accent-glow)}
+
+@media(max-width:768px){
+  h1{font-size:1.8rem}.sentence{font-size:1.2rem;line-height:1.9}
+  .small-btn{min-width:100px;font-size:.8rem}
+  .result-stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<button class="back-btn" id="backBtn" onclick="goToMenu()">← Zurück zum Menü</button>
+<div class="container">
+  <header>
+    <h1>🏆 English Tenses Champion</h1>
+    <p class="subtitle">Alle Zeitformen A1/A2 – einfach anklicken, das Richtige auswählen, es geht automatisch weiter!</p>
+  </header>
+
+  <div id="startScreen" class="screen active">
+
+    <div class="menu-card">
+      <h2>🕐 Präsens</h2>
+      <p class="group-desc">Present Simple &amp; Present Continuous – jeweils Aussagesätze, Verneinung, Fragen</p>
+      <div class="tense-card">
+        <div class="tense-name">Present Simple <span style="color:var(--text-muted);font-weight:400">(I play / I don't play / Do I play?)</span></div>
+        <div class="tense-buttons">
+          <button class="small-btn" onclick="startGame('presSimple_aff')">✓ Aussagesätze</button>
+          <button class="small-btn" onclick="startGame('presSimple_neg')">✗ Verneinung</button>
+          <button class="small-btn" onclick="startGame('presSimple_q')">? Fragen</button>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">Present Continuous <span style="color:var(--text-muted);font-weight:400">(I am playing)</span></div>
+        <div class="tense-buttons">
+          <button class="small-btn" onclick="startGame('presCont_aff')">✓ Aussagesätze</button>
+          <button class="small-btn" onclick="startGame('presCont_neg')">✗ Verneinung</button>
+          <button class="small-btn" onclick="startGame('presCont_q')">? Fragen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <h2>⏪ Vergangenheit</h2>
+      <p class="group-desc">Past Simple &amp; Past Continuous</p>
+      <div class="tense-card">
+        <div class="tense-name">Past Simple <span style="color:var(--text-muted);font-weight:400">(I played)</span></div>
+        <div class="tense-buttons">
+          <button class="small-btn" onclick="startGame('pastSimple_aff')">✓ Aussagesätze</button>
+          <button class="small-btn" onclick="startGame('pastSimple_neg')">✗ Verneinung</button>
+          <button class="small-btn" onclick="startGame('pastSimple_q')">? Fragen</button>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">Past Continuous <span style="color:var(--text-muted);font-weight:400">(I was playing)</span></div>
+        <div class="tense-buttons">
+          <button class="small-btn" onclick="startGame('pastCont_aff')">✓ Aussagesätze</button>
+          <button class="small-btn" onclick="startGame('pastCont_neg')">✗ Verneinung</button>
+          <button class="small-btn" onclick="startGame('pastCont_q')">? Fragen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <h2>✅ Perfekt</h2>
+      <p class="group-desc">Present Perfect</p>
+      <div class="tense-card">
+        <div class="tense-name">Present Perfect <span style="color:var(--text-muted);font-weight:400">(I have played)</span></div>
+        <div class="tense-buttons">
+          <button class="small-btn" onclick="startGame('presPerfect_aff')">✓ Aussagesätze</button>
+          <button class="small-btn" onclick="startGame('presPerfect_neg')">✗ Verneinung</button>
+          <button class="small-btn" onclick="startGame('presPerfect_q')">? Fragen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <h2>🔮 Zukunft</h2>
+      <p class="group-desc">will &amp; going to</p>
+      <div class="tense-card">
+        <div class="tense-name">Future: will <span style="color:var(--text-muted);font-weight:400">(I will play)</span></div>
+        <div class="tense-buttons">
+          <button class="small-btn" onclick="startGame('futureWill_aff')">✓ Aussagesätze</button>
+          <button class="small-btn" onclick="startGame('futureWill_neg')">✗ Verneinung</button>
+          <button class="small-btn" onclick="startGame('futureWill_q')">? Fragen</button>
+        </div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">Future: going to <span style="color:var(--text-muted);font-weight:400">(I am going to play)</span></div>
+        <div class="tense-buttons">
+          <button class="small-btn" onclick="startGame('futureGoing_aff')">✓ Aussagesätze</button>
+          <button class="small-btn" onclick="startGame('futureGoing_neg')">✗ Verneinung</button>
+          <button class="small-btn" onclick="startGame('futureGoing_q')">? Fragen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <h2>🔀 Gegenüberstellungen</h2>
+      <p class="group-desc">Zwei Zeitformen im direkten Vergleich – welche passt hier?</p>
+      <button class="mode-btn" onclick="startGame('contrast_simplecont')">Present Simple vs. Present Continuous
+        <div class="mode-desc">every day vs. right now</div></button>
+      <button class="mode-btn" onclick="startGame('contrast_pastperfect')">Past Simple vs. Present Perfect
+        <div class="mode-desc">yesterday vs. already/never</div></button>
+      <button class="mode-btn" onclick="startGame('contrast_pastcont')">Past Simple vs. Past Continuous
+        <div class="mode-desc">yesterday vs. at 8 o'clock yesterday</div></button>
+      <button class="mode-btn" onclick="startGame('contrast_willgoing')">will vs. going to
+        <div class="mode-desc">spontane Idee vs. fixer Plan</div></button>
+      <button class="mode-btn" onclick="startGame('contrast_mixed')">🌟 Große Mischung – alle Zeitformen
+        <div class="mode-desc">die ultimative Herausforderung</div></button>
+    </div>
+
+    <div class="menu-card">
+      <h2>🔑 Spezial-Wörter</h2>
+      <p class="group-desc">Kleine Wörter, große Wirkung</p>
+      <button class="mode-btn" onclick="startGame('agoforsince')">ago – for – since
+        <div class="mode-desc">two years ago / for two years / since 2015</div></button>
+      <button class="mode-btn" onclick="startGame('alreadyyetever')">already – yet – ever
+        <div class="mode-desc">I have already... / ...yet? / Have you ever...?</div></button>
+    </div>
+
+  </div>
+
+  <div id="gameScreen" class="screen">
+    <div class="game-header">
+      <div class="mode-indicator" id="modeIndicator">Modus</div>
+      <div class="stats-bar">
+        <div class="stat-item"><div class="stat-label">Punkte</div><div class="stat-value" id="points">0</div></div>
+        <div class="stat-item"><div class="stat-label">Serie</div><div class="stat-value" id="streak">0</div></div>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-text" id="progressText">0 / 0 Sätze</div>
+    <div class="sentence-box"><div class="sentence" id="sentence"></div></div>
+    <div class="options-grid" id="optionsGrid"></div>
+    <div class="control-buttons">
+      <button class="control-btn" onclick="skipSentence()">⏭️ Überspringen</button>
+      <button class="control-btn primary" onclick="endGame()">🏁 Beenden</button>
+    </div>
+  </div>
+
+  <div id="resultScreen" class="screen">
+    <div class="result-card">
+      <h2 class="result-title">🎉 Geschafft!</h2>
+      <div class="result-stats">
+        <div class="result-stat"><div class="result-stat-label">Punkte</div><div class="result-stat-value" id="finalPoints">0</div></div>
+        <div class="result-stat"><div class="result-stat-label">Zeit</div><div class="result-stat-value" id="finalTime">0:00</div></div>
+        <div class="result-stat"><div class="result-stat-label">Beste Serie</div><div class="result-stat-value" id="bestStreak">0</div></div>
+        <div class="result-stat"><div class="result-stat-label">Auf Anhieb richtig</div><div class="result-stat-value" id="accuracy">0%</div></div>
+      </div>
+      <div class="control-buttons">
+        <button class="control-btn primary" onclick="playAgain()">🔄 Nochmal (neue Sätze)</button>
+        <button class="control-btn" onclick="goToMenu()">🏠 Zurück zum Menü</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==================== VOKABEL-DATEN ==================== */
+const VERBS = [
+  {v:'play',obj:'football',s:'plays',ing:'playing',past:'played',pp:'played'},
+  {v:'watch',obj:'a film',s:'watches',ing:'watching',past:'watched',pp:'watched'},
+  {v:'read',obj:'a book',s:'reads',ing:'reading',past:'read',pp:'read'},
+  {v:'write',obj:'a letter',s:'writes',ing:'writing',past:'wrote',pp:'written'},
+  {v:'cook',obj:'dinner',s:'cooks',ing:'cooking',past:'cooked',pp:'cooked'},
+  {v:'clean',obj:'the house',s:'cleans',ing:'cleaning',past:'cleaned',pp:'cleaned'},
+  {v:'drink',obj:'coffee',s:'drinks',ing:'drinking',past:'drank',pp:'drunk'},
+  {v:'eat',obj:'breakfast',s:'eats',ing:'eating',past:'ate',pp:'eaten'},
+  {v:'visit',obj:'her friend',s:'visits',ing:'visiting',past:'visited',pp:'visited'},
+  {v:'call',obj:'his brother',s:'calls',ing:'calling',past:'called',pp:'called'},
+  {v:'buy',obj:'new shoes',s:'buys',ing:'buying',past:'bought',pp:'bought'},
+  {v:'wash',obj:'the car',s:'washes',ing:'washing',past:'washed',pp:'washed'},
+  {v:'study',obj:'English',s:'studies',ing:'studying',past:'studied',pp:'studied'},
+  {v:'work',obj:'in the garden',s:'works',ing:'working',past:'worked',pp:'worked'},
+  {v:'walk',obj:'to school',s:'walks',ing:'walking',past:'walked',pp:'walked'},
+  {v:'listen',obj:'to music',s:'listens',ing:'listening',past:'listened',pp:'listened'},
+  {v:'sing',obj:'a song',s:'sings',ing:'singing',past:'sang',pp:'sung'},
+  {v:'travel',obj:'to Italy',s:'travels',ing:'travelling',past:'travelled',pp:'travelled'},
+  {v:'help',obj:'her mother',s:'helps',ing:'helping',past:'helped',pp:'helped'},
+  {v:'open',obj:'the window',s:'opens',ing:'opening',past:'opened',pp:'opened'},
+  {v:'close',obj:'the door',s:'closes',ing:'closing',past:'closed',pp:'closed'},
+  {v:'make',obj:'a cake',s:'makes',ing:'making',past:'made',pp:'made'},
+  {v:'take',obj:'a photo',s:'takes',ing:'taking',past:'took',pp:'taken'},
+  {v:'drive',obj:'to work',s:'drives',ing:'driving',past:'drove',pp:'driven'},
+  {v:'swim',obj:'in the lake',s:'swims',ing:'swimming',past:'swam',pp:'swum'},
+  {v:'run',obj:'in the park',s:'runs',ing:'running',past:'ran',pp:'run'},
+  {v:'speak',obj:'French',s:'speaks',ing:'speaking',past:'spoke',pp:'spoken'},
+  {v:'dance',obj:'at the party',s:'dances',ing:'dancing',past:'danced',pp:'danced'},
+  {v:'paint',obj:'a picture',s:'paints',ing:'painting',past:'painted',pp:'painted'},
+  {v:'fix',obj:'the bike',s:'fixes',ing:'fixing',past:'fixed',pp:'fixed'}
+];
+const SUBJECTS = [
+  {p:'I',low:'I',be:'am',negBe:"'m not",wasWere:'was',third:false},
+  {p:'You',low:'you',be:'are',negBe:"aren't",wasWere:'were',third:false},
+  {p:'He',low:'he',be:'is',negBe:"isn't",wasWere:'was',third:true},
+  {p:'She',low:'she',be:'is',negBe:"isn't",wasWere:'was',third:true},
+  {p:'We',low:'we',be:'are',negBe:"aren't",wasWere:'were',third:false},
+  {p:'They',low:'they',be:'are',negBe:"aren't",wasWere:'were',third:false}
+];
+const TIME_EXPR = {
+  presSimple:['every day','every morning','usually','often','every week','on Sundays','every weekend','normally'],
+  presCont:['right now','now','at the moment','at this moment'],
+  pastSimple:['yesterday','last week','last year','two days ago','last night','last summer','a week ago'],
+  pastCont:["at 8 o'clock yesterday",'all evening yesterday','the whole afternoon yesterday','at midnight last night','yesterday at noon'],
+  futureWill:['tomorrow','next week','next year','soon','next month'],
+  futureGoing:['tomorrow','next week','next month','this weekend','soon']
+};
+const PERFECT_AFF_ADV = ['already','just','never','','',''];
+const DURATIONS = ['two years','three days','a few minutes','five hours','a long time','six months','ten minutes','a week'];
+const STARTPOINTS = ['2015','Monday','last year','this morning','January','8 o\'clock','last summer','she was young'];
+
+/* ==================== HELFER ==================== */
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function sample(arr,n){const c=[...arr],out=[];while(out.length<n&&c.length){out.push(c.splice(Math.floor(Math.random()*c.length),1)[0]);}return out;}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function uniq(arr){return [...new Set(arr)];}
+
+function formsFor(subj,verb){
+  const bare=verb.v, ing=verb.ing, past=verb.past, pp=verb.pp;
+  const doDoes = subj.third?'does':'do';
+  const haveHas = subj.third?'has':'have';
+  const negDoDoes = subj.third?"doesn't":"don't";
+  const negHaveHas = subj.third?"hasn't":"haven't";
+  const negWasWere = subj.wasWere==='was'?"wasn't":"weren't";
+  return {
+    presSimple:{aff:subj.third?verb.s:bare, neg:`${negDoDoes} ${bare}`, q:cap(doDoes), mv:bare},
+    presCont:{aff:`${subj.be} ${ing}`, neg:`${subj.negBe} ${ing}`, q:cap(subj.be), mv:ing},
+    pastSimple:{aff:past, neg:`didn't ${bare}`, q:'Did', mv:bare},
+    pastCont:{aff:`${subj.wasWere} ${ing}`, neg:`${negWasWere} ${ing}`, q:cap(subj.wasWere), mv:ing},
+    presPerfect:{aff:`${haveHas} ${pp}`, neg:`${negHaveHas} ${pp}`, q:cap(haveHas), mv:pp},
+    futureWill:{aff:`will ${bare}`, neg:`won't ${bare}`, q:'Will', mv:bare},
+    futureGoing:{aff:`${subj.be} going to ${bare}`, neg:`${subj.negBe} going to ${bare}`, q:cap(subj.be), mv:`going to ${bare}`}
+  };
+}
+
+/* ==================== GENERATOREN: EINZELNE ZEITFORM ==================== */
+function genSingleTense(tense, polarity, count=50){
+  const out=[];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const forms=formsFor(subj,verb);
+    let before, after, correct, wrongCandidates;
+    if(polarity==='aff'||polarity==='neg'){
+      let correctPhrase = forms[tense][polarity];
+      let timeWord = TIME_EXPR[tense] ? pick(TIME_EXPR[tense]) : '';
+      if(tense==='presPerfect' && polarity==='aff'){
+        const adv=pick(PERFECT_AFF_ADV);
+        correctPhrase = adv ? `${forms.presPerfect.aff.split(' ')[0]} ${adv} ${verb.pp}` : forms.presPerfect.aff;
+        timeWord='';
+      }
+      if(tense==='presPerfect' && polarity==='neg'){ timeWord='yet'; }
+      before = `${subj.p} `;
+      after = ` ${verb.obj}${timeWord?' '+timeWord:''}.`;
+      correct = correctPhrase;
+      wrongCandidates = Object.keys(forms).filter(k=>k!==tense).map(k=>forms[k][polarity]);
+    } else {
+      let timeWord = tense==='presPerfect' ? 'yet' : (TIME_EXPR[tense] ? pick(TIME_EXPR[tense]) : '');
+      before='';
+      after = ` ${subj.low} ${forms[tense].mv} ${verb.obj}${timeWord?' '+timeWord:''}?`;
+      correct = forms[tense].q;
+      wrongCandidates = Object.keys(forms).filter(k=>k!==tense).map(k=>forms[k].q);
+    }
+    wrongCandidates = uniq(wrongCandidates).filter(c=>c.toLowerCase()!==correct.toLowerCase());
+    const wrong = sample(wrongCandidates, Math.min(3, wrongCandidates.length));
+    out.push({before, after, correct, options:shuffle([correct,...wrong])});
+  }
+  return out;
+}
+
+/* ==================== GENERATOREN: GEGENÜBERSTELLUNGEN ==================== */
+function genContrastSimpleCont(count=50){
+  const out=[];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const forms=formsFor(subj,verb);
+    const target = Math.random()<0.5?'presSimple':'presCont';
+    const other = target==='presSimple'?'presCont':'presSimple';
+    const timeWord = pick(TIME_EXPR[target]);
+    const before=`${subj.p} `, after=` ${verb.obj} ${timeWord}.`;
+    const correct = forms[target].aff;
+    let wrong = uniq([forms[other].aff, ...sample(['pastSimple','presPerfect','futureWill'].map(k=>forms[k].aff),1)])
+      .filter(w=>w.toLowerCase()!==correct.toLowerCase());
+    out.push({before,after,correct,options:shuffle([correct,...wrong])});
+  }
+  return out;
+}
+function genContrastPastPerfect(count=50){
+  const out=[];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const forms=formsFor(subj,verb);
+    const target = Math.random()<0.5?'pastSimple':'presPerfect';
+    const before=`${subj.p} `;
+    let after, correct;
+    if(target==='pastSimple'){
+      after=` ${verb.obj} ${pick(TIME_EXPR.pastSimple)}.`;
+      correct=forms.pastSimple.aff;
+    } else {
+      const adv=pick(['already','never','many times','recently','so far']);
+      after=` ${verb.obj}.`;
+      correct=`${forms.presPerfect.aff.split(' ')[0]} ${adv} ${verb.pp}`;
+    }
+    const altOther = target==='pastSimple'?forms.presPerfect.aff:forms.pastSimple.aff;
+    let wrong = uniq([altOther, ...sample(['pastCont','futureWill','presCont'].map(k=>forms[k].aff),1)])
+      .filter(w=>w.toLowerCase()!==correct.toLowerCase());
+    out.push({before,after,correct,options:shuffle([correct,...wrong])});
+  }
+  return out;
+}
+function genContrastPastPastCont(count=50){
+  const out=[];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const forms=formsFor(subj,verb);
+    const target = Math.random()<0.5?'pastSimple':'pastCont';
+    const other = target==='pastSimple'?'pastCont':'pastSimple';
+    const timeWord = pick(TIME_EXPR[target]);
+    const before=`${subj.p} `, after=` ${verb.obj} ${timeWord}.`;
+    const correct = forms[target].aff;
+    let wrong = uniq([forms[other].aff, ...sample(['presPerfect','futureWill','presCont'].map(k=>forms[k].aff),1)])
+      .filter(w=>w.toLowerCase()!==correct.toLowerCase());
+    out.push({before,after,correct,options:shuffle([correct,...wrong])});
+  }
+  return out;
+}
+function genContrastWillGoing(count=50){
+  const willPrefix=['I think ','Maybe ','Probably ','I guess '];
+  const goingPrefix=['According to the plan, ','As already arranged, ','It is already decided that '];
+  const out=[];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const forms=formsFor(subj,verb);
+    const target = Math.random()<0.5?'futureWill':'futureGoing';
+    const prefix = target==='futureWill'?pick(willPrefix):pick(goingPrefix);
+    const before=`${prefix}${subj.low} `, after=` ${verb.obj}.`;
+    const correct = forms[target].aff;
+    const other = target==='futureWill'?forms.futureGoing.aff:forms.futureWill.aff;
+    let wrong = uniq([other, ...sample([forms.presSimple.aff, forms.pastSimple.aff],1)])
+      .filter(w=>w.toLowerCase()!==correct.toLowerCase());
+    out.push({before,after,correct,options:shuffle([correct,...wrong])});
+  }
+  return out;
+}
+function genMixedReview(count=50){
+  const tenses=['presSimple','presCont','pastSimple','pastCont','presPerfect','futureWill','futureGoing'];
+  const out=[];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const forms=formsFor(subj,verb);
+    const target=pick(tenses);
+    let correct, after;
+    if(target==='presPerfect'){
+      const adv=pick(['already','never','just','recently']);
+      correct=`${forms.presPerfect.aff.split(' ')[0]} ${adv} ${verb.pp}`;
+      after=` ${verb.obj}.`;
+    } else {
+      correct=forms[target].aff;
+      after=` ${verb.obj} ${pick(TIME_EXPR[target])}.`;
+    }
+    const before=`${subj.p} `;
+    const otherTenses = sample(tenses.filter(t=>t!==target),3);
+    let wrong = uniq(otherTenses.map(t=>forms[t].aff)).filter(w=>w.toLowerCase()!==correct.toLowerCase());
+    out.push({before,after,correct,options:shuffle([correct,...wrong])});
+  }
+  return out;
+}
+
+/* ==================== GENERATOREN: SPEZIAL-WÖRTER ==================== */
+function genAgoForSince(count=50){
+  const out=[];
+  const types=['ago','for','since'];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const forms=formsFor(subj,verb);
+    const type=pick(types);
+    let before, after;
+    if(type==='ago'){
+      before=`${subj.p} ${forms.pastSimple.aff} ${verb.obj} ${pick(DURATIONS)} `;
+      after='.';
+    } else if(type==='for'){
+      before=`${subj.p} ${forms.presPerfect.aff} ${verb.obj} `;
+      after=` ${pick(DURATIONS)}.`;
+    } else {
+      before=`${subj.p} ${forms.presPerfect.aff} ${verb.obj} `;
+      after=` ${pick(STARTPOINTS)}.`;
+    }
+    out.push({before,after,correct:type,options:shuffle(['ago','for','since'])});
+  }
+  return out;
+}
+function genAlreadyYetEver(count=50){
+  const out=[];
+  const types=['already','yet','ever'];
+  for(let i=0;i<count;i++){
+    const subj=pick(SUBJECTS), verb=pick(VERBS);
+    const haveHas=subj.third?'has':'have';
+    const negHaveHas=subj.third?"hasn't":"haven't";
+    const type=pick(types);
+    let before, after;
+    if(type==='already'){
+      before=`${subj.p} ${haveHas} `;
+      after=` ${verb.pp} ${verb.obj}.`;
+    } else if(type==='yet'){
+      before=`${subj.p} ${negHaveHas} ${verb.pp} ${verb.obj} `;
+      after='.';
+    } else {
+      before=`${cap(haveHas)} ${subj.low} `;
+      after=` ${verb.pp} ${verb.obj}?`;
+    }
+    out.push({before,after,correct:type,options:shuffle(['already','yet','ever'])});
+  }
+  return out;
+}
+
+/* ==================== MODI ==================== */
+const MODE_GENERATORS = {};
+['presSimple','presCont','pastSimple','pastCont','presPerfect','futureWill','futureGoing'].forEach(t=>{
+  ['aff','neg','q'].forEach(p=>{
+    MODE_GENERATORS[`${t}_${p}`] = ()=>genSingleTense(t,p);
+  });
+});
+MODE_GENERATORS.contrast_simplecont = genContrastSimpleCont;
+MODE_GENERATORS.contrast_pastperfect = genContrastPastPerfect;
+MODE_GENERATORS.contrast_pastcont = genContrastPastPastCont;
+MODE_GENERATORS.contrast_willgoing = genContrastWillGoing;
+MODE_GENERATORS.contrast_mixed = genMixedReview;
+MODE_GENERATORS.agoforsince = genAgoForSince;
+MODE_GENERATORS.alreadyyetever = genAlreadyYetEver;
+
+const TENSE_NAMES = {presSimple:'Present Simple',presCont:'Present Continuous',pastSimple:'Past Simple',pastCont:'Past Continuous',presPerfect:'Present Perfect',futureWill:'Future (will)',futureGoing:'Future (going to)'};
+const POL_NAMES = {aff:'Aussagesätze',neg:'Verneinung',q:'Fragen'};
+const MODE_LABELS = {
+  contrast_simplecont:'Present Simple vs. Present Continuous',
+  contrast_pastperfect:'Past Simple vs. Present Perfect',
+  contrast_pastcont:'Past Simple vs. Past Continuous',
+  contrast_willgoing:'will vs. going to',
+  contrast_mixed:'🌟 Große Mischung',
+  agoforsince:'ago – for – since',
+  alreadyyetever:'already – yet – ever'
+};
+Object.keys(TENSE_NAMES).forEach(t=>{
+  Object.keys(POL_NAMES).forEach(p=>{
+    MODE_LABELS[`${t}_${p}`] = `${TENSE_NAMES[t]} – ${POL_NAMES[p]}`;
+  });
+});
+
+/* ==================== SPIEL-LOGIK ==================== */
+const gameState = {mode:null, sentences:[], idx:0, points:0, streak:0, bestStreak:0, correctFirstTry:0, total:0, startTime:0, locked:false, firstTry:true};
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startGame(modeKey){
+  gameState.mode = modeKey;
+  gameState.sentences = MODE_GENERATORS[modeKey]();
+  gameState.idx = 0;
+  gameState.points = 0;
+  gameState.streak = 0;
+  gameState.bestStreak = 0;
+  gameState.correctFirstTry = 0;
+  gameState.total = gameState.sentences.length;
+  gameState.startTime = Date.now();
+  document.getElementById('modeIndicator').textContent = MODE_LABELS[modeKey] || modeKey;
+  document.getElementById('backBtn').style.display = 'block';
+  updateStats();
+  showScreen('gameScreen');
+  loadSentence();
+}
+
+function loadSentence(){
+  if(gameState.idx >= gameState.sentences.length){ endGame(); return; }
+  const s = gameState.sentences[gameState.idx];
+  gameState.locked = false;
+  gameState.firstTry = true;
+  const sentenceEl = document.getElementById('sentence');
+  sentenceEl.innerHTML = '';
+  sentenceEl.appendChild(document.createTextNode(s.before));
+  const blank = document.createElement('span');
+  blank.className = 'blank';
+  blank.id = 'blankSpan';
+  blank.textContent = '___';
+  sentenceEl.appendChild(blank);
+  sentenceEl.appendChild(document.createTextNode(s.after));
+  renderOptions(s.options, s.correct);
+  updateProgress();
+}
+
+function renderOptions(options, correct){
+  const grid = document.getElementById('optionsGrid');
+  grid.innerHTML = '';
+  options.forEach(opt=>{
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = ()=>selectOption(opt, correct, btn);
+    grid.appendChild(btn);
+  });
+}
+
+function selectOption(opt, correct, btn){
+  if(gameState.locked) return;
+  if(opt === correct){
+    gameState.locked = true;
+    btn.classList.add('correct');
+    const blank = document.getElementById('blankSpan');
+    blank.textContent = opt;
+    blank.classList.add('correct');
+    document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+    gameState.streak++;
+    if(gameState.streak > gameState.bestStreak) gameState.bestStreak = gameState.streak;
+    let pts = 10;
+    if(gameState.streak >= 10) pts = 30; else if(gameState.streak >= 5) pts = 20;
+    gameState.points += pts;
+    if(gameState.firstTry) gameState.correctFirstTry++;
+    updateStats();
+    setTimeout(()=>{ gameState.idx++; loadSentence(); }, 650);
+  } else {
+    btn.classList.add('wrong');
+    btn.disabled = true;
+    gameState.streak = 0;
+    gameState.firstTry = false;
+    updateStats();
+  }
+}
+
+function skipSentence(){
+  gameState.streak = 0;
+  gameState.idx++;
+  updateStats();
+  loadSentence();
+}
+
+function updateStats(){
+  document.getElementById('points').textContent = gameState.points;
+  document.getElementById('streak').textContent = gameState.streak;
+}
+
+function updateProgress(){
+  const pct = gameState.total > 0 ? (gameState.idx / gameState.total) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${gameState.idx} / ${gameState.total} Sätze`;
+}
+
+function endGame(){
+  const elapsed = Math.floor((Date.now() - gameState.startTime) / 1000);
+  document.getElementById('finalPoints').textContent = gameState.points;
+  document.getElementById('finalTime').textContent = `${Math.floor(elapsed/60)}:${(elapsed%60).toString().padStart(2,'0')}`;
+  document.getElementById('bestStreak').textContent = gameState.bestStreak;
+  const acc = gameState.total > 0 ? Math.round((gameState.correctFirstTry / gameState.total) * 100) : 0;
+  document.getElementById('accuracy').textContent = acc + '%';
+  document.getElementById('backBtn').style.display = 'none';
+  showScreen('resultScreen');
+}
+
+function playAgain(){ startGame(gameState.mode); }
+function goToMenu(){ document.getElementById('backBtn').style.display = 'none'; showScreen('startScreen'); }
+</script>
+</body>
+</html>
