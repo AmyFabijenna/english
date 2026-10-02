@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Challenge Plus</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#132033;--primary-light:#1a4262;--accent:#4a9eff;--accent-glow:#85c1ff;--accent-dark:#2d7acc;--success:#4ade80;--error:#ff5252;--text:#fff;--text-muted:#b4c8e8;--gold:#ffd740;--card:rgba(19,32,51,.92)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Quicksand',system-ui,sans-serif;background:linear-gradient(180deg,#0e1a2b 0%,#153454 40%,#1f4d70 70%,#2c72a8 100%) fixed;min-height:100vh;color:var(--text);line-height:1.5}
+.container{max-width:1000px;margin:0 auto;padding:16px 16px 60px}
+header{text-align:center;padding:8px 0 10px}
+h1{font-family:'Fredoka',sans-serif;font-size:2.2rem;background:linear-gradient(135deg,#4a9eff,#85c1ff,#ffd740);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.subtitle{color:var(--text-muted);font-size:.95rem}
+.view{display:none;animation:fadeIn .35s ease}.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#topnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;position:sticky;top:0;z-index:50;padding:8px 4px;margin-bottom:12px;background:rgba(14,26,43,.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(74,158,255,.2)}
+.tabbtn{background:rgba(26,66,98,.7);border:1px solid rgba(74,158,255,.3);border-radius:20px;padding:8px 14px;color:var(--text);font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s}
+.tabbtn:hover{border-color:var(--accent-glow)}.tabbtn.on{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent-glow)}
+.tab{display:none}.tab.on{display:block}
+.card{background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.88));border-radius:18px;padding:20px;margin-bottom:16px;border:1px solid rgba(74,158,255,.25);box-shadow:0 8px 26px rgba(0,0,0,.3)}
+.card h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;color:var(--accent-glow);margin-bottom:4px}
+.card h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;color:var(--gold);margin:10px 0 6px}
+.desc{color:var(--text-muted);font-size:.88rem;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.tcard{background:rgba(14,26,43,.6);border:1px solid rgba(74,158,255,.2);border-radius:14px;padding:14px}
+.tcard .tt{font-family:'Fredoka',sans-serif;color:var(--gold);font-size:1.02rem;margin-bottom:2px}
+.tcard .td{color:var(--text-muted);font-size:.8rem;margin-bottom:8px;min-height:2.4em}
+.btnrow{display:flex;gap:6px;flex-wrap:wrap}
+.sbtn{flex:1;min-width:76px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:10px;padding:8px 10px;color:var(--text);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;transition:.2s;text-align:center}
+.sbtn:hover:not(:disabled){border-color:var(--accent-glow);background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px)}
+.sbtn:disabled{opacity:.35;cursor:not-allowed}
+.sbtn.gold{border-color:var(--gold);color:var(--gold)}
+.best{font-size:.72rem;color:var(--success);margin-left:6px;font-weight:700}
+.modebtn{width:100%;display:block;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:12px 16px;color:var(--text);font-family:inherit;font-size:.98rem;font-weight:700;cursor:pointer;text-align:left;margin-bottom:8px;transition:.2s}
+.modebtn small{display:block;color:var(--text-muted);font-weight:500;font-size:.8rem}
+.modebtn:hover{border-color:var(--accent-glow);transform:translateX(5px);background:linear-gradient(135deg,var(--accent-dark),var(--accent))}
+.modebtn:hover small{color:#eaf3ff}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:rgba(26,66,98,.7);border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:8px 12px;color:var(--text);font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--accent-glow)}.chip.on{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--gold)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.vtile{background:rgba(14,26,43,.6);border:2px solid rgba(74,158,255,.25);border-radius:14px;padding:12px;color:var(--text);cursor:pointer;font-family:inherit;text-align:left;transition:.2s}
+.vtile:hover{border-color:var(--accent-glow);transform:translateY(-3px)}
+.vtile .ic{font-size:1.6rem}.vtile .vt{font-weight:700;font-size:.92rem}.vtile .vn{font-size:.75rem;color:var(--text-muted)}
+.bar{background:rgba(19,32,51,.7);border-radius:10px;height:14px;overflow:hidden;border:1px solid rgba(74,158,255,.2)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-dark),var(--accent-glow));transition:width .4s}
+.bar.gold i{background:linear-gradient(90deg,#ff9800,var(--gold))}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:10px 0}
+.stat{background:rgba(19,32,51,.7);border:1px solid rgba(74,158,255,.25);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-family:'Fredoka',sans-serif;font-size:1.5rem;color:var(--accent-glow)}.stat span{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+/* Spiel */
+.ghead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.mode-ind{background:linear-gradient(135deg,var(--accent-dark),var(--accent));padding:7px 16px;border-radius:20px;font-weight:700;font-family:'Fredoka',sans-serif;font-size:.9rem}
+.sbar{display:flex;gap:8px}.si{background:rgba(19,32,51,.7);padding:6px 12px;border-radius:10px;border:1px solid rgba(74,158,255,.25);text-align:center;min-width:64px}
+.si small{display:block;font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}.si b{font-family:'Fredoka',sans-serif;color:var(--accent-glow);font-size:1.1rem}
+.ptext{text-align:center;color:var(--text-muted);font-size:.8rem;margin:4px 0 14px}
+.qprompt{text-align:center;color:var(--gold);font-weight:700;margin-bottom:8px;font-size:.95rem}
+.sbox{background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.85));border-radius:18px;padding:28px 20px;margin-bottom:18px;border:1px solid rgba(74,158,255,.3);text-align:center;box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.sent{font-family:'Fredoka',sans-serif;font-size:1.45rem;line-height:2.1}
+.blank{display:inline-block;min-width:80px;padding:2px 12px;background:rgba(74,158,255,.15);border:2px dashed rgba(133,193,255,.6);border-radius:9px;color:var(--accent-glow);font-weight:700}
+.blank.correct{background:rgba(74,222,128,.25);border:2px solid var(--success);color:var(--success)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
+.opts.wide{grid-template-columns:1fr}
+.opt{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;text-align:center}
+.opts.wide .opt{text-align:left}
+.opt:hover:not(:disabled){border-color:var(--accent-glow);background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px)}
+.opt:disabled{opacity:.55;cursor:default}
+.opt.correct{background:linear-gradient(135deg,rgba(74,222,128,.35),rgba(74,222,128,.15));border-color:var(--success);color:var(--success);opacity:1;animation:pulse .5s}
+.opt.wrong{background:linear-gradient(135deg,rgba(255,82,82,.35),rgba(255,82,82,.15));border-color:var(--error);color:#ffb4b4;animation:shake .4s}
+@keyframes pulse{50%{transform:scale(1.06)}}@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tin{font-family:'Fredoka',sans-serif;font-size:1.25rem;background:rgba(14,26,43,.8);border:2px solid rgba(133,193,255,.5);border-radius:9px;color:#fff;padding:2px 8px;margin:0 4px;text-align:center;outline:none}
+.tin:focus{border-color:var(--gold)}.tin.ok{border-color:var(--success);background:rgba(74,222,128,.2);color:var(--success)}.tin.bad{border-color:var(--error);background:rgba(255,82,82,.2);animation:shake .4s}
+.tin.wide{width:min(94%,640px);display:block;margin:10px auto 0}
+.ctrl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.cbtn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:11px;padding:10px 20px;color:var(--text);font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;transition:.2s}
+.cbtn:hover{border-color:var(--accent-glow);transform:translateY(-2px)}.cbtn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent-glow)}
+.fb{min-height:1.5em;text-align:center;margin:0 auto 12px;max-width:720px;font-size:.95rem;padding:0 6px}
+.fb.hint{color:#ffe08a;background:rgba(255,215,64,.1);border:1px solid rgba(255,215,64,.35);border-radius:10px;padding:8px 12px}
+.fb.ok{color:var(--success)}
+.chipwrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0;min-height:44px}
+.wchip{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.4);border-radius:10px;padding:8px 13px;color:#fff;font-family:'Fredoka',sans-serif;font-size:1.05rem;cursor:pointer;transition:.15s}
+.wchip:hover{border-color:var(--gold);transform:translateY(-2px)}.wchip.used{opacity:.25;pointer-events:none}
+.ansline{min-height:56px;background:rgba(14,26,43,.6);border:2px dashed rgba(133,193,255,.5);border-radius:12px;padding:8px}
+.ansline.ok .wchip{border-color:var(--success);color:var(--success)}.ansline.bad .wchip{border-color:var(--error);color:#ffb4b4}
+.deside{color:var(--accent-glow);font-size:1.15rem;font-family:'Fredoka',sans-serif;margin-bottom:6px}
+.fcard{perspective:900px;max-width:520px;margin:0 auto 16px;height:240px;cursor:pointer}
+.fin{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fcard.flip .fin{transform:rotateY(180deg)}
+.fside{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:18px;border:2px solid rgba(133,193,255,.5);font-family:'Fredoka',sans-serif;font-size:2rem;text-align:center;padding:16px;background:linear-gradient(135deg,rgba(19,32,51,.98),rgba(26,66,98,.9))}
+.fside.back{transform:rotateY(180deg);background:linear-gradient(135deg,#1a4262,#2d7acc);color:var(--gold)}
+.fside small{font-size:.8rem;color:var(--text-muted);font-family:'Quicksand'}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:640px;margin:0 auto 14px}
+.mcard{min-height:72px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.4);border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer;padding:6px;transition:.2s}
+.mcard.up{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--gold)}.mcard.done{background:rgba(74,222,128,.25);border-color:var(--success);color:var(--success);pointer-events:none}
+.hang{font-family:'Fredoka',sans-serif;font-size:2.2rem;letter-spacing:.35em;margin:10px 0}
+.kb{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:560px;margin:0 auto 12px}
+.kb button{width:38px;height:42px;border-radius:9px;border:2px solid rgba(74,158,255,.4);background:var(--primary-light);color:#fff;font-weight:700;font-family:inherit;cursor:pointer}
+.kb button:disabled{opacity:.3}.kb button.g{background:rgba(74,222,128,.3);border-color:var(--success)}.kb button.b{background:rgba(255,82,82,.3);border-color:var(--error)}
+.back-btn{position:fixed;top:12px;left:12px;z-index:100;display:none;background:var(--card);border:1px solid rgba(74,158,255,.4);border-radius:11px;padding:8px 14px;color:#fff;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+/* Regel & Tabellen */
+.rule table,.ref table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.88rem}
+.rule th,.rule td,.ref th,.ref td{border:1px solid rgba(133,193,255,.25);padding:6px 9px;text-align:left;vertical-align:top}
+.rule th,.ref th{background:rgba(74,158,255,.2);color:var(--gold)}
+.rule p,.ref p{margin:8px 0;font-size:.92rem}.ex{color:var(--accent-glow);font-style:italic}
+.tablewrap{overflow-x:auto}
+details{background:rgba(14,26,43,.55);border:1px solid rgba(74,158,255,.2);border-radius:12px;margin-bottom:8px;padding:2px 12px}
+details summary{cursor:pointer;padding:10px 0;font-weight:700;color:var(--gold);font-family:'Fredoka',sans-serif}
+#modal{position:fixed;inset:0;background:rgba(5,10,20,.85);z-index:200;display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:20px}
+#modal.on{display:flex}.mbox{background:linear-gradient(135deg,#132033,#1a4262);border:1px solid var(--accent);border-radius:18px;padding:22px;max-width:760px;width:100%;margin:auto}
+.mbox h2{font-family:'Fredoka',sans-serif;color:var(--gold);margin-bottom:8px}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--gold);padding:10px 18px;border-radius:14px;z-index:300;display:none;font-weight:700}
+.badge{display:inline-block;margin:4px;padding:8px 12px;border-radius:12px;border:1px solid rgba(74,158,255,.3);background:rgba(14,26,43,.6);font-size:.85rem}.badge.on{border-color:var(--gold);background:rgba(255,215,64,.12)}.badge.off{opacity:.4;filter:grayscale(1)}
+.plan-week{margin-bottom:10px}.day{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(133,193,255,.15);padding:6px 0}.day b{min-width:52px;color:var(--gold)}
+.task{font-size:.8rem;padding:5px 10px;border-radius:9px;border:1px solid rgba(74,158,255,.35);background:rgba(26,66,98,.6);color:#fff;cursor:pointer;font-family:inherit;font-weight:600}
+.task:hover{border-color:var(--accent-glow)}.task.done{background:rgba(74,222,128,.2);border-color:var(--success);color:var(--success)}
+table.rl{width:100%;border-collapse:collapse;font-size:.85rem}table.rl td,table.rl th{border-bottom:1px solid rgba(133,193,255,.15);padding:5px 8px;text-align:left}table.rl th{color:var(--gold)}
+.cloze{font-family:'Fredoka',sans-serif;font-size:1.15rem;line-height:2.4;text-align:left}
+.cloze select{font-family:inherit;font-size:1.05rem;border-radius:8px;background:#0e1a2b;color:#fff;border:2px solid rgba(133,193,255,.5);padding:2px 4px}
+.cloze .tin{font-size:1.05rem;width:9em}
+.timer{color:var(--gold)}
+@media(max-width:700px){h1{font-size:1.7rem}.sent{font-size:1.15rem}.mem{grid-template-columns:repeat(4,1fr)}.tabbtn{padding:6px 10px;font-size:.8rem}.fside{font-size:1.5rem}}
+
+body.ingame header{padding-top:46px}
+
+/* ===== Tenses Talk: Ergänzungen ===== */
+body.ingame header{padding-top:46px}
+.tlsvg{width:100%;max-width:560px;height:auto;display:block;margin:6px auto}
+.tl-line{stroke:#85c1ff;stroke-width:3}.tl-arrow{fill:#85c1ff}.tl-now{stroke:#ffffff;stroke-width:2;stroke-dasharray:3 3;opacity:.7}
+.tl-t{fill:#ffffff;font:700 12px Fredoka,Quicksand,sans-serif;letter-spacing:1px}.tl-t.dim{fill:#85c1ff;opacity:.8}.tl-l{fill:#ffd740;font:600 12.5px Quicksand,sans-serif}
+.tl-dot{fill:#ffd740}.tl-dot2{fill:#4ade80}.tl-bar{fill:#ffd740}.tl-hit{stroke:#ff6b6b;stroke-width:4;stroke-linecap:round}
+.tl-arc{fill:none;stroke:#ffd740;stroke-width:3;stroke-dasharray:5 4}.tl-arrowf{fill:#ffd740}
+.tlmini{max-width:560px;margin:10px auto 0}
+.explain{margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(74,222,128,.10);border:1px solid rgba(74,222,128,.45);line-height:1.55}
+.sent.big{font-size:1.45rem}
+.explain small{opacity:.8}
+.model .say,.say{background:rgba(255,215,64,.08);border-left:4px solid var(--gold);padding:12px 14px;border-radius:10px;font-size:1.08rem;line-height:1.7}
+.de-bridge{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(74,158,255,.12);border:1px solid rgba(74,158,255,.35)}
+.wrongc{color:#ff9d9d;text-decoration:line-through;text-decoration-color:rgba(255,157,157,.6)}.rightc{color:#8df0b0;font-weight:700}
+.exrow{margin:3px 0}.tiny{background:none;border:none;cursor:pointer;font-size:.95rem;margin-left:6px;padding:0 4px}
+.chip.static{cursor:default}.chip.static:hover{transform:none}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}.crumb{background:rgba(74,158,255,.18);border:1px solid rgba(74,158,255,.4);border-radius:999px;padding:3px 12px;font-size:.85rem}
+.tbtn{text-align:left;cursor:pointer;font-family:inherit;color:inherit}.tbtn:hover{border-color:var(--gold)}
+.rate{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}.rate span{margin-right:6px;font-weight:700}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}.pairbox{background:rgba(14,26,43,.5);border:1px solid rgba(74,158,255,.3);border-radius:14px;padding:12px}
+.pts{line-height:1.7;margin:10px 0 0 20px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px}
+.qtile{background:rgba(19,32,51,.8);border:2px solid rgba(74,158,255,.35);border-radius:14px;padding:12px 14px;text-align:left;color:#fff;font-family:inherit;cursor:pointer}
+.qtile:hover{border-color:var(--gold)}.qtile.done{border-color:#4ade80}.qtile .qq{display:block;font-weight:700;margin-bottom:4px}.qtile small{opacity:.75}
+.phr{display:flex;flex-direction:column;gap:6px}.phrbtn{text-align:left;background:rgba(14,26,43,.6);border:1px solid rgba(74,158,255,.3);color:#fff;border-radius:10px;padding:9px 12px;font-family:inherit;font-size:1rem;cursor:pointer}.phrbtn:hover{border-color:var(--gold)}
+.transcript{margin:10px 0;padding:10px 12px;border-radius:10px;background:rgba(14,26,43,.7);border:1px dashed rgba(133,193,255,.5);font-style:italic}
+.checks{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.chk{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:999px;border:1px solid rgba(74,158,255,.4);background:rgba(14,26,43,.5);cursor:pointer}.chk.on{border-color:#4ade80;background:rgba(74,222,128,.14)}
+.lesson-step.done{opacity:.72}.lhead{display:flex;align-items:center;gap:6px;border:none;background:none;padding:0;font-size:1.1rem;cursor:pointer}.lhead .min{margin-left:auto;color:var(--gold);font-weight:700}
+.lesson-step p{line-height:1.65}
+.barlab{position:absolute;left:8px;top:0;font-size:.75rem;line-height:14px;color:#fff}.bar{position:relative}
+.dim{opacity:.6}
+@media(max-width:700px){.pair{grid-template-columns:1fr}.sent.big{font-size:1.2rem}}
+@media print{#topnav,.back-btn,.noprint,.btnrow,.cbtn,.sbtn,.tiny{display:none!important}body{background:#fff!important;color:#000!important}.card{background:#fff!important;border:1px solid #888!important;color:#000!important;box-shadow:none!important;break-inside:avoid}h1,h2,h3,.subtitle{color:#000!important;-webkit-text-fill-color:#000!important}.lesson-step.done{opacity:1}}
+.seqlist{list-style:none;padding:0;margin:10px 0;counter-reset:s}.seqitem{counter-increment:s;background:rgba(74,222,128,.12);border:2px solid rgba(133,193,255,.4);border-radius:12px;padding:10px 14px;margin:6px 0;cursor:pointer}
+.seqitem::before{content:counter(s) ". ";font-weight:700;color:var(--gold)}.seqlist.ok .seqitem{border-color:var(--success)}.seqlist.bad .seqitem{border-color:var(--error);animation:shake .4s}
+.seqbank{display:flex;flex-direction:column;gap:8px;margin:10px 0}.seqbtn{text-align:left;background:rgba(255,255,255,.07);border:2px solid rgba(133,193,255,.35);border-radius:12px;color:#fff;padding:10px 14px;font:inherit;cursor:pointer}.seqbtn:hover{border-color:var(--gold)}
+textarea.studio{width:100%;min-height:180px;background:rgba(14,26,43,.8);border:2px solid rgba(133,193,255,.5);border-radius:12px;color:#fff;padding:12px;font:inherit;font-size:1.05rem;line-height:1.5;resize:vertical;outline:none}textarea.studio:focus{border-color:var(--gold)}
+.checklist{margin:12px 0}.chk2{padding:4px 0;color:#c9d6ea}.chk2.ok{color:var(--success)}
+.cloze.long{line-height:2.4;font-size:1.05rem;text-align:left}.cloze select{font:inherit;background:rgba(14,26,43,.9);color:#fff;border:2px solid rgba(133,193,255,.5);border-radius:9px;padding:2px 6px;margin:0 3px}
+.dim{color:#8aa0bf}.tiny{background:none;border:0;cursor:pointer;margin-left:6px}.desc{margin:6px 0 12px;line-height:1.55}
+
+</style>
+</head>
+<body>
+<button class="back-btn" id="backBtn">← Menü</button>
+<div class="container">
+  <header>
+    <h1>🚀 Challenge Plus</h1>
+    <div class="subtitle">Zeiten, Stammformen, Satzanfänge und Steigerung – eine Stufe schwerer</div>
+  </header>
+  <div id="menuView" class="view active" style="display:block">
+    <nav id="topnav"></nav>
+    <div id="tabs"></div>
+  </div>
+  <div id="gameView" class="view" style="display:none">
+    <div class="ghead"><div class="mode-ind" id="modeInd"></div></div>
+    <div class="bar"><i id="pfill" style="width:0"></i></div>
+    <div class="ptext" id="ptext"></div>
+    <div id="qArea"></div>
+    <div class="fb" id="fb"></div>
+    <div class="ctrl" id="nextRow" style="display:none"><button class="cbtn primary" id="nextBtn">Weiter ➜</button></div>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+'use strict';
+/* ===== Zeiten (schwer): Lückensätze mit Tipp-Antworten ===== */
+/* {a|b} = Tipp-Lücke (Varianten), (hint) bleibt als Text stehen. Kurzformen werden automatisch erkannt. */
+const TGAP = [
+ // Present Simple
+ ['My cousin {does not like} (not like) spiders, but she {loves} (love) snakes.','ps','Negative: does not + base verb. Love is a state verb, so it stays in the Present Simple.'],
+ ['Trains to Salzburg {leave} (leave) every hour, and the journey {takes} (take) about three hours.','ps','Timetables and facts → Present Simple.'],
+ ['How often {does} your brother {play} (play) volleyball?','ps','Question: does + subject + base verb.'],
+ ['She {always goes} (always / go) to bed at ten, and she {never watches} (never / watch) TV after eight.','ps','Frequency adverbs stand before the main verb; he/she/it needs -s or -es.'],
+ ['He {tries} (try) hard, but he {misses} (miss) the bus every morning.','ps','Consonant + y → -ies; after -s, -sh, -ch, -x → -es.'],
+ ['I {do not understand} (not understand) this exercise. What {does} this word {mean} (mean)?','ps','State verbs (understand, mean) have no -ing form.'],
+ ['This soup {tastes} (taste) great, and it {smells} (smell) even better.','ps','Verbs of the senses (taste, smell) describing a quality are state verbs.'],
+ ['My teacher {has} (have) three dogs, and she {washes} (wash) them every Sunday.','ps','Have = own (state); every Sunday = routine.'],
+ ['Mia {hardly ever eats} (hardly ever / eat) sweets, because she {does not like} (not like) sugar.','ps','Adverb before the main verb; negative with does not.'],
+ ['{Do} you and your friends often {meet} (meet) after school?','ps','Question with you + friends → do.'],
+ ['If you {mix} (mix) blue and yellow, you {get} (get) green.','ps','General truth with if → Present Simple in both parts.'],
+ // Present Continuous
+ ['Be quiet! I {am trying} (try) to concentrate.','pc','Happening right now → am / is / are + -ing.'],
+ ['Why {are} you {wearing} (wear) a jacket? It is thirty degrees outside!','pc','Right now, so Present Continuous.'],
+ ['My brother {is being} (be) really annoying today.','pc','be + -ing describes behaviour at the moment: he is behaving annoyingly.'],
+ ['Ella {is always borrowing} (always / borrow) my pens, and she never gives them back!','pc','always + -ing = an annoying habit.'],
+ ['I {am meeting} (meet) Anna at six, and she {is bringing} (bring) her cousin.','pc','Personal arrangement for the future → Present Continuous.'],
+ ['Your English {is getting} (get) better every month.','pc','A change that is developing → Present Continuous.'],
+ ['I {do not know} (not know) why she {is laughing} (laugh).','pc','Know is a state verb; laughing is happening right now.'],
+ ['Max cannot answer the phone because he {is having} (have) a shower.','pc','Have = take/do something (action) → -ing is possible.'],
+ ['Look at him! He {is wearing} (wear) two different socks.','pc','Look! → right now.'],
+ ['We {are staying} (stay) with my aunt this week, because there {is} (be) no heating at home.','pc','Temporary situation → Present Continuous; a state (there is) stays simple.'],
+ ['{Are} you {listening} (listen) to me, or {are} you {thinking} (think) about lunch again?','pc','Think about = a process in progress.'],
+ // Past Simple
+ ['When I was little, we {went} (go) to the lake every summer, and my dad always {let} (let) me steer the boat.','pas','Past habit → Past Simple; go – went, let – let.'],
+ ['She {did not hear} (not hear) the alarm, so she {slept} (sleep) until nine.','pas','Negative: did not + base verb; sleep – slept.'],
+ ['{Did} you {see} (see) the match last night?','pas','Question: did + subject + base verb.'],
+ ['He {stopped} (stop), {looked} (look) around and {ran} (run) away.','pas','A sequence of finished actions; stop doubles the p.'],
+ ['I {studied} (study) hard, but I {did not pass} (not pass) the test.','pas','Consonant + y → -ied.'],
+ ['Where {did} you {buy} (buy) that jacket, and how much {did} it {cost} (cost)?','pas','Question words + did + base verb; cost is the same in all forms.'],
+ ['They {planned} (plan) a picnic, but it {rained} (rain) all day.','pas','plan → planned (short vowel + consonant doubles).'],
+ ['Who {broke} (break) the window? – I {did not see} (not see) anything.','pas','Subject question has no did: Who broke…? But the negative needs did not.'],
+ ['I {lost} (lose) my keys last week, but a boy {found} (find) them in the park.','pas','Last week = finished time.'],
+ ['She {wrote} (write) three letters and {sent} (send) them on Monday.','pas','Irregular: write – wrote, send – sent.'],
+ ['We {travelled|traveled} (travel) to Spain last year and {visited} (visit) three cities.','pas','British: travelled; American: traveled.'],
+ ['My grandpa {taught} (teach) me chess when I {was} (be) seven.','pas','teach – taught; be – was/were.'],
+ // Present Perfect
+ ['{Have} you ever {eaten} (eat) octopus?','pp','Experience without a time → Have you ever + participle.'],
+ ['She {has known} (know) him for ten years, but they {have never talked} (never / talk) about it.','pp','for + period → Present Perfect.'],
+ ['It is the best film I {have ever seen} (ever / see).','pp','Superlative + ever → Present Perfect.'],
+ ['We {have not finished} (not finish) the project yet.','pp','yet → Present Perfect.'],
+ ['Tom {has just gone} (just / go) out, but he will be back soon.','pp','just → Present Perfect.'],
+ ['How long {have} you {had} (have) this phone?','pp','How long (until now) → Present Perfect.'],
+ ['This is the first time I {have been} (be) on a plane.','pp','It is the first time … → Present Perfect.'],
+ ['She {has been} (be) to Rome twice, but she {has never seen} (never / see) the Colosseum.','pp','Experience in a lifetime.'],
+ ['I {have already read} (already / read) that book. I {read} (read) it in June.','pp','Have read (no time) vs read (Past Simple, in June). Same spelling, different tense!'],
+ ['We {have been} (be) friends since primary school.','pp','since + starting point.'],
+ ['{Has} the post {come} (come) yet?','pp','yet in a question → Present Perfect.'],
+ ['He {has lost} (lose) his wallet, so he cannot pay for the ticket.','pp','Result in the present.'],
+ ['They {have not seen} (not see) each other for ages.','pp','for ages = up to now.'],
+ // Zukunft
+ ['Look at those clouds! It {is going to rain} (rain) any minute.','fut','Evidence now → going to.'],
+ ['The phone is ringing. – I {will get} (get) it!','fut','Spontaneous decision → will.'],
+ ['I {am going to learn} (learn) the piano next year. I have already found a teacher.','fut','Plan made before → going to.'],
+ ['If it {rains} (rain) tomorrow, we {will stay|are going to stay} (stay) at home.','fut','After if: Present Simple (not will).'],
+ ['I will call you as soon as I {get} (get) home.','fut','After as soon as: Present Simple.'],
+ ['I {am seeing|am going to see} (see) the dentist at four on Friday.','fut','Arrangement → Present Continuous (going to is possible too).'],
+ ['The film {starts} (start) at 8.30 tonight.','fut','Timetable → Present Simple.'],
+ ['Perhaps we {will go} (go) to the cinema – I have not decided yet.','fut','Perhaps + undecided → will.'],
+ ['Do not worry, I {will not tell|am not going to tell} (not tell) anybody.','fut','Promise → will not (won\'t).'],
+ ['Wait! You {are going to drop} (drop) the glass!','fut','You can see it happening → going to.'],
+ ['Before you {leave} (leave), I {will give|am going to give} (give) you my address.','fut','Time clause with before → Present Simple.'],
+ ['He {is going to be|will be} (be) late again – it is already eight and he has not left yet.','fut','Evidence → going to (will is acceptable for a guess).'],
+ ['What time {does} the shop {close} (close) tomorrow?','fut','Opening hours = timetable → Present Simple.'],
+ ['I think she {will win|is going to win} (win) the competition, but I am not sure.','fut','Opinion (I think) → will.'],
+ // Mischung
+ ['Yesterday I {met} (meet) Lisa. We {have not seen} (not see) each other since June, so we {talked} (talk) for hours. Next week we {are going} (go) to the cinema together.','mix','Past Simple (yesterday), Present Perfect (since June), Present Continuous (arrangement).'],
+ ['My brother {works} (work) in Berlin now. He {moved} (move) there in 2022, and he {has had} (have) the same flat since then.','mix','Present Simple (routine), Past Simple (in 2022), Present Perfect (since then).'],
+ ['Listen! Somebody {is playing} (play) the piano. I think it {is} (be) Anna – she {has played} (play) since she was five.','mix','Right now; opinion with a state verb; since → Present Perfect.'],
+ ['Sorry, I {am} (be) late. My bus {broke} (break) down, and I {have been} (be) here only for two minutes.','mix','State now; finished event; for two minutes.'],
+ ['Tom {does not eat} (not eat) meat. He {became} (become) a vegetarian two years ago, and he {has never regretted} (never / regret) it.','mix','Habit; ago → Past Simple; never … it → Present Perfect.'],
+ ['I {have never been} (never / be) to Paris, but I {am going to visit|will visit} (visit) it next summer. My aunt {lives} (live) there, so I {will stay|am going to stay} (stay) with her.','mix','Experience; plan; fact; consequence.']
+];
+
+/* ===== Zeiten: Auswahl-Fallen [Satz, richtig, [falsch x3], Bereich, Erklärung] ===== */
+const TMC = [
+ ['I ___ that you are right.','think',['am thinking','have thought','thinks'],'pc','Think as an opinion is a state → Present Simple.'],
+ ['Listen! Somebody ___ at the door.','is knocking',['knocks','knocked','has knocked'],'pc','Right now → Present Continuous.'],
+ ['She ___ to music when she studies.','listens',['is listening','listened','will listen'],'ps','A habit in a when-clause → Present Simple.'],
+ ['My bus ___ at 7.10 every day.','leaves',['is leaving','left','has left'],'ps','Routine and timetable → Present Simple.'],
+ ['Tom usually drinks coffee, but today he ___ tea.','is drinking',['drinks','drink','has drunk'],'pc','Today = different from the routine → Present Continuous.'],
+ ['Stop it! Why ___ at me like that?','are you looking',['do you look','did you look','have you looked'],'pc','Happening right now → Present Continuous.'],
+ ['This bag ___ to my sister.','belongs',['is belonging','belong','belonged'],'ps','Belong is a state verb: no -ing.'],
+ ["I can't talk now. I ___ dinner.",'am cooking',['cook','cooks','will cook'],'pc','In progress at this moment.'],
+ ['He never ___ his homework on time.','hands in',['hand in','is handing in','handing in'],'ps','Never + he → Present Simple with -s.'],
+ ['I ___ my homework yet.',"haven't finished",["am not finishing","don't finish","wasn't finishing"],'pp','yet → Present Perfect.'],
+ ['My parents ___ married in 1998.','got',['have got','get','are getting'],'pas','1998 is a finished time → Past Simple.'],
+ ['How long ___ in Graz? – Since 2015.','have you lived',['did you live','do you live','are you living'],'pp','Since → Present Perfect.'],
+ ['When ___ the accident?','did it happen',['has it happened','does it happen','is it happening'],'pas','When + question → Past Simple.'],
+ ['She ___ in London for three years, but now she lives in Vienna.','lived',['has lived','lives','is living'],'pas','The period is finished → Past Simple.'],
+ ['I ___ to Italy three times so far.','have been',['went','was','am going'],'pp','So far → Present Perfect.'],
+ ['We ___ him since Monday.',"haven't seen",["didn't see","don't see","aren't seeing"],'pp','Since Monday → Present Perfect.'],
+ ['Yesterday I ___ my old friend Jan at the station.','met',['have met','meet','am meeting'],'pas','Yesterday → Past Simple.'],
+ ['This is the most boring book I ___.','have ever read',['ever read','had ever read','did ever read'],'pp','Superlative + ever → Present Perfect.'],
+ ['___ you ever ridden a horse?','Have',['Did','Do','Are'],'pp','Ever + experience → Have you ever + participle.'],
+ ['Mozart ___ over 600 works.','wrote',['has written','writes','is writing'],'pas','Mozart is dead → Past Simple.'],
+ ['I ___ my dentist appointment last week.','forgot',['have forgotten','forget','am forgetting'],'pas','Last week → Past Simple.'],
+ ['He ___ in this company since 2010.','has worked',['worked','works','is working'],'pp','Since → Present Perfect.'],
+ ['Why have you bought so much paint? – We ___ paint the kitchen.','are going to',['will','would','are'],'fut','A plan made before → going to.'],
+ ['Careful! You ___ spill your coffee!','are going to',['will','are','would'],'fut','You can see it coming → going to.'],
+ ["I'm sure you ___ this book.",'will love',['loved','have loved','are loving'],'fut','Opinion about the future → will.'],
+ ['As soon as the film ___, we will leave.','ends',['will end','ended','is ending'],'fut','Time clause → Present Simple.'],
+ ['I ___ my grandparents this weekend. We have arranged it.','am visiting',['will visit','visit','visited'],'fut','Arrangement → Present Continuous.'],
+ ['Promise me you ___ tell anybody.',"won't",["don't","haven't","didn't"],'fut','Promise → will not.'],
+ ['Before I ___ for the airport, I will call you.','leave',['will leave','left','am leaving'],'fut','Time clause → Present Simple.'],
+ ['The shop ___ at six tomorrow, so we must hurry.','closes',['closed','has closed','close'],'fut','Timetable → Present Simple.'],
+ ['If you ___ me, I will help you.','ask',['will ask','asked','are asking'],'fut','After if: Present Simple.'],
+ ['I have decided: next summer I ___ work on a farm.','am going to',['will','work','have'],'fut','Decision already made → going to.'],
+ ['The phone is ringing. – I ___ it!','will get',['am getting','get','got'],'fut','Spontaneous decision → will.']
+];
+
+/* ===== Fehlersuche Zeiten [richtig, falsch1, falsch2, Bereich, Hinweis] ===== */
+const TERR = [
+ ['I have lived here since 2019.','I live here since 2019.','I am living here since 2019.','pp','Since + starting point up to now → Present Perfect.'],
+ ["She doesn't know the answer.","She isn't knowing the answer.","She doesn't knows the answer.",'ps','Know is a state verb; after doesn\'t the verb has no -s.'],
+ ['When I get home, I will call you.',"When I will get home, I call you.","When I'll get home, I call you.",'fut','No will in the when-clause.'],
+ ['Did you finish your homework yesterday?','Have you finished your homework yesterday?','Do you finish your homework yesterday?','pas','Yesterday → Past Simple.'],
+ ['He has never been to Spain.','He never has been to Spain.','He has been never to Spain.','pp','never goes between has and the participle.'],
+ ['How long have you known her?','How long do you know her?','How long are you knowing her?','pp','How long (until now) → Present Perfect, and know has no -ing.'],
+ ['She usually drinks tea, but today she is drinking coffee.','She is usually drinking tea, but today she drinks coffee.','She usually drink tea, but today she drinks coffee.','pc','Routine = Present Simple, today = Present Continuous.'],
+ ["Look at the sky! It's going to snow.","Look at the sky! It will to snow.","Look at the sky! It goes to snow.",'fut','Evidence → going to.'],
+ ['I bought this jacket last week.','I have bought this jacket last week.','I buy this jacket last week.','pas','Last week → Past Simple.'],
+ ['The film starts at nine tonight.','The film will starts at nine tonight.','The film is start at nine tonight.','fut','Timetable → Present Simple.'],
+ ["I didn't see him yesterday.","I didn't saw him yesterday.","I haven't seen him yesterday.",'pas','did not + base verb.'],
+ ['Have you ever tried sushi?','Did you ever tried sushi?','Have you ever try sushi?','pp','Have + ever + participle.'],
+ ['My sister has been to Rome twice.','My sister has gone to Rome twice.','My sister is to Rome twice.','pp','Been = visited and returned; gone = still there.'],
+ ["Are you coming to the party tomorrow? I'm taking my cousin.","Are you coming to the party tomorrow? I take my cousin.","Are you coming to the party tomorrow? I took my cousin.",'fut','Arrangement → Present Continuous.']
+];
+
+/* ===== Profi-Wissen ===== */
+const TNOTES = {
+ ps:['Spelling of he / she / it: -es after s, sh, ch, x, o (goes, watches); consonant + y → -ies (tries); vowel + y → -ys (plays).','Frequency adverbs stand before the main verb but after be: She always goes. She is always late.','State verbs have no -ing form: know, understand, believe, remember, like, love, hate, want, need, prefer, belong, own, seem, mean, cost, taste, smell.','Time clauses (when, as soon as, before, after, until, if) use the Present Simple for the future: When I get home, I will call you.','Questions and negatives: does / doesn\'t + base verb – the -s moves to does.'],
+ pc:['State vs action: I think it is good (opinion) – I am thinking about it (process). I have a bike (own) – I am having lunch (action).','be + -ing describes behaviour: He is being silly = he is behaving silly right now.','always + -ing expresses annoyance: She is always losing her keys!','Arrangements in the future: I am meeting Tom at six.','Spelling: running, sitting, making, lying, dying.'],
+ pas:['Spelling: stop → stopped, plan → planned (short vowel + one consonant doubles); study → studied; play → played; travel → travelled (BrE).','Negatives and questions: did / did not + base verb – never "did not went".','Finished-time words: yesterday, last week, in 2019, two years ago, when (question). They exclude the Present Perfect.','Subject questions have no did: Who broke the window? (not Who did break …).','Irregular verbs: learn the three forms together (see → saw → seen).'],
+ pp:['Form: have / has + past participle. Position of adverbs: I have already finished. / Have you finished yet? / I have not finished yet. / She has never been there.','for + period (for two years), since + starting point (since 2019).','been vs gone: She has been to Rome (she is back). She has gone to Rome (she is still there).','Typical frames: It is the first time I have … / the best film I have ever seen / How long have you …?','No finished-time words (yesterday, last year, when …?). There the Past Simple is needed.'],
+ fut:['will: spontaneous decisions, offers, promises, opinions (I think, probably, perhaps).','going to: plans made before the moment of speaking, and predictions with evidence you can see now.','Present Continuous: personal arrangements with a fixed time and place. Present Simple: timetables.','After if, when, as soon as, before, after, until: Present Simple – never will.','won\'t can also express refusal: The car won\'t start.']
+};
+const SUBNAMES = { ps:'Present Simple', pc:'Present Continuous', pas:'Past Simple', pp:'Present Perfect', fut:'will & going to', mix:'Tense mix', prt:'Principal parts', con:'Sentence starters', cmp:'Comparison' };
+
+
+/* ===== Stammformen ===== */
+const IRREG = ('be|was/were|been|sein;beat|beat|beaten|schlagen;become|became|become|werden;begin|began|begun|beginnen;bite|bit|bitten|beißen;blow|blew|blown|blasen;break|broke|broken|brechen;bring|brought|brought|bringen;' +
+  'build|built|built|bauen;buy|bought|bought|kaufen;catch|caught|caught|fangen;choose|chose|chosen|wählen;come|came|come|kommen;cost|cost|cost|kosten;cut|cut|cut|schneiden;dig|dug|dug|graben;do|did|done|tun;' +
+  'draw|drew|drawn|zeichnen;drink|drank|drunk|trinken;drive|drove|driven|fahren;eat|ate|eaten|essen;fall|fell|fallen|fallen;feed|fed|fed|füttern;feel|felt|felt|fühlen;fight|fought|fought|kämpfen;find|found|found|finden;' +
+  'fly|flew|flown|fliegen;forget|forgot|forgotten|vergessen;forgive|forgave|forgiven|vergeben;freeze|froze|frozen|frieren;get|got|got|bekommen;give|gave|given|geben;go|went|gone|gehen;grow|grew|grown|wachsen;' +
+  'hang|hung|hung|hängen;have|had|had|haben;hear|heard|heard|hören;hide|hid|hidden|verstecken;hit|hit|hit|schlagen/treffen;hold|held|held|halten;hurt|hurt|hurt|wehtun;keep|kept|kept|behalten;know|knew|known|wissen/kennen;' +
+  'lay|laid|laid|legen;lead|led|led|führen;learn|learnt/learned|learnt/learned|lernen;leave|left|left|verlassen;lend|lent|lent|verleihen;let|let|let|lassen;lie|lay|lain|liegen;lose|lost|lost|verlieren;make|made|made|machen;' +
+  'mean|meant|meant|bedeuten;meet|met|met|treffen;pay|paid|paid|bezahlen;put|put|put|legen/stellen;read|read|read|lesen;ride|rode|ridden|reiten/fahren;ring|rang|rung|läuten;rise|rose|risen|aufgehen;run|ran|run|rennen;' +
+  'say|said|said|sagen;see|saw|seen|sehen;sell|sold|sold|verkaufen;send|sent|sent|senden;set|set|set|setzen;shine|shone|shone|scheinen;shoot|shot|shot|schießen;show|showed|shown|zeigen;shut|shut|shut|schließen;' +
+  'sing|sang|sung|singen;sink|sank|sunk|sinken;sit|sat|sat|sitzen;sleep|slept|slept|schlafen;speak|spoke|spoken|sprechen;spend|spent|spent|ausgeben/verbringen;stand|stood|stood|stehen;steal|stole|stolen|stehlen;' +
+  'swim|swam|swum|schwimmen;take|took|taken|nehmen;teach|taught|taught|unterrichten;tear|tore|torn|zerreißen;tell|told|told|erzählen;think|thought|thought|denken;throw|threw|thrown|werfen;understand|understood|understood|verstehen;' +
+  'wake|woke|woken|aufwachen;wear|wore|worn|tragen;win|won|won|gewinnen;write|wrote|written|schreiben').split(';').map(s => {
+  const p = s.split('|'); return { inf: p[0], past: p[1].split('/'), pp: p[2].split('/'), de: p[3] };
+});
+const VERB = Object.fromEntries(IRREG.map(v => [v.inf, v]));
+
+/* [Verb, Satz Past Simple, Satz Present Perfect] – {…} = Lücke, (…) = Hinweis */
+const VSENT = [
+ ['be','I {was|were} (be) ill last week.','She has {been} (be) to Rome twice.'],
+ ['begin','The film {began} (begin) at eight.','Have you {begun} (begin) your homework?'],
+ ['bite','The dog {bit} (bite) the postman.','Has a mosquito {bitten} (bite) you?'],
+ ['blow','The wind {blew} (blow) hard last night.','He has {blown} (blow) out all the candles.'],
+ ['break','He {broke} (break) his arm in winter.','Who has {broken} (break) the window?'],
+ ['bring','She {brought} (bring) a cake to the party.','I have {brought} (bring) my book.'],
+ ['build','They {built} (build) a house in 2019.','We have {built} (build) a snowman.'],
+ ['buy','We {bought} (buy) tickets yesterday.','Have you {bought} (buy) milk?'],
+ ['catch','He {caught} (catch) the ball with one hand.','The police have {caught} (catch) the thief.'],
+ ['choose','She {chose} (choose) the blue dress.','Have you {chosen} (choose) a name yet?'],
+ ['come','They {came} (come) late again.','Spring has {come} (come) at last.'],
+ ['cost','The ticket {cost} (cost) ten euros.','It has {cost} (cost) us a fortune.'],
+ ['cut','He {cut} (cut) the bread into slices.','I have {cut} (cut) my finger.'],
+ ['do','I {did} (do) my homework before dinner.','She has {done} (do) a great job.'],
+ ['draw','He {drew} (draw) a horse.','Who has {drawn} (draw) this picture?'],
+ ['drink','We {drank} (drink) lemonade.','He has {drunk} (drink) all the milk.'],
+ ['drive','Dad {drove} (drive) us to school.','I have never {driven} (drive) a truck.'],
+ ['eat','I {ate} (eat) pasta yesterday.','Have you {eaten} (eat) yet?'],
+ ['fall','She {fell} (fall) off her bike.','The prices have {fallen} (fall).'],
+ ['feel','I {felt} (feel) sick after lunch.','I have {felt} (feel) better since Monday.'],
+ ['find','They {found} (find) a wallet in the park.','Have you {found} (find) your keys?'],
+ ['fly','We {flew} (fly) to Rome last spring.','I have never {flown} (fly).'],
+ ['forget','He {forgot} (forget) his lunch.','She has {forgotten} (forget) my name.'],
+ ['freeze','The lake {froze} (freeze) in January.','The pipes have {frozen} (freeze).'],
+ ['get','I {got} (get) a letter yesterday.','It has {got|gotten} (get) much colder.'],
+ ['give','She {gave} (give) me a book.','Have you {given} (give) it to him?'],
+ ['go','We {went} (go) home early.','He has {gone} (go) to school.'],
+ ['grow','The tree {grew} (grow) quickly.','You have {grown} (grow) a lot!'],
+ ['have','We {had} (have) fun at the party.','I have {had} (have) a cold since Monday.'],
+ ['hear','I {heard} (hear) a strange noise.','Have you {heard} (hear) the news?'],
+ ['hide','The cat {hid} (hide) under the bed.','Who has {hidden} (hide) my shoes?'],
+ ['hit','The ball {hit} (hit) the window.','He has {hit} (hit) his head on the door.'],
+ ['hold','He {held} (hold) my hand.','She has {held} (hold) the school record since 2020.'],
+ ['hurt','I {hurt} (hurt) my knee at football.','She has {hurt} (hurt) her back.'],
+ ['keep','She {kept} (keep) the secret.','We have {kept} (keep) all your letters.'],
+ ['know','I {knew} (know) the answer.','I have {known} (know) her for years.'],
+ ['leave','They {left} (leave) at six.','The bus has already {left} (leave).'],
+ ['lend','Tom {lent} (lend) me his pen.','Have you {lent} (lend) him money?'],
+ ['let','Mum {let} (let) me go to the concert.','She has {let} (let) the dog out.'],
+ ['lose','I {lost} (lose) my phone on the bus.','We have {lost} (lose) the game.'],
+ ['make','Mum {made} (make) soup for lunch.','Have you {made} (make) your bed?'],
+ ['meet','We {met} (meet) at school.','I have never {met} (meet) him.'],
+ ['pay','He {paid} (pay) in cash.','Have you {paid} (pay) the bill?'],
+ ['put','She {put} (put) the book on the table.','Have you {put} (put) the milk in the fridge?'],
+ ['read','I {read} (read) the book last night.','I have {read} (read) all her books.'],
+ ['ride','She {rode} (ride) a horse on holiday.','I have never {ridden} (ride) a camel.'],
+ ['ring','The bell {rang} (ring) at eight.','Has the phone {rung} (ring) yet?'],
+ ['run','He {ran} (run) to the station.','She has {run} (run) a marathon.'],
+ ['say','She {said} (say) hello and smiled.','Have you {said} (say) sorry?'],
+ ['see','I {saw} (see) a fox this morning.','Have you {seen} (see) my keys?'],
+ ['sell','They {sold} (sell) their old car.','We have {sold} (sell) everything.'],
+ ['send','He {sent} (send) a postcard from Rome.','Have you {sent} (send) the email?'],
+ ['sing','She {sang} (sing) beautifully.','He has {sung} (sing) in a choir for years.'],
+ ['sleep','I {slept} (sleep) badly last night.','Have you {slept} (sleep) well?'],
+ ['speak','He {spoke} (speak) very quietly.','I have {spoken} (speak) to the teacher.'],
+ ['spend','We {spent} (spend) a week there.','She has {spent} (spend) all her money.'],
+ ['steal','Someone {stole} (steal) my bike.','Thieves have {stolen} (steal) three paintings.'],
+ ['swim','He {swam} (swim) across the lake.','Have you ever {swum} (swim) in the sea?'],
+ ['take','She {took} (take) a photo of the castle.','Who has {taken} (take) my pen?'],
+ ['teach','Mr Brown {taught} (teach) us maths.','She has {taught} (teach) here for ten years.'],
+ ['tell','He {told} (tell) me a joke.','Have you {told} (tell) your parents?'],
+ ['think','I {thought} (think) about it all night.','I have {thought} (think) a lot about it.'],
+ ['throw','She {threw} (throw) the ball to him.','Who has {thrown} (throw) this?'],
+ ['understand','I {understood} (understand) everything.','Have you {understood} (understand) the rule?'],
+ ['wake','I {woke} (wake) up at six.','She has {woken} (wake) up early today.'],
+ ['wear','He {wore} (wear) a red hat.','I have never {worn} (wear) a suit.'],
+ ['win','We {won} (win) the match.','Have you ever {won} (win) a prize?'],
+ ['write','She {wrote} (write) a poem for her gran.','I have {written} (write) three emails today.']
+];
+
+/* Familien für Muster-Aufgaben */
+const FAMILIES = {
+ 'i – a – u (sing – sang – sung)': ['begin','drink','ring','sing','sink','swim'],
+ '–ew / –own (know – knew – known)': ['blow','draw','fly','grow','know','throw'],
+ '–ought / –aught (buy – bought – bought)': ['bring','buy','catch','fight','teach','think'],
+ 'long vowel becomes short (keep – kept – kept)': ['feed','feel','keep','leave','meet','sleep'],
+ '–oke / –oken (speak – spoke – spoken)': ['break','choose','freeze','speak','steal','wake'],
+ 'participle ends in –en (write – wrote – written)': ['bite','drive','hide','ride','rise','write'],
+ 'all three forms are the same (cut – cut – cut)': ['cut','hit','hurt','let','put','shut'],
+ 'infinitive = participle (come – came – come)': ['become','come','run']
+};
+const REGV = [
+ ['stop','stopped'],['plan','planned'],['drop','dropped'],['admit','admitted'],['prefer','preferred'],['travel','travelled|traveled'],['study','studied'],['carry','carried'],['cry','cried'],['try','tried'],['copy','copied'],['play','played'],['enjoy','enjoyed'],['stay','stayed'],['like','liked'],['love','loved'],['use','used'],['dance','danced'],['smile','smiled'],['visit','visited'],['open','opened'],['listen','listened'],['happen','happened'],['offer','offered'],['wait','waited'],['decide','decided'],['hope','hoped'],['hop','hopped'],['shop','shopped'],['jog','jogged'],['tidy','tidied'],['marry','married'],['worry','worried'],['hurry','hurried'],['die','died'],['agree','agreed'],['refuse','refused'],['rob','robbed'],['clap','clapped'],['fry','fried']
+];
+
+/* ===== Satzanfänge & Bindewörter ===== */
+const STARTERS = [
+ ['Reihenfolge am Anfang',[['First,','zuerst','First, we looked for a recipe.'],['First of all,','als Allererstes','First of all, wash your hands.'],['To begin with,','zu Beginn','To begin with, I was nervous.'],['At first,','zuerst (dann ändert sich etwas)','At first, I thought it was easy.'],['One day,','eines Tages','One day, a stranger knocked at the door.']]],
+ ['Weiter in der Geschichte',[['Then,','dann','Then we mixed the flour and the eggs.'],['Next,','als Nächstes','Next, he opened the box.'],['After that,','danach','After that, we went home.'],['Afterwards,','später / hinterher','Afterwards, we had an ice cream.'],['Later,','später','Later, the weather got worse.'],['Soon,','bald darauf','Soon, it started to rain.'],['The next morning,','am nächsten Morgen','The next morning, the sun was shining.'],['A few minutes later,','ein paar Minuten später','A few minutes later, the bus arrived.']]],
+ ['Gleichzeitig',[['Meanwhile,','inzwischen (an einem anderen Ort)','Meanwhile, Tom was waiting outside.'],['At the same time,','gleichzeitig','At the same time, the phone rang.'],['While …','während','While I waited, I read a magazine.']]],
+ ['Überraschung',[['Suddenly,','plötzlich','Suddenly, the lights went out.'],['All of a sudden,','ganz plötzlich','All of a sudden, a dog ran across the road.'],['Just then,','genau in diesem Moment','Just then, the door opened.'],['Without warning,','ohne Vorwarnung','Without warning, it started to snow.']]],
+ ['Schluss einer Handlung',[['Finally,','schließlich (nach mehreren Schritten)','Finally, we ate the cake.'],['At last,','endlich (Erleichterung nach Warten)','At last, the train arrived!'],['In the end,','am Ende / letztlich (Ergebnis)','In the end, we bought the red one.'],['Eventually,','irgendwann / schließlich (nach langer Zeit)','Eventually, she found her keys.'],['Lastly,','zuletzt','Lastly, I want to thank my parents.']]],
+ ['Kommentar des Erzählers',[['Luckily,','zum Glück','Luckily, nobody was hurt.'],['Fortunately,','glücklicherweise','Fortunately, the shop was still open.'],['Unfortunately,','leider','Unfortunately, it rained all day.'],['Sadly,','traurigerweise','Sadly, the match was cancelled.'],['Surprisingly,','überraschenderweise','Surprisingly, the test was easy.'],['Of course,','natürlich','Of course, I helped him.'],['Actually,','eigentlich / tatsächlich','Actually, I prefer tea.'],['Honestly,','ehrlich gesagt','Honestly, I did not like it.']]],
+ ['Gegensatz',[['However,','jedoch / trotzdem','I was tired. However, I went to the party.'],['On the other hand,','andererseits','On the other hand, it is cheaper.'],['Even so,','trotzdem','Even so, we enjoyed the trip.'],['Instead,','stattdessen','She did not eat pizza. Instead, she ordered a salad.'],['Although …','obwohl','Although it was raining, we went out.']]],
+ ['Ergänzung, Beispiel, Folge',[['Besides,','außerdem','Besides, it is too expensive.'],['In addition,','zusätzlich','In addition, the hotel has a pool.'],['Moreover,','darüber hinaus','Moreover, the food was delicious.'],['For example,','zum Beispiel','For example, penguins live in cold places.'],['For instance,','zum Beispiel','For instance, you can use the library.'],['In fact,','tatsächlich','In fact, I have never been there.'],['Therefore,','deshalb / daher','Therefore, we stayed at home.'],['As a result,','infolgedessen','As a result, the match was cancelled.']]],
+ ['Zeit-Nebensätze (mit Verb!)',[['When …','als / wenn','When I arrived, everyone was gone.'],['As soon as …','sobald','As soon as she saw him, she smiled.'],['After …','nachdem','After we ate, we watched a film.'],['Before …','bevor','Before I left, I locked the door.'],['Until …','bis','I waited until she came.'],['Once …','sobald / einmal','Once you know the rule, it is easy.']]]
+];
+const CNOTES = [
+ 'A starter at the beginning of a sentence is followed by a comma: Suddenly, the door opened. A time clause (When / After / Before …) also takes a comma before the main clause: When I arrived, everyone was gone.',
+ 'In the middle of a sentence many starters become adverbs without a comma: We finally arrived. She suddenly stopped.',
+ 'However is not a conjunction. Two sentences need a full stop (or a semicolon): I was tired. However, I went. – Use but for a comma: I was tired, but I went.',
+ 'Although / even though = obwohl. Never use although and but together: Although it was raining, we went out.',
+ 'Because and so are never used together: Because I was ill, I stayed at home. (not "Because …, so …")',
+ 'Finally / at last / in the end / eventually: finally closes a series of steps, at last shows relief after waiting, in the end tells the result of a process, eventually means after a long time.',
+ 'First vs at first: First starts a list of steps. At first contrasts with what happened later ("At first I was afraid, but then …").',
+ 'In the end ≠ at the end: In the end = finally. At the end of + noun = at the last part: At the end of the film, everybody cried.',
+ 'Besides = außerdem. Beside = neben (place). Luckily / Surprisingly are adverbs; lucky / surprising are adjectives.',
+ 'After the starter, the story tense stays the same (Past Simple): Suddenly, the lights went out. When I got home, my mum was in the garden.'
+];
+/* Wähle das passende Satzglied [Satz mit ___, richtig, [falsch x3], Erklärung] */
+const CMC = [
+ ['I opened the door slowly. ___, something jumped out of the dark and I screamed.','Suddenly',['Finally','Meanwhile','Besides'],'Suddenly introduces a surprise.'],
+ ['After two hours of waiting in the cold, ___ the train arrived!','at last',['at first','for example','besides'],'At last shows relief after a long wait.'],
+ ['Tom was painting the kitchen. ___, his sister was making lunch in the garden.','Meanwhile',['Finally','Besides','However'],'Meanwhile = at the same time, but somewhere else.'],
+ ['I wanted to go to the beach. ___, it started to rain, so we stayed at home.','Unfortunately',['Meanwhile','Finally','For example'],'Unfortunately comments on bad luck.'],
+ ["I didn't like the film. ___, the music was great.",'However',['Therefore','For example','Finally'],'However introduces a contrast.'],
+ ['It was raining heavily. ___, the match was cancelled.','As a result',['However','Meanwhile','At first'],'As a result introduces a consequence.'],
+ ['Many animals live in cold places. ___, penguins live in Antarctica.','For example',['However','Suddenly','Instead'],'For example introduces an example.'],
+ ['___ I thought the exam would be easy, but then I saw the first question.','At first',['Finally','Suddenly','Moreover'],'At first = in the beginning, followed by a change.'],
+ ['The film is too long. ___, the tickets are expensive.','Besides',['However','Suddenly','Finally'],'Besides adds another argument.'],
+ ['The test was hard, but we all passed. ___, we celebrated with ice cream.','Afterwards',['At first','However','For example'],'Afterwards = later, in the sequence of events.'],
+ ['___, you need to wash your hands. Then, dry them well.','First of all',['Finally','However','Meanwhile'],'First of all starts a series of steps.'],
+ ["___, I'd like to thank everyone who helped. (the last point of a speech)",'Lastly',['At first','Suddenly','Instead'],'Lastly introduces the final point.'],
+ ['We had a long journey, but ___ we arrived at the hotel.','in the end',['at first','on the other hand','for example'],'In the end = finally, as a result of the process.'],
+ ['She did not want pizza. ___, she ordered a salad.','Instead',['Besides','Therefore','Meanwhile'],'Instead = stattdessen.'],
+ ['He studied all night. ___, he failed the test.','Surprisingly',['Therefore','For example','Finally'],'Surprisingly shows that the result was unexpected.'],
+ ["I phoned Anna. ___, she didn't answer, so I left a message.",'Unfortunately',['For example','Moreover','At last'],'Unfortunately = leider.'],
+ ['We were lost in the forest. ___, a farmer showed us the way.','Luckily',['Unfortunately','Instead','Meanwhile'],'Luckily = zum Glück.'],
+ ['___ the bell rang, everyone ran out of the classroom.','When',['Until','Unless','Although'],'When = als / wenn (a time clause).'],
+ ["I'll wait here ___ you come back.",'until',['unless','although','so'],'Until = bis.'],
+ ['___ I waited, I read a magazine.','While',['Until','Unless','After'],'While = während (two things at the same time).'],
+ ['___ we had eaten, we watched a film.','After',['Until','Unless','Although'],'After = nachdem.'],
+ ['Do not forget to lock the door ___ you leave.','before',['although','unless','until'],'Before = bevor.'],
+ ['___ it was raining, we had a great day.','Although',['Because','Unless','So'],'Although = obwohl.'],
+ ['I was ill. ___, I stayed at home.','Therefore',['Meanwhile','For example','Instead'],'Therefore = deshalb.'],
+ ['She tidied her room. ___, she did her homework, and finally she watched TV.','Then',['Instead','However','Although'],'Then continues the sequence.']
+];
+/* Welche Funktion? [Frage, richtig, [falsch x3]] */
+const CFUN = [
+ ['Which starter shows relief after a long wait?','At last',['Besides','Meanwhile','For example']],
+ ['Which starter says that two things happen at the same time in different places?','Meanwhile',['Instead','Therefore','Afterwards']],
+ ['Which starter adds another argument?','Besides',['However','Suddenly','At first']],
+ ['Which starter introduces an example?','For instance',['Finally','Luckily','Moreover']],
+ ['Which starter introduces a result?','As a result',['On the other hand','Meanwhile','First of all']],
+ ['Which starter announces a surprising event?','All of a sudden',['In addition','Later','Lastly']],
+ ['Which starter shows the order at the very beginning?','First of all',['Eventually','Afterwards','Actually']],
+ ['Which starter shows a contrast?','However',['Next','Soon','Lastly']],
+ ['Which starter means "zum Glück"?','Luckily',['Surprisingly','Sadly','Honestly']],
+ ['Which starter means "stattdessen"?','Instead',['Besides','Therefore','Actually']],
+ ['Which starter means "irgendwann (nach langer Zeit)"?','Eventually',['Suddenly','Meanwhile','First']],
+ ['Which starter is used for the last point in a list?','Lastly',['At first','Next','For example']],
+ ['Which of these is a time clause starter that needs a subject and a verb?','As soon as',['Afterwards','Besides','Therefore']],
+ ['Which starter means "ehrlich gesagt"?','Honestly',['Luckily','Surprisingly','Of course']]
+];
+/* Zeitform nach dem Satzanfang [Satz, Bereich-Hinweis, Erklärung] */
+const CGAP = [
+ ['Suddenly, the lights {went} (go) out and everybody {screamed} (scream).','Past Simple for sudden events.'],
+ ['When I {got} (get) home, my mum {was} (be) in the garden.','Story in the Past Simple.'],
+ ['First, we {cut} (cut) the vegetables. Then we {fried} (fry) them, and finally we {ate} (eat) everything.','A sequence of finished actions → Past Simple.'],
+ ['As soon as I {get} (get) home tomorrow, I {will call|am going to call} (call) you.','Future time clause → Present Simple after as soon as.'],
+ ['After she {finished|had finished} (finish) her homework, she {went} (go) to the park.','After + Past Simple (the Past Perfect is also possible).'],
+ ['Last night, I {came} (come) home late. Luckily, my parents {were} (be) not angry.','Past Simple story.'],
+ ['I {have not seen} (not see) Ben since June. However, he {sends|has sent} (send) me a message yesterday.','Mixed tenses.'],
+ ['At first, I {did not like} (not like) the book. In the end, I {read} (read) it three times.','Past Simple in both parts.'],
+ ['Before you {leave} (leave), {tell} (tell) me your phone number.','Time clause → Present Simple.'],
+ ['Eventually, the rain {stopped} (stop), and we {went} (go) outside.','Past Simple story.'],
+ ['Although she {is} (be) only twelve, she {speaks} (speak) three languages.','Facts → Present Simple.'],
+ ['Unfortunately, I {have lost|lost} (lose) my wallet, so I {cannot} (can) pay.','Result now → Present Perfect (or Past Simple if the time is stated).']
+].map(x => [x[0].replace('{sends|has sent}', '{sent}'), x[1]]);
+/* DE → EN */
+const CTR = [
+ ['plötzlich',['suddenly','all of a sudden']],['schließlich (nach mehreren Schritten)',['finally']],['endlich (Erleichterung)',['at last','finally']],['inzwischen (an einem anderen Ort)',['meanwhile']],
+ ['zuerst (am Anfang, dann ändert sich etwas)',['at first']],['als Erstes',['first of all','first']],['danach',['after that','afterwards']],['leider',['unfortunately']],
+ ['zum Glück',['luckily','fortunately']],['trotzdem / jedoch',['however','even so']],['außerdem',['besides','moreover','in addition']],['zum Beispiel',['for example','for instance']],
+ ['deshalb',['therefore','as a result']],['am Ende / letztlich',['in the end']],['natürlich',['of course']],['überraschenderweise',['surprisingly']],['ehrlich gesagt',['honestly']],
+ ['eines Tages',['one day']],['am nächsten Morgen',['the next morning']],['ein paar Minuten später',['a few minutes later']],['genau in diesem Moment',['just then']],['stattdessen',['instead']],['sobald',['as soon as','once']],['irgendwann (nach langer Zeit)',['eventually']]
+];
+/* Fehlersuche Satzanfänge */
+const CERR = [
+ ['I was tired. However, I went to the party.','I was tired, however I went to the party.','I was tired however I went to the party.','However is not a conjunction: use a full stop before it.'],
+ ['Although it was raining, we went out.','Although it was raining, but we went out.','Although it was raining. We went out.','Although and but are never used together.'],
+ ['Because I was ill, I stayed at home.','Because I was ill, so I stayed at home.','Because I was ill so, I stayed at home.','Because and so are never used together.'],
+ ['Luckily, nobody was hurt.','Lucky, nobody was hurt.','Luck, nobody was hurt.','Use the adverb luckily to comment on the whole sentence.'],
+ ['At last, the bus came.','At the last, the bus came.','In last, the bus came.','At last is a fixed phrase.'],
+ ['In the end, we won the match.','On the end, we won the match.','By the end, we won the match.','In the end = finally.'],
+ ['Suddenly, a man appeared.','Sudden, a man appeared.','Suddenly a man, appeared.','Suddenly is an adverb; comma after it.'],
+ ['First of all, wash your hands.','At first of all, wash your hands.','First off all, wash your hands.','Fixed phrase: first of all.'],
+ ['All of a sudden, it got dark.','All at a sudden, it got dark.','All of the sudden, it got dark.','Fixed phrase: all of a sudden.'],
+ ['Besides, it is too expensive.','Beside, it is too expensive.','Besides of that, it is too expensive.','Besides = außerdem; beside = neben.'],
+ ['At the end of the film, everybody cried.','In the end of the film, everybody cried.','On the end of the film, everybody cried.','At the end of + noun.'],
+ ['When I arrived, everybody was already there.','When I will arrive, everybody was already there.','When I arrive, everybody was already there.','Story in the past: When + Past Simple.']
+];
+/* Geschichten zum Ordnen */
+const STORIES = [
+ { t:'A cake disaster', s:['Last Saturday, my friends and I decided to bake a cake.','First, we looked for a recipe on the internet.','Then we bought the ingredients at the supermarket.','After that, we mixed everything and put the cake in the oven.','Suddenly, the smoke alarm went off!','In the end, we ordered a pizza instead.'] },
+ { t:'The lost phone', s:['One day, Mia noticed that her phone was gone.','At first, she looked in her bag.','Then she searched her room.','Meanwhile, her brother was playing a game on the sofa.','All of a sudden, she heard a ringing sound under the cushion.','Finally, she found it – and she was very relieved.'] },
+ { t:'The school trip', s:['Early in the morning, the class met at the station.','First of all, the teacher counted the students.','Then they got on the train.','Half an hour later, the train stopped in the middle of nowhere.','Luckily, a technician fixed the problem quickly.','At last, they arrived at the museum.'] },
+ { t:'A surprise party', s:['Lena\'s birthday was on Friday.','The day before, her friends decided to organise a surprise party.','While Lena was at school, they decorated her room.','Soon, her parents arrived with the cake.','When Lena opened the door, everybody shouted "Surprise!"','Afterwards, they danced and played games until midnight.'] },
+ { t:'The missing cat', s:['One morning, Tom could not find his cat.','First, he checked the garden.','Next, he asked the neighbours.','Unfortunately, nobody had seen it.','Eventually, he heard a quiet "miaow" from the garage.','In the end, he found the cat sleeping in a box.'] },
+ { t:'A rainy picnic', s:['On Sunday, the family went for a picnic.','At first, the weather was perfect.','They sat down and unpacked the sandwiches.','Suddenly, dark clouds covered the sky.','Within minutes, it was pouring with rain.','As a result, they ate their sandwiches in the car.'] }
+];
+
+/* ===== Steigerung ===== */
+/* [Grundform, [Komparative], [Superlative], Regel] */
+const ADJ = [
+ ['tall',['taller'],['tallest'],'one syllable: -er / -est'],['small',['smaller'],['smallest'],'one syllable: -er / -est'],['young',['younger'],['youngest'],'one syllable: -er / -est'],['cheap',['cheaper'],['cheapest'],'one syllable: -er / -est'],
+ ['big',['bigger'],['biggest'],'short vowel + one consonant: double the consonant'],['hot',['hotter'],['hottest'],'double the consonant'],['thin',['thinner'],['thinnest'],'double the consonant'],['sad',['sadder'],['saddest'],'double the consonant'],['wet',['wetter'],['wettest'],'double the consonant'],['fit',['fitter'],['fittest'],'double the consonant'],
+ ['nice',['nicer'],['nicest'],'ends in -e: only -r / -st'],['large',['larger'],['largest'],'ends in -e: only -r / -st'],['safe',['safer'],['safest'],'ends in -e: only -r / -st'],['wide',['wider'],['widest'],'ends in -e: only -r / -st'],['brave',['braver'],['bravest'],'ends in -e: only -r / -st'],
+ ['happy',['happier'],['happiest'],'consonant + y → -ier / -iest'],['easy',['easier'],['easiest'],'consonant + y → -ier / -iest'],['heavy',['heavier'],['heaviest'],'consonant + y → -ier / -iest'],['funny',['funnier'],['funniest'],'consonant + y → -ier / -iest'],['busy',['busier'],['busiest'],'consonant + y → -ier / -iest'],['lazy',['lazier'],['laziest'],'consonant + y → -ier / -iest'],['dirty',['dirtier'],['dirtiest'],'consonant + y → -ier / -iest'],['pretty',['prettier'],['prettiest'],'consonant + y → -ier / -iest'],['noisy',['noisier'],['noisiest'],'consonant + y → -ier / -iest'],['angry',['angrier'],['angriest'],'consonant + y → -ier / -iest'],['healthy',['healthier'],['healthiest'],'consonant + y → -ier / -iest'],['hungry',['hungrier'],['hungriest'],'consonant + y → -ier / -iest'],['grey',['greyer'],['greyest'],'vowel + y: just -er / -est'],
+ ['clever',['cleverer','more clever'],['cleverest','most clever'],'two syllables ending in -er: both ways'],['narrow',['narrower','more narrow'],['narrowest','most narrow'],'two syllables ending in -ow: both ways'],['simple',['simpler','more simple'],['simplest','most simple'],'two syllables ending in -le: both ways'],['quiet',['quieter','more quiet'],['quietest','most quiet'],'two syllables: both ways'],['gentle',['gentler','more gentle'],['gentlest','most gentle'],'two syllables ending in -le: both ways'],['polite',['politer','more polite'],['politest','most polite'],'two syllables: both ways'],['common',['commoner','more common'],['commonest','most common'],'two syllables: both ways'],
+ ['tired',['more tired'],['most tired'],'adjectives ending in -ed: more / most'],['bored',['more bored'],['most bored'],'adjectives ending in -ed: more / most'],['careful',['more careful'],['most careful'],'ending in -ful: more / most'],['boring',['more boring'],['most boring'],'ending in -ing: more / most'],['famous',['more famous'],['most famous'],'ending in -ous: more / most'],['modern',['more modern'],['most modern'],'two syllables: more / most'],['pleasant',['more pleasant'],['most pleasant'],'two syllables: more / most'],
+ ['expensive',['more expensive'],['most expensive'],'three or more syllables: more / most'],['beautiful',['more beautiful'],['most beautiful'],'three or more syllables: more / most'],['interesting',['more interesting'],['most interesting'],'three or more syllables: more / most'],['dangerous',['more dangerous'],['most dangerous'],'three or more syllables: more / most'],['difficult',['more difficult'],['most difficult'],'three or more syllables: more / most'],['comfortable',['more comfortable'],['most comfortable'],'three or more syllables: more / most'],['popular',['more popular'],['most popular'],'three or more syllables: more / most'],['important',['more important'],['most important'],'three or more syllables: more / most'],['delicious',['more delicious'],['most delicious'],'three or more syllables: more / most'],
+ ['good',['better'],['best'],'irregular'],['bad',['worse'],['worst'],'irregular'],['far',['farther','further'],['farthest','furthest'],'irregular (two forms)'],['little',['less'],['least'],'irregular (uncountable)'],['much',['more'],['most'],'irregular (uncountable)'],['many',['more'],['most'],'irregular (countable)'],['old',['older','elder'],['oldest','eldest'],'older / elder (only for family)'],['late',['later'],['latest','last'],'later = time, latest = newest, last = final'],
+ ['fast',['faster'],['fastest'],'adverb with the same form as the adjective'],['hard',['harder'],['hardest'],'adverb with the same form as the adjective'],['early',['earlier'],['earliest'],'adverb ending in -y: -ier / -iest'],['well',['better'],['best'],'irregular adverb'],['badly',['worse'],['worst'],'irregular adverb'],['quickly',['more quickly'],['most quickly'],'adverb ending in -ly: more / most'],['carefully',['more carefully'],['most carefully'],'adverb ending in -ly: more / most'],['slowly',['more slowly'],['most slowly'],'adverb ending in -ly: more / most'],['loudly',['more loudly'],['most loudly'],'adverb ending in -ly: more / most'],['often',['more often'],['most often'],'adverb: more / most']
+];
+/* Auswahlfallen [Satz, richtig, [falsch x3], Erklärung] */
+const KMC = [
+ ['Mount Everest is ___ mountain in the world.','the highest',['higher','the most high','the higher'],'Superlative with the.'],
+ ['My bike is ___ than yours.','faster',['more fast','fastest','the faster'],'One syllable + than → -er.'],
+ ['She sings ___ than her sister.','more beautifully',['beautifuller','more beautiful','the most beautifully'],'Adverbs ending in -ly: more + adverb.'],
+ ['This test was ___ than I expected.','easier',['more easy','the easiest','easy'],'consonant + y → -ier.'],
+ ['She is the ___ girl in our class.','tallest',['most tall','taller','tallest of'],'Short adjective + the → -est.'],
+ ["That was the ___ film I've ever seen.",'worst',['baddest','worse','most bad'],'bad – worse – worst.'],
+ ["Lisa isn't as ___ as her brother.",'tall',['taller','tallest','more tall'],'as … as takes the base form.'],
+ ['The more you practise, the ___ you get.','better',['best','well','gooder'],'the + comparative, the + comparative.'],
+ ["It's getting ___ every day.",'colder and colder',['more cold and more cold','coldest and coldest','cold and cold'],'Repeat the comparative for a continuing change.'],
+ ['This phone is ___ more expensive than that one.','much',['very','most','too'],'much / far / a lot can strengthen a comparative; very cannot.'],
+ ['My brother is two years ___ than me.','older',['elder','oldest','more old'],'elder is not used with than.'],
+ ['I live ___ from school than Tim.','farther',['far','farest','most far'],'far – farther (further) – farthest (furthest).'],
+ ['Of all the students, Max works ___.','hardest',['harder','more hard','the most hardly'],'Adverb hard: hard – harder – hardest.'],
+ ['She is one of the ___ singers in Austria.','best',['better','most good','goodest'],'One of the + superlative + plural noun.'],
+ ["He's by far the ___ player in the team.",'best',['better','most good','more best'],'by far the + superlative.'],
+ ['Their house is twice as ___ as ours.','big',['bigger','biggest','more big'],'twice as … as + base form.'],
+ ['He drives ___ than my dad.','more carefully',['more careful','carefuller','most carefully'],'Adverbs: more carefully.'],
+ ['This is the ___ interesting book in the library.','most',['more','very','much'],'Long adjectives: the most + adjective.'],
+ ['That was ___ worst holiday ever.','the',['a','an','–'],'Superlatives need the.'],
+ ['I was ___ tired than usual.','less',['least','fewer','little'],'less + adjective (opposite of more).'],
+ ['She has ___ friends than I thought.','fewer',['less','least','fewest'],'fewer + countable noun.'],
+ ['He is ___ of the three brothers.','the oldest',['older','the older','oldest of'],'Superlative for three or more.'],
+ ['My new teacher is much ___ than the last one.','friendlier',['friendly','friendlyer','the friendliest'],'friendly → friendlier.'],
+ ['The new phone is ___ than the old one, but it is also far more expensive.','much better',['very better','more better','most better'],'much + comparative.'],
+ ['Tom is ___ student in class: nobody does less.','the laziest',['lazier','the lazyest','the more lazy'],'lazy → laziest, with the.'],
+ ['Of all the cities I have visited, Vienna is ___.','the most beautiful',['more beautiful','the beautifullest','most beautiful'],'the most + long adjective.'],
+ ['The sooner you start, ___ you will finish.','the sooner',['the soonest','sooner','more soon'],'the + comparative, the + comparative.'],
+ ['This exercise is not nearly ___ difficult as the last one.','as',['so than','more','than'],'not nearly as … as.'],
+ ['This is the ___ day of the year.','shortest',['shorter','most short','more short'],'Short adjective + the → -est.'],
+ ['Which is ___ to your house: the bus stop or the station?','nearer',['nearest','more near','the nearer than'],'Two things → comparative.']
+];
+/* Lückensätze [Satz, Erklärung] */
+const KGAP = [
+ ['Tom is 1.70 m tall and Max is 1.60 m. So Max is {shorter|smaller} (short) than Tom.','Comparative + than.'],
+ ['The red car costs €20,000 and the blue car costs €25,000. The blue car is {more expensive} (expensive) than the red one.','Long adjective: more + adjective.'],
+ ['Eva swims 50 m in 40 seconds, Lisa needs 45. Eva swims {faster} (fast) than Lisa.','Adverb with the same form.'],
+ ['Jonas is the {fastest} (fast) runner in our class; nobody is quicker.','Superlative of a short adjective.'],
+ ['Anna is 12 and Ben is 14. Anna is not {as old as|so old as} Ben.','not as … as.'],
+ ['The more I read about it, the {more interested} (interested) I get.','the + comparative …, the + comparative.'],
+ ['Of all the cities I have visited, Rome was the {most beautiful} (beautiful).','Long adjective: the most.'],
+ ['This is the {worst} (bad) pizza I have ever eaten.','Irregular: bad – worse – worst.'],
+ ['She speaks English {better} (well) than her brother.','Irregular adverb: well – better – best.'],
+ ['My bag is {twice as heavy as} (heavy) yours.','twice as … as.'],
+ ['In winter it gets dark {earlier and earlier} (early) every day.','Repeat the comparative.'],
+ ['Tom has {less} (little) money than Eva.','less + uncountable noun.'],
+ ['Out of the four, Mia has {the least} (little) free time.','Superlative of little.'],
+ ['This is the {farthest|furthest} (far) I have ever walked.','far – farther / further – farthest / furthest.'],
+ ['It was a {much bigger|far bigger|a lot bigger} (big) problem than we thought.','much / far / a lot + comparative.'],
+ ['Who is the {oldest} (old) person in your family?','Superlative.'],
+ ['He is the {most dangerous} (dangerous) driver I know.','Long adjective: the most.'],
+ ['Tom is taller than Max. → Max is {not as tall as|not so tall as|shorter than} Tom.','Two ways to express the same comparison.'],
+ ['This book is more interesting than that one. → That book is {less interesting than|not as interesting as|not so interesting as} this one.','less … than / not as … as.'],
+ ['No other mountain in Austria is higher than the Grossglockner. → The Grossglockner is the {highest} (high) mountain in Austria.','Superlative.'],
+ ['Pizza is the {most popular|most favourite} (popular) food among my friends.','Long adjective: the most.'],
+ ['My new flat is {slightly|a bit|a little|a little bit} (small) smaller than the old one – only two square metres.','slightly / a bit / a little + comparative.'],
+ ['She is {by far|easily} (far) the best player in the team.','by far the + superlative.'],
+ ['Of the two jackets, the blue one is the {cheaper} (cheap).','For two things, the comparative can be used with the.']
+];
+const KERR = [
+ ['She is taller than me.','She is more taller than me.','She is taller as me.','Short adjective: -er + than, no more.'],
+ ['He is the fastest runner.','He is the most fastest runner.','He is the faster runner.','Only one form: -est, never most + -est.'],
+ ['This is better than that.','This is more better than that.','This is gooder than that.','good – better – best.'],
+ ['My mother is older than my father.','My mother is more old than my father.','My mother is elder than my father.','Short adjective: older; elder is not used with than.'],
+ ['Tom is taller than Max.','Tom is taller as Max.','Tom is more tall than Max.','Comparative + than.'],
+ ["I'm as tall as my brother.","I'm as tall than my brother.","I'm same tall as my brother.",'as + adjective + as.'],
+ ['She is the best student in the world.','She is the best student of the world.','She is the best student from the world.','Superlative + in + place/group.'],
+ ['He is the cleverest in the class.','He is the cleverest from the class.','He is cleverest in the class.','Superlative needs the.'],
+ ['The more I practise, the better I get.','The more I practise, the more better I get.','The more I practise, more good I get.','the + comparative, the + comparative.'],
+ ['It is one of the most beautiful cities in Europe.','It is one of the most beautiful city in Europe.','It is one of the more beautiful cities in Europe.','one of the + superlative + PLURAL noun.'],
+ ['This exercise is easier than the last one.','This exercise is more easy than the last one.','This exercise is easyer than the last one.','easy → easier.'],
+ ['She drives more carefully than I do.','She drives more careful than I do.','She drives carefuller than I do.','Adverb → more carefully.']
+];
+const KNOTES = [
+ 'One syllable (tall) and two syllables ending in -y (happy → happier): add -er / -est. Long adjectives (beautiful, interesting) take more / most. Two-syllable adjectives such as clever, narrow, simple, quiet, gentle can take both.',
+ 'Spelling: big → bigger (double the consonant after a short vowel), nice → nicer (drop nothing, add -r), happy → happier (y → i).',
+ 'Irregular: good – better – best; bad – worse – worst; little – less – least; much / many – more – most; far – farther / further – farthest / furthest; old – older / elder – oldest / eldest.',
+ 'than for comparing two things (taller than); as … as for equality (as tall as); not as … as = less (not as tall as = shorter than).',
+ 'Modifiers: much / far / a lot / a bit / slightly / even + comparative (much better, slightly smaller). Never very + comparative.',
+ 'the + comparative …, the + comparative: The more you practise, the better you get. Repeated comparatives show a change: It gets colder and colder.',
+ 'Superlative: the + -est / most …, followed by in (a place or group) or of (a number): the tallest in the class, the best of the three. one of the + superlative + plural noun; by far the best; the second biggest.',
+ 'less / least are the opposites of more / most: less interesting, the least interesting. fewer / fewest go with countable nouns, less / least with uncountable nouns.',
+ 'Adverbs: some are like adjectives (fast – faster – fastest, hard, early); adverbs in -ly take more / most (more carefully); well – better – best, badly – worse – worst.'
+];
+
+/* ===== Lückentexte: {Antwort|Variante} = tippen, [richtig|falsch|falsch] = Auswahl ===== */
+const CLOZE = [
+ { id:'k1', t:'The school trip to Vienna', text:"[Last|Next|Every] Tuesday, our class {went} (go) on a trip to Vienna. [At first|Finally|Besides], everybody {was} (be) excited because it {was} (be) the first time we {had|were} (have) a trip without our parents' help. The journey {took} (take) about two hours. [Suddenly|Therefore|Instead], the train {stopped} (stop) and the lights {went} (go) out. [Luckily|Unfortunately|Instead], a technician {repaired} (repair) the problem quickly, and [at last|at first|for example] we arrived at the museum. It was the [biggest|bigger|most big] museum I {have ever seen|had ever seen} (ever / see). [In the end|At the end|On the end], we all agreed that it {was} (be) the [best|better|most good] day of the year." },
+ { id:'k2', t:'A phone call from my cousin', text:"My cousin Lena {lives} (live) in Hamburg now. She {moved} (move) there two years ago, and since then I {have seen} (see) her only twice. Yesterday she {called} (call) me. [First of all|Finally|Meanwhile], she {asked} (ask) how I {am} (be), and [then|instead|although] she {told} (tell) me about her new job. [However|Because|Until], she {does not like|doesn't like} (not like) the weather in Hamburg. 'It {is} (be) [colder|coldest|cold] and [rainier|rainyer|rainiest] than in Graz,' she said. [At the end of|In the end of|On the end of] our talk she {said} (say) she {is going to visit|will visit} (visit) us at Christmas." },
+ { id:'k3', t:'My plans for the summer', text:"Next summer, I {am going to learn} (learn) to surf. My cousin Tom {has surfed} (surf) for three years, and he {is going to teach|will teach} (teach) me. [Of course|Meanwhile|Luckily], I {have never been} (never / be) to the sea in the Atlantic, so I'm a bit nervous. [Besides|However|Suddenly], the water there is [colder|coldest|cold] than in the Mediterranean. [On the other hand|At last|Therefore], the waves are [bigger|biggest|more big]. Tom says that if I {practise} (practise) every day, I {will be|am going to be} (be) [better|best|more good] after a week. We {are leaving|leave} (leave) on the 3rd of July, and as soon as we {arrive} (arrive), we {will rent|are going to rent} (rent) the boards." },
+ { id:'k4', t:'The mystery in the garden', text:"One evening, Mia {was} (be) alone at home. She {sat} (sit) on the sofa and {read} (read) a book. [Suddenly|Finally|Besides], she {heard} (hear) a strange noise in the garden. [At first|At last|Instead], she {did not move|didn't move} (not move). [Then|However|Although], she {took} (take) a torch and {went} (go) outside. [Meanwhile|Besides|Instead], the noise {became|got} (become) [louder|more loud|loudest]. [Finally|Instead|For example], she {saw} (see) the reason: a small hedgehog {was} (be) hiding under a bush! [In the end|Suddenly|However], she {gave} (give) it some water, and the next morning it {had gone|was gone|went} (go)." },
+ { id:'k5', t:'Two sisters', text:"Eva is two years [older|elder|oldest] than her sister Nora, but Nora is [taller|more tall|tallest] than Eva. Eva {is} (be) the [most serious|more serious|seriousest] of the family; she {studies} (study) every day, and she {has never missed} (never / miss) a class. Nora, [on the other hand|besides|first of all], {does not like} (not like) homework, but she {plays} (play) the guitar [better|best|more good] than anybody else in her school. Last week she {won} (win) a competition. [Surprisingly|Therefore|Instead], Eva {was} (be) not jealous. 'You {have worked} (work) [harder|hardest|more hard] than I thought,' she {said} (say)." },
+ { id:'k6', t:'A day that went wrong', text:"This morning, I {woke} (wake) up late because my alarm clock {did not ring|didn't ring} (not ring). [First of all|Finally|Meanwhile], I {missed} (miss) my bus. [Then|Besides|However], I {ran} (run) to school, but when I {arrived} (arrive), the lesson {had already started|had started|started} (already / start). [Unfortunately|Luckily|Surprisingly], I {forgot} (forget) my homework at home, too. [However|For example|Therefore], the teacher {was} (be) kind: 'It {is} (be) [the worst|worse|the baddest] morning of the week, I know,' he {said} (say). [Tomorrow|Yesterday|Last week] I {will set|am going to set} (set) two alarm clocks!" }
+];
+
+/* ==================== Helfer, Speicher, Sprache ==================== */
+const STORE = 'nabihaChallengePlus_v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) { const v = props[k]; if (v == null || v === false) continue; if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else if (k.startsWith('on')) e[k] = v; else e.setAttribute(k, v === true ? '' : v); }
+  kids.flat(Infinity).forEach(c => { if (c == null || c === false) return; e.append(c.nodeType ? c : document.createTextNode(c)); });
+  return e;
+}
+const shuf = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const todayKey = (d = new Date()) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+function defaultDB() { return { xp: 0, answered: 0, correct: 0, tst: {}, seen: {}, days: {}, sessions: 0, sound: true, best: {}, ex: [], studio: {} }; }
+function loadDB() { try { const r = localStorage.getItem(STORE); if (r) return Object.assign(defaultDB(), JSON.parse(r)); } catch (e) { } return defaultDB(); }
+let DB = loadDB();
+function saveDB() { try { localStorage.setItem(STORE, JSON.stringify(DB)); } catch (e) { } }
+function addXP(n) { DB.xp += n; DB.days[todayKey()] = (DB.days[todayKey()] || 0) + 1; saveDB(); }
+function toast(t) { const e = $('#toast'); e.textContent = t; e.style.display = 'block'; clearTimeout(toast.t); toast.t = setTimeout(() => e.style.display = 'none', 2600); }
+const level = xp => ({ n: Math.floor(xp / 250) + 1, into: xp % 250 });
+
+/* Sprachausgabe */
+const TTS = 'speechSynthesis' in window; let VOICE = null;
+function pickVoice() { try { const v = speechSynthesis.getVoices(); VOICE = v.find(x => /en[-_]GB/i.test(x.lang)) || v.find(x => /^en/i.test(x.lang)) || null; } catch (e) { } }
+if (TTS) { pickVoice(); try { speechSynthesis.onvoiceschanged = pickVoice; } catch (e) { } }
+function speak(t, rate) { if (!TTS || !DB.sound) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/[‘’]/g, "'")); u.lang = 'en-GB'; if (VOICE) u.voice = VOICE; u.rate = rate || 0.92; speechSynthesis.speak(u); } catch (e) { } }
+function stopSpeak() { try { speechSynthesis.cancel(); } catch (e) { } }
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+/* ==================== Tipp-Normalisierung ==================== */
+const CONTR = [[/\bwon't\b/g, 'will not'], [/\bcan't\b/g, 'cannot'], [/n't\b/g, ' not'], [/'m\b/g, ' am'], [/'re\b/g, ' are'], [/'ve\b/g, ' have'], [/'ll\b/g, ' will']];
+const cleanS = s => s.replace(/[.,!?;:"“”–—-]/g, ' ').replace(/\s+/g, ' ').trim();
+function variants(s) {
+  s = s.toLowerCase().replace(/[’‘`]/g, "'"); CONTR.forEach(([r, t]) => s = s.replace(r, t));
+  let out = [s];
+  if (/'s\b/.test(s)) out = [s.replace(/'s\b/g, ' is'), s.replace(/'s\b/g, ' has')];
+  if (/'d\b/.test(s)) out = out.flatMap(x => [x.replace(/'d\b/g, ' had'), x.replace(/'d\b/g, ' would')]);
+  return out.map(cleanS);
+}
+function expand(t) { const m = t.match(/\{([^}]*)\}/); if (!m) return [t]; return m[1].split('|').flatMap(o => expand(t.replace(m[0], o))); }
+function acceptSet(templates) { const set = new Set(); templates.forEach(t => expand(t).forEach(x => variants(x).forEach(v => set.add(v)))); return set; }
+
+
+/* ==================== Aufgaben bauen ==================== */
+const uniq = a => [...new Set(a)];
+function leastSeen(rows, keyf, n) { return rows.map(r => [(DB.seen[keyf(r)] || 0) + Math.random() * 1.5, r]).sort((a, b) => a[0] - b[0]).slice(0, n).map(x => x[1]); }
+function parseGap(tpl) {
+  const segs = []; const re = /\{([^}]*)\}|\[([^\]]*)\]/g; let last = 0, m;
+  while ((m = re.exec(tpl))) {
+    if (m.index > last) segs.push({ t: tpl.slice(last, m.index) });
+    if (m[1] != null) { const ans = m[1].split('|').map(x => x.trim()); segs.push({ b: 1, ans, set: acceptSet(ans) }); }
+    else { const o = m[2].split('|').map(x => x.trim()); segs.push({ sel: 1, correct: o[0], options: shuf(o) }); }
+    last = re.lastIndex;
+  }
+  if (last < tpl.length) segs.push({ t: tpl.slice(last) });
+  return segs;
+}
+const fullText = segs => segs.map(s => s.t != null ? s.t : s.b ? s.ans[0] : s.correct).join('');
+function mkGap(key, tpl, e, sub, extra) { const segs = parseGap(tpl); return Object.assign({ k: 'gap', key, segs, e, sub, full: fullText(segs) }, extra || {}); }
+function mkMc(key, q, correct, wrong, e, sub, extra) { return Object.assign({ k: 'mc', key, q, correct, opts: shuf([correct, ...wrong]), e, sub, prompt: 'Choose the correct form:' }, extra || {}); }
+const subOK = (s, sub) => !sub || sub === 'all' || s === sub;
+
+/* Zeiten */
+function tGapItems(sub, n) { const rows = TGAP.filter(r => (sub === 'all' ? r[1] !== 'mix' : subOK(r[1], sub))); return shuf(leastSeen(rows, r => 'tg:' + r[0], n)).map(r => mkGap('tg:' + r[0], r[0], r[2], r[1])); }
+function tMcItems(sub, n) { const rows = TMC.filter(r => subOK(r[3], sub)); return shuf(leastSeen(rows, r => 'tm:' + r[0], n)).map(r => mkMc('tm:' + r[0], r[0], r[1], r[2], r[4], r[3])); }
+function errItems(rows, tag, n) { return shuf(leastSeen(rows, r => tag + r[0], n)).map(r => { const sub = r.length === 5 ? r[3] : (tag === 'ce:' ? 'con' : 'cmp'); const e = r[r.length - 1]; return mkMc(tag + r[0], '', r[0], [r[1], r[2]], e, sub, { prompt: 'Which sentence is correct?', plain: true }); }); }
+function tErrItems(sub, n) { return errItems(TERR.filter(r => subOK(r[3], sub)), 'te:', n); }
+function tMixItems(n) { const rows = TGAP.filter(r => r[1] === 'mix'); return shuf(leastSeen(rows, r => 'tg:' + r[0], n)).map(r => mkGap('tg:' + r[0], r[0], r[2], 'mix')); }
+
+/* Stammformen */
+const CHUNKS = 4; const chunkOf = (i) => Math.floor(i / Math.ceil(IRREG.length / CHUNKS));
+function verbPool(chunk) { return IRREG.filter((v, i) => chunk === 'all' || chunkOf(i) === +chunk); }
+const pastList = v => v.past, ppList = v => v.pp;
+function prtRowItems(chunk, n) {
+  const pool = shuf(leastSeen(verbPool(chunk), v => 'pr:' + v.inf, n));
+  return pool.map(v => {
+    const mode = pick(['inf', 'inf', 'past', 'pp']); const f = [['inf', [v.inf]], ['past', v.past], ['pp', v.pp]];
+    const given = f.find(x => x[0] === mode), ask = f.filter(x => x[0] !== mode);
+    const lab = { inf: 'Infinitive', past: 'Past Simple', pp: 'Past Participle' };
+    const segs = []; ask.forEach((a, i) => { if (i) segs.push({ t: '     ' }); segs.push({ t: lab[a[0]] + ': ' }); const ans = a[1]; segs.push({ b: 1, ans, set: acceptSet(ans) }); });
+    return { k: 'gap', key: 'pr:' + v.inf, big: `${given[1].join(' / ')}   (${lab[given[0]]}${mode === 'inf' ? ' – ' + v.de : ''})`, prompt: mode === 'inf' ? 'Give the other two forms:' : 'Find the other two forms of this verb:', segs, e: `${v.inf} – ${v.past.join('/')} – ${v.pp.join('/')}  (${v.de})`, sub: 'prt', full: `${v.inf} – ${v.past.join('/')} – ${v.pp.join('/')}` };
+  });
+}
+function prtSentItems(chunk, n) {
+  const names = new Set(verbPool(chunk).map(v => v.inf)); const rows = VSENT.filter(r => names.has(r[0]));
+  return shuf(leastSeen(rows, r => 'ps:' + r[0], n)).map(r => { const v = VERB[r[0]]; const tpl = Math.random() < .5 ? r[1] : r[2]; const kind = tpl === r[1] ? 'Past Simple' : 'Present Perfect';
+    return mkGap('ps:' + tpl, tpl, `${kind} → ${v.inf} – ${v.past.join('/')} – ${v.pp.join('/')}`, 'prt', { prompt: 'Put the verb in the correct form (' + kind + '):' }); });
+}
+function prtMcItems(chunk, n) {
+  const names = new Set(verbPool(chunk).map(v => v.inf)); const rows = VSENT.filter(r => names.has(r[0]) && r[0] !== 'be');
+  return shuf(leastSeen(rows, r => 'pm:' + r[0], n)).map(r => {
+    const v = VERB[r[0]]; const usePast = Math.random() < .5; const tpl = usePast ? r[1] : r[2];
+    const segs = parseGap(tpl); const bl = segs.find(s => s.b); const correct = bl.ans[0]; const valid = new Set(usePast ? v.past : v.pp);
+    const q = segs.map(s => s.t != null ? s.t : '___').join('');
+    const other = usePast ? v.pp[0] : v.past[0];
+    const cands = uniq([v.inf, other, v.inf + 'ed', v.inf.replace(/e$/, '') + 'ed', v.inf + 'en', other + 'ed', v.inf + 'd', v.inf + 't']).filter(x => !valid.has(x) && x !== correct);
+    return mkMc('pm:' + tpl, q, correct, cands.slice(0, 3), `${v.inf} – ${v.past.join('/')} – ${v.pp.join('/')}`, 'prt', { prompt: usePast ? 'Past Simple – choose the correct form:' : 'Present Perfect – choose the correct participle:' });
+  });
+}
+function patOf(v) { const a = v.inf, b = v.past[0], c = v.pp[0]; return a === b && b === c ? 'A – A – A' : a === c ? 'A – B – A' : b === c ? 'A – B – B' : 'A – B – C'; }
+const trip = v => `${v.inf} – ${v.past[0]} – ${v.pp[0]}`;
+function prtPatternItems(n) {
+  const out = []; const fams = Object.entries(FAMILIES);
+  for (let i = 0; i < n; i++) {
+    const t = i % 3;
+    if (t === 0) { const v = pick(IRREG.filter(x => !x.past[1] && !x.pp[1] && x.inf !== 'be')); out.push(mkMc('pt:' + v.inf, '', patOf(v), ['A – A – A', 'A – B – A', 'A – B – B', 'A – B – C'].filter(x => x !== patOf(v)), `${trip(v)} follows the pattern ${patOf(v)}.`, 'prt', { prompt: 'Which pattern does this verb follow?', big: trip(v), plain: true })); }
+    else if (t === 1) { const [fn, members] = pick(fams.filter(f => f[1].length >= 3)); const three = shuf(members).slice(0, 3); const famPat = patOf(VERB[members[0]]); const other = pick(IRREG.filter(v => !members.includes(v.inf) && !Object.values(FAMILIES).some(f => f.includes(v.inf)) && !v.past[1] && !v.pp[1] && v.inf !== 'be' && !((famPat === 'A – A – A' || famPat === 'A – B – A') && patOf(v) === famPat))); const opts = shuf([...three.map(x => trip(VERB[x])), trip(other)]);
+      out.push(mkMc('po:' + fn + other.inf, '', trip(other), three.map(x => trip(VERB[x])), `The other three follow the pattern “${fn}”.`, 'prt', { prompt: 'One verb does NOT follow the same pattern as the other three. Which one?', plain: true, forceOpts: opts })); }
+    else { const [fn, members] = pick(fams.filter(f => f[1].length >= 4)); const m = shuf(members); const ref = VERB[m[0]], right = VERB[m[1]]; const fp = patOf(ref); const wr = shuf(IRREG.filter(v => !members.includes(v.inf) && !v.past[1] && !v.pp[1] && v.inf !== 'be' && !((fp === 'A – A – A' || fp === 'A – B – A') && patOf(v) === fp))).slice(0, 3);
+      out.push(mkMc('pf:' + ref.inf + right.inf, '', trip(right), wr.map(trip), `Both follow “${fn}”.`, 'prt', { prompt: 'Which verb follows the same pattern as ' + trip(ref) + '?', plain: true })); }
+  }
+  out.forEach(o => { if (o.forceOpts) o.opts = o.forceOpts; });
+  return out;
+}
+function prtRegItems(n) {
+  return shuf(leastSeen(REGV, r => 'rg:' + r[0], n)).map(r => {
+    if (Math.random() < .5) return mkGap('rg:' + r[0], `Past Simple of “${r[0]}”: {${r[1]}}`, `${r[0]} → ${r[1].split('|')[0]}`, 'prt', { prompt: 'Spell the Past Simple of this regular verb:' });
+    const c = r[1].split('|')[0], i = r[0];
+    const cands = uniq([i + 'ed', i + 'd', i.replace(/y$/, 'ied'), i + i.slice(-1) + 'ed', i.replace(/y$/, 'ed'), i.replace(/e$/, '') + 'ed']).filter(x => !r[1].split('|').includes(x));
+    return mkMc('rg:' + r[0], '', c, shuf(cands).slice(0, 3), `${r[0]} → ${c}`, 'prt', { prompt: 'Which is the correct Past Simple of “' + r[0] + '”?', plain: true });
+  });
+}
+
+/* Satzanfänge */
+function cMcItems(n) { return shuf(leastSeen(CMC, r => 'cm:' + r[0], n)).map(r => mkMc('cm:' + r[0], r[0], r[1], r[2], r[3], 'con', { prompt: 'Which starter fits best?' })); }
+function cFunItems(n) { return shuf(leastSeen(CFUN, r => 'cf:' + r[0], n)).map(r => mkMc('cf:' + r[0], '', r[1], r[2], `${r[1]} – ${r[0].replace(/^Which (starter|of these is a time clause starter that needs a subject and a verb)\??/, '').trim()}`, 'con', { prompt: r[0], plain: true, e: `Answer: ${r[1]}` })); }
+function cGapItems(n) { return shuf(leastSeen(CGAP, r => 'cg:' + r[0], n)).map(r => mkGap('cg:' + r[0], r[0], r[1], 'con', { prompt: 'Put the verbs in the correct tense:' })); }
+function cTrItems(n) { return shuf(leastSeen(CTR, r => 'ct:' + r[0], n)).map(r => mkGap('ct:' + r[0], `{${r[1].join('|')}}`, r[1].join(' / '), 'con', { prompt: 'Translate the starter into English:', big: r[0] })); }
+function cErrItems(n) { return errItems(CERR, 'ce:', n); }
+function cSeqItems(n) { return shuf(leastSeen(STORIES, r => 'sq:' + r.t, n)).map(r => ({ k: 'seq', key: 'sq:' + r.t, title: r.t, parts: r.s, sub: 'con', e: r.s.join(' ') })); }
+function clozeItem(id) { const c = CLOZE.find(x => x.id === id); return mkGap('cl:' + id, c.text, '', 'mix', { title: c.t, prompt: 'Complete the text – choose from the menus and type the verbs:', long: true }); }
+
+/* Steigerung */
+function kTriItems(n) {
+  return shuf(leastSeen(ADJ, r => 'ka:' + r[0], n)).map(r => {
+    const comp = r[1], sup = r[2]; const supSet = acceptSet([...sup, ...sup.map(x => 'the ' + x)]);
+    const segs = [{ t: 'Comparative: ' }, { b: 1, ans: comp, set: acceptSet(comp) }, { t: '     Superlative: the ' }, { b: 1, ans: sup, set: supSet }];
+    return { k: 'gap', key: 'ka:' + r[0], big: r[0], prompt: 'Write the comparative and the superlative:', segs, e: `${r[0]} – ${comp.join(' / ')} – the ${sup.join(' / the ')}  (${r[3]})`, sub: 'cmp', full: `${r[0]} – ${comp[0]} – the ${sup[0]}` };
+  });
+}
+function kMcItems(n) { return shuf(leastSeen(KMC, r => 'km:' + r[0], n)).map(r => mkMc('km:' + r[0], r[0], r[1], r[2], r[3], 'cmp')); }
+function kGapItems(n) { return shuf(leastSeen(KGAP, r => 'kg:' + r[0], n)).map(r => mkGap('kg:' + r[0], r[0], r[1], 'cmp', { prompt: 'Complete the sentence:' })); }
+function kErrItems(n) { return errItems(KERR, 'ke:', n); }
+
+/* Mischungen */
+function bossItems() { return shuf([...tGapItems('all', 6), ...tMcItems('all', 4), ...prtRowItems('all', 3), ...prtMcItems('all', 2), ...cMcItems(3), ...kMcItems(3), ...kTriItems(2), ...kGapItems(2)]); }
+function examItems() { return shuf([...tGapItems('all', 7), ...tMcItems('all', 5), ...tErrItems('all', 2), ...prtRowItems('all', 4), ...prtMcItems('all', 2), ...prtPatternItems(3), ...cMcItems(4), ...cGapItems(2), ...kMcItems(4), ...kGapItems(3), ...kTriItems(2)]); }
+
+/* ==================== Übungs-Motor ==================== */
+let G = null;
+const gradeOf = p => p >= 88 ? 1 : p >= 76 ? 2 : p >= 63 ? 3 : p >= 50 ? 4 : 5;
+const GRADE_NAMES = { 1: 'Sehr gut', 2: 'Gut', 3: 'Befriedigend', 4: 'Genügend', 5: 'Nicht genügend' };
+function showView(v) {
+  $('#menuView').style.display = v === 'menu' ? 'block' : 'none';
+  $('#gameView').style.display = v === 'game' ? 'block' : 'none';
+  $('#backBtn').style.display = v === 'game' ? 'block' : 'none';
+  document.body.classList.toggle('ingame', v === 'game');
+  window.scrollTo(0, 0);
+}
+function startRun(title, items, opts) {
+  if (!items.length) { toast('Dafür gibt es gerade keine Aufgaben.'); return; }
+  stopSpeak(); G = { title, items, idx: 0, xp: 0, first: 0, units: 0, total: items.length, tally: {}, wrong: [], opts: opts || {} };
+  $('#modeInd').textContent = title; showView('game'); nextItem();
+}
+function endRun() { stopSpeak(); G = null; showView('menu'); renderAll(); }
+function note(sub, ok) {
+  DB.answered++; if (ok) DB.correct++; G.units++; if (ok) G.first++;
+  if (sub) { const s = DB.tst[sub] || { n: 0, c: 0 }; s.n++; if (ok) s.c++; DB.tst[sub] = s; const g = G.tally[sub] || { n: 0, c: 0 }; g.n++; if (ok) g.c++; G.tally[sub] = g; }
+}
+function gain(n) { if (!G) return; G.xp += n; addXP(n); }
+function nextItem() {
+  if (!G) return;
+  if (G.idx >= G.items.length) return finishRun();
+  const it = G.items[G.idx]; G.cur = it; DB.seen[it.key] = (DB.seen[it.key] || 0) + 1;
+  $('#nextRow').style.display = 'none'; hint('');
+  $('#pfill').style.width = (G.idx / G.total * 100) + '%'; $('#ptext').textContent = `${G.idx + 1} / ${G.total}`;
+  const box = $('#qArea'); box.innerHTML = '';
+  ({ mc: rMC, gap: rGap, seq: rSeq })[it.k](it, box);
+}
+function showNext(label) { const b = $('#nextBtn'); b.textContent = label || 'Weiter ➜'; $('#nextRow').style.display = 'flex'; setTimeout(() => b.focus(), 30); }
+function goNext() { if (!G) return; G.idx++; nextItem(); }
+function hint(t, cls) { const f = $('#fb'); f.className = 'fb ' + (cls || 'hint'); f.textContent = t || ''; if (!t) f.className = 'fb'; }
+const explainBox = html => h('div', { class: 'explain', html });
+const exam = () => G && G.opts.exam;
+
+function rMC(it, box) {
+  box.append(h('div', { class: 'qprompt' }, it.prompt));
+  let blank = null;
+  if (it.big) box.append(h('div', { class: 'sbox' }, h('div', { class: 'sent big' }, it.big)));
+  if (it.q) { const p = it.q.split('___'); blank = h('span', { class: 'blank' }, '      '); box.append(h('div', { class: 'sbox' }, h('div', { class: 'sent' }, p[0], blank, p[1] || ''))); }
+  let tries = 0; const wrap = h('div', { class: 'opts' + (it.opts.some(o => o.length > 24) ? ' wide' : '') });
+  const finish = (first, b) => {
+    note(it.sub, first); if (first) gain(8); else G.wrong.push({ s: it.q ? it.q.replace('___', it.correct) : (it.big ? it.big + ' → ' + it.correct : it.correct), e: it.e });
+    if (blank) { blank.textContent = it.correct; blank.classList.add('correct'); }
+    box.append(explainBox(`<b>✔ ${it.correct}</b>${it.e ? '<br>' + it.e : ''}`));
+    const say = it.q ? it.q.replace('___', it.correct) : (it.plain && !it.big ? it.correct : null); if (say && it.sub !== 'cmp' || (say && it.sub === 'cmp')) speak(say);
+    showNext();
+  };
+  it.opts.forEach(o => {
+    const b = h('button', { class: 'opt', onclick: () => {
+      if (b.disabled) return;
+      if (o === it.correct) { [...wrap.children].forEach(x => x.disabled = true); b.classList.add('correct'); hint(''); finish(tries === 0, b); }
+      else if (exam()) { [...wrap.children].forEach(x => { x.disabled = true; if (x.textContent === it.correct) x.classList.add('correct'); }); b.classList.add('wrong'); finish(false, b); }
+      else { tries++; b.classList.add('wrong'); b.disabled = true; hint('Not quite – look again and try once more. 🙂'); }
+    } }, o);
+    wrap.append(b);
+  });
+  box.append(wrap);
+}
+
+function rGap(it, box) {
+  if (it.title) box.append(h('div', { class: 'qprompt' }, '📖 ' + it.title));
+  box.append(h('div', { class: 'qprompt' }, it.prompt || 'Complete the sentence (put the verbs in the correct form):'));
+  if (it.big) box.append(h('div', { class: 'sbox' }, h('div', { class: 'sent big' }, it.big)));
+  const wrap = h('div', { class: 'sbox cloze' + (it.long ? ' long' : '') }); const fields = [];
+  it.segs.forEach(s => {
+    if (s.t != null) wrap.append(document.createTextNode(s.t));
+    else if (s.b) { const w = Math.max(6, Math.max(...s.ans.map(a => a.length)) + 2); const inp = h('input', { class: 'tin', type: 'text', autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false', style: `width:${w}ch;display:inline-block` }); inp._s = s; fields.push(inp); wrap.append(inp); }
+    else { const sel = h('select', {}, h('option', { value: '' }, '…'), ...s.options.map(o => h('option', { value: o }, o))); sel._s = s; fields.push(sel); wrap.append(sel); }
+  });
+  box.append(wrap);
+  let noted = false, finished = false, hints = 0;
+  const okF = f => f._s.sel ? f.value === f._s.correct : (() => { const v = f.value.trim(); return !!v && variants(v).some(x => f._s.set.has(x)); })();
+  const done = (shown) => {
+    finished = true; const all = fields.length;
+    box.append(explainBox(`<b>${shown ? 'A good answer:' : '✔ Well done!'}</b> ${it.full}${it.e ? '<br><small>' + it.e + '</small>' : ''}`));
+    if (!it.long) speak(it.full.replace(/Past Simple of “[^”]*”: /, '')); showNext();
+  };
+  const check = () => {
+    if (finished) return; let n = 0; const pending = [];
+    fields.forEach(f => { if (f.disabled) { n++; return; } const ok = okF(f); if (ok) { n++; f.classList.add('ok'); f.classList.remove('bad'); f.disabled = true; } else { pending.push(f); if (f.value !== '' || exam()) f.classList.add('bad'); } });
+    if (!noted) { noted = true; fields.forEach(f => note(it.sub, f.classList.contains('ok'))); const good = fields.filter(f => f.classList.contains('ok')).length; gain(good * 4); if (good < fields.length) G.wrong.push({ s: it.full, e: it.e || 'Check the tense / the form.' }); }
+    if (n === fields.length) { hint(''); return done(false); }
+    if (exam()) { fields.forEach(f => { if (!f.disabled) { f.value = f._s.sel ? f._s.correct : f._s.ans[0]; f.disabled = true; } }); return done(true); }
+    hint(`${n} of ${fields.length} right – look at the others again. 🙂`);
+  };
+  const reveal = () => {
+    if (finished) return;
+    if (!noted) { noted = true; fields.forEach(() => note(it.sub, false)); G.wrong.push({ s: it.full, e: it.e || '' }); }
+    fields.forEach(f => { if (!f.disabled) { f.value = f._s.sel ? f._s.correct : f._s.ans[0]; f.classList.remove('bad'); f.classList.add('ok'); f.disabled = true; } });
+    hint(''); done(true);
+  };
+  const tip = () => { hints++; const f = fields.find(x => !x.disabled && !x._s.sel && !x.value); if (f) f.placeholder = f._s.ans[0].slice(0, hints) + '…'; hint(it.sub === 'cmp' || it.sub === 'prt' ? 'First letters shown in the empty boxes.' : 'First letters shown. Think about the signal words!'); };
+  fields.forEach(f => { if (f.tagName === 'INPUT') f.onkeydown = e => { if (e.key === 'Enter') check(); }; });
+  const ctrl = h('div', { class: 'ctrl' }, h('button', { class: 'cbtn primary', onclick: check }, '✔ Check'));
+  if (!exam()) ctrl.append(h('button', { class: 'cbtn', onclick: tip }, '💡 Tip'));
+  ctrl.append(h('button', { class: 'cbtn', onclick: reveal }, '👁 Show answer'));
+  box.append(ctrl);
+  setTimeout(() => { const f = fields.find(x => x.tagName === 'INPUT'); if (f) f.focus(); }, 60);
+}
+
+function rSeq(it, box) {
+  box.append(h('div', { class: 'qprompt' }, `📖 “${it.title}” – put the sentences in the right order. Look at the starters!`));
+  const order = []; const idx = shuf(it.parts.map((_, i) => i)); if (idx.every((v, i) => v === i)) idx.reverse();
+  const placed = h('ol', { class: 'seqlist' }); const bank = h('div', { class: 'seqbank' }); let fin = false, tries = 0;
+  const draw = () => {
+    placed.innerHTML = ''; bank.innerHTML = '';
+    order.forEach((pi, pos) => placed.append(h('li', { class: 'seqitem', onclick: () => { if (fin) return; order.splice(pos, 1); placed.classList.remove('bad'); draw(); } }, it.parts[pi])));
+    idx.forEach(pi => { if (!order.includes(pi)) bank.append(h('button', { class: 'seqbtn', onclick: () => { if (fin) return; order.push(pi); draw(); } }, it.parts[pi])); });
+    chk.style.display = order.length === it.parts.length ? 'inline-block' : 'none';
+  };
+  const chk = h('button', { class: 'cbtn primary', style: 'display:none', onclick: () => {
+    const ok = order.every((pi, pos) => pi === pos);
+    if (ok) { fin = true; placed.classList.add('ok'); note(it.sub, tries === 0); if (tries === 0) gain(14); else G.wrong.push({ s: it.title, e: 'Story order' }); box.append(explainBox('<b>✔ Perfect order!</b><br>The starters show the sequence: first → then → suddenly → finally.')); showNext(); }
+    else if (exam()) { fin = true; placed.classList.add('bad'); note(it.sub, false); G.wrong.push({ s: it.title, e: 'Story order' }); box.append(explainBox('<b>Correct order:</b><br>' + it.parts.join('<br>'))); showNext(); }
+    else { tries++; placed.classList.add('bad'); hint('Not yet – tap a sentence to take it back, and look at the starters (First, Then, Suddenly, Finally …).'); setTimeout(() => placed.classList.remove('bad'), 700); }
+  } }, '✔ Check');
+  const reveal = h('button', { class: 'cbtn', onclick: () => { if (fin) return; fin = true; note(it.sub, false); G.wrong.push({ s: it.title, e: 'Story order' }); placed.innerHTML = ''; it.parts.forEach(p => placed.append(h('li', { class: 'seqitem' }, p))); bank.innerHTML = ''; placed.classList.add('ok'); showNext(); } }, '👁 Show answer');
+  box.append(h('div', { class: 'desc' }, 'Tap the sentences one after the other. Tap a placed sentence to take it back.'), placed, bank, h('div', { class: 'ctrl' }, chk, reveal)); draw();
+}
+
+function finishRun() {
+  const g = G; DB.sessions++; gain(15);
+  const pc = g.units ? Math.round(g.first / g.units * 100) : 0;
+  $('#pfill').style.width = '100%'; $('#ptext').textContent = 'Done!'; $('#nextRow').style.display = 'none'; hint('');
+  const key = g.title; DB.best[key] = Math.max(DB.best[key] || 0, pc);
+  if (g.opts.exam) { DB.ex.push({ d: todayKey(), p: pc, g: gradeOf(pc) }); }
+  saveDB();
+  const box = $('#qArea'); box.innerHTML = '';
+  const msg = pc >= 90 ? 'Outstanding! 🌟' : pc >= 70 ? 'Very good! 👏' : pc >= 50 ? 'Good work – you are getting there! 💪' : 'Thank you for trying – mistakes are how we learn. 🌱';
+  const card = h('div', { class: 'card' }, h('h2', {}, '🏁 ' + msg), h('div', { class: 'desc' }, `${g.first} of ${g.units} answers right on the first try (${pc} %). You earned ${g.xp} XP.`));
+  if (g.opts.exam) card.append(h('div', { class: 'explain' }, h('b', {}, `Note: ${gradeOf(pc)} – ${GRADE_NAMES[gradeOf(pc)]}`), h('div', {}, '(Österreichische Notenschlüssel: 1 ab 88 %, 2 ab 76 %, 3 ab 63 %, 4 ab 50 %)')));
+  const tk = Object.keys(g.tally);
+  if (tk.length > 1) card.append(h('h3', {}, 'By topic'), h('table', { class: 'rl' }, ...tk.map(t => { const x = g.tally[t], p = Math.round(x.c / x.n * 100); return h('tr', {}, h('td', {}, SUBNAMES[t] || t), h('td', {}, `${x.c} / ${x.n}`), h('td', {}, h('div', { class: 'bar' + (p >= 70 ? '' : ' gold'), style: 'min-width:80px' }, h('i', { style: 'width:' + p + '%' })))); })));
+  if (g.wrong.length) card.append(h('h3', {}, 'Worth another look'), h('table', { class: 'rl' }, ...g.wrong.slice(0, 16).map(w => h('tr', {}, h('td', {}, w.s), h('td', {}, w.e || '')))));
+  card.append(h('div', { class: 'btnrow', style: 'margin-top:14px' }, h('button', { class: 'sbtn gold', onclick: () => { const o = g.opts.again; if (o) o(); else endRun(); } }, '↻ Another round'), h('button', { class: 'sbtn', onclick: endRun }, '← Back to menu')));
+  box.append(card);
+}
+
+/* ==================== Navigation & Ansichten ==================== */
+const TABS = [['home', '🏠 Start'], ['ten', '⏱ Zeiten'], ['prt', '🔤 Stammformen'], ['con', '🧩 Satzanfänge'], ['cmp', '📈 Steigerung'], ['tests', '🏆 Tests'], ['ref', '📚 Nachschlagen'], ['prog', '📊 Fortschritt']];
+let V = { tab: 'home', chunk: 'all', open: {}, ref: 'verbs' };
+function go(tab, extra) { V = Object.assign(V, extra || {}, { tab }); stopSpeak(); renderAll(); window.scrollTo(0, 0); }
+const stat = (l, v) => h('div', { class: 'stat' }, h('b', {}, String(v)), h('span', {}, l));
+const modeBtn = (title, sub, fn) => h('button', { class: 'modebtn', onclick: fn }, title, h('small', {}, sub));
+const sbtn = (label, fn, cls) => h('button', { class: 'sbtn' + (cls ? ' ' + cls : ''), onclick: fn }, label);
+const card = (title, desc, ...kids) => h('div', { class: 'card' }, h('h2', {}, title), desc ? h('div', { class: 'desc' }, desc) : '', ...kids);
+const notesBlock = (title, list) => { const k = title; const box = h('div', { class: 'card ref' }, h('div', { class: 'ctrl', style: 'justify-content:space-between' }, h('h2', {}, title), h('button', { class: 'cbtn', onclick: () => { V.open[k] = !V.open[k]; renderAll(); } }, V.open[k] ? 'Zuklappen' : 'Aufklappen'))); if (V.open[k]) box.append(h('ul', { class: 'pts' }, list.map(x => h('li', {}, x)))); return box; };
+
+const run = (title, build, opts) => () => { const again = run(title, build, opts); startRun(title, build(), Object.assign({ again }, opts || {})); };
+
+/* ---------- Start ---------- */
+function rHome(el) {
+  const lv = level(DB.xp), acc = DB.answered ? Math.round(DB.correct / DB.answered * 100) + ' %' : '–';
+  el.append(card('Welcome back, Nabiha! 🚀', 'Diese Seite ist die nächste Stufe nach English Champion 7: dieselben Themen, aber mit Fallen, längeren Texten und Aufgaben, bei denen du selbst schreibst. Es gibt keine Zeitanzeige. Du kannst jede Aufgabe in Ruhe lösen, einen Tipp holen oder dir die Lösung zeigen lassen. Fehler gehören dazu und zählen nur für deine Fortschrittsanzeige.',
+    h('div', { class: 'bar gold' }, h('i', { style: `width:${lv.into / 250 * 100}%` })), h('div', { class: 'ptext' }, `Level ${lv.n} · ${DB.xp} XP`),
+    h('div', { class: 'stats' }, stat('Aufgaben', DB.answered), stat('Auf Anhieb richtig', acc), stat('Runden', DB.sessions), stat('Beste Prüfung', DB.ex.length ? Math.max(...DB.ex.map(x => x.p)) + ' %' : '–'))));
+  el.append(card('Die vier Themen', 'Tippe auf ein Thema und such dir aus, wie du üben möchtest.',
+    modeBtn('⏱ Zeiten – Present Simple, Present Continuous, Past Simple, Present Perfect, will & going to', 'Tippen statt Ankreuzen, mit Fallen wie Zustandsverben, Zeitsätzen und been/gone', () => go('ten')),
+    modeBtn('🔤 Stammformen – Infinitive, Past Simple, Past Participle', `${IRREG.length} unregelmäßige Verben in vier Päckchen, dazu Muster und Rechtschreibung bei regelmäßigen Verben`, () => go('prt')),
+    modeBtn('🧩 Satzanfänge – When, Suddenly, Finally, However …', 'Welcher Starter passt, welche Zeit folgt, Kommas, Geschichten ordnen und selbst schreiben', () => go('con')),
+    modeBtn('📈 Steigerung – positive, comparative, superlative', 'Regeln, Sonderfälle, as … as, the … the und typische Fehler', () => go('cmp')),
+    modeBtn('🏆 Tests – Boss-Runde, Schularbeit mit Note, Lesetexte', 'Alle Themen gemischt', () => go('tests'))));
+  el.append(card('So arbeitest du mit der Seite', '', h('div', { class: 'ref' },
+    h('p', {}, 'Bei Lücken mit Klammern setzt du die Verbform selbst ein. Kurzformen wie “I’ve” oder “isn’t” werden genauso akzeptiert wie die langen Formen. Bei Dropdown-Menüs wählst du aus, in Textlücken schreibst du.'),
+    h('p', {}, 'Das Wort „Tip“ zeigt dir die Anfangsbuchstaben, „Show answer“ die Lösung. In der Schularbeit gibt es nur einen Versuch pro Aufgabe und am Ende eine Note nach dem österreichischen Schlüssel.'),
+    h('p', {}, 'Dein Fortschritt bleibt in diesem Browser gespeichert. Unter „Fortschritt“ kannst du ihn sichern.'))));
+}
+
+/* ---------- Zeiten ---------- */
+const TSUBS = [['ps', 'Present Simple', 'habits, facts, timetables, state verbs'], ['pc', 'Present Continuous', 'now, temporary, arrangements, annoying habits'], ['pas', 'Past Simple', 'finished past, story, time words'], ['pp', 'Present Perfect', 'experience, result, for / since, just / already / yet'], ['fut', 'will & going to', 'decision, plan, evidence, time clauses']];
+function rTen(el) {
+  el.append(card('⏱ Die fünf Zeiten', 'Pro Zeit gibt es drei Übungsarten: Tippen (du schreibst die Form selbst), Traps (Mehrfachauswahl mit gemeinen Fallen) und Error Hunt (welcher Satz ist richtig?).'));
+  TSUBS.forEach(([id, name, d]) => {
+    const s = DB.tst[id], p = s ? Math.round(s.c / s.n * 100) : null;
+    el.append(h('div', { class: 'card' }, h('h2', {}, name), h('div', { class: 'desc' }, d), p === null ? '' : h('div', { class: 'bar' + (p >= 70 ? '' : ' gold') }, h('i', { style: 'width:' + p + '%' }), h('span', { class: 'barlab' }, p + ' % richtig (' + s.n + ')')),
+      h('div', { class: 'btnrow' }, sbtn('✍️ Tippen (10)', run(name + ' – Tippen', () => tGapItems(id, 10))), sbtn('🪤 Traps (10)', run(name + ' – Traps', () => tMcItems(id, 10))), sbtn('🕵️ Error Hunt (6)', run(name + ' – Error Hunt', () => tErrItems(id, 6)))),
+      notesBlock('Profi-Wissen: ' + name, TNOTES[id])));
+  });
+  el.append(card('🔀 Alle Zeiten gemischt', 'Hier musst du selbst entscheiden, welche Zeit in die Lücke gehört.',
+    h('div', { class: 'btnrow' }, sbtn('✍️ Tippen, gemischt (12)', run('Alle Zeiten – Tippen', () => tGapItems('all', 12)), 'gold'), sbtn('🪤 Traps, gemischt (12)', run('Alle Zeiten – Traps', () => tMcItems('all', 12))), sbtn('🕵️ Error Hunt, gemischt (8)', run('Alle Zeiten – Error Hunt', () => tErrItems('all', 8))), sbtn('📖 Kurze Texte (3)', run('Kurze Texte – gemischte Zeiten', () => tMixItems(3), {}), 'gold'))));
+}
+
+/* ---------- Stammformen ---------- */
+function rPrt(el) {
+  const ch = V.chunk, n = Math.ceil(IRREG.length / CHUNKS);
+  const chips = [['all', `Alle ${IRREG.length}`], ...Array.from({ length: CHUNKS }, (_, i) => [String(i), `Päckchen ${i + 1}: ${IRREG[i * n].inf} … ${IRREG[Math.min((i + 1) * n, IRREG.length) - 1].inf}`])];
+  el.append(card('🔤 Die drei Stammformen', 'Infinitive – Past Simple – Past Participle. Wähle, welche Verben du üben möchtest. Bei Verben mit zwei richtigen Formen (zum Beispiel learned / learnt) werden beide akzeptiert.',
+    h('div', { class: 'chips' }, chips.map(([id, l]) => h('button', { class: 'chip' + (ch === id ? ' on' : ''), onclick: () => { V.chunk = id; renderAll(); } }, l)))));
+  el.append(card('Übungen für diese Auswahl', '',
+    modeBtn('✍️ Zeilen ergänzen (10)', 'Eine Form ist gegeben, du schreibst die anderen beiden', run('Stammformen – Zeilen', () => prtRowItems(ch, 10))),
+    modeBtn('📝 Sätze – Past Simple und Present Perfect (10)', 'Du entscheidest, ob Past Simple oder Participle gebraucht wird', run('Stammformen – Sätze', () => prtSentItems(ch, 10))),
+    modeBtn('🪤 Mehrfachauswahl (10)', 'Welche Form ist richtig – inklusive ähnlich klingender Verben', run('Stammformen – Auswahl', () => prtMcItems(ch, 10))),
+    modeBtn('🧬 Muster erkennen (8)', 'A–B–C, A–B–B, A–A–A oder A–B–A: erkenne das Muster und ordne Verben richtig ein', run('Stammformen – Muster', () => prtPatternItems(8))),
+    modeBtn('🔠 Regelmäßige Verben: Rechtschreibung (10)', 'stop → stopped, study → studied, travel → travelled', run('Rechtschreibung der regelmäßigen Verben', () => prtRegItems(10)))));
+  const fam = h('div', { class: 'card ref' }, h('h2', {}, '🧬 Verb-Familien'), h('div', { class: 'desc' }, 'Verben, die sich ähnlich verhalten, lernen sich zusammen leichter.'));
+  Object.entries(FAMILIES).forEach(([name, list]) => fam.append(h('p', {}, h('b', {}, name + ': '), list.map(v => trip(VERB[v])).join('  ·  '))));
+  el.append(fam);
+}
+
+/* ---------- Satzanfänge ---------- */
+function rCon(el) {
+  el.append(card('🧩 Satzanfänge und Bindewörter', 'Starter wie First, Then, Suddenly, Finally, However oder While machen aus einzelnen Sätzen eine Geschichte. Hier lernst du, welcher Starter wann passt, welche Zeit danach folgt und wo ein Komma steht.',
+    modeBtn('🎯 Welcher Starter passt? (10)', 'Ein Satz, mehrere Starter, nur einer passt wirklich', run('Starter – Auswahl', () => cMcItems(10))),
+    modeBtn('❓ Was bedeutet der Starter? (8)', 'Funktion: Reihenfolge, Gegensatz, Grund, Überraschung', run('Starter – Funktion', () => cFunItems(8))),
+    modeBtn('✍️ Welche Zeit folgt? (8)', 'When, As soon as, After, Before, While: Verben in die richtige Form setzen', run('Starter – Zeit nach dem Starter', () => cGapItems(8))),
+    modeBtn('🇩🇪→🇬🇧 Übersetzen (8)', 'Starter und Wendungen auf Englisch schreiben', run('Starter – Übersetzen', () => cTrItems(8))),
+    modeBtn('📖 Geschichte ordnen (3)', 'Sätze in die richtige Reihenfolge bringen, die Starter verraten dir die Lösung', run('Geschichten ordnen', () => cSeqItems(3))),
+    modeBtn('🕵️ Error Hunt (8)', 'Kommas, however vs but, finally vs at last und andere Fallen', run('Starter – Error Hunt', () => cErrItems(8)))));
+  el.append(card('📖 Lesetexte mit Lücken', 'Ein ganzer Text, in dem Starter, Zeiten und Steigerung zusammenkommen.', h('div', { class: 'btnrow' }, CLOZE.map(c => sbtn(c.t, run('Lesetext – ' + c.t, () => [clozeItem(c.id)]))))));
+  rStudio(el);
+  el.append(notesBlock('Profi-Wissen: Starter und Kommas', CNOTES));
+}
+
+/* ---------- Story Studio ---------- */
+const STARTER_LIST = uniq(STARTERS.flatMap(g => g[1].map(x => x[0].replace(/[,…]/g, '').trim()))).filter(x => x && x.split(' ').length <= 4).sort((a, b) => b.length - a.length);
+function analyse(text) {
+  const sents = text.replace(/\s+/g, ' ').trim().split(/(?<=[.!?])\s+/).filter(Boolean);
+  const out = { n: sents.length, starters: [], warn: [], comp: [], sup: [], fut: [], pp: [], past: 0 };
+  const irrPast = new Set(IRREG.flatMap(v => v.past.map(x => x.toLowerCase())));
+  const irrPP = new Set(IRREG.flatMap(v => v.pp.map(x => x.toLowerCase())));
+  sents.forEach(s => {
+    const low = s.toLowerCase();
+    const st = STARTER_LIST.find(x => low.startsWith(x.toLowerCase() + ' ') || low.startsWith(x.toLowerCase() + ','));
+    if (st) { out.starters.push(st); const after = s.slice(st.length); const clause = /^(when|while|as soon as|after|before|as|until|by the time|once|if|although|though|even though)$/i.test(st);
+      if (!clause && !after.startsWith(',') && /^(first|first of all|at first|to begin with|suddenly|finally|at last|in the end|eventually|however|meanwhile|afterwards|after that|unfortunately|luckily|fortunately|surprisingly|one day|later|in addition|besides|therefore|for example|in conclusion|on the other hand|at the same time)$/i.test(st)) out.warn.push(`Nach “${st}” am Satzanfang fehlt ein Komma: ${s}`); }
+    if (/\b(\w+er|more \w+|better|worse|less|further|farther) than\b/i.test(s)) out.comp.push(s);
+    if (/\bthe (\w+est|most \w+|best|worst|least|furthest|farthest)\b/i.test(s)) out.sup.push(s);
+    if (/\b(will|won't|'ll)\s+\w+|\b(am|is|are|'m|'s|'re) going to\b/i.test(s)) out.fut.push(s);
+    if (/\b(have|has|'ve|haven't|hasn't)\s+(?:(?:never|ever|just|already|not|still)\s+)?(\w+ed|been|gone|\w+en|\w+n|done|seen|met|had|made|said|heard|found|got|kept|left|lost|read|run|sung|won|written)\b/i.test(s)) out.pp.push(s);
+    if (/\bmore \w+er\b|\bmost \w+est\b|\bmore (better|bigger|taller|faster|older|younger|easier)\b|\bmost (best|biggest|tallest|fastest)\b/i.test(s)) out.warn.push('Doppelte Steigerung: nicht “more bigger”, sondern “bigger”: ' + s);
+    if (/\bmore (\w+) than\b/i.test(s) === false && /\bthan\b/i.test(s) === false && /\b\w+er\b/.test(s) && false) { }
+    s.split(/\W+/).forEach(w => { const lw = w.toLowerCase(); if (irrPast.has(lw) || /^[a-z]{3,}ed$/.test(lw)) out.past++; });
+    if (/\bgoed\b|\bbringed\b|\bbuyed\b|\bseed\b|\bteached\b|\bthinked\b|\beated\b|\bwrited\b/i.test(s)) out.warn.push('Unregelmäßiges Verb: Past Simple prüfen: ' + s);
+    if (/\bsince \d+ (years|months|days|weeks)\b|\bfor (20\d\d|19\d\d)\b/i.test(s)) out.warn.push('since + Zeitpunkt, for + Zeitraum: ' + s);
+    if (/\bwhen\b[^,.]*\bwill\b/i.test(s) && /\bwhen\b[^,.]*\bwill\b[^,.]*,/i.test(s)) out.warn.push('Nach when / as soon as / before steht für die Zukunft Present Simple, nicht will: ' + s);
+  });
+  out.starters = uniq(out.starters); return out;
+}
+function rStudio(el) {
+  const saved = (DB.studio && DB.studio.text) || '';
+  const ta = h('textarea', { class: 'studio', rows: 9, placeholder: 'Schreibe hier eine kleine Geschichte (mindestens sechs Sätze) …\n\nZum Beispiel: Last summer, my family and I travelled to Italy. First, we …' }); ta.value = saved;
+  const res = h('div', { class: 'studiores' });
+  const draw = () => {
+    DB.studio = { text: ta.value }; saveDB(); const a = analyse(ta.value); res.innerHTML = '';
+    if (!ta.value.trim()) return;
+    const chk = (ok, t) => h('div', { class: 'chk2' + (ok ? ' ok' : '') }, (ok ? '✔ ' : '○ ') + t);
+    res.append(h('div', { class: 'checklist' }, chk(a.n >= 6, `Mindestens 6 Sätze (${a.n})`), chk(a.starters.length >= 4, `Mindestens 4 verschiedene Starter (${a.starters.length}${a.starters.length ? ': ' + a.starters.join(', ') : ''})`), chk(a.pp.length >= 1, 'Ein Satz im Present Perfect'), chk(a.fut.length >= 1, 'Ein Satz mit will oder going to'), chk(a.comp.length >= 1, 'Ein Komparativ (… than …)'), chk(a.sup.length >= 1, 'Ein Superlativ (the …est / the most …)'), chk(!a.warn.length, 'Keine Hinweise offen')));
+    if (a.warn.length) res.append(h('div', { class: 'explain' }, h('b', {}, 'Hinweise'), h('ul', { class: 'pts' }, a.warn.slice(0, 6).map(w => h('li', {}, w)))));
+  };
+  ta.oninput = () => { clearTimeout(draw.t); draw.t = setTimeout(draw, 350); };
+  el.append(card('✍️ Story Studio', 'Schreibe selbst eine kurze Geschichte. Die Seite prüft keine Rechtschreibung, aber sie zeigt dir, welche Starter du verwendet hast, ob Kommas fehlen und ob alle vier Themen vorkommen.', ta, res));
+  draw();
+}
+
+/* ---------- Steigerung ---------- */
+function rCmp(el) {
+  el.append(card('📈 Positive, comparative, superlative', 'Hier sind auch die Sonderfälle dran: Rechtschreibung (big → bigger), unregelmäßige Formen (good – better – best), Adjektive mit zwei erlaubten Formen und feste Wendungen wie as … as und the … the.',
+    modeBtn('✍️ Drei Stufen schreiben (12)', 'Grundform gegeben, du schreibst Komparativ und Superlativ', run('Steigerung – Stufen schreiben', () => kTriItems(12))),
+    modeBtn('🪤 Mehrfachauswahl (12)', 'Fallen wie than / then, the + Superlativ, less / fewer, as … as', run('Steigerung – Auswahl', () => kMcItems(12))),
+    modeBtn('📝 Sätze ergänzen (10)', 'Aus dem Adjektiv in Klammern die passende Form bilden', run('Steigerung – Sätze', () => kGapItems(10))),
+    modeBtn('🕵️ Error Hunt (8)', 'Doppelte Steigerung, falsches Wort, fehlendes the', run('Steigerung – Error Hunt', () => kErrItems(8)))));
+  el.append(notesBlock('Profi-Wissen: Steigerung', KNOTES));
+}
+
+/* ---------- Tests ---------- */
+function rTests(el) {
+  el.append(card('🏆 Tests', 'Hier kommt alles zusammen.',
+    modeBtn('🏆 Boss-Runde (25 Aufgaben)', 'Mit Wiederholungsversuchen, Tipps und Erklärungen', run('Boss-Runde', bossItems, {}), ),
+    modeBtn('📝 Schularbeit (35 Aufgaben, ein Versuch, mit Note)', 'Ohne Tipps und ohne zweiten Versuch; Note nach dem österreichischen Schlüssel', run('Schularbeit', examItems, { exam: true }))));
+  if (DB.ex.length) el.append(card('Bisherige Schularbeiten', '', h('table', { class: 'rl' }, ...DB.ex.slice(-8).reverse().map(x => h('tr', {}, h('td', {}, x.d), h('td', {}, x.p + ' %'), h('td', {}, `Note ${x.g} (${GRADE_NAMES[x.g]})`))))));
+  el.append(card('📖 Lesetexte', 'Sechs Texte, in denen alle Themen vorkommen.', h('div', { class: 'btnrow' }, CLOZE.map(c => sbtn(c.t, run('Lesetext – ' + c.t, () => [clozeItem(c.id)]))))));
+}
+
+/* ---------- Nachschlagen ---------- */
+function rRef(el) {
+  el.append(h('div', { class: 'chips', style: 'margin-bottom:12px' }, [['verbs', 'Unregelmäßige Verben'], ['starters', 'Starter'], ['adj', 'Steigerung']].map(([id, l]) => h('button', { class: 'chip' + (V.ref === id ? ' on' : ''), onclick: () => { V.ref = id; renderAll(); } }, l))));
+  const sp = t => TTS ? h('button', { class: 'tiny', onclick: () => speak(t) }, '🔊') : '';
+  if (V.ref === 'verbs') el.append(card('Unregelmäßige Verben', `${IRREG.length} Verben mit Übersetzung. Tippe auf 🔊, um die drei Formen zu hören.`, h('div', { class: 'tablewrap' }, h('table', { class: 'rl' }, h('tr', {}, h('th', {}, 'Infinitive'), h('th', {}, 'Past Simple'), h('th', {}, 'Past Participle'), h('th', {}, 'Deutsch'), h('th', {})), ...IRREG.map(v => h('tr', {}, h('td', {}, v.inf), h('td', {}, v.past.join(' / ')), h('td', {}, v.pp.join(' / ')), h('td', {}, v.de), h('td', {}, sp(`${v.inf}. ${v.past[0]}. ${v.pp[0]}`))))))));
+  if (V.ref === 'starters') STARTERS.forEach(([t, list]) => el.append(card(t, '', h('div', { class: 'tablewrap' }, h('table', { class: 'rl' }, ...list.map(([p, de, ex]) => h('tr', {}, h('td', {}, h('b', {}, p)), h('td', {}, de), h('td', {}, ex, sp(ex)))))))));
+  if (V.ref === 'adj') el.append(card('Steigerung von A bis Z', '', h('div', { class: 'tablewrap' }, h('table', { class: 'rl' }, h('tr', {}, h('th', {}, 'positive'), h('th', {}, 'comparative'), h('th', {}, 'superlative'), h('th', {}, 'Regel')), ...ADJ.map(r => h('tr', {}, h('td', {}, r[0]), h('td', {}, r[1].join(' / ')), h('td', {}, 'the ' + r[2].join(' / the ')), h('td', {}, r[3])))))));
+}
+
+/* ---------- Fortschritt ---------- */
+function rProg(el) {
+  const lv = level(DB.xp), acc = DB.answered ? Math.round(DB.correct / DB.answered * 100) + ' %' : '–';
+  el.append(card('📊 Dein Fortschritt', '', h('div', { class: 'stats' }, stat('Level', lv.n), stat('XP', DB.xp), stat('Aufgaben', DB.answered), stat('Auf Anhieb richtig', acc))));
+  el.append(card('Nach Themen', 'Anteil der Antworten, die beim ersten Versuch richtig waren.', h('table', { class: 'rl' }, ...Object.keys(SUBNAMES).map(k => { const s = DB.tst[k], p = s ? Math.round(s.c / s.n * 100) : null; return h('tr', {}, h('td', {}, SUBNAMES[k]), h('td', {}, p === null ? h('span', { class: 'dim' }, 'noch nichts geübt') : h('div', { class: 'bar' + (p >= 70 ? '' : ' gold') }, h('i', { style: 'width:' + p + '%' }), h('span', { class: 'barlab' }, p + ' %  (' + s.n + ')')))); }))));
+  const inp = h('input', { type: 'file', accept: '.json', style: 'display:none', onchange: e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { try { DB = Object.assign(defaultDB(), JSON.parse(r.result)); saveDB(); renderAll(); toast('Fortschritt geladen ✔'); } catch (er) { toast('Die Datei konnte nicht gelesen werden.'); } }; r.readAsText(f); } });
+  el.append(card('💾 Sichern & Einstellungen', 'Der Fortschritt liegt im Browser dieses Geräts. Mit der Sicherung kannst du ihn auf ein anderes Gerät mitnehmen.', h('div', { class: 'btnrow' }, sbtn('⬇ Fortschritt sichern', () => { const b = new Blob([JSON.stringify(DB)], { type: 'application/json' }); const a = h('a', { href: URL.createObjectURL(b), download: 'challenge-plus-fortschritt.json' }); document.body.append(a); a.click(); a.remove(); }), sbtn('⬆ Fortschritt laden', () => inp.click()), inp, TTS ? sbtn(DB.sound ? '🔊 Ton: an' : '🔇 Ton: aus', () => { DB.sound = !DB.sound; saveDB(); renderAll(); }) : '', sbtn('🗑 Zurücksetzen', () => { if (confirm('Wirklich alles zurücksetzen?')) { DB = defaultDB(); saveDB(); renderAll(); } }))));
+}
+
+/* ==================== Aufbau ==================== */
+function renderAll() {
+  const nav = $('#topnav'); nav.innerHTML = '';
+  TABS.forEach(([id, label]) => nav.append(h('button', { class: 'tabbtn' + (V.tab === id ? ' on' : ''), onclick: () => go(id) }, label)));
+  const root = $('#tabs'); root.innerHTML = ''; const el = h('div', { class: 'tab on' }); root.append(el);
+  ({ home: rHome, ten: rTen, prt: rPrt, con: rCon, cmp: rCmp, tests: rTests, ref: rRef, prog: rProg })[V.tab](el);
+}
+function init() {
+  $('#backBtn').onclick = endRun; $('#nextBtn').onclick = goNext;
+  document.addEventListener('keydown', e => { if (!G) return; const t = e.target && e.target.tagName; if (e.key === 'Enter' && $('#nextRow').style.display !== 'none' && t !== 'INPUT') { e.preventDefault(); goNext(); } });
+  showView('menu'); renderAll();
+}
+
+init();
+</script>
+</body>
+</html>
