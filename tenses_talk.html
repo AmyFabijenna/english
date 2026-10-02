@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenses Talk</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#132033;--primary-light:#1a4262;--accent:#4a9eff;--accent-glow:#85c1ff;--accent-dark:#2d7acc;--success:#4ade80;--error:#ff5252;--text:#fff;--text-muted:#b4c8e8;--gold:#ffd740;--card:rgba(19,32,51,.92)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Quicksand',system-ui,sans-serif;background:linear-gradient(180deg,#0e1a2b 0%,#153454 40%,#1f4d70 70%,#2c72a8 100%) fixed;min-height:100vh;color:var(--text);line-height:1.5}
+.container{max-width:1000px;margin:0 auto;padding:16px 16px 60px}
+header{text-align:center;padding:8px 0 10px}
+h1{font-family:'Fredoka',sans-serif;font-size:2.2rem;background:linear-gradient(135deg,#4a9eff,#85c1ff,#ffd740);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.subtitle{color:var(--text-muted);font-size:.95rem}
+.view{display:none;animation:fadeIn .35s ease}.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#topnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;position:sticky;top:0;z-index:50;padding:8px 4px;margin-bottom:12px;background:rgba(14,26,43,.92);backdrop-filter:blur(6px);border-bottom:1px solid rgba(74,158,255,.2)}
+.tabbtn{background:rgba(26,66,98,.7);border:1px solid rgba(74,158,255,.3);border-radius:20px;padding:8px 14px;color:var(--text);font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s}
+.tabbtn:hover{border-color:var(--accent-glow)}.tabbtn.on{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent-glow)}
+.tab{display:none}.tab.on{display:block}
+.card{background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.88));border-radius:18px;padding:20px;margin-bottom:16px;border:1px solid rgba(74,158,255,.25);box-shadow:0 8px 26px rgba(0,0,0,.3)}
+.card h2{font-family:'Fredoka',sans-serif;font-size:1.3rem;color:var(--accent-glow);margin-bottom:4px}
+.card h3{font-family:'Fredoka',sans-serif;font-size:1.05rem;color:var(--gold);margin:10px 0 6px}
+.desc{color:var(--text-muted);font-size:.88rem;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.tcard{background:rgba(14,26,43,.6);border:1px solid rgba(74,158,255,.2);border-radius:14px;padding:14px}
+.tcard .tt{font-family:'Fredoka',sans-serif;color:var(--gold);font-size:1.02rem;margin-bottom:2px}
+.tcard .td{color:var(--text-muted);font-size:.8rem;margin-bottom:8px;min-height:2.4em}
+.btnrow{display:flex;gap:6px;flex-wrap:wrap}
+.sbtn{flex:1;min-width:76px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:10px;padding:8px 10px;color:var(--text);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;transition:.2s;text-align:center}
+.sbtn:hover:not(:disabled){border-color:var(--accent-glow);background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px)}
+.sbtn:disabled{opacity:.35;cursor:not-allowed}
+.sbtn.gold{border-color:var(--gold);color:var(--gold)}
+.best{font-size:.72rem;color:var(--success);margin-left:6px;font-weight:700}
+.modebtn{width:100%;display:block;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:12px 16px;color:var(--text);font-family:inherit;font-size:.98rem;font-weight:700;cursor:pointer;text-align:left;margin-bottom:8px;transition:.2s}
+.modebtn small{display:block;color:var(--text-muted);font-weight:500;font-size:.8rem}
+.modebtn:hover{border-color:var(--accent-glow);transform:translateX(5px);background:linear-gradient(135deg,var(--accent-dark),var(--accent))}
+.modebtn:hover small{color:#eaf3ff}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{background:rgba(26,66,98,.7);border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:8px 12px;color:var(--text);font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer;transition:.2s}
+.chip:hover{border-color:var(--accent-glow)}.chip.on{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--gold)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.vtile{background:rgba(14,26,43,.6);border:2px solid rgba(74,158,255,.25);border-radius:14px;padding:12px;color:var(--text);cursor:pointer;font-family:inherit;text-align:left;transition:.2s}
+.vtile:hover{border-color:var(--accent-glow);transform:translateY(-3px)}
+.vtile .ic{font-size:1.6rem}.vtile .vt{font-weight:700;font-size:.92rem}.vtile .vn{font-size:.75rem;color:var(--text-muted)}
+.bar{background:rgba(19,32,51,.7);border-radius:10px;height:14px;overflow:hidden;border:1px solid rgba(74,158,255,.2)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-dark),var(--accent-glow));transition:width .4s}
+.bar.gold i{background:linear-gradient(90deg,#ff9800,var(--gold))}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:10px 0}
+.stat{background:rgba(19,32,51,.7);border:1px solid rgba(74,158,255,.25);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-family:'Fredoka',sans-serif;font-size:1.5rem;color:var(--accent-glow)}.stat span{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+/* Spiel */
+.ghead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.mode-ind{background:linear-gradient(135deg,var(--accent-dark),var(--accent));padding:7px 16px;border-radius:20px;font-weight:700;font-family:'Fredoka',sans-serif;font-size:.9rem}
+.sbar{display:flex;gap:8px}.si{background:rgba(19,32,51,.7);padding:6px 12px;border-radius:10px;border:1px solid rgba(74,158,255,.25);text-align:center;min-width:64px}
+.si small{display:block;font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}.si b{font-family:'Fredoka',sans-serif;color:var(--accent-glow);font-size:1.1rem}
+.ptext{text-align:center;color:var(--text-muted);font-size:.8rem;margin:4px 0 14px}
+.qprompt{text-align:center;color:var(--gold);font-weight:700;margin-bottom:8px;font-size:.95rem}
+.sbox{background:linear-gradient(135deg,rgba(19,32,51,.95),rgba(26,66,98,.85));border-radius:18px;padding:28px 20px;margin-bottom:18px;border:1px solid rgba(74,158,255,.3);text-align:center;box-shadow:0 8px 28px rgba(0,0,0,.3)}
+.sent{font-family:'Fredoka',sans-serif;font-size:1.45rem;line-height:2.1}
+.blank{display:inline-block;min-width:80px;padding:2px 12px;background:rgba(74,158,255,.15);border:2px dashed rgba(133,193,255,.6);border-radius:9px;color:var(--accent-glow);font-weight:700}
+.blank.correct{background:rgba(74,222,128,.25);border:2px solid var(--success);color:var(--success)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
+.opts.wide{grid-template-columns:1fr}
+.opt{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:12px;padding:13px 14px;color:var(--text);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;text-align:center}
+.opts.wide .opt{text-align:left}
+.opt:hover:not(:disabled){border-color:var(--accent-glow);background:linear-gradient(135deg,var(--accent-dark),var(--accent));transform:translateY(-2px)}
+.opt:disabled{opacity:.55;cursor:default}
+.opt.correct{background:linear-gradient(135deg,rgba(74,222,128,.35),rgba(74,222,128,.15));border-color:var(--success);color:var(--success);opacity:1;animation:pulse .5s}
+.opt.wrong{background:linear-gradient(135deg,rgba(255,82,82,.35),rgba(255,82,82,.15));border-color:var(--error);color:#ffb4b4;animation:shake .4s}
+@keyframes pulse{50%{transform:scale(1.06)}}@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tin{font-family:'Fredoka',sans-serif;font-size:1.25rem;background:rgba(14,26,43,.8);border:2px solid rgba(133,193,255,.5);border-radius:9px;color:#fff;padding:2px 8px;margin:0 4px;text-align:center;outline:none}
+.tin:focus{border-color:var(--gold)}.tin.ok{border-color:var(--success);background:rgba(74,222,128,.2);color:var(--success)}.tin.bad{border-color:var(--error);background:rgba(255,82,82,.2);animation:shake .4s}
+.tin.wide{width:min(94%,640px);display:block;margin:10px auto 0}
+.ctrl{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.cbtn{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.3);border-radius:11px;padding:10px 20px;color:var(--text);font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;transition:.2s}
+.cbtn:hover{border-color:var(--accent-glow);transform:translateY(-2px)}.cbtn.primary{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--accent-glow)}
+.fb{min-height:1.5em;text-align:center;margin:0 auto 12px;max-width:720px;font-size:.95rem;padding:0 6px}
+.fb.hint{color:#ffe08a;background:rgba(255,215,64,.1);border:1px solid rgba(255,215,64,.35);border-radius:10px;padding:8px 12px}
+.fb.ok{color:var(--success)}
+.chipwrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0;min-height:44px}
+.wchip{background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.4);border-radius:10px;padding:8px 13px;color:#fff;font-family:'Fredoka',sans-serif;font-size:1.05rem;cursor:pointer;transition:.15s}
+.wchip:hover{border-color:var(--gold);transform:translateY(-2px)}.wchip.used{opacity:.25;pointer-events:none}
+.ansline{min-height:56px;background:rgba(14,26,43,.6);border:2px dashed rgba(133,193,255,.5);border-radius:12px;padding:8px}
+.ansline.ok .wchip{border-color:var(--success);color:var(--success)}.ansline.bad .wchip{border-color:var(--error);color:#ffb4b4}
+.deside{color:var(--accent-glow);font-size:1.15rem;font-family:'Fredoka',sans-serif;margin-bottom:6px}
+.fcard{perspective:900px;max-width:520px;margin:0 auto 16px;height:240px;cursor:pointer}
+.fin{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.fcard.flip .fin{transform:rotateY(180deg)}
+.fside{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:18px;border:2px solid rgba(133,193,255,.5);font-family:'Fredoka',sans-serif;font-size:2rem;text-align:center;padding:16px;background:linear-gradient(135deg,rgba(19,32,51,.98),rgba(26,66,98,.9))}
+.fside.back{transform:rotateY(180deg);background:linear-gradient(135deg,#1a4262,#2d7acc);color:var(--gold)}
+.fside small{font-size:.8rem;color:var(--text-muted);font-family:'Quicksand'}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:640px;margin:0 auto 14px}
+.mcard{min-height:72px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border:2px solid rgba(74,158,255,.4);border-radius:12px;color:#fff;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer;padding:6px;transition:.2s}
+.mcard.up{background:linear-gradient(135deg,var(--accent-dark),var(--accent));border-color:var(--gold)}.mcard.done{background:rgba(74,222,128,.25);border-color:var(--success);color:var(--success);pointer-events:none}
+.hang{font-family:'Fredoka',sans-serif;font-size:2.2rem;letter-spacing:.35em;margin:10px 0}
+.kb{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:560px;margin:0 auto 12px}
+.kb button{width:38px;height:42px;border-radius:9px;border:2px solid rgba(74,158,255,.4);background:var(--primary-light);color:#fff;font-weight:700;font-family:inherit;cursor:pointer}
+.kb button:disabled{opacity:.3}.kb button.g{background:rgba(74,222,128,.3);border-color:var(--success)}.kb button.b{background:rgba(255,82,82,.3);border-color:var(--error)}
+.back-btn{position:fixed;top:12px;left:12px;z-index:100;display:none;background:var(--card);border:1px solid rgba(74,158,255,.4);border-radius:11px;padding:8px 14px;color:#fff;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+/* Regel & Tabellen */
+.rule table,.ref table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.88rem}
+.rule th,.rule td,.ref th,.ref td{border:1px solid rgba(133,193,255,.25);padding:6px 9px;text-align:left;vertical-align:top}
+.rule th,.ref th{background:rgba(74,158,255,.2);color:var(--gold)}
+.rule p,.ref p{margin:8px 0;font-size:.92rem}.ex{color:var(--accent-glow);font-style:italic}
+.tablewrap{overflow-x:auto}
+details{background:rgba(14,26,43,.55);border:1px solid rgba(74,158,255,.2);border-radius:12px;margin-bottom:8px;padding:2px 12px}
+details summary{cursor:pointer;padding:10px 0;font-weight:700;color:var(--gold);font-family:'Fredoka',sans-serif}
+#modal{position:fixed;inset:0;background:rgba(5,10,20,.85);z-index:200;display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:20px}
+#modal.on{display:flex}.mbox{background:linear-gradient(135deg,#132033,#1a4262);border:1px solid var(--accent);border-radius:18px;padding:22px;max-width:760px;width:100%;margin:auto}
+.mbox h2{font-family:'Fredoka',sans-serif;color:var(--gold);margin-bottom:8px}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--gold);padding:10px 18px;border-radius:14px;z-index:300;display:none;font-weight:700}
+.badge{display:inline-block;margin:4px;padding:8px 12px;border-radius:12px;border:1px solid rgba(74,158,255,.3);background:rgba(14,26,43,.6);font-size:.85rem}.badge.on{border-color:var(--gold);background:rgba(255,215,64,.12)}.badge.off{opacity:.4;filter:grayscale(1)}
+.plan-week{margin-bottom:10px}.day{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(133,193,255,.15);padding:6px 0}.day b{min-width:52px;color:var(--gold)}
+.task{font-size:.8rem;padding:5px 10px;border-radius:9px;border:1px solid rgba(74,158,255,.35);background:rgba(26,66,98,.6);color:#fff;cursor:pointer;font-family:inherit;font-weight:600}
+.task:hover{border-color:var(--accent-glow)}.task.done{background:rgba(74,222,128,.2);border-color:var(--success);color:var(--success)}
+table.rl{width:100%;border-collapse:collapse;font-size:.85rem}table.rl td,table.rl th{border-bottom:1px solid rgba(133,193,255,.15);padding:5px 8px;text-align:left}table.rl th{color:var(--gold)}
+.cloze{font-family:'Fredoka',sans-serif;font-size:1.15rem;line-height:2.4;text-align:left}
+.cloze select{font-family:inherit;font-size:1.05rem;border-radius:8px;background:#0e1a2b;color:#fff;border:2px solid rgba(133,193,255,.5);padding:2px 4px}
+.cloze .tin{font-size:1.05rem;width:9em}
+.timer{color:var(--gold)}
+@media(max-width:700px){h1{font-size:1.7rem}.sent{font-size:1.15rem}.mem{grid-template-columns:repeat(4,1fr)}.tabbtn{padding:6px 10px;font-size:.8rem}.fside{font-size:1.5rem}}
+
+body.ingame header{padding-top:46px}
+
+/* ===== Tenses Talk: Ergänzungen ===== */
+body.ingame header{padding-top:46px}
+.tlsvg{width:100%;max-width:560px;height:auto;display:block;margin:6px auto}
+.tl-line{stroke:#85c1ff;stroke-width:3}.tl-arrow{fill:#85c1ff}.tl-now{stroke:#ffffff;stroke-width:2;stroke-dasharray:3 3;opacity:.7}
+.tl-t{fill:#ffffff;font:700 12px Fredoka,Quicksand,sans-serif;letter-spacing:1px}.tl-t.dim{fill:#85c1ff;opacity:.8}.tl-l{fill:#ffd740;font:600 12.5px Quicksand,sans-serif}
+.tl-dot{fill:#ffd740}.tl-dot2{fill:#4ade80}.tl-bar{fill:#ffd740}.tl-hit{stroke:#ff6b6b;stroke-width:4;stroke-linecap:round}
+.tl-arc{fill:none;stroke:#ffd740;stroke-width:3;stroke-dasharray:5 4}.tl-arrowf{fill:#ffd740}
+.tlmini{max-width:560px;margin:10px auto 0}
+.explain{margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(74,222,128,.10);border:1px solid rgba(74,222,128,.45);line-height:1.55}
+.sent.big{font-size:1.45rem}
+.explain small{opacity:.8}
+.model .say,.say{background:rgba(255,215,64,.08);border-left:4px solid var(--gold);padding:12px 14px;border-radius:10px;font-size:1.08rem;line-height:1.7}
+.de-bridge{margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(74,158,255,.12);border:1px solid rgba(74,158,255,.35)}
+.wrongc{color:#ff9d9d;text-decoration:line-through;text-decoration-color:rgba(255,157,157,.6)}.rightc{color:#8df0b0;font-weight:700}
+.exrow{margin:3px 0}.tiny{background:none;border:none;cursor:pointer;font-size:.95rem;margin-left:6px;padding:0 4px}
+.chip.static{cursor:default}.chip.static:hover{transform:none}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}.crumb{background:rgba(74,158,255,.18);border:1px solid rgba(74,158,255,.4);border-radius:999px;padding:3px 12px;font-size:.85rem}
+.tbtn{text-align:left;cursor:pointer;font-family:inherit;color:inherit}.tbtn:hover{border-color:var(--gold)}
+.rate{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}.rate span{margin-right:6px;font-weight:700}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}.pairbox{background:rgba(14,26,43,.5);border:1px solid rgba(74,158,255,.3);border-radius:14px;padding:12px}
+.pts{line-height:1.7;margin:10px 0 0 20px}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px}
+.qtile{background:rgba(19,32,51,.8);border:2px solid rgba(74,158,255,.35);border-radius:14px;padding:12px 14px;text-align:left;color:#fff;font-family:inherit;cursor:pointer}
+.qtile:hover{border-color:var(--gold)}.qtile.done{border-color:#4ade80}.qtile .qq{display:block;font-weight:700;margin-bottom:4px}.qtile small{opacity:.75}
+.phr{display:flex;flex-direction:column;gap:6px}.phrbtn{text-align:left;background:rgba(14,26,43,.6);border:1px solid rgba(74,158,255,.3);color:#fff;border-radius:10px;padding:9px 12px;font-family:inherit;font-size:1rem;cursor:pointer}.phrbtn:hover{border-color:var(--gold)}
+.transcript{margin:10px 0;padding:10px 12px;border-radius:10px;background:rgba(14,26,43,.7);border:1px dashed rgba(133,193,255,.5);font-style:italic}
+.checks{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.chk{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:999px;border:1px solid rgba(74,158,255,.4);background:rgba(14,26,43,.5);cursor:pointer}.chk.on{border-color:#4ade80;background:rgba(74,222,128,.14)}
+.lesson-step.done{opacity:.72}.lhead{display:flex;align-items:center;gap:6px;border:none;background:none;padding:0;font-size:1.1rem;cursor:pointer}.lhead .min{margin-left:auto;color:var(--gold);font-weight:700}
+.lesson-step p{line-height:1.65}
+.barlab{position:absolute;left:8px;top:0;font-size:.75rem;line-height:14px;color:#fff}.bar{position:relative}
+.dim{opacity:.6}
+@media(max-width:700px){.pair{grid-template-columns:1fr}.sent.big{font-size:1.2rem}}
+@media print{#topnav,.back-btn,.noprint,.btnrow,.cbtn,.sbtn,.tiny{display:none!important}body{background:#fff!important;color:#000!important}.card{background:#fff!important;border:1px solid #888!important;color:#000!important;box-shadow:none!important;break-inside:avoid}h1,h2,h3,.subtitle{color:#000!important;-webkit-text-fill-color:#000!important}.lesson-step.done{opacity:1}}
+
+</style>
+</head>
+<body>
+<button class="back-btn" id="backBtn">← Menü</button>
+<div class="container">
+  <header>
+    <h1>🎓 Tenses Talk</h1>
+    <div class="subtitle">Zeitformen verstehen und auf Englisch erklären – When and why?</div>
+  </header>
+  <div id="menuView" class="view active" style="display:block">
+    <nav id="topnav"></nav>
+    <div id="tabs"></div>
+  </div>
+  <div id="gameView" class="view" style="display:none">
+    <div class="ghead"><div class="mode-ind" id="modeInd"></div></div>
+    <div class="bar"><i id="pfill" style="width:0"></i></div>
+    <div class="ptext" id="ptext"></div>
+    <div id="qArea"></div>
+    <div class="fb" id="fb"></div>
+    <div class="ctrl" id="nextRow" style="display:none"><button class="cbtn primary" id="nextBtn">Weiter ➜</button></div>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+'use strict';
+/* ===== Zeitformen ===== */
+const TENSES = [
+{ id:'ps', name:'Present Simple', ic:'🔁', one:'Things that are always true or happen regularly.',
+  uses:[
+   {k:'habit', en:'habits & routines', de:'Gewohnheiten & Routinen', ex:['I practise the piano every day.','My brother never eats breakfast.'], why:'The action repeats again and again, so it is a pattern – not one single event.'},
+   {k:'fact', en:'facts & general truths', de:'Fakten & allgemeine Wahrheiten', ex:['Water freezes at 0 degrees.','Vienna is the capital of Austria.'], why:'It is true at any time, not only at this moment.'},
+   {k:'sched', en:'timetables & fixed schedules', de:'Fahrpläne & feste Zeitpläne', ex:['The bus leaves at 7.45.','The film starts at eight.'], why:'Official schedules are fixed, so we talk about them like facts.'},
+   {k:'state', en:'states (know, like, love, want, own …)', de:'Zustände (wissen, mögen, besitzen …)', ex:['I know the answer.','She has two cats.'], why:'These verbs describe a state, not an action in progress – so they usually avoid the -ing form.'}],
+  form:{aff:'I / you / we / they play  ·  he / she / it plays', neg:"I don't play  ·  she doesn't play", q:'Do you play?  ·  Does she play?', note:'he / she / it: -s (plays), -es (watches), consonant + y → -ies (studies). After do/does the verb stays in its base form.'},
+  signals:['always','usually','often','sometimes','never','every day','on Mondays','once a week','how often'],
+  mistakes:[['She go to school by bus.','She goes to school by bus.','With he, she and it the verb needs an -s.'],["He doesn't likes pizza.","He doesn't like pizza.","After doesn't the verb stays in the base form, because doesn't already carries the -s."],['I am knowing the answer.','I know the answer.','Know is a stative verb, so there is no -ing.'],['Do she play tennis?','Does she play tennis?','With he, she and it we use does.']],
+  de:"Im Deutschen steht fast alles im Präsens („Ich lerne seit zwei Jahren Englisch“). Im Englischen ist das Present Simple für Gewohnheiten, Fakten und Fahrpläne reserviert.",
+  model:"We use the Present Simple to talk about things that happen regularly or are always true. For example, we use it for habits and routines, like 'I walk to school every day'. We also use it for facts, like 'Water freezes at zero degrees', and for timetables, like 'The bus leaves at seven forty-five'. We use it because the action is a pattern and not something that is happening right now. Typical signal words are always, usually, never and every day.",
+  keys:['habits & routines|habit|routine|regular','facts|fact|always true|general truth','timetables|timetable|schedule','example|for example|for instance','signal words|always|usually|never|every day|often','pattern|again and again|not right now|repeat'],
+  formSpeech:"In the affirmative we use the base verb, and we add an -s for he, she and it. In the negative we use don't or doesn't plus the base verb, and in questions we put do or does at the beginning. For example: 'She doesn't play tennis.' and 'Does she play tennis?'",
+  formKeys:['base verb|base form|infinitive','-s|add s|he she it|he, she','don\'t|do not|doesn\'t|does not','question|questions|do or does|does']},
+
+{ id:'pc', name:'Present Continuous', ic:'▶️', one:'Something is happening right now – or only for now.',
+  uses:[
+   {k:'now', en:'happening right now', de:'passiert gerade jetzt', ex:["Look! It's snowing.","I'm writing an email at the moment."], why:'The action is in progress and not finished – the -ing form shows that we are in the middle of it.'},
+   {k:'temp', en:'temporary situations', de:'vorübergehende Situationen', ex:["I'm staying with my aunt this week.","He's learning Spanish these days."], why:'It is not permanent: it has a beginning and an end around now.'},
+   {k:'arr', en:'fixed arrangements for the future', de:'fest vereinbarte Pläne', ex:["I'm meeting Lena tomorrow at five.","We're flying to Rome on Friday."], why:'The plan is already organised (time, place, people), so it feels almost like it has already started.'},
+   {k:'change', en:'changing & developing situations', de:'Entwicklungen', ex:["It's getting colder.","Your English is improving."], why:'Something is changing step by step, right now.'},
+   {k:'annoy', en:"annoying habits with 'always'", de:'nervige Gewohnheiten mit always', ex:["He's always losing his keys!","You're always interrupting me!"], why:"'Always' + -ing shows that something happens too often and annoys the speaker."}],
+  form:{aff:"I'm reading  ·  she's reading  ·  they're reading", neg:"I'm not reading  ·  he isn't reading  ·  we aren't reading", q:'Are you reading?  ·  Is she reading?', note:'Spelling: make → making, run → running, lie → lying. Stative verbs (know, like, want …) normally have no -ing form.'},
+  signals:['now','right now','at the moment','today','this week','currently','Look!','Listen!'],
+  mistakes:[['I am go to school now.','I am going to school now.','After am / is / are the verb needs -ing.'],['She is liking music.','She likes music.','Like is a stative verb, so we use the Present Simple.'],["I'm playing tennis every Saturday.",'I play tennis every Saturday.','A regular habit needs the Present Simple.'],['What you are doing?','What are you doing?','In questions the auxiliary comes before the subject.']],
+  de:"Das Deutsche hat keine -ing-Form: „Ich esse“ kann „I eat“ oder „I am eating“ heißen. Frag dich also immer: Ist es gerade im Gange oder nur vorübergehend?",
+  model:"We use the Present Continuous for actions that are happening right now, for example 'I'm writing an email at the moment'. We also use it for temporary situations, like 'I'm staying with my aunt this week', for changes, like 'It's getting colder', and for fixed arrangements in the future, like 'I'm meeting Tom tomorrow'. We use it because the -ing form shows that the action is in progress and not finished. Typical signal words are now, at the moment, today, and look or listen.",
+  keys:['right now|now|at the moment|happening now','temporary|only for now|for a short time','future arrangements|arrangement|arranged|fixed plan|future','example|for example|for instance','in progress|not finished|middle of','signal words|today|look|listen|this week'],
+  formSpeech:"We form the Present Continuous with am, is or are plus the verb with -ing. For the negative we add not, and for questions we put am, is or are in front of the subject. For example: 'I'm reading.', 'She isn't reading.' and 'Are you reading?'",
+  formKeys:['am|is|are','-ing|ing form|verb with ing','not|negative','question|questions|in front|before the subject']},
+
+{ id:'pas', name:'Past Simple', ic:'⏮️', one:'A finished action at a definite time in the past.',
+  uses:[
+   {k:'fin', en:'finished actions at a definite time', de:'abgeschlossene Handlung zu einer bestimmten Zeit', ex:['I visited my grandma last weekend.','They moved to Graz in 2019.'], why:'The time is over and the story is closed – we do not connect it to now.'},
+   {k:'seq', en:'events following each other (a story)', de:'Abfolge von Ereignissen', ex:['She opened the door, looked around and screamed.'], why:'One action follows the next, so we tell the story step by step.'},
+   {k:'pastHab', en:'habits and states in the past', de:'Gewohnheiten & Zustände in der Vergangenheit', ex:['When I was little, I played outside every day.','We lived in a small village. We used to have a dog.'], why:'The habit or state belonged to a time that is over.'}],
+  form:{aff:'regular: walk → walked  ·  irregular: go → went, see → saw', neg:"I didn't go  ·  she didn't see it", q:'Did you go?  ·  Did she see it?', note:"In negatives and questions did already shows the past, so the main verb goes back to the base form (didn't go – not didn't went)."},
+  signals:['yesterday','last week / year','two days ago','in 2019','when I was ten','then','the other day'],
+  mistakes:[["I didn't went home.","I didn't go home.",'Did already shows the past, so the verb stays in the base form.'],['Did you saw him?','Did you see him?','After did we use the base form.'],['I goed to the park.','I went to the park.','Go is irregular: go – went – gone.'],['I have seen him yesterday.','I saw him yesterday.','A finished time word like yesterday needs the Past Simple.']],
+  de:"Im gesprochenen Deutsch nehmen wir meist das Perfekt („Ich bin gestern gegangen“). Im Englischen steht bei yesterday, ago und last … immer das Past Simple – nie das Present Perfect.",
+  model:"We use the Past Simple for finished actions at a definite time in the past, for example 'I visited my grandma last weekend'. We also use it to tell a story, when one action follows the other, and for habits and states in the past. The reason is that the time is over and the action is complete, so there is no link to the present. Typical signal words are yesterday, last week, ago and in 2019.",
+  keys:['finished|completed|over|complete','definite time|specific time|at a time','story|one after the other|sequence','example|for example|for instance','signal words|yesterday|last week|ago|in 2019','no link|not connected|present'],
+  formSpeech:"Regular verbs get -ed in the affirmative, and irregular verbs have their own second form, like went or saw. In the negative and in questions we use did and the base verb, so the main verb does not change. For example: 'I didn't go.' and 'Did you go?'",
+  formKeys:['ed|-ed|regular','irregular|second form|went|saw','did|didn\'t|did not','base verb|base form|infinitive']},
+
+{ id:'pac', name:'Past Continuous', ic:'⏪', one:'An action was in progress at a moment in the past.',
+  uses:[
+   {k:'prog', en:'an action in progress at a past moment', de:'Handlung im Verlauf zu einem Zeitpunkt', ex:['At eight o\'clock last night I was doing my homework.','What were you doing at six?'], why:'We look at the middle of the action: it had started before and was still going on.'},
+   {k:'interr', en:'a longer action interrupted by a shorter one', de:'lange Handlung wird unterbrochen', ex:['I was walking home when it started to rain.','She was talking on the phone when the doorbell rang.'], why:'The long action is the background (Past Continuous), the short interruption is a single event (Past Simple).'},
+   {k:'back', en:'background & parallel actions', de:'Hintergrund & gleichzeitige Handlungen', ex:['The sun was shining and the birds were singing.','While Mum was cooking, I was setting the table.'], why:'It paints the scene, while the Past Simple moves the story forward.'}],
+  form:{aff:'I / he / she / it was reading  ·  we / you / they were reading', neg:"I wasn't reading  ·  they weren't reading", q:'Was she reading?  ·  Were you reading?', note:'The short interrupting action (after when) is in the Past Simple.'},
+  signals:['while','when','as','at 8 o\'clock yesterday','all evening','at that moment'],
+  mistakes:[['When I was arriving, the film started.','When I arrived, the film started.','A short, sudden action is a Past Simple event.'],['While I cooked, the phone rang.','While I was cooking, the phone rang.','The long action in the background needs the Past Continuous.'],['I was knowing the answer.','I knew the answer.','Know is a stative verb, so no -ing.']],
+  de:"Im Deutschen sagen wir oft „Ich las gerade, als …“ oder „Ich habe gerade gelesen, als …“. Im Englischen merkst du dir: lange Handlung = was reading, kurze Unterbrechung = rang / arrived / started.",
+  model:"We use the Past Continuous for an action that was in progress at a certain moment in the past, for example 'At eight o'clock I was doing my homework'. We also use it for a long action that is interrupted by a short one, like 'I was walking home when it started to rain', and for the background of a story. We use it because we look at the middle of the action, not at the end. Typical words are while, when and as.",
+  keys:['in progress|was going on|middle of|continuing','interrupted|interruption|short action|longer action','background|scene|parallel|at the same time','example|for example|for instance','signal words|while|when|as','was or were|was|were|-ing'],
+  formSpeech:"We form the Past Continuous with was or were plus the verb with -ing. I, he, she and it take was, and we, you and they take were. For example: 'I was reading.', 'They weren't listening.' and 'Were you sleeping?'",
+  formKeys:['was|were','-ing|ing form|verb with ing','I he she it|singular','question|questions|negative|weren\'t|wasn\'t']},
+
+{ id:'pp', name:'Present Perfect', ic:'🔗', one:'The past is connected to the present.',
+  uses:[
+   {k:'exp', en:'life experience (no time given)', de:'Lebenserfahrung (ohne Zeitangabe)', ex:["I've been to London twice.","Have you ever eaten sushi?"], why:'It does not matter when – what matters is that you have this experience now.'},
+   {k:'res', en:'a past action with a result now', de:'Handlung mit Ergebnis in der Gegenwart', ex:["I've lost my key – I can't get in.","She's broken her arm, so she can't write."], why:'The past action is connected to the present because the result is visible now.'},
+   {k:'dur', en:'something that started in the past and still continues', de:'hat begonnen und dauert noch an (for / since)', ex:["I've lived here for five years.","She has known him since 2020."], why:'The time period is not finished – it runs until now.'},
+   {k:'recent', en:'very recent news (just, already, yet)', de:'ganz frische Neuigkeiten', ex:["I've just finished my project.","Have you done your homework yet?"], why:'The action is so recent that it still touches the present.'}],
+  form:{aff:"I've seen  ·  she's seen  (have / has + past participle)", neg:"I haven't seen  ·  she hasn't seen", q:'Have you seen it?  ·  Has she seen it?', note:'Regular: past participle = verb + -ed. Irregular: learn the third form (go – went – gone, write – wrote – written).'},
+  signals:['ever','never','already','yet','just','so far','since','for','recently','this week / this year'],
+  mistakes:[['I have seen him yesterday.','I saw him yesterday.','A finished time word like yesterday needs the Past Simple.'],['I live here since 2019.','I have lived here since 2019.','The time runs until now, so we need the Present Perfect.'],['I am here for two hours.','I have been here for two hours.','For + length of time up to now needs the Present Perfect.'],['She has went home.','She has gone home.','After has we need the past participle (the third form).']],
+  de:"Auf Deutsch sagen wir „Ich wohne seit fünf Jahren hier“ (Präsens!). Im Englischen: „I have lived here for five years“ – die Zeit läuft bis jetzt, also Present Perfect.",
+  model:"We use the Present Perfect when the past is connected to the present. First, for life experience, like 'I've been to London'. Second, for a past action with a result now, like 'I've lost my key'. Third, for something that started in the past and still continues, with for or since, like 'I've lived here for five years'. And fourth, for recent news with just, already and yet. The time is not finished, or it is not important, so we do not use finished-time words like yesterday.",
+  keys:['connected to the present|connection|link to now|up to now|present','experience|ever|never','result|result now','for or since|for|since|still continues|still true','just|already|yet|recent','not yesterday|no finished time|finished time words'],
+  formSpeech:"We form the Present Perfect with have or has plus the past participle. We use has for he, she and it. For example: 'I've seen it.', 'She hasn't called.' and 'Have you finished?' With irregular verbs we have to know the third form, like gone, seen or written.",
+  formKeys:['have|has','past participle|third form|3rd form','he she it|has for','irregular|gone|seen|written']},
+
+{ id:'pap', name:'Past Perfect', ic:'⏮️⏮️', one:'The action that happened first – before another past action.',
+  uses:[
+   {k:'earlier', en:'an action before another past action', de:'Vorzeitigkeit in der Vergangenheit', ex:['When I arrived, the film had already started.','She was sad because she had lost her phone.'], why:'We need to show which of two past events came first – had + past participle goes one step further back.'},
+   {k:'rep', en:'reporting earlier events (reported speech)', de:'Bericht über Früheres (indirekte Rede)', ex:['He told me he had seen the movie.','She said she had finished her book.'], why:'What she or he said happened before the moment of reporting, so everything moves one step back.'}],
+  form:{aff:"I had finished  ·  she had finished  (had is the same for everybody)", neg:"I hadn't finished", q:'Had you finished?', note:"Use it only when the order matters. If the events are told in order, the Past Simple is enough: 'I got up, ate breakfast and left.'"},
+  signals:['before','after','already','by the time','until','when (+ Past Simple)'],
+  mistakes:[['When I came home, my mum already cooked.','When I came home, my mum had already cooked.','The cooking was finished before I came, so we need the Past Perfect.'],['I had went home.','I had gone home.','After had we need the past participle.'],["After I had finish, I left.","After I had finished, I left.",'Had needs the past participle (-ed).']],
+  de:"Im Deutschen heißt es Plusquamperfekt („Ich hatte gegessen“) – im Englischen bildest du es genauso: had + Partizip. Wichtig ist nur die Reihenfolge: was war zuerst?",
+  model:"We use the Past Perfect for an action that happened before another action in the past. For example, 'When I arrived, the film had already started': first the film started, then I arrived. We use had plus the past participle to go one step further back in time. It is useful when the order of events is important, and typical words are before, after, already and by the time.",
+  keys:['before another|earlier|first|one step back|earlier action','two past|two actions|another past','example|for example|for instance','had|had plus|had + past participle','signal words|before|after|already|by the time','order|which came first|sequence'],
+  formSpeech:"We form the Past Perfect with had plus the past participle, and had is the same for every person. For example: 'I had finished.', 'They hadn't arrived.' and 'Had you met her before?' It is easy because there is only one form of the auxiliary.",
+  formKeys:['had','past participle|third form','same for every person|every person|all persons','negative|question|hadn\'t']},
+
+{ id:'fw', name:'Future Simple (will)', ic:'🔮', one:'Decisions made now, opinions and promises about the future.',
+  uses:[
+   {k:'spont', en:'spontaneous decisions', de:'spontane Entscheidungen', ex:["The phone is ringing – I'll get it!","I'm thirsty. I'll get some water."], why:'There was no plan before; you decide at the moment of speaking.'},
+   {k:'pred', en:'predictions & opinions about the future', de:'Vorhersagen & Meinungen', ex:["I think it will rain tomorrow.","You'll love this book!"], why:'It is what you believe or guess – not a plan and not based on a visible sign.'},
+   {k:'prom', en:'promises, offers & requests', de:'Versprechen, Angebote & Bitten', ex:["I'll help you with your homework.","I won't tell anyone.","Will you open the window, please?"], why:'Will expresses willingness: you commit yourself to do something.'}],
+  form:{aff:"I'll go  ·  she'll go  (will + base verb, same for all persons)", neg:"I won't go  (will not)", q:'Will you go?', note:"Never 'will to go'. In if / when / as soon as clauses we use the Present Simple: If it rains, I'll stay at home."},
+  signals:['tomorrow','next week','soon','in 2030','I think','probably','perhaps','I\'m sure','I promise'],
+  mistakes:[['If it will rain, I will stay at home.',"If it rains, I will stay at home.",'After if, when and as soon as we use the Present Simple for the future.'],['I will to go.','I will go.','After will the verb comes without to.'],["I'll visit my aunt on Saturday – we planned it weeks ago.","I'm going to visit my aunt on Saturday – we planned it weeks ago.",'A plan that was made before needs going to.']],
+  de:"Im Deutschen reicht oft das Präsens („Morgen regnet es“) oder „werden“. Im Englischen unterscheidest du: will (spontan, Meinung, Versprechen) – going to (Plan, Anzeichen).",
+  model:"We use the Future Simple with will for spontaneous decisions, like 'I'll open the door', for predictions and opinions, like 'I think it will rain', and for promises and offers, like 'I'll help you'. We use will when there is no plan yet, because the decision or the opinion comes at the moment of speaking. Typical signal words are tomorrow, soon, probably and I think.",
+  keys:['spontaneous|spontaneous decisions|decision at the moment|decide now','predictions|prediction|opinion|think|guess','promises|promise|offers|offer','example|for example|for instance','no plan|not planned|no plan before|moment of speaking','signal words|tomorrow|soon|probably|I think'],
+  formSpeech:"We form the Future Simple with will plus the base verb, and it is the same for all persons. The negative is won't, and in questions will comes first. For example: 'I'll help.', 'She won't come.' and 'Will you join us?' We never use to after will.",
+  formKeys:['will','base verb|base form|infinitive','won\'t|will not','same for all|every person|all persons|no s']},
+
+{ id:'fg', name:'going to (bonus)', ic:'🎯', one:'Plans, intentions – and predictions you can see coming.',
+  uses:[
+   {k:'plan', en:'plans & intentions', de:'Pläne & Absichten', ex:["I'm going to learn French this year.","We're going to paint my room green."], why:'You decided before the moment of speaking, so the future already has a cause: your intention.'},
+   {k:'evid', en:'predictions based on evidence', de:'Vorhersagen mit sichtbarem Anzeichen', ex:["Look at those clouds! It's going to rain.","Watch out! You're going to fall!"], why:'You can see a sign now that tells you what will happen next.'}],
+  form:{aff:"I'm going to learn  ·  she's going to learn  ·  they're going to learn", neg:"I'm not going to learn  ·  he isn't going to learn", q:'Are you going to learn?  ·  Is she going to learn?', note:"In speech: 'gonna'. After going to the verb is in the base form."},
+  signals:['tomorrow','next week','this weekend','Look!','Watch out!','I\'ve decided','in the future'],
+  mistakes:[["I'm going to to learn French.","I'm going to learn French.",'Only one to – after going to comes the base verb.'],['Look at the clouds! It will rain.',"Look at the clouds! It's going to rain.",'You can see the evidence, so going to fits better than will.'],['We going to see a film tonight.',"We're going to see a film tonight.",'We need am / is / are before going to.']],
+  de:"„Ich werde …“ kann im Englischen will oder going to heißen. Frage dich: Habe ich das schon vorher geplant oder sehe ich schon ein Anzeichen? Dann: going to.",
+  model:"We use going to for plans and intentions that we decided before, for example 'I'm going to learn French'. We also use it for predictions when we can see evidence now, like 'Look at the clouds! It's going to rain'. We use it because the future already has a cause in the present: a plan or a sign.",
+  keys:['plans|plan|intentions|intention|decided before','predictions|prediction','evidence|sign|can see|see now','example|for example|for instance','present|already|cause|connection','signal words|look|watch out|tomorrow'],
+  formSpeech:"We form going to with am, is or are, then going to, and then the base verb. For example: 'I'm going to learn French.', 'She isn't going to come.' and 'Are you going to stay?'",
+  formKeys:['am|is|are','going to','base verb|base form|infinitive','question|negative|not']}
+];
+const TENSE = Object.fromEntries(TENSES.map(t => [t.id, t]));
+const REASON = {}; TENSES.forEach(t => t.uses.forEach(u => REASON[u.k] = Object.assign({ t: t.id }, u)));
+
+/* ===== Unterschiede ===== */
+const CONTRASTS = [
+ { id:'ps_pc', a:'ps', b:'pc', title:'Present Simple vs Present Continuous', test:'Is it a pattern – or a moment? Permanent – or only for now?',
+   points:['Present Simple = a pattern: habits, facts, timetables.','Present Continuous = a moment: happening now, temporary, changing.','State verbs (know, like, want, need, own) stay in the Present Simple – even right now.'],
+   pairs:[['I walk to school.',"I'm walking to school today.",'Walking is my routine in the first sentence; in the second, it is happening today (maybe because something is different).'],['He lives in Graz.',"He's living in Graz this year.",'Permanent home vs a temporary stay.'],['I think it is a good idea.',"I'm thinking about it.",'Think as an opinion is a state; think about is an action in progress.'],['She talks a lot.',"She's talking on the phone.",'A character trait vs what she is doing right now.']],
+   de:'Deutsch: „Ich esse“ = beides. Englisch muss sich entscheiden: I eat (immer) oder I am eating (gerade).',
+   model:"The Present Simple is for habits, facts and timetables, so it describes a pattern. The Present Continuous is for actions that are happening right now or only temporarily. For example, 'I walk to school' is my routine, but 'I'm walking to school today' means it is different today. Also, verbs like know or like are states, so we use them in the Present Simple, even right now.",
+   keys:['habits|habit|routine|pattern|regular','right now|happening now|at the moment|in progress','temporary|only for now','example|for example|for instance','state|stative|know|like','facts|timetables|fact'] },
+ { id:'pas_pp', a:'pas', b:'pp', title:'Past Simple vs Present Perfect', test:"Can you add 'yesterday', 'last week' or 'in 2019'? Then it is the Past Simple.",
+   points:['Past Simple: finished time (yesterday, last year, in 2019, ago).','Present Perfect: no time named, or a time that is not over (today, this week, since, for).','Both talk about the past – but the Present Perfect keeps a link to now.'],
+   pairs:[['I lived in Linz for two years.',"I've lived in Linz for two years.",'First: I do not live there any more. Second: I still live there.'],['Did you see the film last night?','Have you seen the film?','A finished time vs an experience without a time.'],['She lost her keys yesterday.',"She's lost her keys.",'A story about yesterday vs the result now (she cannot get in).'],['We went to Italy in 2022.',"We've been to Italy twice.",'A definite year vs how many times in our life.']],
+   de:'Deutsch nutzt das Perfekt für alles („Ich habe ihn gestern gesehen“). Englisch trennt streng: yesterday → Past Simple.',
+   model:"We use the Past Simple for finished actions with a definite time, like yesterday or in 2019. We use the Present Perfect when the time is not mentioned or not over, and the action is connected to now: an experience, a result, or something that is still going on. For example, 'I lived in Linz for two years' means I don't live there any more, but 'I've lived in Linz for two years' means I still do.",
+   keys:['finished|definite time|specific time|over','yesterday|last week|ago|in 2019','connected to now|connection|link|present','experience|result|still going on|still','for|since|for or since','example|for example|for instance'] },
+ { id:'pas_pac', a:'pas', b:'pac', title:'Past Simple vs Past Continuous', test:'Is the action finished (or a short event) – or was it in the middle at that moment?',
+   points:['Past Simple: finished action, short event, next step in a story.','Past Continuous: in progress at a moment, long background action.','Together: long action (was doing) + short interruption (did).'],
+   pairs:[['I read a book last night.','I was reading a book at nine.','Finished (maybe the whole book) vs in the middle of reading at nine.'],['When Tom came in, I switched off the TV.','When Tom came in, I was watching TV.','First: one thing after the other. Second: the TV was already on.'],['It rained yesterday.','It was raining when we left.','A fact about yesterday vs the weather at one moment.']],
+   de:'Merke: lange Handlung = was / were + -ing; kurze Unterbrechung = einfache Vergangenheit.',
+   model:"We use the Past Simple for finished actions and for events in a story that follow each other. We use the Past Continuous for an action that was in progress at a certain moment, or for the background. Usually, a long action in the Past Continuous gets interrupted by a short action in the Past Simple, for example: 'I was reading when the phone rang.'",
+   keys:['finished|complete|one after the other|story','in progress|was going on|middle of','background|long action|longer','interrupted|interruption|short action|short','example|for example|for instance','when|while'] },
+ { id:'pas_pap', a:'pas', b:'pap', title:'Past Simple vs Past Perfect', test:'Which of the two past events happened first? That one gets had + past participle.',
+   points:['Both are about the past – the Past Perfect goes one step further back.','It shows the order of two events.','If the order is already clear (first … then …), the Past Simple is enough.'],
+   pairs:[['When I arrived, the film started.','When I arrived, the film had started.','First: the film began after I arrived. Second: it was already running.'],['I was tired. I stayed up late.','I was tired because I had stayed up late.','The reason happened earlier than the tiredness.'],['After he did his homework, he played games.','After he had done his homework, he played games.','Both are fine, but the Past Perfect makes the order extra clear.']],
+   de:'Das Past Perfect ist wie das deutsche Plusquamperfekt: Es zeigt, was zuerst war.',
+   model:"Both are about the past, but the Past Perfect goes one step further back. If I say 'When I arrived, the film started', the film began after I arrived. But 'When I arrived, the film had started' means it was already running. So the Past Perfect shows which of two past actions happened first.",
+   keys:['one step further back|further back|earlier|first','order|which came first|two past','example|for example|for instance','film|arrived','had|had plus|past participle','past simple|simple'] },
+ { id:'pp_pap', a:'pp', b:'pap', title:'Present Perfect vs Past Perfect', test:'Do you look back from NOW – or from a moment in the past?',
+   points:['Same form (have/has or had + past participle), different point of view.','Present Perfect: looks back from now, connected to the present.','Past Perfect: looks back from a moment in the past.'],
+   pairs:[["I've finished my homework.",'I had finished my homework when Mum came in.','Now I am free vs before a past moment.'],["She's lost her phone, so she is sad.",'She had lost her phone, so she was sad.','The same story, moved one step into the past.'],['Have you seen the film?','Had you seen the film before you read the book?','Experience until now vs until a point in the past.']],
+   de:'Present Perfect = Blick von jetzt zurück. Past Perfect = Blick von einem Zeitpunkt in der Vergangenheit zurück.',
+   model:"Both use a form of have plus the past participle, but the point of view is different. The Present Perfect looks back from now: 'I've finished my homework', and now I am free. The Past Perfect looks back from a moment in the past: 'I had finished my homework when Mum came in.' So the Present Perfect connects to now, and the Past Perfect connects to another time in the past.",
+   keys:['have plus|have|has|past participle','from now|connected to now|present','from a moment in the past|moment in the past|another time|past','example|for example|for instance','point of view|looks back|look back','finished|result'] },
+ { id:'fw_fg', a:'fw', b:'fg', title:'will vs going to', test:'Did I decide just now – or is there already a plan or a sign?',
+   points:['will: spontaneous decisions, opinions, promises.','going to: plans from before, and predictions with evidence.','Often both are possible for a general prediction – think about the speaker’s view.'],
+   pairs:[["The phone is ringing. I'll get it!","I'm going to call Anna after school.",'Decision at the moment vs a plan made earlier.'],['I think it will be sunny tomorrow.',"Look at the sky! It's going to rain.",'An opinion vs a prediction with evidence.'],["Don't worry, I'll help you.","I'm going to help my dad on Saturday.",'A promise vs an arranged plan.']],
+   de:'„Ich werde …“ hat im Englischen zwei Gesichter. Spontan oder Meinung → will. Geplant oder Anzeichen → going to.',
+   model:"We use will for spontaneous decisions, promises, offers and opinions about the future, like 'I think it will rain'. We use going to for plans we made before and for predictions with evidence we can see now, like 'Look at the clouds! It's going to rain.' So the question is: did I decide just now, or is there already a plan or a sign?",
+   keys:['spontaneous|spontaneous decisions|decide now|just now','promises|promise|offers|opinion','plans|plan|intentions|decided before','evidence|sign|can see','example|for example|for instance','will|going to'] },
+ { id:'pc_fg', a:'pc', b:'fg', title:'Present Continuous vs going to (future)', test:'Is it organised (time, place, person)? Then Present Continuous. Is it an intention? Then going to.',
+   points:['Present Continuous for the future: an arrangement that is already organised.','going to: an intention or plan, even if nothing is booked yet.','Often both work – the Present Continuous sounds more fixed.'],
+   pairs:[["I'm meeting Tom at five.","I'm going to be a vet.",'Arranged with time and person vs a plan for life.'],["We're flying to Rome on Friday.","We're going to see Rome one day.",'Tickets booked vs a wish with an intention.']],
+   de:'Terminiert und abgesprochen → Present Continuous. Absicht ohne festen Termin → going to.',
+   model:"Both can talk about the future. The Present Continuous is used for arrangements that are already organised, with a time and often another person, such as 'I'm meeting Tom at five.' Going to is used for intentions and plans, even if nothing is booked yet, like 'I'm going to be a vet'.",
+   keys:['arrangement|arrangements|organised|fixed','time|person|booked','intentions|intention|plans|plan','example|for example|for instance','future','present continuous|going to'] }
+];
+
+const GENERAL_Q = [
+ { id:'g1', q:'How do I choose the right tense?', model:"I ask myself three questions. First, when is it – past, present or future? Second, is the action finished, in progress, repeated or connected to now? Third, are there signal words like yesterday, since or always that give me a clue? Then I choose the form that fits the meaning.", keys:['when|past present future|time','finished|in progress|repeated|connected','signal words|signal word|clue|yesterday|since|always','meaning|form|fits'], starters:['First, I ask myself …','Then I look for …','Finally, I choose …'] },
+ { id:'g2', q:'What are signal words, and why are they useful?', model:"Signal words are time expressions like always, yesterday, since or already. They are useful because each tense likes certain signal words. For example, 'every day' points to the Present Simple, and 'yesterday' points to the Past Simple. But they are only hints, so I also have to think about the meaning of the sentence.", keys:['time expressions|time expression|words like|always|yesterday|since|already','clue|hint|point to|useful','example|for example|for instance','meaning|think'], starters:['Signal words are …','They are useful because …','For example, …'] },
+ { id:'g3', q:"What is the difference between 'for' and 'since'?", model:"We use for with a length of time, for example 'for two years' or 'for three hours'. We use since with a starting point, for example 'since 2022' or 'since Monday'. Both are often used with the Present Perfect, because the time continues until now.", keys:['length of time|period|how long|duration','starting point|start|beginning|point in time','example|for example|for instance','present perfect|until now|up to now'], starters:['We use for with …','We use since with …','Both are used with …'] },
+ { id:'g4', q:'Why do we need so many tenses?', model:"Tenses show us when something happens, and also how the speaker sees the action: finished, in progress, repeated, or connected to another time. Without tenses we could say when, but not how. So tenses give the sentence its exact meaning. For example, 'I lived here' and 'I have lived here' say something very different.", keys:['when|time','how|finished|in progress|repeated|connected','exact meaning|meaning|different','example|for example|for instance'], starters:['Tenses show us …','Without tenses …','For example, …'] },
+ { id:'g5', q:'What is the difference between regular and irregular verbs?', model:"Regular verbs form the Past Simple and the past participle with -ed, like walk, walked, walked. Irregular verbs change in another way, like go, went, gone, so we must learn them by heart. A good tip is to learn them in groups, for example sing, sang, sung and ring, rang, rung.", keys:['regular|-ed|ed','irregular|learn by heart|change','past simple|past participle|second form|third form','example|for example|like go|walk'], starters:['Regular verbs …','Irregular verbs …','A good tip is …'] },
+ { id:'g6', q:'What are stative verbs?', model:"Stative verbs describe states, not actions, for example know, like, love, want, need and own. Normally we don't use them in continuous forms, so we say 'I know the answer' and not 'I am knowing the answer'. Some verbs can be used in both ways with a different meaning: 'I have a car' is possession, but 'I'm having lunch' is an action.", keys:['states|state|not actions|not action','know|like|love|want|need|own','continuous|-ing|no ing','example|for example|different meaning|have'], starters:['Stative verbs describe …','Normally we don’t use them …','For example, …'] }
+];
+
+/* ===== Fragenbank ===== */
+const QS = [];
+const lowerFirst = s => s.charAt(0) === 'I' && /^I[ ']/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1);
+TENSES.forEach(t => {
+  const exs = t.uses.slice(0, 3).map(u => u.ex[0]);
+  const m = t.mistakes[0];
+  QS.push({ id:t.id+'1', cat:'tenses', t:t.id, q:`When and why do we use the ${t.name}?`, model:t.model, keys:t.keys, starters:[`We use the ${t.name} to talk about …`, "For example, '…'", 'We use it because …', 'Typical signal words are …'] });
+  QS.push({ id:t.id+'2', cat:'form', t:t.id, q:`How do we form the ${t.name}?`, model:t.formSpeech, keys:t.formKeys, starters:[`We form the ${t.name} with …`, 'In the negative we use …', 'In questions we …', 'For example, …'] });
+  QS.push({ id:t.id+'3', cat:'examples', t:t.id, q:`Can you give me some examples of the ${t.name} – and a typical mistake?`,
+    model:`For example: '${exs.join("', '")}'. A typical mistake is to say '${m[0]}' The correct sentence is '${m[1]}' ${m[2]}`,
+    keys:['for example|example|for instance','mistake|wrong|not correct|incorrect','correct|should be|right','because|reason|that is why'], starters:['For example, …', 'A typical mistake is …', 'The correct sentence is …'] });
+});
+const CQ = { fw_fg:'will and going to', pc_fg:'the Present Continuous and going to for the future' };
+CONTRASTS.forEach(c => QS.push({ id:'c_'+c.id, cat:'diff', c:c.id, q:`What is the difference between ${CQ[c.id] || ('the ' + TENSE[c.a].name + ' and the ' + TENSE[c.b].name)}?`, model:c.model, keys:c.keys, starters:['The first one is used for …, but the second one …','The difference is that …','For example, …','So the question is: …'] }));
+GENERAL_Q.forEach(g => QS.push({ id:g.id, cat:'general', q:g.q, model:g.model, keys:g.keys, starters:g.starters }));
+const QCATS = { tenses:'When & why', form:'Form', examples:'Examples & mistakes', diff:'Differences', general:'General grammar' };
+
+/* ===== Tense Detective: [sentence, tense, reason] ===== */
+const DET = [
+ ['My sister plays volleyball on Wednesdays.','ps','habit'],['The Earth goes around the sun.','ps','fact'],['The museum opens at nine o\'clock.','ps','sched'],["I don't understand this word.",'ps','state'],
+ ['Cats sleep a lot.','ps','fact'],['We never eat meat on Fridays.','ps','habit'],['The film starts at 7.30 tonight.','ps','sched'],['She owns three bikes.','ps','state'],['Ice melts when it gets warm.','ps','fact'],
+ ['Be quiet! The baby is sleeping.','pc','now'],["I'm staying at my grandma's this week.",'pc','temp'],["We're having a party on Saturday – all my friends are coming.",'pc','arr'],["It's getting dark.",'pc','change'],["He's always forgetting his homework!",'pc','annoy'],
+ ['What are you doing at the moment?','pc','now'],['My brother is learning to drive these days.','pc','temp'],['Prices are rising quickly.','pc','change'],["I'm seeing the dentist on Monday at four.",'pc','arr'],
+ ['We visited the castle last summer.','pas','fin'],['She got up, brushed her teeth and left the house.','pas','seq'],['When I was a child, I hated carrots.','pas','pastHab'],['Mozart died in 1791.','pas','fin'],['Did you watch the match yesterday?','pas','fin'],
+ ['He opened the box, looked inside and smiled.','pas','seq'],['I lived in Linz when I was small.','pas','pastHab'],["They didn't come to the party.",'pas','fin'],['Three weeks ago, we moved to a new flat.','pas','fin'],
+ ['At nine o\'clock last night I was reading in bed.','pac','prog'],['I was cycling to school when it started to rain.','pac','interr'],['While Dad was cooking, I was setting the table.','pac','back'],['The sun was shining and the kids were playing in the park.','pac','back'],
+ ['She was talking on the phone when the doorbell rang.','pac','interr'],['What were you doing at 6 p.m.?','pac','prog'],['They were watching TV when the lights went out.','pac','interr'],['It was raining all afternoon.','pac','prog'],
+ ['Have you ever been to Italy?','pp','exp'],["I've never tried sushi.",'pp','exp'],['Oh no! I\'ve lost my phone.','pp','res'],["She has broken her leg, so she can't dance.",'pp','res'],["We've lived here since 2018.",'pp','dur'],['He has been my friend for ten years.','pp','dur'],["I've just finished my homework.",'pp','recent'],['Have you done your homework yet?','pp','recent'],['They have already left.','pp','recent'],
+ ['When we arrived, the film had already started.','pap','earlier'],['She was sad because she had lost her bracelet.','pap','earlier'],["I couldn't open the door because I had forgotten my key.",'pap','earlier'],['After he had eaten, he went for a walk.','pap','earlier'],['By the time Mum came home, we had cleaned the kitchen.','pap','earlier'],
+ ['He said he had already seen the film.','pap','rep'],['Had you met her before the party?','pap','earlier'],["I realised that I hadn't locked the door.",'pap','earlier'],['She told me she had finished her book.','pap','rep'],
+ ["The doorbell is ringing – I'll open it!",'fw','spont'],['I think our team will win.','fw','pred'],["I promise I won't tell anyone.",'fw','prom'],["It's really heavy – I'll carry it for you.",'fw','prom'],['In the future, people will probably live on Mars.','fw','pred'],
+ ["I'm thirsty. I'll get some water.",'fw','spont'],["Don't worry. I'll be there at six.",'fw','prom'],["You'll love this book, I'm sure!",'fw','pred'],['Will you help me with my project?','fw','prom'],
+ ["I'm going to start a diary next year.",'fg','plan'],["Look at those black clouds! It's going to rain.",'fg','evid'],["We're going to paint my room green this weekend.",'fg','plan'],['Watch out! You\'re going to fall!','fg','evid'],
+ ["She's going to be a vet when she grows up.",'fg','plan'],["He's very pale. I think he's going to be sick.",'fg','evid'],['What are you going to do on Saturday?','fg','plan'],["They've bought the tickets – they're going to see the concert.",'fg','plan']
+];
+
+/* ===== Lückensatz: [sentence, correct, [wrong x3], tense, explanation] ===== */
+const GAP = [
+ ['My dad ___ coffee every morning.','drinks',['is drinking','drank','has drunk'],'ps','Every morning = a routine → Present Simple (he/she/it + -s).'],
+ ['She ___ like spiders.',"doesn't",["isn't","don't","hasn't"],'ps',"he/she/it + doesn't + base verb."],
+ ['___ your brother play the guitar?','Does',['Do','Is','Has'],'ps','Question about a general fact: Does + he/she/it + base verb.'],
+ ['Water ___ at 100 degrees.','boils',['is boiling','boiled','has boiled'],'ps','A general truth → Present Simple.'],
+ ['I ___ the answer! Can I tell you?','know',['am knowing','knew','will know'],'ps','Know is a stative verb: no -ing.'],
+ ['If it ___ tomorrow, we will stay at home.','rains',['will rain','is raining','rain'],'ps','After if, when and as soon as we use the Present Simple for the future.'],
+ ['Shh! The baby ___.','is sleeping',['sleeps','slept','has slept'],'pc','Happening right now (Shh!) → Present Continuous.'],
+ ['Why ___ that jacket today? It is so hot!','are you wearing',['do you wear','did you wear','have you worn'],'pc','Today and right now → Present Continuous.'],
+ ["I ___ for the test this week, so I can't come out.",'am studying',['study','studied','studying'],'pc','A temporary situation this week → Present Continuous.'],
+ ["We ___ to the cinema tonight – I've already got the tickets.",'are going',['go','went','have gone'],'pc','A fixed arrangement (tickets are booked) → Present Continuous.'],
+ ['Honestly, he ___ always losing his keys!','is',['has','does','will'],'pc',"'Always' + -ing shows an annoying habit."],
+ ['I ___ my grandma last Sunday.','visited',['have visited','was visiting','visit'],'pas','Last Sunday = finished time → Past Simple.'],
+ ['Yesterday, we ___ a lovely walk.','took',['have taken','were taking','take'],'pas','Yesterday → Past Simple (irregular: take – took).'],
+ ['___ you watch the match last night?','Did',['Do','Have','Were'],'pas','Finished time (last night): Did + base verb.'],
+ ['I ___ him two days ago.','saw',['have seen','was seeing','see'],'pas','Ago always goes with the Past Simple.'],
+ ['They ___ in Graz in 2015.','moved',['have moved','move','had moved'],'pas','A definite year → Past Simple.'],
+ ['I ___ TV when the phone rang.','was watching',['watched','have watched','am watching'],'pac','A longer action interrupted by a short one → Past Continuous.'],
+ ['What ___ you doing at eight o\'clock yesterday?','were',['did','are','have'],'pac','In progress at a past moment: was / were + -ing.'],
+ ['At that moment, the kids ___ in the garden.','were playing',['played','have played','are playing'],'pac','At that moment = in progress → Past Continuous.'],
+ ['We ___ dinner when the lights went out.','were having',['have had','are having','will have'],'pac','The long background action takes the Past Continuous.'],
+ ['I ___ never seen snow.','have',['had','did','was'],'pp','Experience up to now → have + past participle.'],
+ ['She ___ here since 2020.','has lived',['lives','lived','is living'],'pp','Since = from the past until now → Present Perfect.'],
+ ['___ you ever been to Rome?','Have',['Did','Do','Were'],'pp','Ever + experience → Have you ever + past participle.'],
+ ['They ___ here for ten years and they love it.','have lived',['lived','live','are living'],'pp','For + a period up to now → Present Perfect.'],
+ ["We ___ lunch yet.","haven't had",["don't have","weren't having","hadn't had"],'pp','Yet in a negative sentence → Present Perfect.'],
+ ['Look! He ___ just broken the window.','has',['have','did','is'],'pp','Just → Present Perfect, and he needs has.'],
+ ['When I arrived at the station, the train ___ already left.','had',['has','was','did'],'pap','The train left first → Past Perfect (had + past participle).'],
+ ['She was upset because she ___ her phone.','had lost',['has lost','was losing','loses'],'pap','The losing happened before she was upset → Past Perfect.'],
+ ['After we ___ dinner, we watched a film.','had finished',['have finished','were finishing','finish'],'pap','After + earlier action → Past Perfect.'],
+ ["I didn't know that he ___ in Spain before.",'had lived',['has lived','is living','lives'],'pap','Before a past moment → Past Perfect.'],
+ ["It's cold in here. I ___ the window.","'ll close",['close','closed','have closed'],'fw','A spontaneous decision → will.'],
+ ["I'm sure you ___ the exam.",'will pass',['passed','have passed','passes'],'fw','An opinion about the future → will.'],
+ ["Don't worry, I ___ tell anyone your secret.","won't",["don't","haven't","didn't"],'fw','A promise → will not / won\'t.'],
+ ['Look at that car! It ___ crash!','is going to',['crashes','crashed','has crashed'],'fg','You can see the evidence → going to.'],
+ ["Next summer, we ___ visit Croatia. We've booked the hotel.",'are going to',['visit','visited','have visited'],'fg','A plan made before → going to.'],
+ ['I ___ him last week.','saw',['have seen','had seen','was seeing'],'pas','Last week = finished time → Past Simple.'],
+ ["I ___ my homework yet.","haven't finished",["don't finish","wasn't finishing","hadn't finished"],'pp','Yet → Present Perfect.']
+];
+
+/* ===== Error Hunt: [correct, wrong1, wrong2, tense, note] ===== */
+const ERR = [
+ ['She goes to school by bus.','She go to school by bus.','She going to school by bus.','ps','He / she / it → verb + -s.'],
+ ["He doesn't like fish.","He doesn't likes fish.","He don't like fish.",'ps',"After doesn't the verb stays in the base form."],
+ ['I know the answer.','I am knowing the answer.',"I'm know the answer.",'ps','Know is a stative verb: Present Simple, no -ing.'],
+ ['What are you doing?','What you are doing?','What do you doing?','pc','Question word + are + subject + -ing.'],
+ ["I usually walk to school, but today I'm taking the bus.","I usually am walking to school, but today I take the bus.","I'm usually walking to school, but today I take the bus.",'pc','Usually → Present Simple. Today (different from normal) → Present Continuous.'],
+ ["I didn't go to school.","I didn't went to school.","I not went to school.",'pas','After didn\'t the verb is in the base form.'],
+ ['Did you see my message?','Did you saw my message?','Have you saw my message?','pas','Did + base verb.'],
+ ['I saw him yesterday.','I have seen him yesterday.','I see him yesterday.','pas','Yesterday → Past Simple.'],
+ ['I was born in 2014.','I am born in 2014.','I have been born in 2014.','pas','Born is passive: I was born (a finished past event).'],
+ ['While I was cooking, the phone rang.','While I cooked, the phone was ringing.','While I was cook, the phone rang.','pac','The long action → Past Continuous; the short interruption → Past Simple.'],
+ ['I have lived here for five years.','I live here for five years.','I am living here since five years.','pp','For + period until now → Present Perfect.'],
+ ['We have known each other since 2019.','We know each other since 2019.','We knew each other since 2019.','pp','Since + starting point, still true → Present Perfect.'],
+ ['She has gone to Rome.','She has went to Rome.','She have gone to Rome.','pp','Has + past participle (go – went – gone).'],
+ ['Have you finished yet?','Did you finished yet?','Do you finish yet?','pp','Yet → Present Perfect.'],
+ ['She has been ill since Monday.','She is ill since Monday.','She has been ill for Monday.','pp','Since + starting point; for + length.'],
+ ['I have been to Paris twice.','I was to Paris twice.','I have went to Paris twice.','pp','Experience → have been to.'],
+ ['When I got there, they had already left.','When I got there, they have already left.','When I got there, they had already leave.','pap','They left first → Past Perfect (had + past participle).'],
+ ['If it rains tomorrow, we will stay at home.','If it will rain tomorrow, we will stay at home.','If it rained tomorrow, we will stay at home.','fw','No will in the if-clause.'],
+ ['I think I will go to bed early.','I think I will to go to bed early.','I think I going go to bed early.','fw','After will the verb comes without to.'],
+ ["Look at the clouds! It's going to rain.","Look at the clouds! It's going rain.","Look at the clouds! It going to rain.",'fg','am / is / are + going to + base verb.']
+];
+
+/* ===== Übersetzen: [Deutsch, Vorlagen mit {a|b}, tense, Hinweis] ===== */
+const TR = [
+ ['Ich wohne seit fünf Jahren in Graz.',["I have lived in Graz for five years.","I have been living in Graz for five years."],'pp','Seit + Zeitraum, noch immer wahr'],
+ ['Gestern habe ich meine Oma besucht.',["I visited my {grandma|grandmother|granny|nan} yesterday.","Yesterday I visited my {grandma|grandmother|granny|nan}."],'pas','gestern = abgeschlossene Zeit'],
+ ['Er spielt jeden Samstag Fußball.',["He plays {football|soccer} every Saturday.","Every Saturday he plays {football|soccer}.","He plays {football|soccer} on Saturdays."],'ps','Gewohnheit'],
+ ['Das Baby schläft gerade.',["The baby is sleeping {|right now|at the moment|now}."],'pc','gerade jetzt'],
+ ['Als ich ankam, hatte der Film schon begonnen.',["When I {arrived|got there|came|got here|arrived there}, the film had {already started|started already|already begun|begun already}."],'pap','zuerst der Film, dann ich'],
+ ['Ich habe gekocht, als das Telefon klingelte.',["I was cooking when the phone rang.","When the phone rang, I was cooking."],'pac','lange Handlung + kurze Unterbrechung'],
+ ['Hast du schon einmal Sushi gegessen?',["Have you ever {eaten|had|tried} sushi?"],'pp','Erfahrung'],
+ ['Ich habe meinen Schlüssel verloren. (Jetzt komme ich nicht rein.)',["I have lost my {key|keys}."],'pp','Ergebnis in der Gegenwart'],
+ ['Ich glaube, morgen wird es regnen.',["I think it will rain tomorrow.","It will rain tomorrow, I think.","I think it is going to rain tomorrow."],'fw','Meinung'],
+ ['Ich werde nächstes Jahr Geige lernen. (Das habe ich schon beschlossen.)',["I am going to learn {the |}violin next year.","Next year I am going to learn {the |}violin."],'fg','Plan'],
+ ['Das Telefon klingelt – ich gehe ran!',["The phone is ringing – I will {get|answer|take} it.","The phone is ringing. I will {get|answer|take} it.","The phone is ringing, I will {get|answer|take} it."],'fw','spontane Entscheidung'],
+ ['Sie hat gestern nicht angerufen.',["She did not {call|phone|ring} {me |you |us |}yesterday.","She didn't {call|phone|ring} {me |you |us |}yesterday."],'pas','gestern + Verneinung'],
+ ['Wir sind letzten Sommer nach Kroatien gefahren.',["We {went|travelled|traveled|drove|flew} to Croatia last summer.","Last summer we {went|travelled|traveled|drove|flew} to Croatia."],'pas','letzten Sommer'],
+ ['Er verliert ständig seine Schlüssel! (Das nervt.)',["He is always losing his keys.","He is always losing his key."],'pc','nervige Gewohnheit'],
+ ['Ich kenne die Antwort.',["I know the answer."],'ps','Zustandsverb'],
+ ['Wie lange lernst du schon Englisch?',["How long have you been learning English?","How long have you learned English?"],'pp','schon + Dauer'],
+ ['Nachdem er gegessen hatte, ging er spazieren.',["After he had eaten, he {went for a walk|took a walk|went for a stroll|went out for a walk}."],'pap','zuerst gegessen, dann spaziert'],
+ ['Sie fliegen am Freitag nach Rom. (Die Tickets sind gebucht.)',["They are flying to Rome on Friday.","On Friday they are flying to Rome.","They are going to fly to Rome on Friday."],'pc','feste Vereinbarung'],
+ ['Der Zug fährt um 7.15 Uhr ab.',["The train leaves at 7.15.","The train leaves at {7.15|quarter past seven|seven fifteen}.","The train departs at 7.15."],'ps','Fahrplan'],
+ ['Es wird kälter.',["It is getting colder.","It is getting cold."],'pc','Entwicklung']
+];
+
+/* ===== Grammatik-Wörter [EN, DE] ===== */
+const GLOSS = [
+ ['tense','die Zeitform'],['subject','das Subjekt'],['verb','das Verb'],['object','das Objekt'],['auxiliary verb','das Hilfsverb'],['main verb','das Vollverb'],['base form (infinitive)','die Grundform'],['past participle','das Partizip Perfekt (3. Form)'],
+ ['regular verb','das regelmäßige Verb'],['irregular verb','das unregelmäßige Verb'],['stative verb','das Zustandsverb'],['affirmative sentence','der bejahte Satz'],['negative sentence','der verneinte Satz'],['question','die Frage'],
+ ['signal word','das Signalwort'],['time expression','die Zeitangabe'],['habit','die Gewohnheit'],['routine','die Routine'],['permanent','dauerhaft'],['temporary','vorübergehend'],
+ ['finished','abgeschlossen'],['in progress','im Gange'],['result','das Ergebnis'],['experience','die Erfahrung'],['contraction','die Kurzform'],['ending','die Endung'],
+ ['rule','die Regel'],['exception','die Ausnahme'],['main clause','der Hauptsatz'],['subordinate clause','der Nebensatz'],['singular','die Einzahl'],['plural','die Mehrzahl'],
+ ['third person','die dritte Person (he / she / it)'],['prediction','die Vorhersage'],['arrangement','die Vereinbarung'],['intention','die Absicht'],['evidence','das Anzeichen, der Beweis'],['spontaneous','spontan'],
+ ['promise','das Versprechen'],['timeline','der Zeitstrahl'],['to happen','passieren, stattfinden'],['to refer to','sich beziehen auf'],['to continue','andauern'],['to interrupt','unterbrechen']
+];
+
+/* ===== Redewendungen zum Erklären ===== */
+const PHRASES = [
+ ['Eine Erklärung beginnen',['We use the … to talk about …','We use … when …','It is used for …','Basically, …']],
+ ['Gründe nennen',["That's because …",'The reason is that …','This shows that …','That is why we say …']],
+ ['Beispiele geben',['For example, …','For instance, …','Take this sentence: …','Imagine that …']],
+ ['Vergleichen',['The difference is that …','In contrast, …','On the one hand …, on the other hand …','Both … but …']],
+ ['Die Bildung erklären',['We form it with …','You add … to the verb.','In the negative we use …','In questions we put … in front of the subject.']],
+ ['Zeit gewinnen & höflich nachfragen',['Let me think for a moment.','Could you repeat the question, please?','Do you mean …?',"I'm not sure, but I think …",'Could you give me a hint?','Can I try again?']],
+ ['Nachfragen, ob es passt',['Does that make sense?','Is that what you meant?','Shall I give another example?']]
+];
+
+/* ===== Tense-Finder (Entscheidungsbaum) ===== */
+const TREE = {
+ start:{ q:'When does it happen?', o:[['In the past','past'],['Now / in general','now'],['In the future','fut']] },
+ past:{ q:'What is the situation in the past?', o:[['Finished, with a definite time (yesterday, in 2019 …)',{r:'pas'}],['It was in progress at a moment, or interrupted',{r:'pac'}],['It happened BEFORE another past action',{r:'pap'}],['No time named / still connected to now (experience, result, for / since)',{r:'pp'}]] },
+ now:{ q:'What kind of "now"?', o:[['Always, regularly, a fact, a timetable',{r:'ps'}],['Right now / only for now / changing',{r:'pc'}],['Started in the past and connected to now (for / since, result, experience)',{r:'pp'}]] },
+ fut:{ q:'What kind of future?', o:[['Decided just now, an opinion, a promise or offer',{r:'fw'}],['A plan from before, or I can see a sign',{r:'fg'}],['An arrangement with time and place',{r:'pc'}]] }
+};
+
+/* ==================== Helfer, Speicher, Sprache ==================== */
+const STORE = 'nabihaTensesTalk_v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+function h(tag, props, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in (props || {})) { const v = props[k]; if (v == null || v === false) continue; if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else if (k.startsWith('on')) e[k] = v; else e.setAttribute(k, v === true ? '' : v); }
+  kids.flat(Infinity).forEach(c => { if (c == null || c === false) return; e.append(c.nodeType ? c : document.createTextNode(c)); });
+  return e;
+}
+const shuf = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const todayKey = (d = new Date()) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+function defaultDB() { return { xp: 0, answered: 0, correct: 0, tst: {}, rate: {}, spoken: {}, seen: {}, days: {}, lesson: {}, sessions: 0, sound: true }; }
+function loadDB() { try { const r = localStorage.getItem(STORE); if (r) return Object.assign(defaultDB(), JSON.parse(r)); } catch (e) { } return defaultDB(); }
+let DB = loadDB();
+function saveDB() { try { localStorage.setItem(STORE, JSON.stringify(DB)); } catch (e) { } }
+function addXP(n) { DB.xp += n; DB.days[todayKey()] = (DB.days[todayKey()] || 0) + 1; saveDB(); }
+function toast(t) { const e = $('#toast'); e.textContent = t; e.style.display = 'block'; clearTimeout(toast.t); toast.t = setTimeout(() => e.style.display = 'none', 2600); }
+const level = xp => ({ n: Math.floor(xp / 250) + 1, into: xp % 250 });
+
+/* Sprachausgabe */
+const TTS = 'speechSynthesis' in window; let VOICE = null;
+function pickVoice() { try { const v = speechSynthesis.getVoices(); VOICE = v.find(x => /en[-_]GB/i.test(x.lang)) || v.find(x => /^en/i.test(x.lang)) || null; } catch (e) { } }
+if (TTS) { pickVoice(); try { speechSynthesis.onvoiceschanged = pickVoice; } catch (e) { } }
+function speak(t, rate) { if (!TTS || !DB.sound) return; try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/[‘’]/g, "'")); u.lang = 'en-GB'; if (VOICE) u.voice = VOICE; u.rate = rate || 0.92; speechSynthesis.speak(u); } catch (e) { } }
+function stopSpeak() { try { speechSynthesis.cancel(); } catch (e) { } }
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+/* ==================== Zeitstrahl-Grafik ==================== */
+function tl(kind) {
+  const base = '<line class="tl-line" x1="14" y1="58" x2="466" y2="58"/><polygon class="tl-arrow" points="466,51 480,58 466,65"/><line class="tl-now" x1="240" y1="40" x2="240" y2="76"/><text class="tl-t" x="240" y="95" text-anchor="middle">NOW</text><text class="tl-t dim" x="60" y="95" text-anchor="middle">PAST</text><text class="tl-t dim" x="420" y="95" text-anchor="middle">FUTURE</text>';
+  const dot = (x, c) => `<circle class="${c || 'tl-dot'}" cx="${x}" cy="58" r="8"/>`;
+  const lab = (x, y, t) => `<text class="tl-l" x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
+  let f = '';
+  switch (kind) {
+    case 'ps': f = [70, 125, 180, 300, 355, 410].map(x => dot(x)).join('') + dot(240) + lab(240, 28, 'again and again'); break;
+    case 'pc': f = '<rect class="tl-bar" x="208" y="49" width="64" height="18" rx="9"/>' + lab(240, 28, 'in progress – now'); break;
+    case 'pas': f = dot(120) + lab(120, 28, 'finished · yesterday'); break;
+    case 'pac': f = '<rect class="tl-bar" x="70" y="49" width="130" height="18" rx="9"/><line class="tl-hit" x1="150" y1="34" x2="150" y2="82"/>' + lab(105, 28, 'was doing …') + lab(185, 28, '… when it rang'); break;
+    case 'pp': f = dot(100) + '<path class="tl-arc" d="M104 48 Q170 0 232 48"/><polygon class="tl-arrowf" points="226,40 238,50 224,52"/>' + lab(170, 20, 'up to now / result now'); break;
+    case 'pap': f = dot(80) + dot(170, 'tl-dot2') + '<path class="tl-arc" d="M88 48 Q125 24 162 48"/>' + lab(80, 28, '1st: had …') + lab(180, 28, '2nd: then …'); break;
+    case 'fw': f = dot(370) + lab(370, 28, 'will · decision / opinion'); break;
+    case 'fg': f = dot(370) + '<path class="tl-arc" d="M246 48 Q310 4 364 48"/>' + lab(310, 20, 'going to · plan / sign'); break;
+  }
+  return `<svg class="tlsvg" viewBox="0 0 490 102" role="img" aria-label="Timeline: ${kind}">${base}${f}</svg>`;
+}
+
+/* ==================== Tipp-Normalisierung ==================== */
+const CONTR = [[/\bwon't\b/g, 'will not'], [/\bcan't\b/g, 'cannot'], [/n't\b/g, ' not'], [/'m\b/g, ' am'], [/'re\b/g, ' are'], [/'ve\b/g, ' have'], [/'ll\b/g, ' will']];
+const cleanS = s => s.replace(/[.,!?;:"“”–—-]/g, ' ').replace(/\s+/g, ' ').trim();
+function variants(s) {
+  s = s.toLowerCase().replace(/[’‘`]/g, "'"); CONTR.forEach(([r, t]) => s = s.replace(r, t));
+  let out = [s];
+  if (/'s\b/.test(s)) out = [s.replace(/'s\b/g, ' is'), s.replace(/'s\b/g, ' has')];
+  if (/'d\b/.test(s)) out = out.flatMap(x => [x.replace(/'d\b/g, ' had'), x.replace(/'d\b/g, ' would')]);
+  return out.map(cleanS);
+}
+function expand(t) { const m = t.match(/\{([^}]*)\}/); if (!m) return [t]; return m[1].split('|').flatMap(o => expand(t.replace(m[0], o))); }
+function acceptSet(templates) { const set = new Set(); templates.forEach(t => expand(t).forEach(x => variants(x).forEach(v => set.add(v)))); return set; }
+
+/* ==================== Aufgaben bauen ==================== */
+const REL = { ps: ['pc', 'pas', 'pp'], pc: ['ps', 'fw', 'fg'], pas: ['pp', 'pac', 'pap'], pac: ['pas', 'pc', 'pap'], pp: ['pas', 'ps', 'pap'], pap: ['pas', 'pp', 'pac'], fw: ['fg', 'pc', 'ps'], fg: ['fw', 'pc', 'ps'] };
+function leastSeen(rows, keyf, n) { return rows.map(r => [(DB.seen[keyf(r)] || 0) + Math.random() * 1.5, r]).sort((a, b) => a[0] - b[0]).slice(0, n).map(x => x[1]); }
+function mkDet(r) {
+  const [s, t, rk] = r; const rel = REL[t];
+  const own = TENSE[t].uses.filter(u => u.k !== rk).map(u => u.k);
+  const others = shuf(rel.flatMap(x => TENSE[x].uses.map(u => u.k)));
+  const ro = [rk]; if ((t === 'ps' || t === 'fg') && own.length) ro.push(pick(own));
+  while (ro.length < 3) { const c = others.shift(); if (!c) break; if (!ro.includes(c)) ro.push(c); }
+  return { k: 'det', key: 'd:' + s, s, t, rk, tos: shuf([t, ...rel]), ro: shuf(ro) };
+}
+function detItems(tense, n) { const rows = DET.filter(r => !tense || tense === 'all' || r[1] === tense); return shuf(leastSeen(rows, r => 'd:' + r[0], n)).map(mkDet); }
+function diagItems() { const out = []; TENSES.forEach(t => { const rows = shuf(DET.filter(r => r[1] === t.id)); const a = rows[0], b = rows.find(r => r[2] !== a[2]) || rows[1]; out.push(a, b); }); return shuf(out).map(mkDet); }
+function mkGap(g) { return { k: 'mc', key: 'g:' + g[0], q: g[0], correct: g[1], opts: shuf([g[1], ...g[2]]), e: g[4], t: g[3], prompt: 'Choose the correct form:' }; }
+function gapItems(tense, n) { const rows = GAP.filter(r => !tense || tense === 'all' || r[3] === tense); return shuf(leastSeen(rows, r => 'g:' + r[0], n)).map(mkGap); }
+function mkErr(g) { return { k: 'mc', key: 'e:' + g[0], q: '', correct: g[0], opts: shuf([g[0], g[1], g[2]]), e: g[4], t: g[3], prompt: 'Which sentence is correct?', plain: true }; }
+function errItems(tense, n) { const rows = ERR.filter(r => !tense || tense === 'all' || r[3] === tense); return shuf(leastSeen(rows, r => 'e:' + r[0], n)).map(mkErr); }
+function mkTr(x) { return { k: 'ty', key: 't:' + x[0], de: x[0], accept: acceptSet(x[1]), shown: expand(x[1][0])[0], t: x[2], hint: x[3] }; }
+function trItems(tense, n) { const rows = TR.filter(r => !tense || tense === 'all' || r[2] === tense); return shuf(leastSeen(rows, r => 't:' + r[0], n)).map(mkTr); }
+function glossItems(n) {
+  return shuf(GLOSS).slice(0, n).map(g => { const toDe = Math.random() < .5; const wrong = shuf(GLOSS.filter(x => x !== g)).slice(0, 3).map(x => toDe ? x[1] : x[0]); const c = toDe ? g[1] : g[0];
+    return { k: 'mc', key: 'w:' + g[0], q: '', big: toDe ? g[0] : g[1], correct: c, opts: shuf([c, ...wrong]), e: `${g[0]} = ${g[1]}`, t: null, prompt: toDe ? 'What does this grammar word mean?' : 'Which English grammar word is it?', say: g[0], plain: true }; });
+}
+function bossItems() { return shuf([...detItems('all', 8), ...gapItems('all', 6), ...errItems('all', 4), ...trItems('all', 2)]); }
+
+/* ==================== Übungs-Motor ==================== */
+let G = null;
+function showView(v) {
+  $('#menuView').style.display = v === 'menu' ? 'block' : 'none';
+  $('#gameView').style.display = v === 'game' ? 'block' : 'none';
+  $('#backBtn').style.display = v === 'game' ? 'block' : 'none';
+  window.scrollTo(0, 0);
+}
+function startRun(title, items, opts) {
+  if (!items.length) { toast('Dafür gibt es gerade keine Aufgaben.'); return; }
+  stopSpeak(); G = { title, items, idx: 0, xp: 0, first: 0, total: items.length, tally: {}, wrong: [], opts: opts || {} };
+  $('#modeInd').textContent = title; showView('game'); nextItem();
+}
+function endRun() { stopSpeak(); G = null; showView('menu'); renderAll(); }
+function note(t, ok) {
+  DB.answered++; if (ok) DB.correct++;
+  if (t) { const s = DB.tst[t] || { n: 0, c: 0 }; s.n++; if (ok) s.c++; DB.tst[t] = s; if (G) { const g = G.tally[t] || { n: 0, c: 0 }; g.n++; if (ok) g.c++; G.tally[t] = g; } }
+  if (ok && G) G.first++;
+}
+function gain(n) { if (!G) return; G.xp += n; addXP(n); }
+function nextItem() {
+  if (!G) return;
+  if (G.idx >= G.items.length) return finishRun();
+  const it = G.items[G.idx]; G.cur = it; DB.seen[it.key] = (DB.seen[it.key] || 0) + 1;
+  $('#nextRow').style.display = 'none'; $('#fb').className = 'fb'; $('#fb').textContent = '';
+  $('#pfill').style.width = (G.idx / G.total * 100) + '%'; $('#ptext').textContent = `${G.idx + 1} / ${G.total}`;
+  const box = $('#qArea'); box.innerHTML = '';
+  ({ det: rDet, mc: rMC, ty: rTY })[it.k](it, box);
+}
+function showNext(label) { const b = $('#nextBtn'); b.textContent = label || 'Weiter ➜'; $('#nextRow').style.display = 'flex'; setTimeout(() => b.focus(), 30); }
+function goNext() { if (!G) return; G.idx++; nextItem(); }
+function hint(t, cls) { const f = $('#fb'); f.className = 'fb ' + (cls || 'hint'); f.textContent = t || ''; if (!t) f.className = 'fb'; }
+
+function choices(box, opts, correct, onRight) {
+  let tries = 0; const wrap = h('div', { class: 'opts' + (opts.some(o => o.l.length > 24) ? ' wide' : '') });
+  opts.forEach(o => {
+    const b = h('button', { class: 'opt', onclick: () => {
+      if (b.disabled) return;
+      if (o.v === correct) { [...wrap.children].forEach(x => x.disabled = true); b.classList.add('correct'); hint(''); onRight(tries === 0, b); }
+      else { tries++; b.classList.add('wrong'); b.disabled = true; hint('Not quite – look again and try once more. 🙂'); }
+    } }, o.l);
+    wrap.append(b);
+  });
+  box.append(wrap);
+}
+function explainBox(html) { return h('div', { class: 'explain', html }); }
+
+function rDet(it, box) {
+  const T = TENSE[it.t], R = REASON[it.rk]; let ok1 = false, ok2 = false;
+  box.append(h('div', { class: 'qprompt' }, 'Tense Detective 🔍 – read the sentence, then find the tense and the reason.'), h('div', { class: 'sbox' }, h('div', { class: 'sent big' }, it.s), TTS ? h('button', { class: 'sbtn', style: 'max-width:150px;margin:8px auto 0', onclick: () => speak(it.s) }, '🔊 Listen') : ''));
+  const area = h('div'); box.append(area);
+  const step1 = () => {
+    area.innerHTML = ''; area.append(h('div', { class: 'qprompt', style: 'margin-top:10px' }, '1 · Which tense is it?'));
+    choices(area, it.tos.map(t => ({ v: t, l: TENSE[t].name })), it.t, (first) => { ok1 = first; note(it.t, first); if (first) gain(5); else G.wrong.push({ s: it.s, t: it.t, e: `${T.name} – ${R.en}` }); step2(); });
+  };
+  const step2 = () => {
+    area.append(h('div', { class: 'qprompt', style: 'margin-top:14px' }, `2 · Why? It is the ${T.name} because it shows …`));
+    choices(area, it.ro.map(k => ({ v: k, l: REASON[k].en })), it.rk, (first) => {
+      ok2 = first; note(it.t, first); if (first) gain(5);
+      area.append(explainBox(`<b>✔ ${T.name}</b> – ${R.en} <small>(${R.de})</small><br>${R.why}`), h('div', { class: 'tlmini', html: tl(it.t) }));
+      showNext();
+    });
+  };
+  step1();
+}
+function rMC(it, box) {
+  box.append(h('div', { class: 'qprompt' }, it.prompt));
+  let blank = null;
+  if (it.big) box.append(h('div', { class: 'sbox' }, h('div', { class: 'sent big' }, it.big), it.say && TTS ? h('button', { class: 'sbtn', style: 'max-width:150px;margin:8px auto 0', onclick: () => speak(it.say) }, '🔊 Listen') : ''));
+  if (it.q) { const p = it.q.split('___'); blank = h('span', { class: 'blank' }, '      '); box.append(h('div', { class: 'sbox' }, h('div', { class: 'sent' }, p[0], blank, p[1] || ''))); }
+  choices(box, it.opts.map(o => ({ v: o, l: o })), it.correct, (first) => {
+    note(it.t, first); if (first) gain(8); else G.wrong.push({ s: it.q ? it.q.replace('___', it.correct) : it.correct, t: it.t, e: it.e });
+    if (blank) { blank.textContent = it.correct; blank.classList.add('correct'); }
+    box.append(explainBox(`<b>✔ ${it.correct}</b><br>${it.e}`));
+    if (it.t) box.append(h('div', { class: 'tlmini', html: tl(it.t) }));
+    if (!it.plain && it.correct && TTS) speak(it.q.replace('___', it.correct)); if (it.plain && TTS && it.t) speak(it.correct);
+    showNext();
+  });
+}
+function rTY(it, box) {
+  box.append(h('div', { class: 'qprompt' }, 'Translate into English:'), h('div', { class: 'sbox' }, h('div', { class: 'sent big' }, it.de)));
+  const inp = h('input', { class: 'tin wide', type: 'text', autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false', placeholder: 'Type your English sentence …' });
+  let fails = 0, done = false;
+  const finish = (first, shown) => {
+    done = true; inp.disabled = true; note(it.t, first); if (first) gain(12); else G.wrong.push({ s: it.shown, t: it.t, e: 'Translate: ' + it.de });
+    box.append(explainBox(`<b>${shown ? 'A good answer:' : '✔ Great!'}</b> ${it.shown}<br><small>${TENSE[it.t].name} – ${it.hint}</small>`), h('div', { class: 'tlmini', html: tl(it.t) })); showNext();
+  };
+  const check = () => {
+    if (done) return; const v = inp.value.trim(); if (!v) return;
+    if (variants(v).some(x => it.accept.has(x))) { inp.classList.add('ok'); finish(fails === 0, false); }
+    else { fails++; inp.classList.add('bad'); setTimeout(() => inp.classList.remove('bad'), 600); hint(fails >= 2 ? `Hint: think about the ${TENSE[it.t].name} (${it.hint}).` : 'Not quite – check the tense and try again. 🙂'); }
+  };
+  inp.onkeydown = e => { if (e.key === 'Enter') check(); };
+  box.append(inp, h('div', { class: 'ctrl' }, h('button', { class: 'cbtn primary', onclick: check }, '✔ Check'), h('button', { class: 'cbtn', onclick: () => { if (!done) hint(`Hint: ${TENSE[it.t].name} – ${it.hint}`); } }, '💡 Hint'), h('button', { class: 'cbtn', onclick: () => { if (!done) finish(false, true); } }, '👁 Show answer')));
+  setTimeout(() => inp.focus(), 50);
+}
+
+function finishRun() {
+  const g = G; DB.sessions++; gain(15); saveDB();
+  const pct = Math.round(g.first / Math.max(1, g.total * (g.items[0].k === 'det' ? 2 : 1)) * 100);
+  const total = g.items.reduce((s, i) => s + (i.k === 'det' ? 2 : 1), 0), pc = Math.round(g.first / total * 100);
+  $('#pfill').style.width = '100%'; $('#ptext').textContent = 'Done!'; $('#nextRow').style.display = 'none'; hint('');
+  const box = $('#qArea'); box.innerHTML = '';
+  const msg = pc >= 90 ? 'Outstanding! 🌟' : pc >= 70 ? 'Very good! 👏' : pc >= 50 ? 'Good work – you are getting there! 💪' : 'Thank you for trying – mistakes are how we learn. 🌱';
+  const card = h('div', { class: 'card' }, h('h2', {}, '🏁 ' + msg), h('div', { class: 'desc' }, `${g.first} of ${total} answers right on the first try (${pc} %). You earned ${g.xp} XP.`));
+  const tk = Object.keys(g.tally);
+  if (tk.length > 1) {
+    card.append(h('h3', {}, 'By tense'), h('table', { class: 'rl' }, h('tr', {}, h('th', {}, 'Tense'), h('th', {}, 'First try right'), h('th', {})),
+      ...tk.map(t => { const x = g.tally[t], p = Math.round(x.c / x.n * 100); return h('tr', {}, h('td', {}, TENSE[t].name), h('td', {}, `${x.c} / ${x.n}`), h('td', {}, h('div', { class: 'bar' + (p >= 70 ? '' : ' gold'), style: 'min-width:80px' }, h('i', { style: 'width:' + p + '%' })))); })));
+  }
+  if (g.wrong.length) {
+    card.append(h('h3', {}, 'Worth another look'), h('table', { class: 'rl' }, ...g.wrong.slice(0, 14).map(w => h('tr', {}, h('td', {}, w.s), h('td', {}, w.e)))));
+  }
+  const weak = tk.filter(t => g.tally[t].c < g.tally[t].n).map(t => t);
+  const btns = h('div', { class: 'btnrow', style: 'margin-top:14px' }, h('button', { class: 'sbtn gold', onclick: () => { const o = g.opts.again; if (o) o(); else endRun(); } }, '↻ Another round'));
+  weak.slice(0, 2).forEach(t => btns.append(h('button', { class: 'sbtn', onclick: () => { endRun(); go('tenses', { tense: t }); } }, `📖 ${TENSE[t].name}: read & speak`)));
+  btns.append(h('button', { class: 'sbtn', onclick: endRun }, '← Back to menu'));
+  card.append(btns); box.append(card);
+}
+
+/* ==================== Navigation & Ansichten ==================== */
+const TABS = [['home', '🏠 Start'], ['map', '🗺 Landkarte'], ['tenses', '🔍 Zeitformen'], ['diff', '⚖️ Unterschiede'], ['speak', '🎤 Sprechen'], ['practice', '🎯 Üben'], ['lesson', '👩‍🏫 Stunde 1'], ['prog', '📊 Fortschritt']];
+let V = { tab: 'home', tense: null, contrast: null, q: null, qcat: 'all', sp: 'q', pf: 'all', find: 'start', path: [] };
+function go(tab, extra) { V = Object.assign(V, { tense: null, contrast: null, q: null }, extra || {}, { tab }); stopSpeak(); renderAll(); window.scrollTo(0, 0); }
+const stat = (l, v) => h('div', { class: 'stat' }, h('b', {}, String(v)), h('span', {}, l));
+const modeBtn = (title, sub, fn) => h('button', { class: 'modebtn', onclick: fn }, title, h('small', {}, sub));
+const sbtn = (label, fn, cls) => h('button', { class: 'sbtn' + (cls ? ' ' + cls : ''), onclick: fn }, label);
+const speakBtn = (txt, label, rate) => TTS ? h('button', { class: 'sbtn', style: 'max-width:200px', onclick: () => speak(txt, rate) }, label || '🔊 Listen') : '';
+function chipRow(list, cur, pick_) { return h('div', { class: 'chips' }, list.map(([id, label]) => h('button', { class: 'chip' + (cur === id ? ' on' : ''), onclick: () => pick_(id) }, label))); }
+function backLink(label, fn) { return h('button', { class: 'cbtn', style: 'margin-bottom:12px', onclick: fn }, '← ' + label); }
+
+/* Start-Funktionen für Übungen */
+const RUN = {
+  diag: () => startRun('Diagnose – all eight tenses', diagItems(), { again: RUN.diag }),
+  det: t => () => startRun('Tense Detective' + (t && t !== 'all' ? ' – ' + TENSE[t].name : ''), detItems(t, 12), { again: RUN.det(t) }),
+  gap: t => () => startRun('Choose the right form' + (t && t !== 'all' ? ' – ' + TENSE[t].name : ''), gapItems(t, 12), { again: RUN.gap(t) }),
+  err: t => () => startRun('Error Hunt' + (t && t !== 'all' ? ' – ' + TENSE[t].name : ''), errItems(t, 10), { again: RUN.err(t) }),
+  tr: t => () => startRun('Translate into English' + (t && t !== 'all' ? ' – ' + TENSE[t].name : ''), trItems(t, 10), { again: RUN.tr(t) }),
+  gl: () => startRun('Grammar words', glossItems(12), { again: RUN.gl }),
+  boss: () => startRun('Boss Round – mixed', bossItems(), { again: RUN.boss })
+};
+const nextQuestion = () => { const open = QS.filter(q => !DB.spoken[q.id]); return pick(open.length ? open : QS); };
+
+/* ---------- Start ---------- */
+function rHome(el) {
+  const lv = level(DB.xp), acc = DB.answered ? Math.round(DB.correct / DB.answered * 100) + ' %' : '–';
+  el.append(h('div', { class: 'card' }, h('h2', {}, 'Welcome, Nabiha! 👋'),
+    h('div', { class: 'desc' }, 'Im Unterricht kommt oft die Frage: „When and why do we use …?“ Hier lernst du, sie in ganzen englischen Sätzen zu beantworten – in deinem Tempo, ohne Zeitdruck und ohne Punktabzug. Du kannst jede Zeitform zuerst lesen, dann anhören, dann nachsprechen und zuletzt selbst erklären.'),
+    h('div', { class: 'bar gold' }, h('i', { style: `width:${lv.into / 250 * 100}%` })),
+    h('div', { class: 'ptext' }, `Level ${lv.n} · ${DB.xp} XP`),
+    h('div', { class: 'stats' }, stat('Aufgaben gelöst', DB.answered), stat('Auf Anhieb richtig', acc), stat('Fragen laut beantwortet', Object.keys(DB.spoken).length + ' / ' + QS.length), stat('Runden', DB.sessions))));
+  el.append(h('div', { class: 'card' }, h('h2', {}, '🚀 Womit möchtest du anfangen?'),
+    modeBtn('🗺 Tense-Finder', 'Beantworte 2–3 kleine Fragen – und finde die passende Zeitform', () => go('map')),
+    modeBtn('🔍 Eine Zeitform ganz erklärt bekommen', 'Wann? Warum? Form, Signalwörter, typische Fehler und eine Musterantwort zum Nachsprechen', () => go('tenses')),
+    modeBtn('🎤 Lehrerfrage beantworten', 'Eine zufällige Frage – du antwortest laut, die Seite zeigt dir, welche Ideen schon dabei waren', () => go('speak', { q: nextQuestion().id, sp: 'q' })),
+    modeBtn('🎯 Diagnose (16 Sätze)', 'Zwei Sätze pro Zeitform – danach weißt du, wo du schon stark bist', RUN.diag),
+    modeBtn('🏆 Boss-Runde', 'Gemischte Aufgaben aus allen Zeitformen', RUN.boss)));
+  el.append(h('div', { class: 'card' }, h('h2', {}, '🧭 So arbeitest du mit der Seite'),
+    h('div', { class: 'ref' }, h('p', {}, '1. Lesen: „Zeitformen“ zeigt dir für jede Zeit das Wann und das Warum.'), h('p', {}, '2. Hören & nachsprechen: Die Musterantwort kannst du anhören (auch langsam) und Satz für Satz nachsprechen.'), h('p', {}, '3. Selbst erklären: Unter „Sprechen“ beantwortest du Lehrerfragen laut. Wenn dein Browser zuhören kann, zeigt dir die Seite die Schlüsselideen, die du schon genannt hast – sonst hakst du sie selbst ab.'), h('p', {}, '4. Üben: Im Tense Detective findest du zuerst die Zeitform und dann den Grund dafür. Dein Fortschritt bleibt in diesem Browser gespeichert.'))));
+}
+
+/* ---------- Landkarte ---------- */
+function rMap(el) {
+  const c = h('div', { class: 'card' }, h('h2', {}, '🧭 Tense-Finder'), h('div', { class: 'desc' }, 'Denk an einen Satz und beantworte die Fragen – am Ende steht die Zeitform, und du siehst, warum.'));
+  const node = TREE[V.find] || TREE.start;
+  if (V.path.length) c.append(h('div', { class: 'crumbs' }, V.path.map(p => h('span', { class: 'crumb' }, p)), h('button', { class: 'cbtn', onclick: () => { V.find = 'start'; V.path = []; renderAll(); } }, '↺ Start again')));
+  if (node.r) { }
+  c.append(h('div', { class: 'qprompt' }, node.q));
+  const opts = h('div', { class: 'opts wide' });
+  node.o.forEach(([label, nx]) => opts.append(h('button', { class: 'opt', onclick: () => {
+    V.path.push(label.replace(/ \(.*$/, ''));
+    if (nx.r) { V.find = 'result:' + nx.r; } else V.find = nx; renderAll(); } }, label)));
+  if (V.find.startsWith('result:')) {
+    const t = TENSE[V.find.slice(7)]; c.innerHTML = '';
+    c.append(h('h2', {}, '🧭 Tense-Finder'), h('div', { class: 'crumbs' }, V.path.map(p => h('span', { class: 'crumb' }, p))),
+      h('div', { class: 'explain' }, h('b', {}, `${t.ic} ${t.name}`), h('div', {}, t.one), h('div', { class: 'tlmini', html: tl(t.id) })),
+      h('div', { class: 'btnrow' }, sbtn('📖 Read & speak about it', () => go('tenses', { tense: t.id }), 'gold'), sbtn('🎯 Practise it', RUN.det(t.id)), sbtn('↺ Start again', () => { V.find = 'start'; V.path = []; renderAll(); })));
+  } else c.append(opts);
+  el.append(c);
+  const g = h('div', { class: 'card' }, h('h2', {}, '🗺 Alle Zeitformen im Überblick'), h('div', { class: 'desc' }, 'Der gelbe Punkt zeigt, wo die Handlung auf dem Zeitstrahl liegt. Tippe auf eine Karte, um die Zeitform ganz zu sehen.'));
+  const grid = h('div', { class: 'grid' });
+  TENSES.forEach(t => grid.append(h('button', { class: 'tcard tbtn', onclick: () => go('tenses', { tense: t.id }) }, h('div', { class: 'tt' }, `${t.ic} ${t.name}`), h('div', { class: 'td' }, t.one), h('div', { html: tl(t.id) }))));
+  g.append(grid); el.append(g);
+  el.append(h('div', { class: 'card ref' }, h('h2', {}, '📋 Kurzübersicht'), h('div', { class: 'tablewrap', html: OVERVIEW })));
+}
+const OVERVIEW = `<table><tr><th>Tense</th><th>Form</th><th>Use (When?)</th><th>Signal words</th></tr>
+<tr><td>Present Simple</td><td>play / plays</td><td>habits, facts, timetables, states</td><td>always, usually, every day</td></tr>
+<tr><td>Present Continuous</td><td>am/is/are + -ing</td><td>right now, temporary, changing, arrangements</td><td>now, at the moment, today</td></tr>
+<tr><td>Past Simple</td><td>played / went</td><td>finished action at a definite time, story</td><td>yesterday, last week, ago</td></tr>
+<tr><td>Past Continuous</td><td>was/were + -ing</td><td>in progress at a past moment, background, interrupted</td><td>while, when, at 8 o'clock yesterday</td></tr>
+<tr><td>Present Perfect</td><td>have/has + past participle</td><td>experience, result now, for/since, just/already/yet</td><td>ever, never, just, already, yet, since, for</td></tr>
+<tr><td>Past Perfect</td><td>had + past participle</td><td>the earlier of two past actions</td><td>before, after, already, by the time</td></tr>
+<tr><td>Future Simple</td><td>will + base verb</td><td>spontaneous decisions, opinions, promises</td><td>tomorrow, soon, I think, probably</td></tr>
+<tr><td>going to</td><td>am/is/are going to + base verb</td><td>plans, intentions, evidence</td><td>Look!, I've decided, this weekend</td></tr></table>`;
+
+/* ---------- Zeitformen ---------- */
+function rateRow(tid) {
+  const cur = DB.rate[tid]; const set = n => { DB.rate[tid] = n; saveDB(); renderAll(); };
+  return h('div', { class: 'rate' }, h('span', {}, 'Wie sicher kannst du das erklären?'), [[1, '😕 noch nicht'], [2, '🙂 geht so'], [3, '😀 sicher']].map(([n, l]) => h('button', { class: 'chip' + (cur === n ? ' on' : ''), onclick: () => set(n) }, l)));
+}
+function rTenses(el) {
+  if (V.tense) return rTenseDetail(el, TENSE[V.tense]);
+  el.append(h('div', { class: 'card' }, h('h2', {}, '🔍 Die Zeitformen – Wann & Warum'), h('div', { class: 'desc' }, 'Wähle eine Zeitform. Du siehst, wann man sie verwendet, warum, wie sie gebildet wird – und eine Musterantwort, wie du es deinem Lehrer erklären kannst.')));
+  const grid = h('div', { class: 'grid' });
+  TENSES.forEach(t => { const r = DB.rate[t.id]; grid.append(h('div', { class: 'tcard' }, h('div', { class: 'tt' }, `${t.ic} ${t.name}`, r ? h('span', { class: 'best' }, ['', '😕', '🙂', '😀'][r]) : ''), h('div', { class: 'td' }, t.one),
+    h('div', { class: 'btnrow' }, sbtn('📖 Ansehen', () => go('tenses', { tense: t.id }), 'gold'), sbtn('🎯 Üben', RUN.det(t.id)), sbtn('🎤 Erklären', () => go('speak', { q: t.id + '1', sp: 'q' }))))); });
+  el.append(grid);
+}
+function rTenseDetail(el, t) {
+  el.append(backLink('Alle Zeitformen', () => go('tenses')));
+  el.append(h('div', { class: 'card' }, h('h2', {}, `${t.ic} ${t.name}`), h('div', { class: 'desc' }, t.one), h('div', { class: 'tlmini', html: tl(t.id) }), rateRow(t.id)));
+  const uses = h('table', { class: 'rl' }, h('tr', {}, h('th', {}, 'WHEN do we use it?'), h('th', {}, 'Examples'), h('th', {}, 'WHY?')),
+    ...t.uses.map(u => h('tr', {}, h('td', {}, h('b', {}, u.en), h('br', {}), h('small', {}, u.de)), h('td', {}, u.ex.map(e => h('div', { class: 'exrow' }, e, TTS ? h('button', { class: 'tiny', title: 'Listen', onclick: () => speak(e) }, '🔊') : ''))), h('td', {}, u.why))));
+  el.append(h('div', { class: 'card' }, h('h2', {}, '🎯 When → Why'), h('div', { class: 'tablewrap' }, uses)));
+  el.append(h('div', { class: 'card ref' }, h('h2', {}, '🧩 Form'), h('div', { class: 'tablewrap' }, h('table', {}, h('tr', {}, h('th', {}, '＋ affirmative'), h('td', {}, t.form.aff)), h('tr', {}, h('th', {}, '－ negative'), h('td', {}, t.form.neg)), h('tr', {}, h('th', {}, '？ question'), h('td', {}, t.form.q)))), h('p', {}, t.form.note),
+    h('h3', {}, '🔔 Signal words'), h('div', { class: 'chips' }, t.signals.map(s => h('span', { class: 'chip static' }, s)))));
+  el.append(h('div', { class: 'card' }, h('h2', {}, '⚠️ Typical mistakes'), h('div', { class: 'tablewrap' }, h('table', { class: 'rl' }, h('tr', {}, h('th', {}, '✗ not this'), h('th', {}, '✓ say this'), h('th', {}, 'Why?')), ...t.mistakes.map(m => h('tr', {}, h('td', { class: 'wrongc' }, m[0]), h('td', { class: 'rightc' }, m[1], TTS ? h('button', { class: 'tiny', onclick: () => speak(m[1]) }, '🔊') : ''), h('td', {}, m[2]))))), h('div', { class: 'de-bridge' }, '🇩🇪 ', t.de)));
+  const q = QS.find(x => x.id === t.id + '1');
+  el.append(h('div', { class: 'card' }, h('h2', {}, `🎤 If your teacher asks: “${q.q}”`), modelBlock(q), h('div', { class: 'btnrow', style: 'margin-top:12px' }, sbtn('🎤 Now I answer myself', () => go('speak', { q: q.id, sp: 'q' }), 'gold'), sbtn('🧩 Form question', () => go('speak', { q: t.id + '2', sp: 'q' })), sbtn('✍️ Examples & mistakes', () => go('speak', { q: t.id + '3', sp: 'q' })))));
+  el.append(h('div', { class: 'card' }, h('h2', {}, '🎯 Practise this tense'), h('div', { class: 'btnrow' }, sbtn('🔍 Tense Detective', RUN.det(t.id)), sbtn('✏️ Choose the form', RUN.gap(t.id)), sbtn('🕵️ Error Hunt', RUN.err(t.id)), sbtn('🇩🇪→🇬🇧 Translate', RUN.tr(t.id)))));
+}
+
+/* ---------- Musterantwort (anhören, nachsprechen) ---------- */
+function splitSentences(t) { return t.split(/(?<=[.!?]['"]?)\s+/).filter(Boolean); }
+function modelBlock(q) {
+  const wrap = h('div', { class: 'model' });
+  const say = h('div', { class: 'say' }, q.model);
+  const shadow = h('div', { class: 'shadow', style: 'display:none' });
+  const sents = splitSentences(q.model); let i = 0;
+  const drawShadow = () => {
+    shadow.innerHTML = '';
+    if (i >= sents.length) { shadow.append(h('div', { class: 'explain' }, '🎉 You repeated the whole answer! Now try it with your own words.'), sbtn('↺ From the beginning', () => { i = 0; drawShadow(); })); return; }
+    shadow.append(h('div', { class: 'qprompt' }, `Sentence ${i + 1} of ${sents.length}`), h('div', { class: 'sbox' }, h('div', { class: 'sent big' }, sents[i])),
+      h('div', { class: 'btnrow' }, speakBtn(sents[i], '🔊 Listen'), speakBtn(sents[i], '🐢 Slowly', 0.65), sbtn('Next sentence ➜', () => { i++; drawShadow(); }, 'gold')));
+    speak(sents[i]);
+  };
+  wrap.append(say, h('div', { class: 'btnrow', style: 'margin-top:10px' }, speakBtn(q.model, '🔊 Listen to all'), speakBtn(q.model, '🐢 Slowly', 0.7),
+    TTS ? sbtn('🗣 Repeat sentence by sentence', () => { shadow.style.display = shadow.style.display === 'none' ? 'block' : 'none'; if (shadow.style.display === 'block') { i = 0; drawShadow(); } else stopSpeak(); }) : ''), shadow);
+  return wrap;
+}
+
+/* ---------- Unterschiede ---------- */
+function rDiff(el) {
+  if (V.contrast) {
+    const c = CONTRASTS.find(x => x.id === V.contrast), q = QS.find(x => x.id === 'c_' + c.id);
+    el.append(backLink('Alle Unterschiede', () => go('diff')));
+    el.append(h('div', { class: 'card' }, h('h2', {}, '⚖️ ' + c.title), h('div', { class: 'qprompt' }, c.test),
+      h('div', { class: 'pair' }, [c.a, c.b].map(id => h('div', { class: 'pairbox' }, h('b', {}, `${TENSE[id].ic} ${TENSE[id].name}`), h('div', { html: tl(id) }), h('div', { class: 'td' }, TENSE[id].one)))),
+      h('ul', { class: 'pts' }, c.points.map(p => h('li', {}, p)))));
+    el.append(h('div', { class: 'card' }, h('h2', {}, 'Same idea – different meaning'), h('div', { class: 'tablewrap' }, h('table', { class: 'rl' }, h('tr', {}, h('th', {}, TENSE[c.a].name), h('th', {}, TENSE[c.b].name), h('th', {}, 'What changes?')),
+      ...c.pairs.map(p => h('tr', {}, h('td', {}, p[0], TTS ? h('button', { class: 'tiny', onclick: () => speak(p[0]) }, '🔊') : ''), h('td', {}, p[1], TTS ? h('button', { class: 'tiny', onclick: () => speak(p[1]) }, '🔊') : ''), h('td', {}, p[2]))))), h('div', { class: 'de-bridge' }, '🇩🇪 ', c.de)));
+    el.append(h('div', { class: 'card' }, h('h2', {}, `🎤 If your teacher asks: “${q.q}”`), modelBlock(q), h('div', { class: 'btnrow', style: 'margin-top:12px' }, sbtn('🎤 Now I answer myself', () => go('speak', { q: q.id, sp: 'q' }), 'gold'), sbtn('🎯 Practise both tenses', () => startRun(c.title, shuf([...detItems(c.a, 6), ...detItems(c.b, 6)]), { again: () => RUN.det(c.a)() })))));
+    return;
+  }
+  el.append(h('div', { class: 'card' }, h('h2', {}, '⚖️ Was man verwechselt – und warum'), h('div', { class: 'desc' }, 'Hier lernst du die Gegenüberstellungen, nach denen Lehrer besonders gern fragen: „What is the difference between …?“')));
+  const grid = h('div', { class: 'grid' });
+  CONTRASTS.forEach(c => grid.append(h('div', { class: 'tcard' }, h('div', { class: 'tt' }, c.title, DB.spoken['c_' + c.id] ? h('span', { class: 'best' }, '🎤 ✓') : ''), h('div', { class: 'td' }, c.test), h('div', { class: 'btnrow' }, sbtn('📖 Ansehen', () => go('diff', { contrast: c.id }), 'gold'), sbtn('🎤 Erklären', () => go('speak', { q: 'c_' + c.id, sp: 'q' }))))));
+  el.append(grid);
+  el.append(h('div', { class: 'card ref' }, h('h2', {}, '🧠 Bonus: Zustandsverben (stative verbs)'), h('p', {}, 'Diese Verben beschreiben einen Zustand und werden normalerweise nicht mit -ing verwendet – auch nicht, wenn es „gerade jetzt“ ist:'),
+    h('div', { class: 'chips' }, 'know, understand, believe, remember, forget, like, love, hate, prefer, want, need, own, belong, seem, cost, mean'.split(', ').map(s => h('span', { class: 'chip static' }, s))),
+    h('p', {}, 'Manche haben zwei Bedeutungen: ', h('b', {}, 'I have a car'), ' (Besitz, Zustand) – aber ', h('b', {}, "I'm having lunch"), ' (Tätigkeit). ', h('b', {}, 'I think it is great'), ' (Meinung) – aber ', h('b', {}, "I'm thinking about my holiday"), ' (Gedanken im Gange).'),
+    h('div', { class: 'btnrow' }, sbtn('🎤 Explain stative verbs', () => go('speak', { q: 'g6', sp: 'q' }), 'gold'))));
+}
+
+/* ==================== Sprechen ==================== */
+const keyGroups = q => q.keys.map(k => k.split('|'));
+function recorder(q) {
+  const groups = keyGroups(q); let text = '', rec = null, on = false; const hits = groups.map(() => false); const manual = groups.map(() => false);
+  const out = h('div', { class: 'transcript', style: 'display:none' });
+  const covBox = h('div', { class: 'cov' });
+  const done = h('div');
+  const updateCov = () => {
+    covBox.innerHTML = '';
+    const n = groups.filter((g, i) => hits[i] || manual[i]).length;
+    covBox.append(h('div', { class: 'qprompt' }, 'Key ideas for a strong answer – tick what you said:'),
+      h('div', { class: 'checks' }, groups.map((g, i) => h('label', { class: 'chk' + (hits[i] || manual[i] ? ' on' : '') }, h('input', { type: 'checkbox', checked: (hits[i] || manual[i]) ? 'checked' : false, onchange: e => { manual[i] = e.target.checked; if (!e.target.checked) hits[i] = false; updateCov(); } }), ' ' + g[0]))),
+      h('div', { class: 'ptext' }, n === groups.length ? '🌟 You covered every key idea!' : n >= groups.length - 2 ? `👏 ${n} of ${groups.length} key ideas – nearly everything!` : `🙂 ${n} of ${groups.length} key ideas so far – you can add more or listen to the model answer.`));
+  };
+  const analyse = () => {
+    const low = text.toLowerCase().replace(/[’‘]/g, "'");
+    groups.forEach((g, i) => { hits[i] = g.some(a => a && low.includes(a.toLowerCase())); });
+    updateCov();
+  };
+  const btn = h('button', { class: 'cbtn primary' }, SR ? '🎤 Start speaking' : '🎤 I answer aloud');
+  if (SR) {
+    btn.onclick = () => {
+      if (on) { try { rec.stop(); } catch (e) { } return; }
+      try {
+        rec = new SR(); rec.lang = 'en-GB'; rec.continuous = true; rec.interimResults = true; text = '';
+        rec.onresult = ev => { let t = ''; for (let i = 0; i < ev.results.length; i++) t += ev.results[i][0].transcript + ' '; text = t; out.style.display = 'block'; out.textContent = '“' + t.trim() + '”'; };
+        rec.onerror = ev => { on = false; btn.textContent = '🎤 Start speaking'; if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') toast('Das Mikrofon ist nicht erlaubt – du kannst trotzdem laut sprechen und selbst abhaken.'); };
+        rec.onend = () => { on = false; btn.textContent = '🎤 Speak again'; btn.classList.add('primary'); analyse(); };
+        rec.start(); on = true; btn.textContent = '⏹ I am finished'; hint2.textContent = 'Listening … take your time. Press the button when you are done.';
+      } catch (e) { toast('Spracherkennung startet nicht – sprich einfach laut und hake danach selbst ab.'); }
+    };
+  } else { btn.onclick = () => { out.style.display = 'block'; out.textContent = 'Speak your answer out loud now. When you are finished, tick the key ideas you mentioned.'; }; }
+  const hint2 = h('div', { class: 'ptext' }, SR ? 'The page listens (only in your browser) and shows which key ideas you mentioned. You can always tick them yourself.' : 'Your browser cannot listen – that is fine. Speak out loud (or record a voice memo on your phone) and tick the key ideas yourself.');
+  const finishRow = () => {
+    done.innerHTML = '';
+    done.append(h('div', { class: 'qprompt', style: 'margin-top:14px' }, 'How did that feel?'), h('div', { class: 'chips' }, [[1, '😕 difficult'], [2, '🙂 okay'], [3, '😀 great']].map(([n, l]) => h('button', { class: 'chip', onclick: () => {
+      const s = DB.spoken[q.id] || { n: 0 }; s.n++; s.s = n; DB.spoken[q.id] = s; addXP(15); saveDB(); toast('Saved – +15 XP 🎉'); renderAll(); } }, l))));
+  };
+  updateCov(); finishRow();
+  return h('div', { class: 'rec' }, h('div', { class: 'ctrl' }, btn), hint2, out, covBox, done);
+}
+function rQuestion(el, q) {
+  el.append(backLink('All questions', () => go('speak', { sp: 'q' })));
+  const c = h('div', { class: 'card' }, h('h2', {}, '🗣 Your teacher asks:'), h('div', { class: 'sbox' }, h('div', { class: 'sent big' }, '“' + q.q + '”'), speakBtn(q.q, '🔊 Hear the question')));
+  c.append(h('div', { class: 'desc' }, 'There is no timer. Answer in full sentences, out loud. Use the starters if you like.'));
+  c.append(h('div', { class: 'chips' }, q.starters.map(s => h('span', { class: 'chip static' }, s))));
+  c.append(recorder(q));
+  el.append(c);
+  const m = h('details', { class: 'card' }, h('summary', {}, '👀 Show the model answer (listen, then repeat)'), modelBlock(q));
+  el.append(m);
+  const nav = h('div', { class: 'btnrow' }, sbtn('🎲 Another question', () => go('speak', { q: nextQuestion().id, sp: 'q' }), 'gold'));
+  if (q.t) nav.append(sbtn('📖 Read about it again', () => go('tenses', { tense: q.t })));
+  if (q.c) nav.append(sbtn('📖 Read about it again', () => go('diff', { contrast: q.c })));
+  el.append(h('div', { class: 'card' }, nav));
+}
+function rSpeak(el) {
+  if (V.q) { const q = QS.find(x => x.id === V.q); if (q) return rQuestion(el, q); }
+  el.append(h('div', { class: 'card' }, h('h2', {}, '🎤 Sprechen üben'), h('div', { class: 'desc' }, 'Lehrerfragen beantworten, Redewendungen zum Erklären sammeln und die englischen Grammatik-Wörter lernen, die du dafür brauchst.'),
+    chipRow([['q', '🗣 Lehrerfragen'], ['phr', '💬 Redewendungen'], ['gl', '📚 Grammatik-Wörter']], V.sp, id => { V.sp = id; renderAll(); })));
+  if (V.sp === 'q') {
+    const cats = [['all', 'All'], ...Object.entries(QCATS)];
+    const list = QS.filter(q => V.qcat === 'all' || q.cat === V.qcat);
+    el.append(h('div', { class: 'card' }, h('div', { class: 'btnrow' }, sbtn('🎲 Random question', () => go('speak', { q: nextQuestion().id, sp: 'q' }), 'gold')), h('div', { style: 'height:10px' }), chipRow(cats, V.qcat, id => { V.qcat = id; renderAll(); })));
+    const grid = h('div', { class: 'qgrid' });
+    list.forEach(q => { const d = DB.spoken[q.id]; grid.append(h('button', { class: 'qtile' + (d ? ' done' : ''), onclick: () => go('speak', { q: q.id, sp: 'q' }) }, h('span', { class: 'qq' }, q.q), h('small', {}, d ? `✔ ${d.n}× answered · ${['', '😕', '🙂', '😀'][d.s]}` : QCATS[q.cat]))); });
+    el.append(grid);
+  } else if (V.sp === 'phr') {
+    PHRASES.forEach(([title, list]) => el.append(h('div', { class: 'card' }, h('h3', {}, title), h('div', { class: 'phr' }, list.map(p => h('button', { class: 'phrbtn', onclick: () => speak(p.replace(/…/g, '')) }, TTS ? '🔊 ' : '', p))))));
+  } else {
+    el.append(h('div', { class: 'card' }, h('div', { class: 'btnrow' }, sbtn('🎯 Quiz: Grammar words', RUN.gl, 'gold')), h('div', { style: 'height:10px' }),
+      h('div', { class: 'tablewrap' }, h('table', { class: 'rl' }, h('tr', {}, h('th', {}), h('th', {}, 'English'), h('th', {}, 'Deutsch')), ...GLOSS.map(g => h('tr', {}, h('td', {}, TTS ? h('button', { class: 'tiny', onclick: () => speak(g[0]) }, '🔊') : ''), h('td', {}, g[0]), h('td', {}, g[1])))))));
+  }
+}
+
+/* ==================== Üben ==================== */
+function rPractice(el) {
+  const f = V.pf;
+  el.append(h('div', { class: 'card' }, h('h2', {}, '🎯 Üben'), h('div', { class: 'desc' }, 'Wähle zuerst, ob du alle Zeitformen oder nur eine üben möchtest. Bei jeder falschen Antwort darfst du es noch einmal versuchen – gezählt wird nur, was du auf Anhieb schaffst.'),
+    chipRow([['all', 'All tenses'], ...TENSES.map(t => [t.id, t.name.replace(' (will)', '').replace(' (bonus)', '')])], f, id => { V.pf = id; renderAll(); })));
+  el.append(h('div', { class: 'card' }, h('h2', {}, 'Spiele'),
+    modeBtn('🔍 Tense Detective', 'Satz lesen → Zeitform finden → Grund nennen (12 Sätze)', RUN.det(f)),
+    modeBtn('✏️ Choose the right form', 'Lückensätze mit einer Erklärung (12 Sätze)', RUN.gap(f)),
+    modeBtn('🕵️ Error Hunt', 'Welcher Satz ist richtig? Typische Fehler von Deutschsprachigen (10 Sätze)', RUN.err(f)),
+    modeBtn('🇩🇪→🇬🇧 Translate', 'Ganze Sätze übersetzen und eintippen (10 Sätze)', RUN.tr(f)),
+    modeBtn('📚 Grammar words', 'Die englischen Fachwörter für Grammatik (12 Fragen)', RUN.gl)));
+  el.append(h('div', { class: 'card' }, h('h2', {}, 'Challenges'),
+    modeBtn('🎯 Diagnose', 'Zwei Sätze pro Zeitform – wo stehe ich?', RUN.diag),
+    modeBtn('🏆 Boss-Runde', '20 gemischte Aufgaben aus allen Bereichen', RUN.boss)));
+}
+
+/* ==================== Stunde 1 (für Amy) ==================== */
+const LESSON = [
+ { id:'l1', min:5, t:'Ankommen & Aufwärmen', body:[
+  "Ein kurzes Gespräch auf Englisch, ganz ohne Korrigieren: „What did you do at the weekend?“ – „What do you usually do after school?“ – „What are you doing at the moment?“ So hört Nabiha drei Zeitformen ganz natürlich, und du siehst, wie lang ihre Sätze von allein werden und wo sie Pausen macht.",
+  "Fehler merkst du dir und sprichst sie am Ende der Stunde als richtige Version noch einmal vor (Recast), statt mitten im Satz zu unterbrechen."], go:[] },
+ { id:'l2', min:10, t:'Standortbestimmung', body:[
+  "Auf der Seite „Üben“ die Diagnose starten: 16 Sätze, zwei pro Zeitform, jeweils erst die Zeitform, dann der Grund. Die Seite erklärt nach jeder Antwort und zeigt am Ende, bei welcher Zeitform es noch wackelt.",
+  "Danach setzt Nabiha bei jeder Zeitform unter „Zeitformen“ ihre Selbsteinschätzung (😕 🙂 😀): kann sie es nur anwenden oder auch erklären? Das ist deine ehrliche Landkarte für die nächsten Wochen."], go:[['Diagnose starten', () => RUN.diag()], ['Zeitformen öffnen', () => go('tenses')]] },
+ { id:'l3', min:10, t:'Die Zeiten-Landkarte', body:[
+  "Gemeinsam die Zeitstrahl-Karten ansehen: Wo liegt die Handlung – jetzt, davor, danach, mehrfach, unterbrochen?",
+  "Mit dem Tense-Finder drei Sätze aus Nabihas Alltag durchgehen (zum Beispiel „I go swimming on Tuesdays“, „I was doing my homework when you called“, „I have never been to London“). Entscheidend ist jedes Mal die Frage nach dem Warum."], go:[['Landkarte öffnen', () => go('map')]] },
+ { id:'l4', min:20, t:'Kernstück: Erklären, wie der Lehrer es verlangt', body:[
+  "Schritt 1 – Vormachen: Unter „Zeitformen“ → Present Simple die Musterantwort auf „When and why do we use the Present Simple?“ anhören.",
+  "Schritt 2 – Nachsprechen: Mit „Satz für Satz nachsprechen“ wiederholt Nabiha jeden Satz, auch langsam. Die Antwort ist absichtlich in kurzen Bausteinen gebaut (We use … / For example … / We use it because …).",
+  "Schritt 3 – Eigene Antwort: Nabiha schaut nicht mehr auf den Text, sieht nur die Starter-Sätze und erklärt in eigenen Worten. Im Trainer zeigt die Seite, welche Schlüsselideen schon dabei waren; fehlende kannst du mit einer Rückfrage anstoßen („Is there a typical signal word?“).",
+  "Danach dasselbe mit dem Present Continuous und anschließend mit „Unterschiede“ → Present Simple vs Present Continuous („What is the difference?“). Wenn die Zeit reicht: Past Simple."], go:[['Present Simple öffnen', () => go('tenses', { tense: 'ps' })], ['Frage: Present Simple', () => go('speak', { q: 'ps1', sp: 'q' })], ['Unterschied PS/PC', () => go('diff', { contrast: 'ps_pc' })]] },
+ { id:'l5', min:8, t:'Mini-Challenge: Rollenspiel „Lehrerfrage“', body:[
+  "Du bist der Lehrer und stellst zwei Fragen aus dem Trainer (Zufallsfrage). Danach acht Sätze Tense Detective mit Past-/Present-Mischung, damit das Erklärte in Sätzen landet."], go:[['Zufallsfrage', () => go('speak', { q: nextQuestion().id, sp: 'q' })], ['Tense Detective', () => RUN.det('all')()]] },
+ { id:'l6', min:5, t:'Abschluss & Hausübung', body:[
+  "Rückblick: „Was kannst du jetzt erklären?“ – Selbsteinschätzung bei Present Simple und Present Continuous noch einmal setzen. Dann die Hausübung (siehe unten) besprechen."], go:[] }
+];
+function rLesson(el) {
+  const total = LESSON.reduce((s, l) => s + l.min, 0);
+  el.append(h('div', { class: 'card' }, h('div', { class: 'ctrl', style: 'justify-content:space-between' }, h('h2', {}, '👩‍🏫 Erste Englisch-Stunde – Ablauf'), h('button', { class: 'cbtn', onclick: () => window.print() }, '🖨 Drucken')),
+    h('div', { class: 'desc' }, `Vorschlag für ${total} Minuten + 2 Minuten Puffer. Thema: Zeitformen verstehen und in eigenen Worten erklären – so, wie Nabihas Lehrer es im Unterricht fragt („Wann und warum Present Simple, Present Continuous, Past Simple, Past Continuous, Present Perfect, Past Perfect, Future Simple?“). Alles läuft ohne Timer; die Schritte kannst du abhaken.`)));
+  LESSON.forEach((l, i) => {
+    const done = !!DB.lesson[l.id];
+    el.append(h('div', { class: 'card lesson-step' + (done ? ' done' : '') },
+      h('label', { class: 'chk lhead' }, h('input', { type: 'checkbox', checked: done ? 'checked' : false, onchange: e => { DB.lesson[l.id] = e.target.checked; saveDB(); renderAll(); } }), h('b', {}, ` ${i + 1}. ${l.t}`), h('span', { class: 'min' }, `${l.min} min`)),
+      l.body.map(p => h('p', {}, p)), l.go.length ? h('div', { class: 'btnrow noprint' }, l.go.map(([lab, fn]) => sbtn(lab, fn))) : ''));
+  });
+  const HW = ['Die Frage „When and why do we use the Present Simple?“ laut beantworten und als Sprachmemo aufnehmen (30–60 Sekunden). Dasselbe mit dem Present Continuous.', 'Tense Detective: Present Simple und Present Continuous, je 12 Sätze.', 'Zehn Grammatik-Wörter lernen (Sprechen → Grammatik-Wörter → Quiz).', 'Bonus: Jemandem zu Hause den Unterschied zwischen „I walk to school“ und „I’m walking to school today“ erklären.'];
+  el.append(h('div', { class: 'card' }, h('h2', {}, '📝 Hausübung nach Stunde 1 (ca. 20 Minuten, über drei Tage)'), h('ul', { class: 'pts' }, HW.map(x => h('li', {}, x)))));
+  const sp = QS.filter(q => ['tenses', 'diff', 'general'].includes(q.cat));
+  el.append(h('div', { class: 'card noprint' }, h('h2', {}, '❓ Spickzettel: Fragen, die der Lehrer typischerweise stellt'), h('div', { class: 'desc' }, 'Jede Frage öffnet den Trainer mit Starter-Sätzen, Musterantwort und Schlüsselideen.'), h('div', { class: 'qgrid' }, sp.map(q => h('button', { class: 'qtile' + (DB.spoken[q.id] ? ' done' : ''), onclick: () => go('speak', { q: q.id, sp: 'q' }) }, h('span', { class: 'qq' }, q.q), h('small', {}, QCATS[q.cat]))))));
+  const NEXT = [['Stunde 2 – Vergangenheit', 'Past Simple und Past Continuous; unregelmäßige Verben (go – went – gone, sing – sang – sung); Unterschied Past Simple vs Past Continuous („I was reading when …“); Fragen pas1–3, pac1–3; Error Hunt zur Vergangenheit.'], ['Stunde 3 – Present Perfect', 'Erfahrung, Ergebnis, for/since, just/already/yet; Unterschied Past Simple vs Present Perfect; typische Fehler von Deutschsprachigen („I live here since …“); Übersetzen-Aufgaben.'], ['Stunde 4 – Past Perfect & Zukunft', 'Reihenfolge von Ereignissen; will vs going to; Present Continuous für Termine; danach eine Probe-Runde, in der du sechs gemischte Lehrerfragen stellst.'], ['Stunde 5 – Wiederholung', 'Boss-Runde, Schwachstellen laut Fortschrittsseite, Lieblingsfragen noch einmal sprechen.']];
+  el.append(h('div', { class: 'card' }, h('h2', {}, '📅 Vorschlag für Stunde 2–5'), NEXT.map(([a, b]) => h('p', {}, h('b', {}, a + ': '), b))));
+}
+
+/* ==================== Fortschritt ==================== */
+function rProg(el) {
+  const lv = level(DB.xp), acc = DB.answered ? Math.round(DB.correct / DB.answered * 100) + ' %' : '–';
+  el.append(h('div', { class: 'card' }, h('h2', {}, '📊 Dein Fortschritt'), h('div', { class: 'stats' }, stat('Level', lv.n), stat('XP', DB.xp), stat('Aufgaben', DB.answered), stat('Auf Anhieb richtig', acc), stat('Laut beantwortet', Object.keys(DB.spoken).length + ' / ' + QS.length))));
+  el.append(h('div', { class: 'card' }, h('h2', {}, 'Die acht Zeitformen'), h('div', { class: 'desc' }, 'Genauigkeit beim Üben und deine Selbsteinschätzung beim Erklären.'),
+    h('table', { class: 'rl' }, h('tr', {}, h('th', {}, 'Tense'), h('th', {}, 'Üben (Anhieb richtig)'), h('th', {}, 'Selbsteinschätzung'), h('th', {})),
+      ...TENSES.map(t => { const s = DB.tst[t.id], p = s ? Math.round(s.c / s.n * 100) : null; return h('tr', {}, h('td', {}, `${t.ic} ${t.name}`), h('td', {}, p === null ? h('span', { class: 'dim' }, 'noch nichts geübt') : h('div', { class: 'bar' + (p >= 70 ? '' : ' gold') }, h('i', { style: 'width:' + p + '%' }), h('span', { class: 'barlab' }, p + ' %  (' + s.n + ')'))), h('td', {}, ['–', '😕', '🙂', '😀'][DB.rate[t.id] || 0]), h('td', {}, h('button', { class: 'task', onclick: () => go('tenses', { tense: t.id }) }, 'Öffnen'))); }))));
+  const inp = h('input', { type: 'file', accept: '.json', style: 'display:none', onchange: e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { try { DB = Object.assign(defaultDB(), JSON.parse(r.result)); saveDB(); renderAll(); toast('Fortschritt geladen ✔'); } catch (er) { toast('Die Datei konnte nicht gelesen werden.'); } }; r.readAsText(f); } });
+  el.append(h('div', { class: 'card' }, h('h2', {}, '💾 Sichern & Einstellungen'), h('div', { class: 'desc' }, 'Der Fortschritt liegt im Browser dieses Geräts. Mit der Sicherung kannst du ihn auf ein anderes Gerät mitnehmen.'),
+    h('div', { class: 'btnrow' }, sbtn('⬇ Fortschritt sichern', () => { const b = new Blob([JSON.stringify(DB)], { type: 'application/json' }); const a = h('a', { href: URL.createObjectURL(b), download: 'tenses-talk-fortschritt.json' }); document.body.append(a); a.click(); a.remove(); }), sbtn('⬆ Fortschritt laden', () => inp.click()), inp,
+      TTS ? sbtn(DB.sound ? '🔊 Ton: an' : '🔇 Ton: aus', () => { DB.sound = !DB.sound; saveDB(); renderAll(); }) : '', sbtn('🗑 Zurücksetzen', () => { if (confirm('Wirklich alles zurücksetzen?')) { DB = defaultDB(); saveDB(); renderAll(); } }))));
+}
+
+/* ==================== Aufbau ==================== */
+function renderAll() {
+  const nav = $('#topnav'); nav.innerHTML = '';
+  TABS.forEach(([id, label]) => nav.append(h('button', { class: 'tabbtn' + (V.tab === id ? ' on' : ''), onclick: () => go(id) }, label)));
+  const root = $('#tabs'); root.innerHTML = ''; const el = h('div', { class: 'tab on' }); root.append(el);
+  ({ home: rHome, map: rMap, tenses: rTenses, diff: rDiff, speak: rSpeak, practice: rPractice, lesson: rLesson, prog: rProg })[V.tab](el);
+}
+function init() {
+  $('#backBtn').onclick = endRun;
+  $('#nextBtn').onclick = goNext;
+  document.addEventListener('keydown', e => { if (!G) return; const t = e.target && e.target.tagName; if (e.key === 'Enter' && $('#nextRow').style.display !== 'none' && t !== 'INPUT') { e.preventDefault(); goNext(); } });
+  showView('menu'); renderAll();
+}
+
+init();
+</script>
+</body>
+</html>
