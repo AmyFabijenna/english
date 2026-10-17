@@ -1,0 +1,711 @@
+<title>English Masterclass 240</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one exam-paper column, sticky part navigator, each part a numbered sheet with its own check bar */
+:root{
+  --paper:#fafaf7; --sheet:#ffffff; --ink:#18202e; --muted:#5b6474; --rule:#dde1e8;
+  --accent:#1c4db3; --accent-soft:#e8eefb; --mark:#ffe36b; --mark-ink:#18202e;
+  --ok:#17784a; --ok-soft:#e3f4ea; --bad:#b3261e; --bad-soft:#fbe7e5;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-text:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-ui:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#11151c; --sheet:#181d26; --ink:#e6e9ef; --muted:#9aa3b3; --rule:#2b3240;
+  --accent:#86a8ff; --accent-soft:#1f2a44; --mark:#5c4d0e; --mark-ink:#fff4c2;
+  --ok:#5fcf93; --ok-soft:#173024; --bad:#ff8b80; --bad-soft:#3a1d1b; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#11151c; --sheet:#181d26; --ink:#e6e9ef; --muted:#9aa3b3; --rule:#2b3240;
+  --accent:#86a8ff; --accent-soft:#1f2a44; --mark:#5c4d0e; --mark-ink:#fff4c2;
+  --ok:#5fcf93; --ok-soft:#173024; --bad:#ff8b80; --bad-soft:#3a1d1b; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.55;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 64px}
+.wrap{max-width:820px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+a{color:var(--accent)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* header */
+.masthead{padding-block:40px 20px;display:grid;gap:14px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.masthead h1{font-size:clamp(34px,6vw,56px);font-weight:800;letter-spacing:-.02em}
+.masthead h1 span{background:linear-gradient(transparent 58%, var(--mark) 58%, var(--mark) 92%, transparent 92%);color:inherit}
+.lede{font-family:var(--f-text);font-size:18px;max-width:62ch;color:var(--ink)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{border:1px solid var(--rule);background:var(--sheet);color:var(--ink);padding:8px 14px;border-radius:8px;font-weight:500;font-size:14px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--sheet)}
+.btn.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+
+/* plan */
+.plan{margin-block:12px 28px;border:1px solid var(--rule);background:var(--sheet);border-radius:12px;overflow:hidden}
+.plan h2{font-size:18px;padding:14px 18px;border-bottom:1px solid var(--rule)}
+.plan-scroll{overflow-x:auto}
+.plan table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+.plan td,.plan th{padding:8px 14px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.plan th{font-weight:600;color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.plan td.n,.plan td.m{font-variant-numeric:tabular-nums;white-space:nowrap}
+.plan tr:last-child td{border-bottom:0}
+.plan tfoot td{font-weight:600}
+.tag{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+
+/* sticky nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--paper)}
+.nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);margin-bottom:24px}
+.nav-inner{max-width:820px;margin:0 auto;display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:thin}
+.nav a{flex:none;text-decoration:none;font-family:var(--f-mono);font-size:12px;color:var(--muted);border:1px solid var(--rule);padding:4px 9px;border-radius:999px;background:var(--sheet)}
+.nav a.done{color:var(--ok);border-color:var(--ok)}
+.nav a:hover{color:var(--accent);border-color:var(--accent)}
+
+/* task sheet */
+.task{background:var(--sheet);border:1px solid var(--rule);border-radius:14px;padding:26px 24px 20px;margin-bottom:28px;scroll-margin-top:70px}
+.task-head{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:baseline;margin-bottom:14px}
+.part{font-family:var(--f-display);font-weight:800;font-size:40px;line-height:1;color:var(--accent);grid-row:span 2}
+.task-head h2{font-size:24px;font-weight:700}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.instr{font-size:15px;color:var(--ink);background:var(--paper);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 8px 8px 0;margin:0 0 18px;max-width:72ch}
+.instr b{font-weight:600}
+
+/* items */
+ol.items{margin:0;padding:0;list-style:none;counter-reset:it;display:grid;gap:18px}
+ol.items>li{counter-increment:it;display:grid;grid-template-columns:2.2em 1fr;gap:4px}
+ol.items>li::before{content:counter(it);font-family:var(--f-mono);font-size:13px;color:var(--muted);padding-top:3px;text-align:right;padding-right:10px}
+ol.items>li>div{min-width:0}
+.q{font-family:var(--f-text);font-size:17px}
+.ctx{font-size:13px;color:var(--muted);font-style:italic;font-family:var(--f-text)}
+
+.gap{font-family:var(--f-text);font-size:16px;border:0;border-bottom:2px solid var(--rule);background:var(--paper);color:var(--ink);padding:1px 6px;margin:0 2px;border-radius:4px 4px 0 0;max-width:100%;min-width:5ch}
+.gap:focus{border-bottom-color:var(--accent);outline:none;background:var(--accent-soft)}
+.gap.ok{border-bottom-color:var(--ok);background:var(--ok-soft)}
+.gap.no{border-bottom-color:var(--bad);background:var(--bad-soft)}
+.hint{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.sol{font-family:var(--f-ui);font-size:13px;font-weight:600;color:var(--ok);background:var(--ok-soft);padding:1px 7px;border-radius:4px;margin-left:4px;white-space:normal}
+.task:not(.show) .sol,.task:not(.show) .expl{display:none}
+.expl{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5;font-family:var(--f-ui)}
+.expl b{color:var(--ink)}
+.model{background:var(--paper);border:1px dashed var(--rule);border-radius:8px;padding:12px 16px;font-family:var(--f-text);font-size:16px;color:var(--ink)}
+.model p{margin:0 0 10px}.model p:last-child{margin:0}
+
+.mc{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.opt{border:1px solid var(--rule);background:var(--paper);color:var(--ink);padding:6px 12px;border-radius:8px;font-family:var(--f-text);font-size:16px;text-align:left}
+.opt:hover{border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft);text-decoration:line-through}
+.task.show .opt.is-ans{box-shadow:inset 0 0 0 2px var(--ok)}
+.mc.col{flex-direction:column;align-items:stretch}
+
+textarea.open{width:100%;min-height:90px;font-family:var(--f-text);font-size:16px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:8px;padding:10px 12px;resize:vertical;margin-top:6px}
+textarea.open.long{min-height:280px}
+.wc{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:right}
+
+/* passages */
+.passage{font-family:var(--f-text);font-size:17.5px;line-height:1.7;border:1px solid var(--rule);border-radius:10px;padding:22px 24px 10px;margin-bottom:22px;background:var(--paper)}
+.passage h3{font-family:var(--f-text);font-weight:600;font-size:22px;margin-bottom:14px}
+.passage .para{display:grid;grid-template-columns:2em 1fr;gap:6px;margin-bottom:14px}
+.passage .para>span{font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:5px}
+.passage .para>p{margin:0;min-width:0}
+.passage.cloze p{margin:0 0 14px}
+.sub{font-family:var(--f-display);font-size:17px;font-weight:700;margin:26px 0 12px;padding-top:16px;border-top:1px solid var(--rule)}
+
+/* KWT */
+.kw{display:inline-block;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;background:var(--mark);color:var(--mark-ink);padding:2px 8px;border-radius:3px;margin:4px 0}
+.cap{font-variant:small-caps;letter-spacing:.04em;font-weight:600;color:var(--accent)}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:22px;padding-top:16px;border-top:1px solid var(--rule)}
+.score{font-family:var(--f-mono);font-size:13px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.score.good{color:var(--ok)}
+
+.phr{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 18px;font-size:14px;margin:10px 0}
+.phr div{min-width:0}
+.phr b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.notes{font-family:var(--f-text);background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:12px 16px;font-size:16px}
+.notes ul{margin:6px 0;padding-left:20px}
+footer{font-size:13px;color:var(--muted);text-align:center;margin-top:30px}
+@media (max-width:560px){
+  .task{padding:20px 14px 16px}
+  .part{font-size:30px}
+  .task-head h2{font-size:20px}
+  .passage{padding:16px 14px 6px;font-size:16.5px}
+  ol.items>li{grid-template-columns:1.8em 1fr}
+}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<nav class="nav" aria-label="Parts"><div class="nav-inner" id="navInner"></div></nav>
+
+<div class="wrap">
+<header class="masthead">
+  <div class="eyebrow">Advanced English · Grammar, Reading, Use of English, Writing, Speaking</div>
+  <h1>English <span>Masterclass</span></h1>
+  <p class="lede">Sixteen parts, from advanced tense contrasts to exam-style C1 tasks. Every part has its own <b>Check</b> button and a <b>Solutions</b> button. Work slowly: most items contain a trap, and the fastest answer is often the wrong one.</p>
+  <div class="toolbar">
+    <button class="btn" id="teacherBtn" type="button">Show all solutions</button>
+    <button class="btn" id="resetAll" type="button">Clear all answers</button>
+    <span class="hint">Your answers are kept in this browser.</span>
+  </div>
+</header>
+
+<section class="plan" aria-labelledby="planH">
+  <h2 id="planH">Lesson plan</h2>
+  <div class="plan-scroll">
+  <table>
+    <thead><tr><th>Part</th><th>Task</th><th>Skill</th><th>Time</th></tr></thead>
+    <tbody id="planBody"></tbody>
+    <tfoot><tr><td></td><td>Total material</td><td></td><td class="m" id="planTotal"></td></tr></tfoot>
+  </table>
+  </div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section class="task" id="p1" data-title="Tense traps" data-skill="Grammar" data-min="15">
+  <div class="task-head"><div class="part">1</div><h2>Tense traps</h2><div class="meta"></div></div>
+  <p class="instr">Choose the <b>only</b> option that is correct and natural. Read the whole sentence first: the time words decide.</p>
+  <ol class="items">
+    <li><div><div class="q">I ___ her since we were six.</div><div class="mc" data-a="b"><button class="opt" data-v="a">know</button><button class="opt" data-v="b">have known</button><button class="opt" data-v="c">am knowing</button></div><div class="expl"><b>have known</b>: <i>since</i> + a state that continues until now. <i>Know</i> is a state verb, so no continuous form.</div></div></li>
+    <li><div><div class="q">When I got to the cinema, the film ___, so I missed the beginning.</div><div class="mc" data-a="b"><button class="opt" data-v="a">already started</button><button class="opt" data-v="b">had already started</button><button class="opt" data-v="c">has already started</button></div><div class="expl"><b>had already started</b>: the film started <i>before</i> another past moment (when I got there) → past perfect.</div></div></li>
+    <li><div><div class="q">I ___ my keys yesterday and I still can't find them.</div><div class="mc" data-a="b"><button class="opt" data-v="a">have lost</button><button class="opt" data-v="b">lost</button><button class="opt" data-v="c">had lost</button></div><div class="expl"><b>lost</b>: <i>yesterday</i> is a finished time → past simple, even though the result is still true.</div></div></li>
+    <li><div><div class="q">This is the first time I ___ sushi.</div><div class="mc" data-a="c"><button class="opt" data-v="a">eat</button><button class="opt" data-v="b">am eating</button><button class="opt" data-v="c">have eaten</button></div><div class="expl"><b>have eaten</b>: after <i>It's / This is the first time…</i> English always uses the present perfect (German uses the present tense here, which is the trap).</div></div></li>
+    <li><div><div class="q">By the time you ___ this letter, I will have left.</div><div class="mc" data-a="b"><button class="opt" data-v="a">will read</button><button class="opt" data-v="b">read</button><button class="opt" data-v="c">will have read</button></div><div class="expl"><b>read</b>: after time conjunctions (<i>when, by the time, as soon as, until, before</i>) we use a present form, never <i>will</i>.</div></div></li>
+    <li><div><div class="q">Look at those black clouds! It ___ rain.</div><div class="mc" data-a="b"><button class="opt" data-v="a">will</button><button class="opt" data-v="b">is going to</button><button class="opt" data-v="c">rains</button></div><div class="expl"><b>is going to</b>: a prediction based on evidence you can see right now.</div></div></li>
+    <li><div><div class="q">"Why are your hands so dirty?" – "I ___ in the garden."</div><div class="mc" data-a="b"><button class="opt" data-v="a">worked</button><button class="opt" data-v="b">have been working</button><button class="opt" data-v="c">have worked</button></div><div class="expl"><b>have been working</b>: an activity that has just stopped and left a visible result (dirty hands) → present perfect continuous.</div></div></li>
+    <li><div><div class="q">She ___ three novels so far, and she's working on a fourth.</div><div class="mc" data-a="a"><button class="opt" data-v="a">has written</button><button class="opt" data-v="b">has been writing</button><button class="opt" data-v="c">wrote</button></div><div class="expl"><b>has written</b>: when we count finished results (<i>three novels</i>), we use the simple form. The continuous form focuses on the activity, not the number.</div></div></li>
+    <li><div><div class="q">This time next week we ___ on a beach in Crete.</div><div class="mc" data-a="b"><button class="opt" data-v="a">will lie</button><button class="opt" data-v="b">will be lying</button><button class="opt" data-v="c">will have lain</button></div><div class="expl"><b>will be lying</b>: an action in progress at a specific future moment → future continuous.</div></div></li>
+    <li><div><div class="q">He was exhausted because he ___ for twelve hours.</div><div class="mc" data-a="a"><button class="opt" data-v="a">had been driving</button><button class="opt" data-v="b">has been driving</button><button class="opt" data-v="c">was driving</button></div><div class="expl"><b>had been driving</b>: a long activity up to a past moment that explains a past result → past perfect continuous.</div></div></li>
+    <li><div><div class="q">Hurry up! According to the timetable, the bus ___ at 7:42.</div><div class="mc" data-a="a"><button class="opt" data-v="a">leaves</button><button class="opt" data-v="b">will have left</button><button class="opt" data-v="c">left</button></div><div class="expl"><b>leaves</b>: timetables and fixed schedules use the present simple, even for the future.</div></div></li>
+    <li><div><div class="q">I ___ that you were coming. Nobody told me!</div><div class="mc" data-a="a"><button class="opt" data-v="a">didn't know</button><button class="opt" data-v="b">haven't known</button><button class="opt" data-v="c">wasn't knowing</button></div><div class="expl"><b>didn't know</b>: the situation is over (now I know), and <i>know</i> has no continuous form.</div></div></li>
+    <li><div><div class="q">We ___ for an hour when the guide finally showed up.</div><div class="mc" data-a="c"><button class="opt" data-v="a">waited</button><button class="opt" data-v="b">have been waiting</button><button class="opt" data-v="c">had been waiting</button></div><div class="expl"><b>had been waiting</b>: duration (<i>for an hour</i>) up to a past moment (<i>when the guide showed up</i>).</div></div></li>
+    <li><div><div class="q">Don't phone at eight; we ___ dinner then.</div><div class="mc" data-a="b"><button class="opt" data-v="a">will have</button><button class="opt" data-v="b">will be having</button><button class="opt" data-v="c">have</button></div><div class="expl"><b>will be having</b>: in the middle of an activity at a future time. (<i>Have dinner</i> is an action, so continuous is fine.)</div></div></li>
+    <li><div><div class="q">By 2035, scientists ___ a cure, I hope.</div><div class="mc" data-a="b"><button class="opt" data-v="a">will find</button><button class="opt" data-v="b">will have found</button><button class="opt" data-v="c">find</button></div><div class="expl"><b>will have found</b>: <i>by + future time</i> → completed before that point → future perfect.</div></div></li>
+    <li><div><div class="q">I ___ to call you, but I completely forgot.</div><div class="mc" data-a="a"><button class="opt" data-v="a">was going</button><button class="opt" data-v="b">am going</button><button class="opt" data-v="c">will</button></div><div class="expl"><b>was going to</b>: a plan in the past that did not happen ("future in the past").</div></div></li>
+    <li><div><div class="q">The soup ___ delicious. Can I have some more?</div><div class="mc" data-a="c"><button class="opt" data-v="a">is tasting</button><button class="opt" data-v="b">has been tasting</button><button class="opt" data-v="c">tastes</button></div><div class="expl"><b>tastes</b>: <i>taste</i> as a quality (= has a flavour) is a state verb. Compare: <i>The chef <u>is tasting</u> the soup</i> = action, he is trying it.</div></div></li>
+    <li><div><div class="q">"You look worried." – "I ___ about the exam tomorrow."</div><div class="mc" data-a="a"><button class="opt" data-v="a">'m thinking</button><button class="opt" data-v="b">think</button><button class="opt" data-v="c">'ve thought</button></div><div class="expl"><b>I'm thinking</b>: <i>think about</i> = a mental activity happening now → continuous. <i>I think (that)…</i> = opinion → simple.</div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="task" id="p2" data-title="The podcast girl: all tenses in one text" data-skill="Grammar" data-min="25">
+  <div class="task-head"><div class="part">2</div><h2>The podcast girl</h2><div class="meta"></div></div>
+  <p class="instr">Put the verbs in brackets into the correct form. Every tense you know (and a few new ones) appears. Some gaps accept more than one answer.</p>
+  <div class="passage cloze fill">
+    <h3>From garden shed to two million listeners</h3>
+    <p>Maya Okafor [[was]] <span class="hint">(be)</span> fourteen when she [[recorded]] <span class="hint">(record)</span> her first podcast episode in a converted garden shed. Before that, she [[had never spoken]] <span class="hint">(never / speak)</span> into a microphone in her life. "I [[had been listening|had listened]] <span class="hint">(listen)</span> to podcasts for years by then," she says, "and one day I just [[thought]] <span class="hint">(think)</span>: why not me?"</p>
+    <p>Since then, her show, <i>The Lighthouse</i>, [[has been downloaded]] <span class="hint">(download)</span> more than two million times. At the moment she [[is working]] <span class="hint">(work)</span> on her second season. Each episode [[lasts]] <span class="hint">(last)</span> about thirty minutes. "I [[have interviewed]] <span class="hint">(interview)</span> eleven people so far this season," she explains, "and I [[haven't finished|have not finished]] <span class="hint">(not / finish)</span> editing half of them yet."</p>
+    <p>When I [[arrived]] <span class="hint">(arrive)</span> at her studio last Tuesday, she [[was sitting]] <span class="hint">(sit)</span> at her desk with headphones on, and she [[didn't notice|did not notice]] <span class="hint">(not / notice)</span> me for a full minute. Her parents [[have supported|have been supporting]] <span class="hint">(support)</span> her from the very beginning, although her father admits he [[didn't understand|did not understand|hadn't understood|had not understood]] <span class="hint">(not / understand)</span> at first what a podcast actually was.</p>
+    <p>Ever since she started, people [[have been asking|have asked]] <span class="hint">(ask)</span> her the same question: how she [[manages]] <span class="hint">(manage)</span> to do it all. Her answer never changes: "I just [[love]] <span class="hint">(love)</span> telling stories."</p>
+    <p>Next month Maya [[is flying|is going to fly]] <span class="hint">(fly)</span> to London; her ticket is already booked. Her talk at the festival [[starts]] <span class="hint">(start)</span> at 10 a.m. on Saturday, according to the programme. By the time she [[finishes|has finished]] <span class="hint">(finish)</span> school next summer, she [[will have produced]] <span class="hint">(produce)</span> over a hundred episodes. And this time next year? "I [[will probably be studying|'ll probably be studying]] <span class="hint">(probably / study)</span> media somewhere," she laughs, "or I [[will be sleeping|'ll be sleeping]] <span class="hint">(sleep)</span>! Ask me again when I [[wake up]] <span class="hint">(wake up)</span>."</p>
+  </div>
+  <div class="expl">
+    <b>Key points:</b> <i>had never spoken / had been listening</i> = before another past moment · <i>has been downloaded</i> = present perfect passive (result up to now) · <i>lasts</i> = general fact · <i>so far / yet</i> → present perfect · <i>was sitting … didn't notice</i> = background vs. action · <i>Ever since … have been asking</i> = repeated activity up to now · <i>is flying</i> = arrangement (ticket booked) · <i>starts</i> = timetable · <i>By the time she finishes</i> = no <i>will</i> after time conjunctions · <i>will have produced</i> = completed before a future point · <i>will be studying</i> = in progress at a future time · <i>when I wake up</i> = present after <i>when</i>.
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="task" id="p3" data-title="Error hunt" data-skill="Grammar" data-min="20">
+  <div class="task-head"><div class="part">3</div><h2>Error hunt</h2><div class="meta"></div></div>
+  <p class="instr">Eleven sentences contain one mistake; four are correct. If a sentence is correct, type <b>correct</b>. Otherwise type only the <b>corrected words</b> (for example: <i>have lived</i>).</p>
+  <ol class="items fill">
+    <li><div><div class="q">I live in Graz since 2019.</div>[[~have lived|have been living]]<div class="expl"><i>since</i> → present perfect (simple or continuous).</div></div></li>
+    <li><div><div class="q">She told me she has finished the project the day before.</div>[[~had finished]]<div class="expl">Reported speech + <i>the day before</i> → past perfect.</div></div></li>
+    <li><div><div class="q">If it will rain tomorrow, we'll stay inside.</div>[[~if it rains|rains]]<div class="expl">First conditional: present simple in the <i>if</i>-clause.</div></div></li>
+    <li><div><div class="q">We've been knowing each other for ages.</div>[[~have known|we have known]]<div class="expl"><i>Know</i> is a state verb: no continuous form.</div></div></li>
+    <li><div><div class="q">When did you last see your grandparents?</div>[[correct]]<div class="expl">Correct: <i>last</i> points to a finished moment in the past → past simple.</div></div></li>
+    <li><div><div class="q">I'm tired because I'm working since seven o'clock.</div>[[~have been working|i have been working]]<div class="expl">Duration up to now → present perfect continuous.</div></div></li>
+    <li><div><div class="q">Hardly had I sat down when the fire alarm went off.</div>[[correct]]<div class="expl">Correct: inversion after <i>Hardly … when</i>. You will practise this in Part 12.</div></div></li>
+    <li><div><div class="q">The police is investigating the case.</div>[[~are investigating|police are|are]]<div class="expl"><i>Police</i> is always plural in English.</div></div></li>
+    <li><div><div class="q">I didn't see him since last summer.</div>[[~haven't seen|have not seen]]<div class="expl"><i>since</i> → present perfect.</div></div></li>
+    <li><div><div class="q">This time tomorrow I'll fly to New York.</div>[[~will be flying]]<div class="expl">In progress at a future moment → future continuous.</div></div></li>
+    <li><div><div class="q">He's used to get up early.</div>[[~used to getting up|getting up|getting]]<div class="expl"><i>be used to</i> + <b>-ing</b> (= accustomed to). Compare: <i>He used to get up early</i> = he did it in the past.</div></div></li>
+    <li><div><div class="q">It's high time we left.</div>[[correct]]<div class="expl">Correct: <i>It's (high) time</i> + past simple, with present meaning.</div></div></li>
+    <li><div><div class="q">I wish I didn't say that to her yesterday.</div>[[~hadn't said|had not said]]<div class="expl">Regret about the past → <i>wish</i> + past perfect.</div></div></li>
+    <li><div><div class="q">The number of students have increased this year.</div>[[~has increased|has]]<div class="expl"><i>The number of</i> takes a singular verb. (But: <i>A number of students <u>have</u></i> = many students.)</div></div></li>
+    <li><div><div class="q">Neither of my brothers likes football.</div>[[correct]]<div class="expl">Correct: <i>neither of</i> normally takes a singular verb in formal English.</div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="task" id="p4" data-title="Reading: The unfinished business of the brain" data-skill="Reading" data-min="35">
+  <div class="task-head"><div class="part">4</div><h2>Reading: unfinished business</h2><div class="meta"></div></div>
+  <p class="instr">Read the article carefully (about 6 minutes). Then do sections A to D. Paragraph numbers are on the left.</p>
+  <div class="passage">
+    <h3>The Unfinished Business of the Brain</h3>
+    <div class="para"><span>1</span><p>In the 1920s, a young Lithuanian-born psychologist named Bluma Zeigarnik was sitting in a Berlin café with her supervisor, Kurt Lewin, when something odd caught their attention. The waiter, who had taken a large group's order without writing anything down, could recall every dish perfectly, until the bill had been paid. Asked about the order a few minutes later, he could barely remember a thing. The task was complete, and his memory, it seemed, had simply let it go.</p></div>
+    <div class="para"><span>2</span><p>Intrigued, Zeigarnik designed a series of experiments back at the laboratory. Participants were given simple tasks such as solving puzzles, threading beads and making clay figures, and were interrupted before they could finish some of them. Afterwards, when asked to list the tasks they had worked on, they remembered the interrupted ones roughly twice as often as the completed ones. The phenomenon became known as the Zeigarnik effect: an unfinished task appears to keep a small part of our mind busy until we return to it.</p></div>
+    <div class="para"><span>3</span><p>Writers and television producers figured this out long before psychologists gave it a name. Charles Dickens published many of his novels in monthly instalments, and readers waited impatiently for the next part. Today's streaming services end episodes at the most painful possible moment for exactly the same reason, and the "next episode" button that appears within seconds is no accident.</p></div>
+    <div class="para"><span>4</span><p>Yet the story is not quite as neat as it is often told. Attempts to repeat Zeigarnik's results have produced mixed findings, and some researchers argue that the effect depends heavily on how motivated people are to finish the task in the first place. A tedious chore that was interrupted may be forgotten with relief rather than remembered with longing.</p></div>
+    <div class="para"><span>5</span><p>What does seem clear is that unfinished tasks can weigh on us. Studies in the 2010s suggested that simply making a concrete plan for when and how to complete a task can reduce the mental "noise" it creates, even if the task itself remains undone. The brain, in other words, may not need us to finish everything; it may simply need reassurance that we will.</p></div>
+    <div class="para"><span>6</span><p>So the next time you cannot stop thinking about the essay you have not started, you could try writing down exactly when you will start it. It might not make the essay any easier, but it could give your mind permission to think about something else.</p></div>
+  </div>
+
+  <h3 class="sub">A · Multiple choice</h3>
+  <ol class="items">
+    <li><div><div class="q">What surprised Zeigarnik and Lewin about the waiter?</div><div class="mc col" data-a="b"><button class="opt" data-v="a">A&nbsp; He had memorised an unusually large order.</button><button class="opt" data-v="b">B&nbsp; He forgot the order once it had been paid for.</button><button class="opt" data-v="c">C&nbsp; He refused to write the order down.</button><button class="opt" data-v="d">D&nbsp; He served the wrong dishes.</button></div><div class="expl">B. The surprise is the sudden forgetting <i>after</i> payment (para 1). A is true but it is not what was "odd".</div></div></li>
+    <li><div><div class="q">According to paragraph 2, the participants …</div><div class="mc col" data-a="b"><button class="opt" data-v="a">A&nbsp; knew in advance which tasks would be interrupted.</button><button class="opt" data-v="b">B&nbsp; recalled the unfinished tasks more readily.</button><button class="opt" data-v="c">C&nbsp; performed better on the completed tasks.</button><button class="opt" data-v="d">D&nbsp; could not remember any completed tasks.</button></div><div class="expl">B. "remembered the interrupted ones roughly twice as often". D is too extreme: they remembered fewer, not none.</div></div></li>
+    <li><div><div class="q">The writer mentions Charles Dickens in order to show that …</div><div class="mc col" data-a="b"><button class="opt" data-v="a">A&nbsp; Victorian novels were longer than modern series.</button><button class="opt" data-v="b">B&nbsp; the effect was used before it was scientifically described.</button><button class="opt" data-v="c">C&nbsp; readers have always preferred short texts.</button><button class="opt" data-v="d">D&nbsp; Dickens had read about psychology.</button></div><div class="expl">B. "figured this out long before psychologists gave it a name".</div></div></li>
+    <li><div><div class="q">What is the main purpose of paragraph 4?</div><div class="mc col" data-a="b"><button class="opt" data-v="a">A&nbsp; to prove that the Zeigarnik effect does not exist</button><button class="opt" data-v="b">B&nbsp; to add a qualification to the popular version of the story</button><button class="opt" data-v="c">C&nbsp; to explain why household chores are boring</button><button class="opt" data-v="d">D&nbsp; to describe a new experiment in detail</button></div><div class="expl">B. "not quite as neat as it is often told" = the writer limits the claim without rejecting it. A is too strong.</div></div></li>
+    <li><div><div class="q">The tone of the final paragraph is best described as …</div><div class="mc col" data-a="a"><button class="opt" data-v="a">A&nbsp; practical and gently encouraging</button><button class="opt" data-v="b">B&nbsp; sarcastic and critical</button><button class="opt" data-v="c">C&nbsp; alarmed and urgent</button><button class="opt" data-v="d">D&nbsp; strictly neutral and scientific</button></div><div class="expl">A. Direct address ("you could try"), modest promises ("might", "could").</div></div></li>
+  </ol>
+
+  <h3 class="sub">B · True, False or Not Given?</h3>
+  <p class="instr"><b>True</b> = the text says so. <b>False</b> = the text says the opposite. <b>Not given</b> = the text does not say. This is the hardest distinction in reading exams.</p>
+  <ol class="items">
+    <li><div><div class="q">Zeigarnik was born in Germany.</div><div class="mc" data-a="f"><button class="opt" data-v="t">True</button><button class="opt" data-v="f">False</button><button class="opt" data-v="n">Not given</button></div><div class="expl">False: she was "Lithuanian-born".</div></div></li>
+    <li><div><div class="q">The waiter wrote the order down.</div><div class="mc" data-a="f"><button class="opt" data-v="t">True</button><button class="opt" data-v="f">False</button><button class="opt" data-v="n">Not given</button></div><div class="expl">False: "without writing anything down".</div></div></li>
+    <li><div><div class="q">All of Zeigarnik's participants were university students.</div><div class="mc" data-a="n"><button class="opt" data-v="t">True</button><button class="opt" data-v="f">False</button><button class="opt" data-v="n">Not given</button></div><div class="expl">Not given: the text says nothing about who the participants were.</div></div></li>
+    <li><div><div class="q">Some researchers believe motivation plays an important role in the effect.</div><div class="mc" data-a="t"><button class="opt" data-v="t">True</button><button class="opt" data-v="f">False</button><button class="opt" data-v="n">Not given</button></div><div class="expl">True: "depends heavily on how motivated people are".</div></div></li>
+    <li><div><div class="q">Streaming services employ psychologists to design their cliffhangers.</div><div class="mc" data-a="n"><button class="opt" data-v="t">True</button><button class="opt" data-v="f">False</button><button class="opt" data-v="n">Not given</button></div><div class="expl">Not given: the text says the cliffhangers are deliberate, but not who designs them. A classic trap.</div></div></li>
+    <li><div><div class="q">Every later study confirmed Zeigarnik's original results.</div><div class="mc" data-a="f"><button class="opt" data-v="t">True</button><button class="opt" data-v="f">False</button><button class="opt" data-v="n">Not given</button></div><div class="expl">False: "mixed findings".</div></div></li>
+    <li><div><div class="q">Making a plan can reduce how much an unfinished task occupies your thoughts.</div><div class="mc" data-a="t"><button class="opt" data-v="t">True</button><button class="opt" data-v="f">False</button><button class="opt" data-v="n">Not given</button></div><div class="expl">True: para 5.</div></div></li>
+  </ol>
+
+  <h3 class="sub">C · Vocabulary in context</h3>
+  <p class="instr">Find a word or phrase in the paragraph given that means …</p>
+  <ol class="items fill">
+    <li><div><div class="q">very curious and interested (para 2)</div>[[intrigued]]</div></li>
+    <li><div><div class="q">parts of a story published one after another (para 3)</div>[[instalments|installments]]</div></li>
+    <li><div><div class="q">tidy, simple, without complications (para 4)</div>[[neat]]</div></li>
+    <li><div><div class="q">boring because it is long or repetitive (para 4)</div>[[tedious]]</div></li>
+    <li><div><div class="q">a strong wish for something (para 4)</div>[[longing]]</div></li>
+    <li><div><div class="q">to make someone feel worried or burdened (para 5)</div>[[weigh on|weigh on us]]</div></li>
+    <li><div><div class="q">words that make someone feel less worried (para 5)</div>[[reassurance]]</div></li>
+  </ol>
+
+  <h3 class="sub">D · Think further</h3>
+  <ol class="items">
+    <li><div><div class="q">Explain in your own words what the writer means by: "it may simply need reassurance that we will."</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>The writer suggests that our brain does not insist on finishing every task immediately. What it wants is a sign that the task is under control: once we have decided when and how we will do it, the brain can stop reminding us and relax.</p></div></div></div></li>
+    <li><div><div class="q">Why is the "next episode" button described as "no accident"? (1–2 sentences)</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>It is placed there on purpose: the episode ends on an unresolved moment, so viewers feel the urge to continue, and the button makes it effortless to do so before that tension fades.</p></div></div></div></li>
+    <li><div><div class="q">Could the Zeigarnik effect help you study? Give one concrete idea (50–80 words).</div><textarea class="open" data-words></textarea><div class="expl"><div class="model"><p>One idea is to stop a study session in the middle of an exercise rather than at a natural break. Because the task is unfinished, my mind is likely to return to it, so it is easier to start again the next day. In addition, writing down exactly when I will continue could prevent the unfinished task from making me anxious while I do something else.</p></div></div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="task" id="p5" data-title="Key word transformations" data-skill="Use of English · C1" data-min="30">
+  <div class="task-head"><div class="part">5</div><h2>Key word transformations</h2><div class="meta"></div></div>
+  <p class="instr">Complete the second sentence so that it means the same as the first. Use the <b>key word</b> without changing it. Write <b>three to six words</b>, including the key word. This is a real C1 (Cambridge Advanced) task type.</p>
+  <ol class="items fill">
+    <li><div><div class="q">I started learning the piano three years ago.</div><span class="kw">BEEN</span><div class="q">I [[have been learning|have been playing]] the piano for three years.</div></div></li>
+    <li><div><div class="q">It's ages since I last saw a good film.</div><span class="kw">SEEN</span><div class="q">I [[haven't seen|have not seen]] a good film for ages.</div></div></li>
+    <li><div><div class="q">The concert started before we arrived.</div><span class="kw">ALREADY</span><div class="q">When we arrived, the concert [[had already started|had already begun]].</div></div></li>
+    <li><div><div class="q">"I'll call you tomorrow," he said to me.</div><span class="kw">WOULD</span><div class="q">He told me [[he would call me|that he would call me|he would phone me|he would ring me|that he would phone me]] the next day.</div></div></li>
+    <li><div><div class="q">I regret not studying harder for the test.</div><span class="kw">WISH</span><div class="q">I [[wish i had studied|wish i'd studied]] harder for the test.</div></div></li>
+    <li><div><div class="q">We didn't go out because it was raining.</div><span class="kw">IF</span><div class="q">[[if it had not been|if it hadn't been]] raining, we would have gone out.</div></div></li>
+    <li><div><div class="q">I've never seen such a beautiful sunset.</div><span class="kw">EVER</span><div class="q">It's the most beautiful sunset [[i have ever|i've ever]] seen.</div></div></li>
+    <li><div><div class="q">As soon as I closed the door, the phone rang.</div><span class="kw">SOONER</span><div class="q">No [[sooner had i closed]] the door than the phone rang.</div><div class="expl">Inversion: <i>No sooner had I … than …</i></div></div></li>
+    <li><div><div class="q">People say that he is a brilliant chess player.</div><span class="kw">SAID</span><div class="q">He [[is said to be]] a brilliant chess player.</div><div class="expl">Passive reporting structure: <i>He is said / believed / thought to be …</i></div></div></li>
+    <li><div><div class="q">They are building a new library in our town.</div><span class="kw">BUILT</span><div class="q">A new library [[is being built]] in our town.</div></div></li>
+    <li><div><div class="q">It wasn't necessary for you to bring a present, but you did.</div><span class="kw">NEED</span><div class="q">You [[needn't have brought|need not have brought]] a present.</div><div class="expl"><i>needn't have done</i> = you did it, but it wasn't necessary. (<i>didn't need to bring</i> would usually mean you didn't bring one.)</div></div></li>
+    <li><div><div class="q">I'm sure she didn't take your phone.</div><span class="kw">CAN'T</span><div class="q">She [[can't have taken|cannot have taken|can not have taken]] your phone.</div><div class="expl">Deduction about the past: <i>can't have / must have / might have</i> + past participle.</div></div></li>
+    <li><div><div class="q">It's possible that they missed the train.</div><span class="kw">MAY</span><div class="q">They [[may have missed]] the train.</div></div></li>
+    <li><div><div class="q">I haven't been to the cinema for six months.</div><span class="kw">TIME</span><div class="q">The [[last time i went to|last time i was at]] the cinema was six months ago.</div></div></li>
+    <li><div><div class="q">"Don't touch the paintings," the guide told us.</div><span class="kw">NOT</span><div class="q">The guide told us [[not to touch]] the paintings.</div></div></li>
+    <li><div><div class="q">Please don't smoke in here.</div><span class="kw">RATHER</span><div class="q">I'd [[rather you didn't|rather you did not]] smoke in here.</div><div class="expl"><i>I'd rather + someone + past simple</i> when we talk about another person's action.</div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="task" id="p6" data-title="Word formation" data-skill="Use of English · C1" data-min="15">
+  <div class="task-head"><div class="part">6</div><h2>Word formation</h2><div class="meta"></div></div>
+  <p class="instr">Use the word in capitals to form a word that fits the gap. Watch out: some need a prefix (un-, dis-, in-) <b>and</b> a suffix, and some must be plural.</p>
+  <div class="passage cloze fill">
+    <h3>Accents and identity</h3>
+    <p>For a long time it was considered almost [[impossible]] <span class="hint">(POSSIBLE)</span> for adults to lose their foreign accent. Recent research, however, paints a far more [[nuanced]] <span class="hint">(NUANCE)</span> picture. The [[ability]] <span class="hint">(ABLE)</span> to imitate new sounds accurately varies [[considerably]] <span class="hint">(CONSIDER)</span> from person to person, and it seems to depend less on age than on [[motivation]] <span class="hint">(MOTIVATE)</span> and the amount of [[exposure]] <span class="hint">(EXPOSE)</span> to the language.</p>
+    <p>Interestingly, many learners feel a certain [[reluctance]] <span class="hint">(RELUCTANT)</span> to sound "too native", as if adopting a new accent were an act of [[disloyalty]] <span class="hint">(LOYAL)</span> towards their own culture. Linguists stress that an accent is in no way a sign of [[incompetence]] <span class="hint">(COMPETENT)</span>; many highly [[successful]] <span class="hint">(SUCCEED)</span> speakers of English have strong accents. What [[arguably]] <span class="hint">(ARGUE)</span> matters most is [[comprehensibility]] <span class="hint">(COMPREHEND)</span>: being easy to understand. Sounding like a newsreader is a nice bonus, but hardly a [[requirement]] <span class="hint">(REQUIRE)</span>.</p>
+  </div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="task" id="p7" data-title="Open cloze" data-skill="Use of English · C1" data-min="15">
+  <div class="task-head"><div class="part">7</div><h2>Open cloze</h2><div class="meta"></div></div>
+  <p class="instr">Write <b>one word</b> in each gap. No word is given; think about grammar: prepositions, linkers, auxiliaries, fixed phrases.</p>
+  <div class="passage cloze fill">
+    <h3>The earl who couldn't leave the table</h3>
+    <p>Few foods are [[as]] widely eaten as the sandwich, yet its origins are surprisingly uncertain. According to the most popular story, John Montagu, the fourth Earl of Sandwich, was [[so]] fond of card games that he refused to leave the table for meals. Instead, he asked for meat to be served between two slices of bread, [[so]] that he could keep one hand free for his cards.</p>
+    <p>[[Whether]] the story is true or not, historians cannot say for certain. People had [[been]] eating bread with fillings for centuries before the Earl was born, [[but|yet]] it was his name that stuck. Some biographers even claim that he was more likely to have eaten his sandwiches at his desk, [[where|as|since|because]] he worked long hours for the government.</p>
+    <p>[[No]] matter which version you believe, one thing is clear: the sandwich owes its name, if not its existence, [[to]] an eighteenth-century aristocrat. Today, [[more]] than a billion sandwiches are eaten in Britain every year, and hardly [[anyone|anybody]] stops to think about the man behind the word.</p>
+  </div>
+  <div class="expl"><b>Key points:</b> <i>as … as</i> · <i>so + adjective + that</i> · <i>so that</i> = purpose · <i>Whether … or not</i> · past perfect continuous <i>had been eating</i> · <i>owe something to someone</i> · <i>hardly anyone</i> (never <i>hardly no one</i>).</div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="task" id="p8" data-title="Multiple-choice cloze: words that belong together" data-skill="Use of English · C1" data-min="12">
+  <div class="task-head"><div class="part">8</div><h2>Words that belong together</h2><div class="meta"></div></div>
+  <p class="instr">My first term in Edinburgh: choose the word that fits each gap. All four options often look possible: only one forms the correct fixed expression.</p>
+  <ol class="items">
+    <li><div><div class="q">When I moved to Edinburgh, I ___ it for granted that my English would be good enough.</div><div class="mc" data-a="a"><button class="opt" data-v="a">took</button><button class="opt" data-v="b">made</button><button class="opt" data-v="c">held</button><button class="opt" data-v="d">gave</button></div><div class="expl"><i>take something for granted</i></div></div></li>
+    <li><div><div class="q">___ my surprise, I could hardly understand a word in the canteen.</div><div class="mc" data-a="b"><button class="opt" data-v="a">For</button><button class="opt" data-v="b">To</button><button class="opt" data-v="c">With</button><button class="opt" data-v="d">At</button></div><div class="expl"><i>to my surprise / delight / horror</i></div></div></li>
+    <li><div><div class="q">The accent took some getting ___ to.</div><div class="mc" data-a="a"><button class="opt" data-v="a">used</button><button class="opt" data-v="b">familiar</button><button class="opt" data-v="c">accustomed</button><button class="opt" data-v="d">known</button></div><div class="expl"><i>take some getting used to</i> = needs time to get used to</div></div></li>
+    <li><div><div class="q">My classmates, however, went out of their ___ to help me.</div><div class="mc" data-a="c"><button class="opt" data-v="a">path</button><button class="opt" data-v="b">road</button><button class="opt" data-v="c">way</button><button class="opt" data-v="d">track</button></div><div class="expl"><i>go out of your way</i> = make a special effort</div></div></li>
+    <li><div><div class="q">Within a few weeks I had ___ up most of the local expressions.</div><div class="mc" data-a="b"><button class="opt" data-v="a">taken</button><button class="opt" data-v="b">picked</button><button class="opt" data-v="c">caught</button><button class="opt" data-v="d">brought</button></div><div class="expl"><i>pick up</i> a language / expressions = learn without formal study</div></div></li>
+    <li><div><div class="q">I still ___ a blank when someone talks very fast.</div><div class="mc" data-a="a"><button class="opt" data-v="a">draw</button><button class="opt" data-v="b">make</button><button class="opt" data-v="c">get</button><button class="opt" data-v="d">pull</button></div><div class="expl"><i>draw a blank</i> = cannot remember or understand</div></div></li>
+    <li><div><div class="q">But I no longer ___ embarrassed asking people to repeat themselves.</div><div class="mc" data-a="c"><button class="opt" data-v="a">seem</button><button class="opt" data-v="b">find</button><button class="opt" data-v="c">feel</button><button class="opt" data-v="d">make</button></div><div class="expl"><i>feel embarrassed</i> (<i>find</i> needs an object: <i>I find it embarrassing</i>)</div></div></li>
+    <li><div><div class="q">Looking back, moving abroad was a ___ in disguise.</div><div class="mc" data-a="c"><button class="opt" data-v="a">gift</button><button class="opt" data-v="b">luck</button><button class="opt" data-v="c">blessing</button><button class="opt" data-v="d">fortune</button></div><div class="expl"><i>a blessing in disguise</i> = something that seems bad but turns out good</div></div></li>
+    <li><div><div class="q">It ___ me to step outside my comfort zone.</div><div class="mc" data-a="b"><button class="opt" data-v="a">made</button><button class="opt" data-v="b">forced</button><button class="opt" data-v="c">let</button><button class="opt" data-v="d">had</button></div><div class="expl"><i>force someone <u>to</u> do</i>. <i>Make, let, have</i> take an infinitive <u>without</u> <i>to</i>.</div></div></li>
+    <li><div><div class="q">I wouldn't change it for the ___.</div><div class="mc" data-a="c"><button class="opt" data-v="a">earth</button><button class="opt" data-v="b">universe</button><button class="opt" data-v="c">world</button><button class="opt" data-v="d">planet</button></div><div class="expl"><i>not for the world</i> = not for anything</div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="task" id="p9" data-title="Literary analysis: The last bus" data-skill="Reading · Analysis" data-min="35">
+  <div class="task-head"><div class="part">9</div><h2>Literary analysis: The last bus</h2><div class="meta"></div></div>
+  <p class="instr">Read this short story extract twice: once for the plot, once for <b>how</b> it is written. Then answer the questions in full sentences. The model answers are suggestions; good answers can look different.</p>
+  <div class="passage">
+    <h3>The Last Bus</h3>
+    <div class="para"><span>1</span><p>The 23 was late again. Nora stood under the broken shelter, watching the rain slide off the plastic roof in thin silver threads, and tried not to look at the boy at the other end of the bench.</p></div>
+    <div class="para"><span>2</span><p>She had known Daniel since primary school. They had built a dam in the stream behind his house, had invented a language that nobody else could understand, had promised, with the seriousness only ten-year-olds can manage, that they would never, ever stop being friends. Then, last spring, something had shifted. She still couldn't say exactly what. There had been no argument, no slammed door. He had simply started sitting somewhere else.</p></div>
+    <div class="para"><span>3</span><p>Now he was scrolling through his phone as if it contained the answer to a question she hadn't asked.</p></div>
+    <div class="para"><span>4</span><p>"It's always late on Thursdays," he said suddenly, without looking up.</p></div>
+    <div class="para"><span>5</span><p>Nora was so surprised that she laughed, a short, startled sound that the rain swallowed almost at once. "I know," she said. "I've been catching it for three years."</p></div>
+    <div class="para"><span>6</span><p>"Me too."</p></div>
+    <div class="para"><span>7</span><p>They both knew that. For a moment neither of them said anything. A car hissed past, its headlights turning the puddles gold and then black again.</p></div>
+    <div class="para"><span>8</span><p>"Do you still remember any of it?" he asked. "The language?"</p></div>
+    <div class="para"><span>9</span><p>She did. She remembered all of it. "Not really," she said.</p></div>
+    <div class="para"><span>10</span><p>The bus came round the corner then, enormous and bright, and its doors opened with a sigh. Daniel stood up first. On the step he hesitated, turned, and said one word she had not heard anyone say in four years.</p></div>
+    <div class="para"><span>11</span><p>Then he climbed on and walked to the back, and Nora stood in the rain a second longer than she needed to, holding the word in her mouth like something warm, before she followed him.</p></div>
+  </div>
+  <ol class="items">
+    <li><div><div class="q">Who tells the story, and from whose point of view do we see the events?</div><div class="mc col" data-a="c"><button class="opt" data-v="a">A&nbsp; first-person narrator (Nora)</button><button class="opt" data-v="b">B&nbsp; omniscient narrator who knows both characters' thoughts</button><button class="opt" data-v="c">C&nbsp; third-person narrator, limited to Nora's perspective</button><button class="opt" data-v="d">D&nbsp; third-person narrator, limited to Daniel's perspective</button></div><div class="expl">C. "she / her", and we only learn Nora's thoughts (she remembered all of it). Daniel's feelings stay a mystery, which creates tension.</div></div></li>
+    <li><div><div class="q">Paragraph 2 uses the past perfect seven times. Why does the writer switch to this tense here?</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>The past perfect marks a flashback: it takes us back to events that happened before the scene at the bus stop. It gives us the background of the friendship in a compressed way, and the repetition ("had built … had invented … had promised") creates a rhythm that suggests how much they shared, which makes the loss in "had shifted" feel stronger.</p></div></div></div></li>
+    <li><div><div class="q">"There had been no argument, no slammed door." What does this sentence tell us about how the friendship ended?</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>It ended quietly, without a clear reason or a dramatic moment. This is what makes it painful and confusing for Nora: there is nothing she can point to or apologise for, so she "still couldn't say exactly what" happened.</p></div></div></div></li>
+    <li><div><div class="q">"…as if it contained the answer to a question she hadn't asked." Explain the effect of this simile.</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>The simile suggests that Daniel is using his phone as a shield to avoid her. It also hints that there are unspoken questions between them, above all why he stopped being her friend. Nora has not dared to ask, and the phone seems to stand in for an answer she cannot get.</p></div></div></div></li>
+    <li><div><div class="q">Why does Nora answer "Not really" although she remembers all of the language?</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>She protects herself. She does not know why Daniel is asking, and admitting that she remembers everything would show how much the friendship still means to her. If he only meant it as small talk, she would feel exposed, so she pretends not to care.</p></div></div></div></li>
+    <li><div><div class="q">Find two images of light, sound or weather and explain how they reflect the mood.</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>The rain "swallowed" her laugh: a moment of warmth disappears at once, just as their conversation keeps fading into silence. The headlights turn the puddles "gold and then black again", which mirrors brief moments of hope followed by awkwardness. Finally the bus arrives "enormous and bright" and its doors open "with a sigh", a sound of relief that matches the release of tension at the end.</p></div></div></div></li>
+    <li><div><div class="q">"They both knew that." What is the effect of this very short sentence?</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>It points out the awkwardness of the conversation: they are stating facts both already know because neither can say what really matters. Its shortness creates a pause and a slightly ironic tone.</p></div></div></div></li>
+    <li><div><div class="q">What is the significance of the "one word"? And what does "like something warm" suggest?</div><textarea class="open"></textarea><div class="expl"><div class="model"><p>The word comes from their secret childhood language. By saying it, Daniel shows that he has not forgotten either, and it works as an offer to reconnect. "Like something warm" suggests comfort and hope after the cold, wet scene: Nora holds on to the moment because it means the friendship might not be lost.</p></div></div></div></li>
+    <li><div><div class="q">The ending is open. Write the next 4–6 sentences in the same style (past tenses, third person, Nora's perspective).</div><textarea class="open" data-words></textarea><div class="expl"><div class="model"><p>The back seat was damp and smelled of wet coats. Daniel had put his phone away; his hands were resting on his knees as if he did not know what to do with them. Nora sat down next to him, leaving exactly enough space for a schoolbag between them. For two stops neither of them spoke. Then, very quietly, she answered him in the same language, and out of the corner of her eye she saw him smile at the window.</p></div></div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="task" id="p10" data-title="Reported speech and reporting verbs" data-skill="Grammar" data-min="15">
+  <div class="task-head"><div class="part">10</div><h2>Reported speech and reporting verbs</h2><div class="meta"></div></div>
+  <p class="instr">Report the sentences. Shift the tenses back where necessary. In 9–12, the reporting verb needs a special pattern (infinitive or <i>-ing</i>).</p>
+  <ol class="items fill">
+    <li><div><div class="q">"I'm exhausted." → She said she [[was]] exhausted.</div></div></li>
+    <li><div><div class="q">"I've lost my wallet." → He said he [[had lost]] his wallet.</div></div></li>
+    <li><div><div class="q">"We'll meet you at the station." → They said they [[would meet]] us at the station.</div></div></li>
+    <li><div><div class="q">"I was watching TV when you called." → She said she [[had been watching|was watching]] TV when I [[had called|called]].</div><div class="expl">Strict backshift: <i>had been watching … had called</i>. In spoken English the past continuous / past simple are often kept.</div></div></li>
+    <li><div><div class="q">"Are you coming to the party?" → She asked me [[if i was coming|whether i was coming]] to the party.</div><div class="expl">Reported yes/no question: <i>if / whether</i> + normal word order (no inversion!).</div></div></li>
+    <li><div><div class="q">"Where did you buy that jacket?" → He asked me where [[i had bought]] that jacket.</div></div></li>
+    <li><div><div class="q">"Don't be late!" → Mum told me [[not to be]] late.</div></div></li>
+    <li><div><div class="q">"I can't swim." → He admitted that he [[couldn't|could not]] swim.</div></div></li>
+    <li><div><div class="q">"You should apologise." → She advised me [[to apologise|to apologize]].</div></div></li>
+    <li><div><div class="q">"I didn't break the vase!" → He denied [[breaking|having broken]] the vase.</div><div class="expl"><i>deny</i> + -ing (never <i>deny to break</i>).</div></div></li>
+    <li><div><div class="q">"Let's go to the cinema." → She suggested [[going|that we go|that we should go|we go]] to the cinema.</div><div class="expl"><i>suggest</i> + -ing or <i>suggest that we (should) go</i>. Never <i>suggested us to go</i>.</div></div></li>
+    <li><div><div class="q">"I'm sorry I forgot your birthday." → He apologised for [[forgetting|having forgotten]] my birthday.</div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="task" id="p11" data-title="Conditionals, wishes and unreal past" data-skill="Grammar" data-min="15">
+  <div class="task-head"><div class="part">11</div><h2>Conditionals, wishes, unreal past</h2><div class="meta"></div></div>
+  <p class="instr">Put the verbs into the correct form. Several are <b>mixed conditionals</b> (past cause → present result, or present cause → past result).</p>
+  <ol class="items fill">
+    <li><div><div class="q">If I [[had known]] <span class="hint">(know)</span> you were in hospital, I would have visited you.</div></div></li>
+    <li><div><div class="q">If she [[hadn't missed|had not missed]] <span class="hint">(not / miss)</span> the bus this morning, she would be here now.</div><div class="expl">Mixed: past condition → present result.</div></div></li>
+    <li><div><div class="q">If I [[were|was]] <span class="hint">(be)</span> you, I'd accept the offer.</div></div></li>
+    <li><div><div class="q">Unless you [[hurry]] <span class="hint">(hurry)</span>, you'll miss the start.</div><div class="expl"><i>unless</i> = if … not. Present simple; no extra negation.</div></div></li>
+    <li><div><div class="q">I wish it [[would stop]] <span class="hint">(stop)</span> raining. It's been raining all week!</div><div class="expl"><i>wish … would</i> = irritation, a wish for someone/something else to change.</div></div></li>
+    <li><div><div class="q">I wish I [[could]] <span class="hint">(can)</span> speak Japanese.</div></div></li>
+    <li><div><div class="q">If only I [[hadn't said|had not said]] <span class="hint">(not / say)</span> that to her yesterday.</div></div></li>
+    <li><div><div class="q">[[had]] <span class="hint">(have)</span> I known about the problem, I would have helped.</div><div class="expl">Formal inversion: <i>Had I known</i> = If I had known.</div></div></li>
+    <li><div><div class="q">If he were more organised, he [[wouldn't have lost|would not have lost]] <span class="hint">(not / lose)</span> his homework last week.</div><div class="expl">Mixed: present characteristic → past result.</div></div></li>
+    <li><div><div class="q">Provided that everyone [[agrees]] <span class="hint">(agree)</span>, we'll start tomorrow.</div></div></li>
+    <li><div><div class="q">It's time you [[started]] <span class="hint">(start)</span> revising for your exams.</div></div></li>
+    <li><div><div class="q">Should you [[need]] <span class="hint">(need)</span> any help, just let me know.</div><div class="expl"><i>Should you need</i> = If you happen to need (formal).</div></div></li>
+    <li><div><div class="q">I'd rather you [[didn't tell|did not tell]] <span class="hint">(not / tell)</span> anyone about this.</div></div></li>
+    <li><div><div class="q">If it [[hadn't been|had not been]] <span class="hint">(not / be)</span> for your help, I would never have finished.</div></div></li>
+    <li><div><div class="q">Suppose you [[won]] <span class="hint">(win)</span> a million euros, what would you do first?</div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="task" id="p12" data-title="Inversion and emphasis" data-skill="Grammar · C1" data-min="15">
+  <div class="task-head"><div class="part">12</div><h2>Inversion and emphasis</h2><div class="meta"></div></div>
+  <p class="instr">Rewrite the sentences starting with the words given. After negative or restrictive words at the start, English uses question word order (<i>Never <b>have I</b> seen…</i>). This is typical of formal, written C1 English.</p>
+  <ol class="items fill">
+    <li><div><div class="ctx">I have never seen such chaos.</div><div class="q">Never [[have i seen]] such chaos.</div></div></li>
+    <li><div><div class="ctx">She didn't realise until later that she had lost her passport.</div><div class="q">Not until later [[did she realise|did she realize]] that she had lost her passport.</div></div></li>
+    <li><div><div class="ctx">We had hardly left the house when it started to snow.</div><div class="q">Hardly [[had we left]] the house when it started to snow.</div></div></li>
+    <li><div><div class="ctx">You must not open this door under any circumstances.</div><div class="q">Under no circumstances [[must you open|should you open]] this door.</div></div></li>
+    <li><div><div class="ctx">He sings and he also plays the guitar.</div><div class="q">Not only [[does he sing]], but he also plays the guitar.</div></div></li>
+    <li><div><div class="ctx">I only understood the joke when she explained it.</div><div class="q">Only when she explained it [[did i understand|did i get]] the joke.</div></div></li>
+    <li><div><div class="ctx">I rarely go to the cinema these days.</div><div class="q">Rarely [[do i go]] to the cinema these days.</div></div></li>
+    <li><div><div class="ctx">She had no idea what was about to happen.</div><div class="q">Little [[did she know]] what was about to happen.</div></div></li>
+    <li><div><div class="ctx">I need a long holiday.</div><div class="q">What [[i need is]] a long holiday.</div><div class="expl">Cleft sentence: <i>What I need is …</i> puts the focus on the end.</div></div></li>
+    <li><div><div class="ctx">Tom broke the window, not Sam.</div><div class="q">It [[was tom who broke|was tom that broke]] the window, not Sam.</div></div></li>
+    <li><div><div class="ctx">The ending surprised me most.</div><div class="q">What surprised me most [[was]] the ending.</div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 13 ============ -->
+<section class="task" id="p13" data-title="Phrasal verbs and collocations" data-skill="Vocabulary" data-min="12">
+  <div class="task-head"><div class="part">13</div><h2>Phrasal verbs and collocations</h2><div class="meta"></div></div>
+  <p class="instr">Choose the word that completes the expression.</p>
+  <ol class="items">
+    <li><div><div class="q">The match was ___ off because of the storm; it won't be played at all.</div><div class="mc" data-a="a"><button class="opt" data-v="a">called</button><button class="opt" data-v="b">set</button><button class="opt" data-v="c">taken</button><button class="opt" data-v="d">gone</button></div><div class="expl"><i>call off</i> = cancel. (<i>put off</i> = postpone, which would mean it happens later.)</div></div></li>
+    <li><div><div class="q">I can't ___ up with his rudeness any longer.</div><div class="mc" data-a="b"><button class="opt" data-v="a">keep</button><button class="opt" data-v="b">put</button><button class="opt" data-v="c">make</button><button class="opt" data-v="d">come</button></div><div class="expl"><i>put up with</i> = tolerate</div></div></li>
+    <li><div><div class="q">She ___ down the offer of a place at a famous university; she preferred to stay in Vienna.</div><div class="mc" data-a="c"><button class="opt" data-v="a">gave</button><button class="opt" data-v="b">took</button><button class="opt" data-v="c">turned</button><button class="opt" data-v="d">brought</button></div><div class="expl"><i>turn down</i> = refuse</div></div></li>
+    <li><div><div class="q">I ___ across an old photo of my grandmother yesterday.</div><div class="mc" data-a="d"><button class="opt" data-v="a">ran</button><button class="opt" data-v="b">went</button><button class="opt" data-v="c">got</button><button class="opt" data-v="d">came</button></div><div class="expl"><i>come across</i> = find by chance</div></div></li>
+    <li><div><div class="q">This theory was first ___ forward by a Greek philosopher.</div><div class="mc" data-a="a"><button class="opt" data-v="a">put</button><button class="opt" data-v="b">looked</button><button class="opt" data-v="c">brought</button><button class="opt" data-v="d">set</button></div><div class="expl"><i>put forward</i> an idea / theory = suggest it</div></div></li>
+    <li><div><div class="q">We've ___ out of milk. Could you get some?</div><div class="mc" data-a="b"><button class="opt" data-v="a">gone</button><button class="opt" data-v="b">run</button><button class="opt" data-v="c">come</button><button class="opt" data-v="d">used</button></div><div class="expl"><i>run out of</i> = have none left</div></div></li>
+    <li><div><div class="q">It took her weeks to ___ over the flu.</div><div class="mc" data-a="c"><button class="opt" data-v="a">come</button><button class="opt" data-v="b">pass</button><button class="opt" data-v="c">get</button><button class="opt" data-v="d">go</button></div><div class="expl"><i>get over</i> = recover from</div></div></li>
+    <li><div><div class="q">The new rules will ___ into effect in January.</div><div class="mc" data-a="a"><button class="opt" data-v="a">come</button><button class="opt" data-v="b">put</button><button class="opt" data-v="c">get</button><button class="opt" data-v="d">bring</button></div><div class="expl"><i>come into effect</i> = start to apply</div></div></li>
+    <li><div><div class="q">Please ___ attention to the instructions.</div><div class="mc" data-a="b"><button class="opt" data-v="a">give</button><button class="opt" data-v="b">pay</button><button class="opt" data-v="c">make</button><button class="opt" data-v="d">do</button></div><div class="expl"><i>pay attention</i></div></div></li>
+    <li><div><div class="q">There was ___ rain all night.</div><div class="mc" data-a="b"><button class="opt" data-v="a">strong</button><button class="opt" data-v="b">heavy</button><button class="opt" data-v="c">hard</button><button class="opt" data-v="d">big</button></div><div class="expl"><i>heavy rain / heavy traffic</i> (but <i>strong wind</i>)</div></div></li>
+    <li><div><div class="q">I'm afraid I can't ___ the risk.</div><div class="mc" data-a="a"><button class="opt" data-v="a">take</button><button class="opt" data-v="b">make</button><button class="opt" data-v="c">do</button><button class="opt" data-v="d">give</button></div><div class="expl"><i>take a risk</i></div></div></li>
+    <li><div><div class="q">She has a ___ knowledge of history.</div><div class="mc" data-a="a"><button class="opt" data-v="a">deep</button><button class="opt" data-v="b">thick</button><button class="opt" data-v="c">heavy</button><button class="opt" data-v="d">high</button></div><div class="expl"><i>deep / thorough / wide knowledge</i></div></div></li>
+    <li><div><div class="q">The film ___ a lasting impression on me.</div><div class="mc" data-a="c"><button class="opt" data-v="a">gave</button><button class="opt" data-v="b">did</button><button class="opt" data-v="c">made</button><button class="opt" data-v="d">put</button></div><div class="expl"><i>make an impression on someone</i></div></div></li>
+    <li><div><div class="q">He ___ no effort to hide his disappointment.</div><div class="mc" data-a="b"><button class="opt" data-v="a">did</button><button class="opt" data-v="b">made</button><button class="opt" data-v="c">took</button><button class="opt" data-v="d">gave</button></div><div class="expl"><i>make an effort</i></div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="task" id="p14" data-title="Word stress: where does the beat fall?" data-skill="Pronunciation" data-min="10">
+  <div class="task-head"><div class="part">14</div><h2>Word stress</h2><div class="meta"></div></div>
+  <p class="instr">Say each word aloud first, then choose the stressed syllable (in capitals). Watch out for word families where the stress <b>moves</b>.</p>
+  <ol class="items">
+    <li><div><div class="q">photograph</div><div class="mc" data-a="a"><button class="opt" data-v="a">PHO·to·graph</button><button class="opt" data-v="b">pho·TO·graph</button><button class="opt" data-v="c">pho·to·GRAPH</button></div></div></li>
+    <li><div><div class="q">photographer</div><div class="mc" data-a="b"><button class="opt" data-v="a">PHO·to·gra·pher</button><button class="opt" data-v="b">pho·TO·gra·pher</button><button class="opt" data-v="c">pho·to·GRA·pher</button></div></div></li>
+    <li><div><div class="q">photographic</div><div class="mc" data-a="c"><button class="opt" data-v="a">PHO·to·gra·phic</button><button class="opt" data-v="b">pho·TO·gra·phic</button><button class="opt" data-v="c">pho·to·GRA·phic</button></div></div></li>
+    <li><div><div class="q">economy</div><div class="mc" data-a="b"><button class="opt" data-v="a">E·co·no·my</button><button class="opt" data-v="b">e·CO·no·my</button><button class="opt" data-v="c">e·co·NO·my</button></div></div></li>
+    <li><div><div class="q">economic</div><div class="mc" data-a="c"><button class="opt" data-v="a">E·co·no·mic</button><button class="opt" data-v="b">e·CO·no·mic</button><button class="opt" data-v="c">e·co·NO·mic</button></div></div></li>
+    <li><div><div class="q">record <span class="ctx">(noun: a world record)</span></div><div class="mc" data-a="a"><button class="opt" data-v="a">RE·cord</button><button class="opt" data-v="b">re·CORD</button></div></div></li>
+    <li><div><div class="q">record <span class="ctx">(verb: to record a song)</span></div><div class="mc" data-a="b"><button class="opt" data-v="a">RE·cord</button><button class="opt" data-v="b">re·CORD</button></div><div class="expl">Two-syllable noun/verb pairs: noun stressed on the 1st syllable, verb on the 2nd (also <i>present, object, increase, export</i>).</div></div></li>
+    <li><div><div class="q">comfortable</div><div class="mc" data-a="a"><button class="opt" data-v="a">COM·for·ta·ble</button><button class="opt" data-v="b">com·FOR·ta·ble</button><button class="opt" data-v="c">com·for·TA·ble</button></div><div class="expl">Usually pronounced in three syllables: /ˈkʌmftəbl/.</div></div></li>
+    <li><div><div class="q">hotel</div><div class="mc" data-a="b"><button class="opt" data-v="a">HO·tel</button><button class="opt" data-v="b">ho·TEL</button></div></div></li>
+    <li><div><div class="q">development</div><div class="mc" data-a="b"><button class="opt" data-v="a">DE·ve·lop·ment</button><button class="opt" data-v="b">de·VE·lop·ment</button><button class="opt" data-v="c">de·ve·LOP·ment</button></div></div></li>
+    <li><div><div class="q">Japanese</div><div class="mc" data-a="c"><button class="opt" data-v="a">JA·pa·nese</button><button class="opt" data-v="b">ja·PA·nese</button><button class="opt" data-v="c">ja·pa·NESE</button></div></div></li>
+    <li><div><div class="q">determine</div><div class="mc" data-a="b"><button class="opt" data-v="a">DE·ter·mine</button><button class="opt" data-v="b">de·TER·mine</button><button class="opt" data-v="c">de·ter·MINE</button></div><div class="expl">And the last syllable is /mɪn/, not "mine".</div></div></li>
+    <li><div><div class="q">analyse</div><div class="mc" data-a="a"><button class="opt" data-v="a">A·na·lyse</button><button class="opt" data-v="b">a·NA·lyse</button><button class="opt" data-v="c">a·na·LYSE</button></div></div></li>
+    <li><div><div class="q">analysis</div><div class="mc" data-a="b"><button class="opt" data-v="a">A·na·ly·sis</button><button class="opt" data-v="b">a·NA·ly·sis</button><button class="opt" data-v="c">a·na·LY·sis</button></div></div></li>
+    <li><div><div class="q">vegetable</div><div class="mc" data-a="a"><button class="opt" data-v="a">VE·ge·ta·ble</button><button class="opt" data-v="b">ve·GE·ta·ble</button><button class="opt" data-v="c">ve·ge·TA·ble</button></div></div></li>
+    <li><div><div class="q">interesting</div><div class="mc" data-a="a"><button class="opt" data-v="a">IN·te·rest·ing</button><button class="opt" data-v="b">in·TE·rest·ing</button><button class="opt" data-v="c">in·te·REST·ing</button></div></div></li>
+  </ol>
+</section>
+
+<!-- ============ 15 ============ -->
+<section class="task" id="p15" data-title="Writing: essay and story" data-skill="Writing · C1" data-min="45">
+  <div class="task-head"><div class="part">15</div><h2>Writing: essay and story</h2><div class="meta"></div></div>
+  <p class="instr">Choose <b>one</b> task (or both, if there is time). Plan for five minutes before you write. Compare with the model answer only <b>after</b> you have finished.</p>
+
+  <h3 class="sub">Task A · Essay (220–260 words)</h3>
+  <div class="notes">
+    <p style="margin:0 0 6px">Your class has had a discussion about <b>where teenagers learn the most important things in life</b>. You have made the notes below.</p>
+    <ul><li>school</li><li>the internet</li><li>family</li></ul>
+    <p style="margin:6px 0">Some opinions expressed in the discussion:</p>
+    <ul><li>"School teaches you how to think."</li><li>"You can learn anything online in five minutes."</li><li>"Parents teach you things no teacher can."</li></ul>
+    <p style="margin:6px 0 0">Write an essay discussing <b>two</b> of the places in your notes. Explain <b>which place teaches teenagers more</b>, giving reasons. You may use the opinions, but use your own words as far as possible.</p>
+  </div>
+  <div class="phr">
+    <div><b>Opening</b>It is often claimed that … / There is an ongoing debate about …</div>
+    <div><b>Contrast</b>While this is true to some extent, … / On the other hand, … / Admittedly, …</div>
+    <div><b>Adding</b>What is more, … / Not only … but also … / In addition, …</div>
+    <div><b>Concluding</b>On balance, … / All things considered, … / I would therefore argue that …</div>
+  </div>
+  <textarea class="open long" data-words placeholder="Title, introduction, two body paragraphs, conclusion …"></textarea>
+  <div class="expl">
+    <p><b>Checklist:</b> clear title · introduction that states the question · one paragraph per place · at least one counter-argument · conclusion with a clear opinion · formal style (no contractions, no "stuff", "a lot of") · at least two advanced structures (inversion, cleft sentence, mixed conditional).</p>
+    <div class="model">
+      <p><b>Where do teenagers really learn what matters?</b></p>
+      <p>It is often claimed that young people today learn more from their screens than from their teachers. While there is some truth in this, I would argue that school and the internet each have a role that the other cannot fill.</p>
+      <p>The greatest strength of the internet is undoubtedly its speed and range. Within seconds, a curious teenager can watch a lecture by a Nobel Prize winner, learn the basics of a new language or find out how to repair a bicycle. However, this abundance comes at a price. Online information is rarely checked, and algorithms tend to show us what we already agree with. Without the ability to judge sources critically, a young person may end up knowing a great deal of trivia while understanding very little.</p>
+      <p>This is precisely where school comes in. Although lessons can feel slow and repetitive, school is one of the few places where teenagers are required to engage with ideas they did not choose themselves, to justify their opinions and to work with people they might never otherwise meet. Alongside facts, it teaches the habits of thinking that make online learning useful in the first place.</p>
+      <p>On balance, I believe school still has the edge, because it teaches young people what to do with information once they have found it. Ideally, of course, the two would work together: a curious mind that explores the internet freely, guided by a critical mind that school has helped to train.</p>
+      <p class="hint">≈ 255 words</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Task B · Story (180–220 words)</h3>
+  <div class="notes">
+    <p style="margin:0">Begin your story with this sentence: <i>"I had been waiting for this moment for months, but when it finally came, I wasn't ready."</i></p>
+    <p style="margin:8px 0 0">Use at least: past simple · past continuous · past perfect simple · past perfect continuous · one <i>would</i> for "future in the past" · two different sentence starters (<i>Suddenly, Moments later, Without warning…</i>) · one piece of direct speech.</p>
+  </div>
+  <textarea class="open long" data-words placeholder="I had been waiting for this moment for months, but when it finally came, I wasn't ready. …"></textarea>
+  <div class="expl">
+    <div class="model">
+      <p>I had been waiting for this moment for months, but when it finally came, I wasn't ready. The lights in the hall had dimmed, the audience was still whispering, and somewhere behind the curtain someone was tuning a violin for the hundredth time.</p>
+      <p>I had practised my speech every evening since September. I had recorded it on my phone, performed it for the cat and even recited it in the shower. Now, standing in the wings, I could not remember the first sentence.</p>
+      <p>"You'll be fine," whispered the organiser, who had been running around all week and looked even more nervous than I did. I nodded, although I was quite sure I wouldn't be.</p>
+      <p>Then my name was called. I walked to the microphone, looked out at the rows of faces and opened my mouth. Nothing came out. For three endless seconds the hall was completely silent.</p>
+      <p>Suddenly, I noticed my little brother in the front row. He was holding up a sheet of paper on which he had written, in enormous letters, the first word of my speech.</p>
+      <p>I laughed, and the rest came back to me at once. Later that evening I would learn that I had won second prize, but that was not the moment I would remember.</p>
+      <p class="hint">≈ 215 words · tenses used: all required forms</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16 ============ -->
+<section class="task" id="p16" data-title="Speaking: long turn and discussion" data-skill="Speaking · C1" data-min="25">
+  <div class="task-head"><div class="part">16</div><h2>Speaking: long turn and discussion</h2><div class="meta"></div></div>
+  <p class="instr">Exam format: speak for <b>one minute without stopping</b> (time it!). Then discuss the follow-up questions. Aim for linking words, speculation and at least one advanced tense in each answer. Open the solutions for useful language.</p>
+
+  <h3 class="sub">A · Long turn (1 minute each)</h3>
+  <ol class="items">
+    <li><div><div class="q">People learning something new: <b>a grandmother learning to use a smartphone</b> · <b>a teenager learning to drive</b> · <b>an adult learning a musical instrument</b>. Compare two of these situations. Why might these people be learning this, and how might they be feeling?</div><div class="expl"><div class="phr"><div><b>Comparing</b>Whereas the grandmother … the teenager … / Both of them are probably … / The main difference is that …</div><div><b>Speculating</b>She might have been given the phone by … / He must be feeling … / I'd imagine that … / It looks as if …</div><div><b>Advanced tenses</b>She has probably been trying for weeks. · By the end of the year he will have passed his test.</div></div></div></div></li>
+    <li><div><div class="q">Important moments: <b>a first day at a new school</b> · <b>moving to another country</b> · <b>a final exam</b>. Compare two. What makes these moments memorable, and how might the people remember them in ten years?</div><div class="expl"><div class="phr"><div><b>Future perfect / in the past</b>In ten years' time she will have forgotten the details, but … · He never imagined he would …</div><div><b>Evaluating</b>What makes this moment so special is … · Arguably, the most stressful of the two is …</div></div></div></div></li>
+    <li><div><div class="q">Ways of spending free time: <b>playing in an orchestra</b> · <b>gaming online with friends</b> · <b>volunteering at an animal shelter</b>. Compare two. What do people gain from these activities?</div><div class="expl"><div class="phr"><div><b>Gains</b>It helps you develop … / You learn to … / It gives you a sense of …</div><div><b>Balancing</b>Admittedly, … but on the other hand … / Not only does it …, but it also …</div></div></div></div></li>
+  </ol>
+
+  <h3 class="sub">B · Discussion</h3>
+  <ol class="items">
+    <li><div><div class="q">Is it more important to speak a foreign language perfectly or to speak it confidently? Why?</div></div></li>
+    <li><div><div class="q">Should English be the only global language, or is it important to protect smaller languages?</div></div></li>
+    <li><div><div class="q">How might language learning have changed by the time you are thirty? Use the future perfect and future continuous.</div></div></li>
+    <li><div><div class="q">Some people say that films and series teach more English than school lessons do. Would you agree?</div></div></li>
+    <li><div><div class="q">If you could have grown up speaking any other language, which would you have chosen, and how might your life be different now? (mixed conditional!)</div><div class="expl"><div class="model"><p>If I had grown up speaking Italian, I would probably be much more relaxed about talking with my hands. I might also be studying art history now, because I would have spent my childhood surrounded by…</p></div></div></div></li>
+  </ol>
+  <div class="expl"><div class="phr">
+    <div><b>Agreeing partly</b>I see your point, but … / That's true up to a point. / I'd go along with that, although …</div>
+    <div><b>Giving examples</b>Take … for instance. / A good case in point is … / Speaking from experience, …</div>
+    <div><b>Buying time</b>That's a tricky one. / I've never really thought about it, but … / Let me put it this way: …</div>
+    <div><b>Concluding</b>So, all in all, … / What it comes down to is …</div>
+  </div></div>
+</section>
+
+<footer>Work at your own pace · the solutions are there to learn from, not to copy.</footer>
+</div>
+
+<script>
+(function(){
+  const KEY='english-masterclass-240-v1';
+  let store={};
+  try{ store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ store={}; }
+  const save=()=>{ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} };
+
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  // 1) turn [[a|b]] into inputs
+  document.querySelectorAll('.fill').forEach(el=>{
+    el.innerHTML=el.innerHTML.replace(/\[\[(~?)(.+?)\]\]/g,(m,len,ans)=>{
+      const alts=ans.split('|');
+      const longest=Math.max(...alts.map(a=>a.length));
+      const w=Math.min(Math.max(longest+2,6),34);
+      const shown=alts.filter(a=>a!=='correct').length? alts : ['correct'];
+      return '<input class="gap'+(len?' lenient':'')+'" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-a="'+esc(ans)+'" style="width:'+w+'ch" aria-label="answer">'+
+             '<span class="sol">'+esc(shown.join(' / '))+'</span>';
+    });
+  });
+  // 2) capitalise solution chip where sentence starts (cosmetic) – skip; keep answers as given
+
+  const norm=s=>{
+    s=(s||'').toLowerCase().replace(/[’‘`´]/g,"'").replace(/\s+/g,' ').trim().replace(/[.,!?;:]+$/,'').trim();
+    if(['✓','✔','correct','ok','right','richtig'].includes(s)) return 'correct';
+    s=s.replace(/\bwon't\b/g,'will not').replace(/\bcan't\b/g,'can not').replace(/\bcannot\b/g,'can not')
+       .replace(/\bshan't\b/g,'shall not').replace(/n't\b/g,' not').replace(/'ll\b/g,' will')
+       .replace(/'ve\b/g,' have').replace(/'re\b/g,' are').replace(/\bi'm\b/g,'i am');
+    return s.replace(/\s+/g,' ').trim();
+  };
+
+  // ids + restore
+  let n=0;
+  document.querySelectorAll('input.gap, textarea.open, .mc').forEach(el=>{
+    el.dataset.id='f'+(n++);
+    const v=store[el.dataset.id];
+    if(v==null) return;
+    if(el.classList.contains('mc')){ const b=el.querySelector('[data-v="'+v+'"]'); if(b) b.classList.add('sel'); }
+    else el.value=v;
+  });
+
+  // MC marking of answer key
+  document.querySelectorAll('.mc').forEach(mc=>{
+    const a=mc.dataset.a;
+    mc.querySelectorAll('.opt').forEach(b=>{
+      b.type='button';
+      if(b.dataset.v===a) b.classList.add('is-ans');
+      b.addEventListener('click',()=>{
+        mc.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel','right','wrong'));
+        b.classList.add('sel'); store[mc.dataset.id]=b.dataset.v; save(); markNav();
+      });
+    });
+  });
+  document.addEventListener('input',e=>{
+    const t=e.target;
+    if(t.matches('input.gap, textarea.open')){
+      t.classList.remove('ok','no'); store[t.dataset.id]=t.value; save();
+      if(t.matches('textarea[data-words]')) updWc(t);
+    }
+  });
+
+  // word counters
+  function updWc(t){ const c=t.nextElementSibling&&t.nextElementSibling.classList.contains('wc')?t.nextElementSibling:null; if(!c) return;
+    const w=(t.value.trim().match(/\S+/g)||[]).length; c.textContent=w+' words'; }
+  document.querySelectorAll('textarea[data-words]').forEach(t=>{ const d=document.createElement('div'); d.className='wc'; t.after(d); updWc(t); });
+
+  // check one gap
+  function checkGap(g){
+    const v=norm(g.value); if(!v){ g.classList.remove('ok','no'); return false; }
+    const alts=g.dataset.a.split('|').map(norm);
+    let ok=alts.includes(v);
+    if(!ok && g.classList.contains('lenient')) ok=alts.some(a=>a!=='correct' && (' '+v+' ').includes(' '+a+' '));
+    g.classList.toggle('ok',ok); g.classList.toggle('no',!ok); return ok;
+  }
+
+  // build controls + plan + nav
+  const tasks=[...document.querySelectorAll('section.task')];
+  const planBody=document.getElementById('planBody'), nav=document.getElementById('navInner');
+  let total=0;
+  tasks.forEach((sec,i)=>{
+    const min=+sec.dataset.min; total+=min;
+    sec.querySelector('.meta').innerHTML='<span class="tag">'+esc(sec.dataset.skill)+'</span><span>≈ '+min+' min</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td class="n">'+(i+1)+'</td><td><a href="#'+sec.id+'">'+esc(sec.dataset.title)+'</a></td><td><span class="tag">'+esc(sec.dataset.skill)+'</span></td><td class="m">'+min+' min</td>';
+    planBody.appendChild(tr);
+    const a=document.createElement('a'); a.href='#'+sec.id; a.textContent=(i+1)+' · '+sec.querySelector('h2').textContent; a.dataset.for=sec.id; nav.appendChild(a);
+
+    const gaps=sec.querySelectorAll('input.gap'), mcs=sec.querySelectorAll('.mc');
+    const checkable=gaps.length+mcs.length;
+    const bar=document.createElement('div'); bar.className='controls';
+    if(checkable){
+      bar.innerHTML='<button class="btn primary" data-act="check" type="button">Check</button><button class="btn" data-act="show" type="button">Solutions</button><button class="btn" data-act="reset" type="button">Reset</button><span class="score" aria-live="polite"></span>';
+    } else {
+      bar.innerHTML='<button class="btn" data-act="show" type="button">Model answers</button><button class="btn" data-act="reset" type="button">Reset</button>';
+    }
+    sec.appendChild(bar);
+    const score=bar.querySelector('.score');
+    bar.addEventListener('click',e=>{
+      const act=e.target.dataset&&e.target.dataset.act; if(!act) return;
+      if(act==='check'){
+        let right=0;
+        gaps.forEach(g=>{ if(checkGap(g)) right++; });
+        mcs.forEach(mc=>{ const s=mc.querySelector('.opt.sel'); if(!s) return; const ok=s.dataset.v===mc.dataset.a; s.classList.toggle('right',ok); s.classList.toggle('wrong',!ok); if(ok) right++; });
+        score.textContent=right+' / '+checkable+' correct';
+        score.classList.toggle('good', right===checkable);
+        store['score_'+sec.id]=right+'/'+checkable; save(); markNav();
+      }
+      if(act==='show'){ sec.classList.toggle('show'); e.target.classList.toggle('on', sec.classList.contains('show')); }
+      if(act==='reset'){
+        sec.querySelectorAll('input.gap, textarea.open').forEach(t=>{ t.value=''; t.classList.remove('ok','no'); delete store[t.dataset.id]; if(t.matches('[data-words]')) updWc(t); });
+        mcs.forEach(mc=>{ mc.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel','right','wrong')); delete store[mc.dataset.id]; });
+        if(score){ score.textContent=''; score.classList.remove('good'); }
+        delete store['score_'+sec.id]; save(); markNav();
+      }
+    });
+    if(store['score_'+sec.id] && score) score.textContent=store['score_'+sec.id].replace('/',' / ')+' correct (last check)';
+  });
+  document.getElementById('planTotal').textContent=total+' min (≈ '+(Math.round(total/6)/10).toString().replace('.',',')+' h)';
+
+  function markNav(){
+    nav.querySelectorAll('a').forEach(a=>{ a.classList.toggle('done', !!store['score_'+a.dataset.for]); });
+  }
+  markNav();
+
+  const tb=document.getElementById('teacherBtn');
+  tb.addEventListener('click',()=>{
+    const on=!tb.classList.contains('on'); tb.classList.toggle('on',on);
+    tb.textContent=on?'Hide all solutions':'Show all solutions';
+    tasks.forEach(s=>{ s.classList.toggle('show',on); const b=s.querySelector('[data-act="show"]'); if(b) b.classList.toggle('on',on); });
+  });
+  const ra=document.getElementById('resetAll'); let armed=false;
+  ra.addEventListener('click',()=>{
+    if(!armed){ armed=true; ra.textContent='Click again to clear everything'; setTimeout(()=>{armed=false; ra.textContent='Clear all answers';},3500); return; }
+    tasks.forEach(s=>s.querySelector('[data-act="reset"]').click()); store={}; save(); armed=false; ra.textContent='Clear all answers';
+  });
+})();
+</script>
