@@ -1,671 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amy Lang - English Trainer | Online Tutoring A1-C2</title>
-    <meta name="description" content="⭐ English Trainer Amy Lang - 20+ years experience, university degree. Online English lessons A1-C2, Business English, exam preparation. Contact via WhatsApp!">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amy Lang · English Training | Materials A1–C2</title>
+<meta name="description" content="English trainer Amy Lang: 20+ years of experience. Free practice pages, grammar sheets, games and downloads for A1 to C2. Online lessons via kMeet.">
+<style>
+:root{
+  --obsidian-0:#0b0a0e;
+  --obsidian-1:#14121a;
+  --obsidian-2:#1e1a24;
+  --obsidian-3:#2a2431;
+  --quartz:#f7cac9;
+  --quartz-soft:#e9b5b8;
+  --quartz-deep:#c98a92;
+  --mist:#f3ecef;
+  --muted:#a89ba4;
+  --line:rgba(247,202,201,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--mist);
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(247,202,201,.12), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(201,138,146,.10), transparent 60%),
+    linear-gradient(180deg,var(--obsidian-1),var(--obsidian-0) 60%);
+  background-attachment:fixed;
+  min-height:100vh;
+  line-height:1.6;
+}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 60px}
 
-        body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: linear-gradient(135deg, #f5e6e8 0%, #ffe4e9 50%, #f5e6e8 100%);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+/* NAV */
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  background:linear-gradient(135deg,var(--obsidian-2),var(--obsidian-3));
+  border:1px solid var(--line);border-radius:18px;padding:12px 18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+}
+.topbar nav{display:flex;gap:8px;flex-wrap:wrap}
+.topbar a{
+  color:var(--mist);text-decoration:none;padding:8px 14px;border-radius:999px;font-size:.92rem;
+  border:1px solid transparent;transition:.25s;
+}
+.topbar a:hover{border-color:var(--line);background:rgba(247,202,201,.08)}
+.topbar a.home{background:linear-gradient(135deg,var(--quartz),var(--quartz-deep));color:#1a1319;font-weight:bold}
+.topbar a.home:hover{filter:brightness(1.05)}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+/* HERO */
+.hero{
+  margin:26px 0 22px;text-align:center;padding:44px 26px 36px;border-radius:26px;
+  background:
+    linear-gradient(160deg,rgba(247,202,201,.12),rgba(255,255,255,.02) 40%,rgba(0,0,0,.2)),
+    var(--obsidian-2);
+  border:1px solid var(--line);
+  box-shadow:0 20px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:-40% -20% auto -20%;height:90%;
+  background:radial-gradient(closest-side,rgba(247,202,201,.18),transparent);
+  pointer-events:none;
+}
+.eyebrow{letter-spacing:.32em;text-transform:uppercase;font-size:.75rem;color:var(--quartz-soft);margin-bottom:12px}
+.hero h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:normal;letter-spacing:.5px;color:#fff;margin-bottom:10px}
+.hero h1 em{font-style:italic;color:var(--quartz)}
+.hero p.lead{color:var(--muted);max-width:640px;margin:0 auto 22px;font-size:1.05rem}
+.badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.badge{
+  font-size:.85rem;padding:7px 14px;border-radius:999px;color:var(--quartz-soft);
+  background:rgba(247,202,201,.08);border:1px solid var(--line);
+}
+.cta{
+  display:inline-block;margin-top:24px;padding:13px 26px;border-radius:999px;text-decoration:none;
+  background:linear-gradient(135deg,var(--quartz),var(--quartz-deep));color:#1a1319;font-weight:bold;
+  box-shadow:0 10px 30px rgba(201,138,146,.25);transition:.25s;
+}
+.cta:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(201,138,146,.35)}
 
-        /* Top Navigation */
-        .top-navigation {
-            background: linear-gradient(135deg, #2c2c2c 0%, #3d3d3d 100%);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .top-nav-links {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .top-nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: background 0.3s;
-            font-weight: 600;
-        }
-        
-        .home-link {
-            background: linear-gradient(135deg, #D4AF37 0%, #C5B358 100%);
-            color: #333 !important;
-        }
-        
-        .home-link:hover {
-            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 100%);
-        }
+/* FILTER BAR */
+.finder{
+  position:sticky;top:10px;z-index:10;
+  background:rgba(20,18,26,.85);backdrop-filter:blur(12px);
+  border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:28px;
+  box-shadow:0 12px 30px rgba(0,0,0,.4);
+}
+.finder input{
+  width:100%;padding:13px 18px;border-radius:14px;border:1px solid var(--line);
+  background:var(--obsidian-0);color:var(--mist);font-family:inherit;font-size:1rem;outline:none;
+}
+.finder input:focus{border-color:var(--quartz-deep);box-shadow:0 0 0 3px rgba(247,202,201,.12)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{
+  background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;
+  padding:7px 14px;font-family:inherit;font-size:.88rem;cursor:pointer;transition:.2s;
+}
+.chip:hover{color:var(--mist)}
+.chip.on{background:var(--quartz);color:#1a1319;border-color:var(--quartz);font-weight:bold}
+.count{margin-left:auto;color:var(--muted);font-size:.85rem;align-self:center}
 
-        .top-nav-links a:hover {
-            background: rgba(255,255,255,0.1);
-        }
+/* SECTIONS */
+.section{margin-bottom:36px}
+.section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;flex-wrap:wrap}
+.section-head h2{font-weight:normal;font-size:1.6rem;color:#fff}
+.section-head .tag{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--quartz-deep)}
+.section-desc{color:var(--muted);margin-bottom:16px;max-width:760px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--quartz-deep),transparent);margin:10px 0 36px;opacity:.6}
 
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
+/* LEVEL STRIP */
+.levels{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:28px}
+.lv{
+  text-decoration:none;text-align:center;padding:14px 8px;border-radius:16px;
+  background:var(--obsidian-2);border:1px solid var(--line);transition:.25s;
+}
+.lv:hover{transform:translateY(-3px);border-color:var(--quartz-deep)}
+.lv b{display:block;font-size:1.35rem;color:var(--quartz);font-weight:normal}
+.lv span{font-size:.78rem;color:var(--muted)}
 
-        h1 {
-            color: #000000;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
+/* CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:6px;text-decoration:none;
+  padding:20px 20px 18px;border-radius:18px;
+  background:linear-gradient(180deg,var(--obsidian-2),var(--obsidian-1));
+  border:1px solid var(--line);transition:.28s;overflow:hidden;
+}
+.card::after{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(var(--quartz),var(--quartz-deep));opacity:.7;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(247,202,201,.4);box-shadow:0 16px 36px rgba(0,0,0,.5)}
+.card .ico{font-size:1.5rem;line-height:1}
+.card h3{font-weight:normal;font-size:1.12rem;color:#fff;margin-top:4px}
+.card p{font-size:.92rem;color:var(--muted);line-height:1.5}
+.card .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.pill{font-size:.72rem;padding:3px 9px;border-radius:999px;background:rgba(247,202,201,.1);color:var(--quartz-soft);border:1px solid var(--line)}
+.pill.new{background:var(--quartz);color:#1a1319;border-color:var(--quartz);font-weight:bold}
+.pill.dl{background:transparent;color:var(--muted)}
+.card.hl{border-color:rgba(247,202,201,.45);background:linear-gradient(160deg,rgba(247,202,201,.12),var(--obsidian-1) 70%)}
+.card.hidden{display:none}
 
-        .subtitle {
-            color: #000000;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
+/* NEW STRIP */
+.new-strip{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;
+}
+.empty{display:none;text-align:center;color:var(--muted);padding:30px;border:1px dashed var(--line);border-radius:16px}
+.empty.show{display:block}
 
-        .qualification-badge {
-            background: rgba(184, 134, 11, 0.1);
-            color: #000000;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin: 5px;
-            display: inline-block;
-            border: 1px solid rgba(184, 134, 11, 0.3);
-        }
+/* DOWNLOADS */
+.dl-group{margin-bottom:22px}
+.dl-group h3{font-weight:normal;color:var(--quartz-soft);font-size:1.02rem;margin-bottom:10px}
+.dl-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.dl{
+  display:flex;align-items:center;gap:12px;text-decoration:none;padding:12px 14px;border-radius:14px;
+  background:var(--obsidian-2);border:1px solid var(--line);transition:.22s;
+}
+.dl:hover{border-color:var(--quartz-deep);background:var(--obsidian-3)}
+.dl.hidden{display:none}
+.dl .ico{font-size:1.25rem}
+.dl .t{font-size:.95rem;color:var(--mist)}
+.dl .s{font-size:.8rem;color:var(--muted)}
 
-        /* Level Navigation */
-        .level-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 25px 0;
-        }
+/* CONTACT / FOOTER */
+.book{
+  text-align:center;margin:44px 0 26px;padding:34px 22px;border-radius:24px;
+  background:linear-gradient(160deg,rgba(247,202,201,.14),rgba(0,0,0,.2));border:1px solid var(--line);
+}
+.book h2{font-weight:normal;font-size:1.6rem;color:#fff;margin-bottom:8px}
+.book p{color:var(--muted);margin-bottom:18px}
+.wa{
+  display:inline-block;background:#1fa35c;color:#fff;padding:14px 28px;border-radius:999px;
+  text-decoration:none;font-weight:bold;box-shadow:0 10px 26px rgba(31,163,92,.3);transition:.25s;
+}
+.wa:hover{transform:translateY(-2px);background:#188a4d}
+.footer{
+  margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;
+  padding:28px;border-radius:22px;background:var(--obsidian-2);border:1px solid var(--line);
+}
+.footer h3{font-weight:normal;color:var(--quartz);margin-bottom:10px;font-size:1.05rem}
+.footer p{color:var(--muted);font-size:.93rem;margin:4px 0}
+.footer a{color:var(--quartz-soft)}
+.footer .links{display:flex;gap:8px;flex-wrap:wrap}
+.footer .links a{
+  text-decoration:none;padding:7px 14px;border-radius:999px;border:1px solid var(--line);font-size:.9rem;
+}
+.footer .links a:hover{background:rgba(247,202,201,.08)}
+.fineprint{text-align:center;color:var(--muted);font-size:.8rem;margin-top:22px;opacity:.8}
 
-        .level-btn {
-            padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.3);
-            border: 2px solid rgba(184, 134, 11, 0.3);
-            border-radius: 25px;
-            color: #000000;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .level-btn:hover {
-            background: rgba(184, 134, 11, 0.8);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Main Content Area */
-        .main-content {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-            border: 2px solid rgba(184, 134, 11, 0.2);
-        }
-
-        /* Section Title */
-        .section-title {
-            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #C5B358 100%);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            border-radius: 15px;
-            font-size: 1.4em;
-            margin: 30px 0 20px 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
-        }
-
-        /* Level Title */
-        .level-title {
-            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 1.3em;
-            margin: 25px 0 15px 0;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Level Info Box */
-        .level-info {
-            background: rgba(255, 255, 255, 0.4);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border-left: 5px solid #D4AF37;
-            backdrop-filter: blur(5px);
-        }
-
-        .level-info h4 {
-            color: #000000;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-
-        .level-info p {
-            margin: 8px 0;
-            color: #000000;
-        }
-
-        /* Resources Grid */
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .resource-link {
-            display: block;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.4);
-            color: #000000;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            border: 2px solid rgba(184, 134, 11, 0.2);
-            backdrop-filter: blur(5px);
-            text-align: center;
-        }
-
-        .resource-link:hover {
-            background: rgba(184, 134, 11, 0.8);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .resource-link .icon {
-            margin-right: 8px;
-        }
-
-        /* Special Diagnostic Link */
-        .resource-link.diagnostic {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(184, 134, 11, 0.4));
-            color: #B8860B;
-            border: 3px solid rgba(184, 134, 11, 0.6);
-            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
-            font-size: 1.05em;
-            padding: 20px;
-        }
-
-        .resource-link.diagnostic:hover {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(184, 134, 11, 0.9));
-            color: white;
-        }
-
-        /* WhatsApp Button */
-        .whatsapp-container {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .whatsapp-link {
-            display: inline-block;
-            background: #20A05C;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(32, 160, 92, 0.3);
-        }
-
-        .whatsapp-link:hover {
-            background: #1a8c4f;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(32, 160, 92, 0.4);
-        }
-
-        /* Divider */
-        .divider {
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #D4AF37, #B8860B, #D4AF37, transparent);
-            margin: 35px 0;
-            border-radius: 2px;
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .footer-section {
-            color: #000000;
-        }
-
-        .footer-section h3 {
-            color: #000000;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
-
-        .footer-section p {
-            margin: 8px 0;
-            color: #000000;
-        }
-
-        .footer-section a {
-            color: #B8860B;
-            text-decoration: none;
-        }
-
-        .footer-section a:hover {
-            text-decoration: underline;
-        }
-
-        .faq-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .faq-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .faq-button:hover {
-            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 100%);
-            transform: translateY(-2px);
-        }
-
-        .kmeet-btn {
-            display: inline-block;
-            background: #1976d2;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-left: 10px;
-            transition: all 0.3s ease;
-            font-size: 0.9em;
-        }
-
-        .kmeet-btn:hover {
-            background: #1565c0;
-            transform: translateY(-1px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8em; }
-            .top-navigation { flex-direction: column; text-align: center; }
-            .resources-grid { grid-template-columns: 1fr; }
-            .footer-content { grid-template-columns: 1fr; }
-        }
-    </style>
+@media (max-width:860px){
+  .levels{grid-template-columns:repeat(3,1fr)}
+  .count{margin-left:0;width:100%}
+}
+@media (max-width:560px){
+  .levels{grid-template-columns:repeat(2,1fr)}
+  .topbar{flex-direction:column;text-align:center}
+  .topbar nav{justify-content:center}
+  .finder{position:static}
+}
+</style>
 </head>
 <body>
+<div class="wrap">
 
-    <!-- Top Navigation -->
-    <div class="container">
-        <nav class="top-navigation">
-            <div class="top-nav-links">
-                <a href="index.html" class="home-link">🏠 Home</a>
-                <a href="daf-training.html">🇩🇪 German (DAF)</a>
-            </div>
-            <div class="top-nav-links">
-                <a href="#a1">A1</a>
-                <a href="#a2">A2</a>
-                <a href="#b1">B1</a>
-                <a href="#b2">B2</a>
-                <a href="#c1">C1</a>
-                <a href="#c2">C2</a>
-            </div>
-        </nav>
+  <!-- Top bar -->
+  <header class="topbar">
+    <nav>
+      <a class="home" href="index.html">🏠 Home</a>
+      <a href="daf-training.html">🇩🇪 German (DaF)</a>
+    </nav>
+    <nav>
+      <a href="#levels">Levels</a>
+      <a href="#new">New</a>
+      <a href="#play">Games</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#book">Book</a>
+    </nav>
+  </header>
 
-        <!-- Header -->
-        <header>
-            <h1>🇬🇧 English Training</h1>
-            <p class="subtitle">Online English Tutoring & Language Coaching for All Levels</p>
-            <div>
-                <span class="qualification-badge">📚 20+ Years Experience</span>
-                <span class="qualification-badge">🎓 University Degree</span>
-                <span class="qualification-badge">💻 Online via kMeet</span>
-            </div>
-        </header>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="eyebrow">Amy Lang · English Trainer</div>
+    <h1>Your path through <em>English</em>, from first words to fluent ideas</h1>
+    <p class="lead">Free practice pages, grammar reference sheets, games and stories for every level from A1 to C2. Pick your level, pick your mood, and start where it fits you.</p>
+    <div class="badges">
+      <span class="badge">📚 20+ years of experience</span>
+      <span class="badge">🎓 University degree</span>
+      <span class="badge">💻 Online via kMeet</span>
+      <span class="badge">🗣 English · German · Hungarian</span>
+    </div>
+    <a class="cta" href="#finder">Find my material</a>
+  </section>
 
-        <!-- Main Content -->
-        <div class="main-content">
+  <!-- Finder -->
+  <div class="finder" id="finder">
+    <input id="search" type="search" placeholder="Search: idioms, tenses, conditionals, story, quiz …" aria-label="Search materials">
+    <div class="chips" id="levelChips">
+      <button class="chip on" data-level="all">All levels</button>
+      <button class="chip" data-level="A1">A1</button>
+      <button class="chip" data-level="A2">A2</button>
+      <button class="chip" data-level="B1">B1</button>
+      <button class="chip" data-level="B2">B2</button>
+      <button class="chip" data-level="C1">C1</button>
+      <button class="chip" data-level="C2">C2</button>
+      <button class="chip" data-level="any">All levels / no level</button>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
 
-            <!-- Quick Level Navigation -->
-            <div class="level-nav">
-                <a href="#a1" class="level-btn">📗 A1 Beginner</a>
-                <a href="#a2" class="level-btn">📘 A2 Elementary</a>
-                <a href="#b1" class="level-btn">📙 B1 Intermediate</a>
-                <a href="#b2" class="level-btn">📕 B2 Upper-Int.</a>
-                <a href="#c1" class="level-btn">📓 C1 Advanced</a>
-                <a href="#c2" class="level-btn">📖 C2 Proficient</a>
-            </div>
+  <!-- Level strip -->
+  <nav class="levels" id="levels">
+    <a class="lv" href="#lv-a1"><b>A1</b><span>Beginner</span></a>
+    <a class="lv" href="#lv-a2"><b>A2</b><span>Elementary</span></a>
+    <a class="lv" href="#lv-b1"><b>B1</b><span>Intermediate</span></a>
+    <a class="lv" href="#lv-b2"><b>B2</b><span>Upper-Int.</span></a>
+    <a class="lv" href="#lv-c1"><b>C1</b><span>Advanced</span></a>
+    <a class="lv" href="#lv-c2"><b>C2</b><span>Proficient</span></a>
+  </nav>
 
-            <!-- Diagnostic Test Section -->
-            <div class="section-title">🏆 Diagnostic Test - Find Your Level</div>
-            <div class="resources-grid">
-                <a href="english-quest.html" class="resource-link diagnostic">
-                    <span class="icon">🎮</span> English Quest - B1/B1+ Diagnostic Game
-                </a>
-            </div>
+  <!-- NEW -->
+  <section class="section" id="new">
+    <div class="section-head"><h2>Newly added</h2><span class="tag">Fresh this month</span></div>
+    <p class="section-desc">The latest pages, with a short note on what each one is for.</p>
+    <div class="new-strip" data-group="new">
+      <a class="card hl" href="london-sunrise.html" data-level="A2" data-text="london sunrise story choices adventure idioms quiz word bank zoe gloria martin london">
+        <div class="ico">🌅</div>
+        <h3>London Sunrise: a story you decide</h3>
+        <p>An interactive adventure with three friends in London. Choose what to say, learn new words and idioms along the way, then test yourself.</p>
+        <div class="meta"><span class="pill new">New</span><span class="pill">A2</span><span class="pill">Story · Idioms · Quiz</span></div>
+      </a>
+      <a class="card" href="english-masterclass.html" data-level="any" data-text="english masterclass lessons training">
+        <div class="ico">🎯</div>
+        <h3>English Masterclass</h3>
+        <p>Focused practice for learners who want to sharpen several skills in one place.</p>
+        <div class="meta"><span class="pill new">New</span><span class="pill">All levels</span></div>
+      </a>
+      <a class="card" href="challenge_plus.html" data-level="any" data-text="challenge plus game test practice">
+        <div class="ico">⚡</div>
+        <h3>Challenge Plus</h3>
+        <p>A timed challenge round for those who like a bit of pressure and a score at the end.</p>
+        <div class="meta"><span class="pill">Game</span><span class="pill">All levels</span></div>
+      </a>
+    </div>
+  </section>
 
-            <div class="divider"></div>
+  <div class="divider"></div>
 
-            <!-- A1 Level -->
-            <div id="a1" class="level-title">📗 A1 - Beginner</div>
-            <div class="level-info">
-                <h4>What you can do at A1:</h4>
-                <p><strong>Grammar:</strong> Present Simple, basic questions, articles, pronouns</p>
-                <p><strong>Vocabulary:</strong> ~500 words - everyday topics, numbers, colours, family</p>
-                <p><strong>Speaking:</strong> Introduce yourself, simple conversations, basic needs</p>
-            </div>
-            <div class="resources-grid">
-                <a href="english/a1-basics.html" class="resource-link">
-                    <span class="icon">🇬🇧✍️</span> A1 Grammar Basics
-                </a>
-                <a href="english/a1-vocabulary.html" class="resource-link">
-                    <span class="icon">📖</span> A1 Vocabulary Training
-                </a>
-                <a href="english/englisch-auffrischung.html" class="resource-link">
-                    <span class="icon">📖</span> A1 Auffrischung Basis 1
-                </a>
-                <a href="english/englisch-auffrischung-lektion2.html" class="resource-link">
-                    <span class="icon">📖</span> A1 Auffrischung Basis 2
-                </a>
-                <a href="english/englisch-auffrischung-lektion3.html" class="resource-link">
-                    <span class="icon">📖</span> A1 Auffrischung Basis 3
-                </a>
+  <!-- PLAY & PRACTICE -->
+  <section class="section" id="play" data-section>
+    <div class="section-head"><h2>Games &amp; practice</h2><span class="tag">Learn by playing</span></div>
+    <p class="section-desc">Quizzes, challenges and tenses games. Good for warming up, reviewing or simply having fun with English.</p>
+    <div class="grid">
+      <a class="card" href="english-quest.html" data-level="B1" data-text="english quest diagnostic game find your level b1">
+        <div class="ico">🎮</div>
+        <h3>English Quest</h3>
+        <p>A diagnostic game to find out whether you are at B1 or B1+. Start here if you are unsure of your level.</p>
+        <div class="meta"><span class="pill">Diagnostic</span><span class="pill">B1 / B1+</span></div>
+      </a>
+      <a class="card" href="english_champion_7.html" data-level="any" data-text="english champion 7 quiz game">
+        <div class="ico">🏅</div>
+        <h3>English Champion 7</h3>
+        <p>A quiz round with questions across several topics. Good for a quick test of what you already know.</p>
+        <div class="meta"><span class="pill">Quiz</span><span class="pill">All levels</span></div>
+      </a>
+      <a class="card" href="english_tenses_champion.html" data-level="any" data-text="english tenses champion tenses quiz game verb forms">
+        <div class="ico">⏰</div>
+        <h3>Tenses Champion</h3>
+        <p>A game focused on verb tenses. Choose the right form and see where you still get stuck.</p>
+        <div class="meta"><span class="pill">Tenses</span><span class="pill">All levels</span></div>
+      </a>
+      <a class="card" href="tenses_talk.html" data-level="any" data-text="tenses talk verb tenses conversation practice">
+        <div class="ico">🗣</div>
+        <h3>Tenses Talk</h3>
+        <p>Tenses in context, through short exchanges that you can practise aloud.</p>
+        <div class="meta"><span class="pill">Speaking</span><span class="pill">All levels</span></div>
+      </a>
+    </div>
+  </section>
 
+  <div class="divider"></div>
 
+  <!-- LEVELS -->
+  <section class="section" id="levels-content">
+    <div class="section-head"><h2>Learn by level</h2><span class="tag">A1 – C2</span></div>
+    <p class="section-desc">Each level has its own practice pages. Not sure where you stand? Start with English Quest above.</p>
 
+    <!-- A1 -->
+    <div id="lv-a1" class="dl-group-wrap" style="margin-bottom:26px">
+      <h3 style="font-weight:normal;color:var(--quartz);font-size:1.2rem;margin-bottom:6px">A1 · Beginner</h3>
+      <p class="section-desc" style="margin-bottom:12px">Everyday English, present simple, basic questions. Refreshers in three steps.</p>
+      <div class="grid">
+        <a class="card" href="english/englisch-auffrischung.html" data-level="A1" data-text="auffrischung basis refresher a1 englisch">
+          <div class="ico">📖</div><h3>Refresher · Basis 1</h3><p>The first steps back into English, with exercises you can do alone.</p>
+          <div class="meta"><span class="pill">A1</span><span class="pill">Refresher</span></div>
+        </a>
+        <a class="card" href="englisch-auffrischung-lektion2.html" data-level="A1" data-text="auffrischung lektion 2 refresher a1">
+          <div class="ico">📖</div><h3>Refresher · Lesson 2</h3><p>Building on Basis 1, with more everyday vocabulary and short sentences.</p>
+          <div class="meta"><span class="pill">A1</span><span class="pill">Refresher</span></div>
+        </a>
+        <a class="card" href="englisch-auffrischung-lektion3.html" data-level="A1" data-text="auffrischung lektion 3 refresher a1">
+          <div class="ico">📖</div><h3>Refresher · Lesson 3</h3><p>The third step in the refresher series, a gentle consolidation of the basics.</p>
+          <div class="meta"><span class="pill">A1</span><span class="pill">Refresher</span></div>
+        </a>
+      </div>
+    </div>
 
-            </div>
+    <!-- A2 -->
+    <div id="lv-a2" style="margin-bottom:26px">
+      <h3 style="font-weight:normal;color:var(--quartz);font-size:1.2rem;margin-bottom:6px">A2 · Elementary</h3>
+      <p class="section-desc" style="margin-bottom:12px">Past simple, comparatives, going to, travel and shopping vocabulary.</p>
+      <div class="grid">
+        <a class="card" href="london-sunrise.html" data-level="A2" data-text="london sunrise story idioms word bank a2">
+          <div class="ico">🌅</div><h3>London Sunrise</h3><p>A story in which you choose the path, with idioms and a word bank.</p>
+          <div class="meta"><span class="pill new">New</span><span class="pill">A2</span></div>
+        </a>
+      </div>
+    </div>
 
-            <!-- A2 Level -->
-            <div id="a2" class="level-title">📘 A2 - Elementary</div>
-            <div class="level-info">
-                <h4>What you can do at A2:</h4>
-                <p><strong>Grammar:</strong> Past Simple, comparatives, future with "going to", prepositions</p>
-                <p><strong>Vocabulary:</strong> ~1000 words - travel, shopping, daily routines</p>
-                <p><strong>Speaking:</strong> Describe experiences, make plans, give simple opinions</p>
-            </div>
-            <div class="resources-grid">
-                <a href="english/a2-grammar.html" class="resource-link">
-                    <span class="icon">🇬🇧✍️</span> A2 Grammar Practice
-                </a>
-                <a href="english/a2-reading.html" class="resource-link">
-                    <span class="icon">📚</span> A2 Reading Exercises
-                </a>
-            </div>
+    <!-- B1 -->
+    <div id="lv-b1" style="margin-bottom:26px">
+      <h3 style="font-weight:normal;color:var(--quartz);font-size:1.2rem;margin-bottom:6px">B1 · Intermediate</h3>
+      <p class="section-desc" style="margin-bottom:12px">Present perfect, conditionals, passive and relative clauses.</p>
+      <div class="grid">
+        <a class="card" href="english/english_grammar_b1_b2.html" data-level="B1" data-text="grammar b1 b2 training present perfect conditionals passive">
+          <div class="ico">✍️</div><h3>Grammar Training · B1–B2</h3><p>Structured exercises across the core intermediate structures.</p>
+          <div class="meta"><span class="pill">B1–B2</span><span class="pill">Grammar</span></div>
+        </a>
+        <a class="card" href="english/english_grammar_b1_pitfalls.html" data-level="B1" data-text="pitfalls b1 mistakes typical errors">
+          <div class="ico">⚠️</div><h3>Grammar Pitfalls · B1</h3><p>The typical traps at B1, explained with examples and corrections.</p>
+          <div class="meta"><span class="pill">B1</span><span class="pill">Pitfalls</span></div>
+        </a>
+      </div>
+    </div>
 
-            <!-- B1 Level -->
-            <div id="b1" class="level-title">📙 B1 - Intermediate</div>
-            <div class="level-info">
-                <h4>What you can do at B1:</h4>
-                <p><strong>Grammar:</strong> Present Perfect, conditionals (1st & 2nd), passive voice, relative clauses</p>
-                <p><strong>Vocabulary:</strong> ~2000 words - work, education, current events</p>
-                <p><strong>Speaking:</strong> Express opinions, discuss abstract topics, tell stories</p>
-            </div>
-            <div class="resources-grid">
-                <a href="english-quest.html" class="resource-link diagnostic">
-                    <span class="icon">🎮</span> B1 Diagnostic Quest
-                </a>
-                <a href="english/english_grammar_b1_b2.html" class="resource-link">
-                    <span class="icon">🇬🇧✍️</span> B1-B2 Grammar Training
-                </a>
-                <a href="english/english_grammar_b1_pitfalls.html" class="resource-link">
-                    <span class="icon">⚠️</span> B1 Grammar Pitfalls
-                </a>
-                <a href="english/b1-conditionals.html" class="resource-link">
-                    <span class="icon">🔮</span> Conditionals Practice
-                </a>
-                <a href="english/b1-tenses.html" class="resource-link">
-                    <span class="icon">⏰</span> Tenses Overview
-                </a>
-            </div>
+    <!-- B2 -->
+    <div id="lv-b2" style="margin-bottom:26px">
+      <h3 style="font-weight:normal;color:var(--quartz);font-size:1.2rem;margin-bottom:6px">B2 · Upper-Intermediate</h3>
+      <p class="section-desc" style="margin-bottom:12px">Reported speech, advanced conditionals, modal perfects and phrasal verbs.</p>
+      <div class="grid">
+        <a class="card" href="english/english_grammar_b2_c1.html" data-level="B2" data-text="grammar b2 c1 training">
+          <div class="ico">✍️</div><h3>Grammar Training · B2–C1</h3><p>Advanced structures with exercises that move you towards C1.</p>
+          <div class="meta"><span class="pill">B2–C1</span><span class="pill">Grammar</span></div>
+        </a>
+        <a class="card" href="english/english_grammar_b2_pitfalls.html" data-level="B2" data-text="pitfalls b2 mistakes typical errors">
+          <div class="ico">⚠️</div><h3>Grammar Pitfalls · B2</h3><p>The traps that catch upper-intermediate learners, with clear corrections.</p>
+          <div class="meta"><span class="pill">B2</span><span class="pill">Pitfalls</span></div>
+        </a>
+      </div>
+    </div>
 
-            <!-- B2 Level -->
-            <div id="b2" class="level-title">📕 B2 - Upper-Intermediate</div>
-            <div class="level-info">
-                <h4>What you can do at B2:</h4>
-                <p><strong>Grammar:</strong> All conditionals, reported speech, advanced passive, modal perfects</p>
-                <p><strong>Vocabulary:</strong> ~4000 words - academic, professional contexts</p>
-                <p><strong>Speaking:</strong> Debate, present arguments, discuss complex topics fluently</p>
-            </div>
-            <div class="resources-grid">
-                <a href="english/english_grammar_b2_c1.html" class="resource-link">
-                    <span class="icon">🇬🇧✍️</span> B2-C1 Grammar Training
-                </a>
-                <a href="english/english_grammar_b2_pitfalls.html" class="resource-link">
-                    <span class="icon">⚠️</span> B2 Grammar Pitfalls
-                </a>
-                <a href="english/b2-reported.html" class="resource-link">
-                    <span class="icon">💬</span> Reported Speech
-                </a>
-                <a href="english/b2-phrasal.html" class="resource-link">
-                    <span class="icon">🧩</span> Phrasal Verbs
-                </a>
-            </div>
+    <!-- C1 -->
+    <div id="lv-c1" style="margin-bottom:26px">
+      <h3 style="font-weight:normal;color:var(--quartz);font-size:1.2rem;margin-bottom:6px">C1 · Advanced</h3>
+      <p class="section-desc" style="margin-bottom:12px">Inversion, cleft sentences, subjunctive and nuanced expressions.</p>
+      <div class="grid">
+        <a class="card" href="english/english_grammar_c1_c2.html" data-level="C1" data-text="grammar c1 c2 training inversion subjunctive">
+          <div class="ico">✍️</div><h3>Grammar Training · C1–C2</h3><p>Advanced grammar with precise, demanding exercises.</p>
+          <div class="meta"><span class="pill">C1–C2</span><span class="pill">Grammar</span></div>
+        </a>
+        <a class="card" href="english/english_grammar_c1_pitfalls.html" data-level="C1" data-text="pitfalls c1 mistakes typical errors">
+          <div class="ico">⚠️</div><h3>Grammar Pitfalls · C1</h3><p>Subtle errors at advanced level, explained with the reason behind each one.</p>
+          <div class="meta"><span class="pill">C1</span><span class="pill">Pitfalls</span></div>
+        </a>
+      </div>
+    </div>
 
-            <!-- C1 Level -->
-            <div id="c1" class="level-title">📓 C1 - Advanced</div>
-            <div class="level-info">
-                <h4>What you can do at C1:</h4>
-                <p><strong>Grammar:</strong> Inversion, cleft sentences, advanced modals, subjunctive</p>
-                <p><strong>Vocabulary:</strong> ~8000 words - nuanced, idiomatic expressions</p>
-                <p><strong>Speaking:</strong> Express yourself spontaneously, fluently, precisely</p>
-            </div>
-            <div class="resources-grid">
-                <a href="english/english_grammar_c1_c2.html" class="resource-link">
-                    <span class="icon">🇬🇧✍️</span> C1-C2 Grammar Training
-                </a>
-                <a href="english/english_grammar_c1_pitfalls.html" class="resource-link">
-                    <span class="icon">⚠️</span> C1 Grammar Pitfalls
-                </a>
-                <a href="english/c1-idioms.html" class="resource-link">
-                    <span class="icon">💎</span> Idioms & Expressions
-                </a>
-            </div>
+    <!-- C2 -->
+    <div id="lv-c2" style="margin-bottom:10px">
+      <h3 style="font-weight:normal;color:var(--quartz);font-size:1.2rem;margin-bottom:6px">C2 · Proficient</h3>
+      <p class="section-desc" style="margin-bottom:12px">Mastery of nuance, precision and fine distinctions.</p>
+      <div class="grid">
+        <a class="card" href="english/english_grammar_c2_pitfalls.html" data-level="C2" data-text="pitfalls c2 mistakes typical errors mastery">
+          <div class="ico">⚠️</div><h3>Grammar Pitfalls · C2</h3><p>The last fine points: the errors that remain once everything else is in place.</p>
+          <div class="meta"><span class="pill">C2</span><span class="pill">Pitfalls</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
 
-            <!-- C2 Level -->
-            <div id="c2" class="level-title">📖 C2 - Proficient</div>
-            <div class="level-info">
-                <h4>What you can do at C2:</h4>
-                <p><strong>Grammar:</strong> Complete mastery of all structures and nuances</p>
-                <p><strong>Vocabulary:</strong> ~16000+ words - native-like range and precision</p>
-                <p><strong>Speaking:</strong> Express yourself with precision in any situation</p>
-            </div>
-            <div class="resources-grid">
-                <a href="english/english_grammar_c2_pitfalls.html" class="resource-link">
-                    <span class="icon">⚠️</span> C2 Grammar Pitfalls
-                </a>
-                <a href="english/c2-mastery.html" class="resource-link">
-                    <span class="icon">🏆</span> C2 Language Mastery
-                </a>
-                <a href="english/c2-writing.html" class="resource-link">
-                    <span class="icon">✍️</span> Academic Writing
-                </a>
-            </div>
+  <div class="divider"></div>
 
-            <div class="divider"></div>
+  <!-- DOWNLOADS -->
+  <section class="section" id="downloads">
+    <div class="section-head"><h2>Downloadable grammar sheets</h2><span class="tag">Word · offline</span></div>
+    <p class="section-desc">Compact reference sheets for offline study and classroom use. The sheets are written in German for German-speaking learners.</p>
 
-            <!-- Grammar Info Sheets Section -->
-            <div class="section-title">📚 Downloadable Grammar Sheets</div>
-            <div class="level-info">
-                <h4>Comprehensive grammar reference sheets for German-speaking learners:</h4>
-                <p>Download these professionally designed Word documents for offline study and classroom use. Content is in German.</p>
-            </div>
-            
-            <div style="margin: 20px 0 10px 0; padding: 10px 15px; background: rgba(184, 134, 11, 0.1); border-radius: 10px; font-weight: bold; color: #B8860B;">
-                📝 Parts of Speech
-            </div>
-            <div class="resources-grid">
-                <a href="infoblaetter/Englische_Verben_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🔄</span> Verbs – Phrasal Verbs, Common Mistakes
-                </a>
-                <a href="infoblaetter/Englische_Nomen_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">📦</span> Nouns – Countable/Uncountable, Plurals
-                </a>
-                <a href="infoblaetter/Englische_Adjektive_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🎨</span> Adjectives – -ed/-ing, Comparison, Order
-                </a>
-                <a href="infoblaetter/Englische_Adverbien_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">⚡</span> Adverbs – Formation, Position, hard/hardly
-                </a>
-                <a href="infoblaetter/Englische_Praepositionen_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">📍</span> Prepositions – in/on/at, to/for, since/for
-                </a>
-                <a href="infoblaetter/Englische_Artikel_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">📰</span> Articles – a/an/the vs. Zero Article
-                </a>
-            </div>
+    <div class="dl-group" data-group="dl">
+      <h3>📝 Parts of speech</h3>
+      <div class="dl-list">
+        <a class="dl" href="infoblaetter/Englische_Verben_Infoblatt.docx" download data-level="any" data-text="verben verbs phrasal verbs common mistakes"><span class="ico">🔄</span><span><span class="t">Verbs</span><br><span class="s">Phrasal verbs, common mistakes</span></span></a>
+        <a class="dl" href="infoblaetter/Englische_Nomen_Infoblatt.docx" download data-level="any" data-text="nomen nouns countable uncountable plurals"><span class="ico">📦</span><span><span class="t">Nouns</span><br><span class="s">Countable/uncountable, plurals</span></span></a>
+        <a class="dl" href="infoblaetter/Englische_Adjektive_Infoblatt.docx" download data-level="any" data-text="adjektive adjectives ed ing comparison order"><span class="ico">🎨</span><span><span class="t">Adjectives</span><br><span class="s">-ed/-ing, comparison, order</span></span></a>
+        <a class="dl" href="infoblaetter/Englische_Adverbien_Infoblatt.docx" download data-level="any" data-text="adverbien adverbs formation position hard hardly"><span class="ico">⚡</span><span><span class="t">Adverbs</span><br><span class="s">Formation, position, hard/hardly</span></span></a>
+        <a class="dl" href="infoblaetter/Englische_Praepositionen_Infoblatt.docx" download data-level="any" data-text="praepositionen prepositions in on at since for"><span class="ico">📍</span><span><span class="t">Prepositions</span><br><span class="s">in/on/at, to/for, since/for</span></span></a>
+        <a class="dl" href="infoblaetter/Englische_Artikel_Infoblatt.docx" download data-level="any" data-text="artikel articles a an the zero article"><span class="ico">📰</span><span><span class="t">Articles</span><br><span class="s">a/an/the vs. zero article</span></span></a>
+      </div>
+    </div>
 
-            <div style="margin: 25px 0 10px 0; padding: 10px 15px; background: rgba(184, 134, 11, 0.1); border-radius: 10px; font-weight: bold; color: #B8860B;">
-                🔧 Grammar Structures
-            </div>
-            <div class="resources-grid">
-                <a href="infoblaetter/Gerund_vs_Infinitiv_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">⚖️</span> Gerund vs. Infinitive – enjoy doing, want to do
-                </a>
-                <a href="infoblaetter/Konditionalsaetze_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🔮</span> Conditionals – If-Clauses Type 0-III
-                </a>
-                <a href="infoblaetter/Reported_Speech_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">💬</span> Reported Speech – Indirect Speech
-                </a>
-                <a href="infoblaetter/Modalverben_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🎯</span> Modal Verbs – can/could, must/have to
-                </a>
-                <a href="infoblaetter/Relativsaetze_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🔗</span> Relative Clauses – who/which/that
-                </a>
-                <a href="infoblaetter/Passiv_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🔁</span> Passive Voice – Formation, by-Agent
-                </a>
-                <a href="infoblaetter/Englischer_Satzbau_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🏗️</span> Word Order – Sentence Structure, Inversion
-                </a>
-                <a href="infoblaetter/Konjunktionen_Infoblatt.docx" class="resource-link" download>
-                    <span class="icon">🔀</span> Conjunctions – although/despite, so/such
-                </a>
-            </div>
+    <div class="dl-group" data-group="dl">
+      <h3>🔧 Grammar structures</h3>
+      <div class="dl-list">
+        <a class="dl" href="infoblaetter/Gerund_vs_Infinitiv_Infoblatt.docx" download data-level="any" data-text="gerund infinitiv enjoy doing want to do"><span class="ico">⚖️</span><span><span class="t">Gerund vs. infinitive</span><br><span class="s">Enjoy doing, want to do</span></span></a>
+        <a class="dl" href="infoblaetter/Konditionalsaetze_Infoblatt.docx" download data-level="any" data-text="konditionalsaetze conditionals if clauses type 0 III"><span class="ico">🔮</span><span><span class="t">Conditionals</span><br><span class="s">If-clauses, type 0–III</span></span></a>
+        <a class="dl" href="infoblaetter/Reported_Speech_Infoblatt.docx" download data-level="any" data-text="reported speech indirect speech"><span class="ico">💬</span><span><span class="t">Reported speech</span><br><span class="s">Indirect speech</span></span></a>
+        <a class="dl" href="infoblaetter/Modalverben_Infoblatt.docx" download data-level="any" data-text="modalverben modal verbs can could must have to"><span class="ico">🎯</span><span><span class="t">Modal verbs</span><br><span class="s">can/could, must/have to</span></span></a>
+        <a class="dl" href="infoblaetter/Relativsaetze_Infoblatt.docx" download data-level="any" data-text="relativsaetze relative clauses who which that"><span class="ico">🔗</span><span><span class="t">Relative clauses</span><br><span class="s">who/which/that</span></span></a>
+        <a class="dl" href="infoblaetter/Passiv_Infoblatt.docx" download data-level="any" data-text="passiv passive voice by agent"><span class="ico">🔁</span><span><span class="t">Passive voice</span><br><span class="s">Formation, by-agent</span></span></a>
+        <a class="dl" href="infoblaetter/Englischer_Satzbau_Infoblatt.docx" download data-level="any" data-text="satzbau word order inversion sentence structure"><span class="ico">🏗️</span><span><span class="t">Word order</span><br><span class="s">Sentence structure, inversion</span></span></a>
+        <a class="dl" href="infoblaetter/Konjunktionen_Infoblatt.docx" download data-level="any" data-text="konjunktionen conjunctions although despite so such"><span class="ico">🔀</span><span><span class="t">Conjunctions</span><br><span class="s">Although/despite, so/such</span></span></a>
+      </div>
+    </div>
+  </section>
 
-            <div class="divider"></div>
+  <div class="divider"></div>
 
-            <!-- All Levels Section -->
-            <div class="section-title">🌟 Resources for All Levels</div>
-            <div class="resources-grid">
-                <a href="english/irregular-verbs.html" class="resource-link">
-                    <span class="icon">📋</span> Irregular Verbs List
-                </a>
-                <a href="english/pronunciation.html" class="resource-link">
-                    <span class="icon">🗣️</span> Pronunciation Guide
-                </a>
-                <a href="english/confusables.html" class="resource-link">
-                    <span class="icon">🔄</span> Common Confusables (affect/effect, etc.)
-                </a>
-                <a href="english/collocations.html" class="resource-link">
-                    <span class="icon">🔗</span> Collocations (make/do, etc.)
-                </a>
-            </div>
+  <!-- INFO -->
+  <section class="section" id="info">
+    <div class="section-head"><h2>Information</h2></div>
+    <div class="grid">
+      <a class="card" href="faq.html" data-level="any" data-text="faq questions answers">
+        <div class="ico">❓</div><h3>FAQ</h3><p>Questions about lessons, materials and how everything works.</p>
+      </a>
+      <a class="card" href="agb.html" data-level="any" data-text="agb terms conditions">
+        <div class="ico">📜</div><h3>Terms</h3><p>General terms and conditions for lessons.</p>
+      </a>
+    </div>
+  </section>
 
-            <!-- Book a Lesson -->
-            <div class="whatsapp-container">
-                <a href="https://wa.me/4368120283291?text=Hello%20Amy,%20I%20would%20like%20to%20book%20an%20English%20lesson!" 
-                   target="_blank" class="whatsapp-link">
-                    📱 Book a Lesson via WhatsApp
-                </a>
-            </div>
+  <!-- No results -->
+  <div class="empty" id="empty">No material matches this search yet. Try a shorter word, or choose "All levels".</div>
 
-        </div>
+  <!-- Book -->
+  <section class="book" id="book">
+    <h2>Book a lesson</h2>
+    <p>Individual and group lessons online. Send a short message and we will find a time that fits.</p>
+    <a class="wa" href="https://wa.me/4368120283291?text=Hello%20Amy,%20I%20would%20like%20to%20book%20an%20English%20lesson!" target="_blank" rel="noopener">📱 Book via WhatsApp</a>
+  </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <!-- FAQ & AGB -->
-                <div class="footer-section">
-                    <h3>📋 Information</h3>
-                    <div class="faq-buttons">
-                        <a href="faq.html" class="faq-button">❓ FAQ</a>
-                        <a href="agb.html" class="faq-button">📜 Terms</a>
-                    </div>
-                </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <h3>Information</h3>
+      <div class="links">
+        <a href="faq.html">❓ FAQ</a>
+        <a href="agb.html">📜 Terms</a>
+      </div>
+    </div>
+    <div>
+      <h3>Contact &amp; imprint</h3>
+      <p><strong>Name:</strong> Amy Lang</p>
+      <p><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#2849455144494668414306454d"><span class="__cf_email__" data-cfemail="4425293d28252a2304213c25293428216a272b29">Send me an email</span></a></p>
+      <p><strong>Phone:</strong> +43 681 20283291</p>
+      <p><strong>VAT:</strong> AT U798 77 625</p>
+    </div>
+    <div>
+      <h3>Lesson details</h3>
+      <p><strong>Format:</strong> Online via <a href="https://www.infomaniak.com/de/ksuite/kmeet" target="_blank" rel="noopener">kMeet</a></p>
+      <p>Please download and register before lessons.</p>
+      <p><strong>Languages:</strong> English, German, Hungarian</p>
+    </div>
+  </footer>
+  <p class="fineprint">© Amy Lang · English Training</p>
+</div>
 
-                <!-- Contact & Imprint -->
-                <div class="footer-section">
-                    <h3>📞 Contact & Imprint</h3>
-                    <p><strong>Name:</strong> Amy Lang</p>
-                    <p><strong>Email:</strong> <a href="/cdn-cgi/l/email-protection#2849455144494668414306454d"><span class="__cf_email__" data-cfemail="4425293d28252a2304213c25293428216a272b29">Send me an email</span></a></p>
-                    <p><strong>Phone:</strong> +43 681 20283291</p>
-                    <p><strong>VAT:</strong> AT U798 77 625</p>
-                </div>
+<script>
+(function(){
+  const search = document.getElementById('search');
+  const chips = document.querySelectorAll('#levelChips .chip');
+  const count = document.getElementById('count');
+  const empty = document.getElementById('empty');
+  const items = Array.from(document.querySelectorAll('a.card, a.dl'));
+  let level = 'all';
 
-                <!-- Lesson Details -->
-                <div class="footer-section">
-                    <h3>🎓 Lesson Details</h3>
-                    <p><strong>Format:</strong> Online 
-                        <a href="https://www.infomaniak.com/de/ksuite/kmeet" target="_blank" class="kmeet-btn">kMeet</a>
-                    </p>
-                    <p style="font-size: 0.9em; color: #666;">Please download and register before lessons</p>
-                    <p><strong>Languages:</strong> English, German, Hungarian</p>
-                    <p><
+  function apply(){
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    items.forEach(el => {
+      const lv = el.dataset.level || 'any';
+      const text = ((el.dataset.text || '') + ' ' + el.textContent).toLowerCase();
+      const levelOk = level === 'all' || lv === level || (level === 'any' && lv === 'any') || (lv === 'any' && level !== 'any' && false);
+      const textOk = !q || text.includes(q);
+      const ok = levelOk && textOk;
+      el.classList.toggle('hidden', !ok);
+      if (ok) shown++;
+    });
+    count.textContent = shown + ' of ' + items.length + ' pages';
+    empty.classList.toggle('show', shown === 0);
+    document.querySelectorAll('.dl-group, .section').forEach(sec => {
+      const visible = sec.querySelectorAll('a.card:not(.hidden), a.dl:not(.hidden)').length;
+      sec.style.display = visible || !(q || level !== 'all') ? '' : 'none';
+    });
+  }
+
+  chips.forEach(c => c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    level = c.dataset.level;
+    apply();
+  }));
+  search.addEventListener('input', apply);
+  apply();
+})();
+</script>
+</body>
+</html>
