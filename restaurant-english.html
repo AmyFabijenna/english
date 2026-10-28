@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restaurant English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f1ec; --card:#ffffff; --ink:#1b1b1f; --muted:#5b5862; --line:#e4ddd2;
+  --sky:#34527e; --petrol:#1d6a70; --lilac:#5f4a72; --terra:#9a5a3c; --moss:#4f6b45;
+  --soft-sky:#e7edf5; --soft-pet:#e1efee; --soft-lil:#ede7f1; --soft-terra:#f4e9e1; --soft-moss:#e8efe4;
+  --ok:#2f7a57; --ok-bg:#e3f1e9; --bad:#a3463e; --bad-bg:#f6e4e1;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Lexend",system-ui,sans-serif;font-size:18px;line-height:1.6;font-weight:300}
+button,select,input{font-family:inherit;font-size:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 80px}
+header.top{background:linear-gradient(135deg,#2c4669 0%,#1d6a70 60%,#5f4a72 100%);color:#fff;border-radius:26px;padding:30px 30px 26px;margin-bottom:22px;box-shadow:0 10px 30px rgba(30,40,60,.15)}
+header.top h1{margin:0 0 6px;font-size:2rem;font-weight:600;letter-spacing:-.01em}
+header.top p{margin:0;opacity:.92;font-size:1.05rem}
+.topbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:18px}
+.pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 16px;font-size:.95rem}
+.pill select{background:transparent;color:#fff;border:none;outline:none}
+.pill select option{color:#000}
+nav.modes{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px;margin-bottom:24px}
+nav.modes button{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);border:2px solid transparent;border-radius:18px;padding:12px 14px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.15s;color:var(--ink)}
+nav.modes button:hover{transform:translateY(-2px)}
+nav.modes button.active{border-color:var(--c)}
+nav.modes .num{flex:0 0 38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;background:var(--c);font-weight:600}
+nav.modes .t{font-weight:500;line-height:1.25}
+nav.modes .s{display:block;font-size:.8rem;color:var(--muted);font-weight:300}
+section.mode{display:none}
+section.mode.show{display:block}
+.intro{background:var(--card);border-radius:20px;padding:18px 22px;margin-bottom:18px;border-left:6px solid var(--c);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.intro h2{margin:0 0 4px;font-weight:600;font-size:1.45rem;color:var(--c)}
+.intro p{margin:0;color:var(--muted)}
+.card{background:var(--card);border-radius:20px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:16px}
+.muted{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.btn{background:var(--c,var(--sky));color:#fff;border:none;border-radius:14px;padding:10px 20px;cursor:pointer;font-weight:500}
+.btn.ghost{background:transparent;color:var(--c,var(--sky));border:2px solid var(--c,var(--sky))}
+.btn.small{padding:6px 14px;font-size:.92rem}
+.btn:disabled{opacity:.4;cursor:default}
+.spk{flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:none;background:var(--soft-sky);color:var(--sky);cursor:pointer;display:inline-grid;place-items:center;margin-left:8px}
+.spk:hover{background:var(--sky);color:#fff}
+.spk svg{width:18px;height:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.chip{border:2px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:.92rem;color:var(--ink)}
+.chip.on{background:var(--c);border-color:var(--c);color:#fff}
+.toolbar{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.toolbar input[type=search]{flex:1 1 240px;padding:10px 16px;border-radius:14px;border:2px solid var(--line);background:#fff}
+.switch{display:flex;gap:8px;align-items:center;cursor:pointer;font-size:.95rem}
+.switch input{width:20px;height:20px;accent-color:var(--petrol)}
+.scene{background:var(--card);border-radius:22px;padding:18px 20px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.guest{display:flex;align-items:center;gap:10px;background:var(--soft-sky);border-radius:18px 18px 18px 4px;padding:12px 16px;margin-bottom:12px}
+.guest p{margin:0;flex:1;font-weight:500}
+.who{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sky);font-weight:600;flex:0 0 auto}
+.answers{display:grid;gap:10px}
+.ans{display:flex;align-items:flex-start;gap:10px;border-radius:16px;padding:10px 14px;border:1px solid var(--line)}
+.ans p{margin:0;flex:1}
+.ans .tag{flex:0 0 96px;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;font-weight:600;padding-top:4px}
+.ans.l0{background:#faf8f5}.ans.l0 .tag{color:var(--terra)}
+.ans.l1{background:var(--soft-pet)}.ans.l1 .tag{color:var(--petrol)}
+.ans.l2{background:var(--soft-lil)}.ans.l2 .tag{color:var(--lilac)}
+mark{background:#f3e3b8;border-radius:6px;padding:0 4px}
+.answers.hide .ans p{filter:blur(7px);user-select:none}
+.progress{display:flex;justify-content:space-between;color:var(--muted);font-size:.95rem;margin-bottom:10px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;background:var(--c);transition:.3s}
+.qcard .label{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.qline{display:flex;align-items:center;font-size:1.25rem;font-weight:500}
+.qline span{flex:1}
+.starter{font-size:1.25rem;margin-top:12px}
+.starter b{color:var(--c);font-weight:600}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:12px 16px;cursor:pointer;color:var(--ink);transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--c)}
+.opt .letter{flex:0 0 32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--soft-sky);color:var(--sky);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.right .letter{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt.wrong .letter{background:var(--bad);color:#fff}
+.opt:disabled{cursor:default}
+.feedback{margin-top:14px}
+.fb{border-radius:14px;padding:10px 14px;margin-bottom:8px;font-size:.95rem}
+.fb.ok{background:var(--ok-bg);border-left:5px solid var(--ok)}
+.fb.no{background:#f7f4f0;border-left:5px solid #c9b9a8}
+.fb b{font-weight:600}
+.tipbox{background:var(--soft-terra);border-radius:14px;padding:10px 14px;margin-top:8px;font-size:.95rem}
+.alts{background:var(--soft-lil);border-radius:14px;padding:10px 14px;margin-top:8px}
+.alts div{display:flex;align-items:center;margin:4px 0}
+.alts div span{flex:1}
+.rude{background:var(--bad-bg);border-radius:14px;padding:10px 14px;margin-top:10px;text-decoration:line-through;text-decoration-color:var(--bad);color:#6b3b36}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mcol{display:grid;gap:10px;align-content:start}
+.mitem{border:2px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;cursor:pointer;text-align:left;color:var(--ink);transition:.15s}
+.mitem.sel{border-color:var(--c);background:var(--soft-pet)}
+.mitem.done{border-color:var(--ok);background:var(--ok-bg);cursor:default;opacity:.75}
+.mitem.shake{animation:shake .35s;border-color:var(--bad)}
+.mitem.expr{font-weight:500}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.learned{display:grid;gap:8px;margin-top:6px}
+.learned div{background:var(--soft-moss);border-radius:12px;padding:8px 12px;font-size:.95rem;display:flex;align-items:center}
+.learned div span{flex:1}
+.m10{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.qrow{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.qrow .n{flex:0 0 30px;height:30px;border-radius:10px;background:var(--soft-lil);color:var(--lilac);display:grid;place-items:center;font-weight:600}
+.qrow p{margin:0;flex:1}
+.qrow select{flex:0 0 74px;padding:6px;border-radius:10px;border:2px solid var(--line);background:#fff}
+.qrow select.ok{border-color:var(--ok);background:var(--ok-bg)}
+.qrow select.no{border-color:var(--bad);background:var(--bad-bg)}
+.arow{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line)}
+.arow .n{flex:0 0 30px;height:30px;border-radius:10px;background:var(--soft-terra);color:var(--terra);display:grid;place-items:center;font-weight:600}
+.arow p{margin:0;flex:1}
+.line,.pool{min-height:62px;border-radius:16px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.line{background:var(--soft-pet);border:2px dashed var(--petrol);margin:10px 0}
+.pool{background:#faf8f5;border:1px solid var(--line)}
+.word{background:#fff;border:2px solid var(--line);border-radius:12px;padding:6px 12px;cursor:pointer;color:var(--ink)}
+.line .word{border-color:var(--petrol)}
+.gap{display:inline-block;padding:4px 8px;margin:0 3px;border-radius:10px;border:2px solid var(--line);background:#fff;color:var(--ink)}
+.gap.ok{border-color:var(--ok);background:var(--ok-bg)}
+.gap.no{border-color:var(--bad);background:var(--bad-bg)}
+.gline{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.gline .n{flex:0 0 30px;color:var(--muted)}
+.gline .txt{flex:1;line-height:2.2}
+.gline .sol{display:block;font-size:.88rem;color:var(--bad);line-height:1.4}
+.storylist{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.story{background:var(--card);border-radius:20px;padding:18px;cursor:pointer;border:2px solid transparent;box-shadow:0 2px 10px rgba(0,0,0,.05);text-align:left;color:var(--ink)}
+.story:hover{border-color:var(--c)}
+.story h3{margin:0 0 6px;color:var(--c);font-weight:600}
+.story p{margin:0;color:var(--muted);font-size:.95rem}
+.result{text-align:center;padding:30px}
+.result .big{font-size:2.6rem;font-weight:600;color:var(--c)}
+.playbig{width:84px;height:84px;border-radius:50%;border:none;background:var(--c);color:#fff;cursor:pointer;display:grid;place-items:center;margin:6px auto 10px}
+.playbig svg{width:36px;height:36px}
+.hiddenq{filter:blur(8px);user-select:none}
+@media (max-width:720px){
+  .match,.m10{grid-template-columns:1fr}
+  header.top h1{font-size:1.55rem}
+  .ans{flex-wrap:wrap}.ans .tag{flex-basis:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>English for Your Restaurant</h1>
+    <p>Welcome international guests, answer every question with confidence – and always find the elegant words.</p>
+    <div class="topbar">
+      <span class="pill">★ Points: <b id="score">0</b></span>
+      <span class="pill">Voice speed:
+        <select id="rate"><option value="0.7">slow</option><option value="0.85" selected>relaxed</option><option value="1">normal</option></select>
+      </span>
+      <span class="pill">Tip: click the speaker to hear every sentence</span>
+    </div>
+  </header>
+  <nav class="modes" id="nav"></nav>
+  <main id="main"></main>
+</div>
+
+<script>
+/* ================= DATA ================= */
+
+const LV=["Short","Polite","Detailed & elegant"];
+
+const PHRASES=[
+{cat:"Welcome & Tables",items:[
+["Hi, do you have a table for two?","Yes, of course. This way, please.","Good evening! Yes, we do. Would you prefer a table by the window or somewhere a little quieter?","Good evening and welcome! Yes, we have a lovely table for two available. Please follow me – may I take your coats?"],
+["We don't have a reservation. Is that a problem?","No problem at all. Come in!","Not at all. Just give me a moment to check which table is free.","That's absolutely fine. We're quite busy tonight, but if you don't mind waiting about ten minutes, I'll have a nice table ready for you. Would you like something to drink while you wait?"],
+["Can we sit outside?","Sure, please take any free table.","Of course – the terrace is open. Shall I bring the menus outside for you?","I'm sorry, our terrace is closed for the winter. But I can give you a table by the window – you'll still have a nice view of the street."],
+["We're a group of twelve. Can you fit us in?","Yes – give me five minutes, please.","Of course. Let me put two tables together for you; it'll only take a few minutes.","We'd be happy to! For groups we also have set menus at a fixed price per person, which makes ordering much easier. Shall I show you our group menu while we prepare your table?"],
+["Is this table free?","Yes, please sit down.","I'm sorry, that one is reserved. But the table in the corner is free – would that be all right?","Unfortunately this table is reserved from eight o'clock. If you'll be finished by then, you're welcome to sit here – otherwise I'd suggest the table by the window, which is free all evening."],
+["Can I hang my coat somewhere?","Yes, the coat rack is by the door.","Of course – let me take it for you.","Of course! Let me take your coat and hang it up for you. You'll find it on the coat rack by the entrance when you leave."]
+]},
+{cat:"Booking by Phone",items:[
+["I'd like to book a table for Saturday evening.","Sure. For how many people?","Certainly. For how many people, and what time would suit you?","With pleasure. Saturday evening is usually very busy, so it's good that you're calling early. What time would you like, and may I have your name and a phone number, please?"],
+["Are you fully booked tonight?","I'm sorry, yes, we are.","I'm afraid we're fully booked tonight, but we still have tables tomorrow evening.","I'm very sorry, we're completely booked this evening. If you like, I can put you on our waiting list and call you if a table becomes free – or I'd be happy to reserve a table for you tomorrow."],
+["Can I change my reservation to eight o'clock?","Yes, no problem.","Of course. Could you tell me the name of the booking, please?","Certainly. May I have the name the table is booked under? Thank you – I've moved your reservation to eight o'clock. We look forward to seeing you!"],
+["I need to cancel my booking.","OK, thank you for letting me know.","No problem – thank you for calling. Under which name was the booking?","That's no problem at all, and thank you very much for letting us know – that way we can give the table to other guests. I hope we'll see you another time!"],
+["Can we bring our own birthday cake?","Yes, of course.","Of course! We can keep it in the fridge and bring it out at the right moment.","Of course you can. Just give it to us when you arrive – we'll keep it cool, bring it out with candles at the right moment, and we'll provide plates and forks. There's no extra charge."],
+["Do I need to book in advance?","At the weekend, yes.","During the week it's not necessary, but at the weekend we recommend booking.","For lunch during the week you can usually just come in. On Friday and Saturday evenings, though, we're often full, so I'd recommend booking a day or two in advance."]
+]},
+{cat:"Menu & Dishes",items:[
+["What do you recommend?","The crispy duck is very good.","I can really recommend our crispy duck – it's our most popular dish.","If you like meat, I'd recommend our crispy duck with plum sauce – it's our house speciality. If you'd prefer something lighter, the steamed fish with ginger and spring onions is excellent."],
+["What is Kung Pao chicken?","Chicken with peanuts and chilli.","It's diced chicken, stir-fried with peanuts, vegetables and dried chillies. It's a little spicy.","Kung Pao chicken is a classic dish from Sichuan. The chicken is stir-fried with peanuts, spring onions and dried chillies in a slightly sweet, slightly spicy sauce. It goes perfectly with steamed rice."],
+["What are dim sum?","Small Chinese snacks – like dumplings.","Dim sum are small dishes, for example steamed dumplings, buns and spring rolls. People usually share them.","Dim sum are small bites from southern China – steamed dumplings, little buns, spring rolls and more. Traditionally you order several baskets for the table and everybody shares. It's a great way to try many different things!"],
+["How big are the portions?","Quite big.","The main dishes are a good size – one dish per person is usually enough.","Our portions are generous. Many guests order a few different dishes and share them – that's the Chinese way of eating, and you get to taste more!"],
+["Does it come with rice?","Yes, rice is included.","Yes, all main dishes come with steamed rice. Fried rice is two euros extra.","Yes, every main dish comes with a bowl of steamed jasmine rice. If you prefer, you can have egg fried rice or noodles instead for a small extra charge of two euros."],
+["What's the difference between chow mein and fried rice?","One is noodles, one is rice.","Chow mein is stir-fried noodles, and fried rice is rice fried in the wok with egg and vegetables.","Both are cooked in the wok with vegetables and your choice of meat or tofu. The difference is the base: chow mein is made with egg noodles, fried rice with rice. If you can't decide, order one of each and share!"],
+["Is there MSG in your food?","No, we don't use MSG.","We don't add any MSG – we cook with fresh ingredients.","No, we don't add MSG to any of our dishes. We use fresh vegetables, our own stock and natural spices. If you have any other questions about ingredients, just ask me."],
+["How do I eat this?","Dip it in the sauce.","Just dip the dumpling in the soy-vinegar sauce and eat it in one or two bites.","Take a dumpling with your chopsticks, dip it lightly in the sauce – soy sauce, vinegar and a little chilli – and eat it in one or two bites. Be careful, the filling is still hot!"],
+["Could I have a fork, please?","Of course, here you are.","Of course – I'll bring you a knife and fork right away.","Of course! Chopsticks aren't for everyone – here's a knife and fork for you. And if you'd like to try chopsticks, I'm happy to show you how to hold them."]
+]},
+{cat:"Spicy, Allergies & Diets",items:[
+["Is this dish spicy?","Yes, a little.","It's medium spicy, but we can make it milder for you.","It's quite spicy – it's a Sichuan dish. But don't worry: the chef can make it mild, medium or hot, just as you like."],
+["Can you make it extra hot?","Sure, no problem!","Of course – I'll tell the chef to make it extra spicy for you.","Of course! But I must warn you – our extra hot is really hot, even for many Chinese guests. Shall I bring some chilli oil on the side, so you can add as much as you like?"],
+["Do you have vegetarian dishes?","Yes, we have several.","Yes, of course. All vegetarian dishes have a green leaf on the menu.","Yes, we do. We have tofu dishes, vegetable noodles, vegetable spring rolls and a vegetarian mapo tofu. And almost every dish can be made with tofu instead of meat."],
+["Is this vegan?","Not quite, but we can make it vegan.","The sauce contains oyster sauce, but the chef can make it without – then it's vegan.","Almost – the vegetables and tofu are vegan, but the sauce normally contains oyster sauce and the noodles contain egg. The chef can prepare it with a vegan sauce and rice noodles instead. Shall I order it like that for you?"],
+["I'm allergic to peanuts. What can I eat?","Thank you for telling me. Please avoid the Kung Pao chicken.","Thank you for letting me know. I'll ask the chef which dishes are safe for you.","Thank you very much for telling me – I'll inform the kitchen right away. Many of our dishes have no nuts at all, but please avoid the Kung Pao chicken and the satay. You'll find our allergen list on the last page of the menu."],
+["Is it gluten-free?","Not this one, I'm sorry.","Normal soy sauce contains wheat, but we can use a gluten-free soy sauce for most dishes.","Good question! Normal soy sauce contains wheat, so many Chinese dishes are not gluten-free. But we have gluten-free soy sauce, and rice and rice noodles are naturally gluten-free. Let me show you which dishes we can prepare safely for you."],
+["Can I have it without onions?","Yes, of course.","Of course – I'll tell the kitchen: no onions.","Of course, no problem at all. I'll write it on the order so the chef makes your dish without onions. Is there anything else you don't eat?"]
+]},
+{cat:"Drinks, Specials & Desserts",items:[
+["Do you have any specials today?","Yes – Sichuan fish in chilli oil.","Yes, today's special is steamed sea bass with ginger and spring onions.","Yes, we do! Today the chef has prepared fresh sea bass in black bean sauce, and our lunch special is three courses for 11.90 euros: a soup, a main dish and dessert."],
+["What's on the lunch menu?","Soup, a main dish and dessert.","The lunch menu is a soup or spring roll, a main dish of your choice and a small dessert.","Our lunch menu, from Tuesday to Friday between half past eleven and half past two, includes a hot-and-sour soup or a spring roll, a main dish from the lunch card and a small dessert – all for 11.90 euros."],
+["What drinks do you have?","Beer, wine, tea and soft drinks.","We have Chinese beer, Austrian wine, Chinese teas and soft drinks. The drinks menu is on the back.","We have quite a choice: Tsingtao beer from China, local Austrian wines, several Chinese teas such as jasmine and oolong, fresh juices and soft drinks. If you'd like something special, try our homemade lychee lemonade!"],
+["Do you have Chinese beer?","Yes, we have Tsingtao.","Yes, we have Tsingtao – it's a light lager from Qingdao.","Yes, we do – Tsingtao, China's most famous beer. It's light and refreshing and goes very well with spicy food. Would you like a small or a large one?"],
+["What kind of tea do you have?","Jasmine, green and oolong tea.","We have jasmine tea, green tea, oolong and pu'er.","We have four Chinese teas: jasmine tea, which is light and flowery; green tea; oolong, which is a little stronger; and pu'er, a dark tea that's good for digestion after a big meal. They're all served in a pot."],
+["Can I have a glass of tap water, please?","Of course.","Of course – would you like ice and lemon with it?","Of course! I'll bring you a jug of water for the table, so you can help yourselves. Would you like some ice or a slice of lemon?"],
+["What do you have for dessert?","Ice cream and sesame balls.","We have fried banana with honey, sesame balls and mango ice cream.","For dessert we have fried banana with honey, sesame balls filled with red bean paste, and homemade mango pudding. If you can't decide, I'd recommend the sesame balls – they're warm, crispy and not too sweet."],
+["Is the fortune cookie free?","Yes, it's on the house!","Yes, of course – the fortune cookies are on the house.","Yes, it's our little gift to you! Fortune cookies actually aren't from China – they were invented in America – but our guests love them, so we always bring them with the bill."]
+]},
+{cat:"Prices & Paying",items:[
+["How much is the lunch menu?","11.90 euros.","It's 11.90 euros, including soup and dessert.","The lunch menu is 11.90 euros. That includes a soup or spring roll, a main dish and a small dessert – drinks are extra."],
+["Can I pay by card?","Yes, of course.","Yes, we accept all major cards and contactless payment.","Of course. We take debit and credit cards, and you can also pay by phone. I'll bring the card machine to your table."],
+["Could we have the bill, please?","Of course, one moment.","Certainly – I'll bring it right away.","Of course. I'll bring it to you right away. Would you like to pay together or separately?"],
+["Can we pay separately?","Yes, no problem.","Of course. Does everybody pay for their own dishes?","Of course. Shall I split the bill equally, or would each of you like to pay for your own food and drinks? Just tell me who had what and I'll do the rest."],
+["Is service included?","Yes, it is.","Yes, service is included, but tips are always welcome.","Yes, service is included in our prices. Tipping isn't obligatory, but in Austria many guests round up the bill or leave about five to ten percent."],
+["Why is the price different from the menu on your website?","I'm sorry – the website isn't up to date.","I'm sorry about that – our prices changed last month and the website hasn't been updated yet.","I'm very sorry for the confusion. We changed our prices last month and unfortunately the website isn't up to date yet. Of course, today you'll pay the price from the website – thank you for telling me."],
+["Keep the change.","Thank you very much!","That's very kind of you – thank you!","Thank you so much, that's very generous of you. I hope you enjoyed your evening, and we'll see you again soon!"]
+]},
+{cat:"Opening Hours & Practical",items:[
+["What are your opening hours?","Tuesday to Sunday, lunch and dinner.","We're open from Tuesday to Sunday, 11.30 am to 2.30 pm and 5.30 pm to 10 pm.","We're open from Tuesday to Sunday – for lunch from half past eleven to half past two and for dinner from half past five to ten. On Mondays we're closed. You'll also find our opening hours on our website."],
+["Are you open on public holidays?","Yes, we are.","Yes, we're open on most public holidays, but closed at Christmas.","We're open on most public holidays with our normal hours. Only on the 24th and 25th of December we're closed. If you're not sure, just give us a quick call before you come."],
+["When does the kitchen close?","At half past nine.","The kitchen closes at half past nine, but you can still order drinks after that.","The kitchen takes the last orders at half past nine. If you'd like to order food, I'd suggest doing it now – after that you can still have drinks and desserts."],
+["Where is the toilet, please?","Over there, on the left.","The toilets are downstairs, on the right.","The toilets are at the back of the restaurant – go past the bar, and it's the second door on the left. There's also an accessible toilet on this floor, next to the entrance."],
+["Do you have Wi-Fi?","Yes, the password is on the card.","Yes, we do. The network name and password are on the little card on your table.","Yes, we have free Wi-Fi for our guests. The network name and password are printed on the card on your table – if it doesn't work, just let me know and I'll help you."],
+["Do you have a high chair for my little one?","Yes, I'll bring one.","Of course – I'll bring a high chair right away.","Of course! I'll bring a high chair for your little one right away. We also have a small children's menu and some crayons, if that helps."],
+["Can I bring my dog in?","Yes, dogs are welcome.","Of course – would you like a bowl of water for your dog?","Yes, well-behaved dogs are very welcome. I'll bring a bowl of water. We just ask that the dog stays under the table, because the waiters carry hot food."],
+["Is there parking nearby?","Yes, around the corner.","There's a public car park just around the corner, about two minutes on foot.","We don't have our own car park, but there's a public parking garage just around the corner – about two minutes' walk. In the evening there are often free spaces in the street, too."],
+["Can I charge my phone somewhere?","Yes, here's a socket.","Of course – I can charge it for you at the bar.","Of course. There's a socket next to the table by the window, or if you give me your phone and the cable, I can charge it for you at the bar."]
+]},
+{cat:"Takeaway & Delivery",items:[
+["Can I order takeaway?","Yes, of course.","Of course – here's our takeaway menu. What would you like?","Of course! You can order from the whole menu. If you like, you can order now and have a drink while we prepare it – it usually takes about fifteen minutes."],
+["How long will it take?","About fifteen minutes.","It'll be ready in about fifteen to twenty minutes.","At the moment it takes about twenty minutes, because we're quite busy. Would you like to wait here, or shall I call you when it's ready?"],
+["Do you deliver?","Yes, we do.","Yes, we deliver within the city – you can order by phone or online.","Yes, we deliver within about five kilometres. You can order by phone or through the delivery apps. Delivery usually takes thirty to forty-five minutes, and orders over 25 euros are delivered free."],
+["Can I take the leftovers home?","Of course!","Of course – I'll pack them up for you.","Of course! I'll pack them up for you in a box. You can warm them up in a pan or the microwave tomorrow – they'll taste just as good."],
+["Is the packaging free?","Yes, it's free.","There's a small charge of 50 cents for each box.","For takeaway there's a small charge of 50 cents per box, because we use eco-friendly packaging. If you bring your own containers next time, there's no charge at all."]
+]},
+{cat:"Problems & Complaints",items:[
+["Excuse me, this isn't what I ordered.","I'm so sorry – I'll change it right away.","I'm very sorry about that. I'll bring you the right dish immediately.","I'm terribly sorry for the mistake. Let me take this back and bring you what you ordered as quickly as possible. In the meantime, may I offer you a drink on the house?"],
+["My food is cold.","I'm sorry, I'll heat it up.","I'm so sorry. Let me take it back to the kitchen and bring you a fresh, hot plate.","I do apologise – that shouldn't happen. I'll take it back right away, and the chef will prepare it fresh for you. It will only take a few minutes."],
+["We've been waiting for forty minutes!","I'm sorry – your food is coming now.","I'm very sorry for the long wait. Let me check with the kitchen right away.","I'm really sorry for keeping you waiting so long – the kitchen is extremely busy tonight. Let me check on your order right now. And please, have the next drinks on the house."],
+["There's a hair in my soup.","I'm so sorry! I'll bring a new one.","I'm terribly sorry. I'll take it away and bring you a new soup right away.","I'm so sorry – that's really not acceptable. I'll take it away immediately and bring you a fresh soup, and of course you won't pay for it today."],
+["It's too spicy for me.","I'm sorry. Shall I bring something milder?","I'm sorry about that. Would you like some rice, or a milder version of the dish?","Oh, I'm sorry it's too hot for you! I can bring you some plain rice and a cold drink right away – that helps. Or, if you prefer, the chef can make you a mild version instead."],
+["I think there's a mistake on the bill.","Let me check.","I'm sorry – let me check that for you right away.","Thank you for telling me – let me check it with you. You're absolutely right, the soup was charged twice. I'm sorry for the mistake; here's the corrected bill."],
+["It's a bit cold in here.","I'll turn up the heating.","I'm sorry – I'll turn up the heating. Would you like to sit further away from the door?","I'm sorry, the door opens a lot this evening. I'll turn up the heating for you, and if you like, you're welcome to move to the table at the back – it's warmer and cosier there."]
+]},
+{cat:"Small Talk & Goodbye",items:[
+["The food was delicious!","Thank you so much!","Thank you – I'm so glad you enjoyed it. I'll tell the chef.","Thank you very much, that's so kind of you! The chef will be very happy to hear that. We hope to see you again soon!"],
+["Where are you from?","I'm from China – from [your city].","I'm from [your city], in China. Have you ever been to China?","I'm from China, from [your city]. It's famous for its food – that's why cooking is in my blood! I've been living in Austria for many years now, and I really love it here."],
+["How long have you had this restaurant?","For [eight] years.","We opened it [eight] years ago, and we love being here.","We've had the restaurant for [eight] years now. When we started, we were a small family business – and we still are! Many of our guests have been coming since the very beginning."],
+["Do you speak German?","Yes, a little.","Yes, I speak German too – we can speak German if you prefer.","Yes, I do – I've lived in Austria for many years. But I'm also happy to practise my English with you. Which language do you prefer?"],
+["Is it always this busy?","At the weekend, yes!","Friday and Saturday evenings are always busy – during the week it's quieter.","On Friday and Saturday evenings, yes – we're very lucky! If you prefer a quieter atmosphere, come during the week or for lunch; it's much more relaxed then."],
+["Do you have a loyalty card?","Yes, here you are.","Yes – every tenth main dish is free. Would you like one?","Yes, we do! You get a stamp for every main dish, and after ten stamps your next main dish is on us. Here's your card with today's stamp already on it."],
+["Thank you, goodbye!","Goodbye! Have a nice evening!","Thank you for coming! Have a lovely evening.","Thank you very much for coming – it was a pleasure to have you here. Have a wonderful evening, and we hope to see you again soon!"]
+]},
+{cat:"Tourists & Hotel Guests",items:[
+["Could you call us a taxi?","Of course, one moment.","Of course – I'll call one for you now. It usually takes about five minutes.","Of course. I'll call a taxi for you right away – it'll be here in about five to ten minutes. You're welcome to wait inside where it's warm, and I'll tell you when it arrives."],
+["How do I get to the main square?","Straight on, then left. About five minutes.","Go straight down this street and turn left at the traffic lights. It's about five minutes on foot.","It's very close. When you leave the restaurant, turn right and go straight on until the traffic lights, then turn left – you'll see the main square in front of you. It takes about five minutes on foot."],
+["What should we see in Graz?","The Schlossberg and the clock tower.","You should definitely visit the Schlossberg with the clock tower, and walk through the old town.","There's a lot to see! Definitely go up the Schlossberg to the clock tower – the view over the red roofs is beautiful. Then walk through the old town and see the Kunsthaus by the river. And of course, try some Styrian pumpkin seed oil!"],
+["Can you recommend a hotel nearby?","Yes, there's one around the corner.","There's a nice hotel just around the corner – I can give you the address.","Yes, there are a few good hotels within walking distance. There's a nice, quiet hotel just around the corner, and if you'd like something cheaper, there's a guesthouse near the station. Shall I write down the addresses for you?"],
+["Do you have a menu in English?","Yes, here you are.","Yes, of course – here's our English menu.","Yes, of course. Here's our menu in English – the dishes also have numbers and pictures, so it's easy to order. If anything isn't clear, just ask me."],
+["Is it far to the main station?","About fifteen minutes on foot.","It's about fifteen minutes on foot, or five minutes by tram.","On foot it takes about fifteen minutes. But it's easier by tram – the stop is just across the street, and the ride takes about five minutes. You can buy a ticket at the machine at the stop."],
+["Can we leave our luggage here for an hour?","Yes, no problem.","Of course – you can leave it in the corner by the bar.","Of course. We'll keep your suitcases behind the bar, where we can see them. Just pick them up whenever you're ready – we're open until ten."]
+]}
+];
+
+const MC=[
+{g:"Do you have a table for four?",o:[["Yes, we do. Please follow me.","Perfect: a question with “Do you…?” gets a short answer with “do”: Yes, we do."],["Yes, we have. Please follow me.","You can't stop after “have” here. Say “Yes, we do.” or “Yes, we have one.”"],["Yes, we are. Please follow me.","The question uses “do”, not “are”. A short answer repeats the same helping verb."],["Yes, four tables are free – please choose one.","Content problem: the guests want ONE table for four PEOPLE, not four tables."]]},
+{g:"How long will we have to wait?",o:[["About fifteen minutes, I'm afraid.","Correct and polite – “I'm afraid” softens bad news."],["Since fifteen minutes.","German thinking (“seit”). “Since” needs a starting point (since 7 o'clock) – and the waiting is in the future anyway."],["Fifteen minutes ago.","“Ago” is for the past. The waiting is still to come."],["Until fifteen minutes.","“Until” needs a clock time (until 8 pm), not a length of time."]]},
+{g:"Is the soup spicy?",o:[["It's a little spicy, but the chef can make it milder for you.","Honest information plus a helpful offer – excellent service."],["It's a little spice.","“Spice” is a noun (pepper, chilli). After “it's” you need the adjective: spicy."],["No, it's very spicy.","Contradiction: “No” and “very spicy” don't go together."],["It's spicy – just like you, darling!","A joke that is far too personal. Never flirt with guests!"]]},
+{g:"Can I pay by card?",o:[["Yes, of course you can.","Correct short answer: Can I…? – Yes, you can."],["Yes, you can pay by card, but only in cash.","Contradiction: card and cash are opposites."],["Yes, of course you can pay by a card.","We say “pay by card” without “a” – like “by bus” or “by phone”."],["Yes, card is possible from you.","This is not English word order or meaning. Say: “Yes, you can pay by card.”"]]},
+{g:"Excuse me, where's the toilet?",o:[["It's at the back, on the left.","Correct: “at the back” of a room, “on the left”."],["It's on the back.","Wrong preposition: “at the back”. “On the back” means on the back side of something, like a photo."],["Maybe behind the kitchen, I think.","You are the owner – you must know! And guests shouldn't walk through the kitchen."],["The toilet is only for guests.","The person asking IS a guest – this sounds rude."]]},
+{g:"What time do you close?",o:[["We close at ten o'clock.","Correct: “at” + clock time."],["We close on ten o'clock.","Wrong preposition: clock times take “at”; days take “on”."],["We closed at ten.","Past tense – it sounds as if you are already closed."],["At ten o'clock we are close.","“Close” (with a soft s) means “near”. The opposite of “open” is “closed”."]]},
+{g:"Could we have the bill, please?",o:[["Of course, I'll bring it right away.","Correct: “I'll” (will) is used for spontaneous offers and promises."],["Of course, I bring it right away.","For a promise in this moment, English uses “I'll bring”, not the present simple."],["Of course, I'll bring it right now away.","“Right away” is a fixed expression – you can't put “now” in the middle."],["Of course – but don't be shocked, it's expensive!","A joke that makes guests nervous. Never comment on the bill like this."]]},
+{g:"Is service included?",o:[["Yes, service is included, but tips are always welcome.","Clear and friendly."],["Yes, service is inclusive.","False friend! German “inklusive” = English “included”. “Inclusive” means open to everybody."],["Yes, service is included, so please give a 20% tip.","Illogical and pushy: if service is included, a tip is optional."],["Yes, the service includes you.","Funny nonsense – the service doesn't “include” the guest."]]},
+{g:"I'm allergic to nuts.",o:[["Thank you for telling me. I'll let the kitchen know right away.","Perfect: thank the guest, then act immediately."],["Thank you for telling me. I let the kitchen know right away.","For a promise you need “I'll let…”."],["No problem, we'll take the nuts off the plate before serving.","Dangerous! Removing nuts after cooking does NOT help someone with an allergy."],["Bless you!","We say “Bless you!” when someone sneezes – not for allergies."]]},
+{g:"Do you have anything vegetarian?",o:[["Yes, several – our tofu dishes are very popular.","Correct and helpful."],["Yes, we have much vegetarian dishes.","“Much” is for things you can't count (much rice). Dishes can be counted: many dishes."],["Yes, for example chicken with vegetables.","Chicken is meat – not vegetarian!"],["Yes, several – the vegetarians are very popular.","A “vegetarian” is a person! You mean “vegetarian dishes”."]]},
+{g:"Can I take the leftovers home?",o:[["Of course, I'll pack them up for you.","“Leftovers” is plural → “them”. “Pack up” = put into a box."],["Of course, I'll take them away.","“Take away” here means to remove them – the guest would lose the food!"],["Of course, I'll pack up for you.","Without an object, “pack up” means to finish work and go home. You need “pack them up”."],["Sorry, doggy bags are only for dogs.","A joke – a “doggy bag” is just a name for a box of leftovers for people."]]},
+{g:"Are you open on Mondays?",o:[["No, we're closed on Mondays.","Correct: “be closed” + “on” + day."],["No, on Mondays we have closed.","German pattern. In English: “we are closed” (a state), not “have closed”."],["No, we're open on Mondays.","Contradiction: “No” + “open”."],["No, on Mondays we sleep in the restaurant.","A joke – not something to tell guests!"]]},
+{g:"This isn't what I ordered.",o:[["I'm so sorry about that. I'll change it immediately.","Apology + action. Perfect."],["I'm so sorry about that. I change it immediately.","For a promise: “I'll change…”."],["That's impossible – our kitchen never makes mistakes.","Arguing with a guest is always the wrong reaction."],["I'm so sorry. Please eat it first, then I'll change it.","Illogical – once it's eaten, there's nothing to change."]]},
+{g:"What would you recommend?",o:[["I'd recommend the crispy duck – it's our most popular dish.","Correct: recommend + thing."],["I recommend you the duck.","German pattern (“Ich empfehle Ihnen…”). Say “I'd recommend the duck” or “I recommend the duck to you”."],["I would recommend to eat the duck.","“Recommend” is not followed by “to + verb”. Say “I'd recommend trying the duck”."],["Everything is good – but please don't order the fish.","Never say bad things about your own food!"]]},
+{g:"Do you deliver?",o:[["Yes, we deliver within the city.","Correct: “within” = inside an area."],["Yes, we are delivering in the city since 2015.","With “since” you need the present perfect: “We have been delivering since 2015.”"],["Yes, we bring it to your home – but you have to pick it up.","Contradiction: delivery means you don't pick it up."],["Yes, we deliver babies too.","Joke: to “deliver a baby” means to help a baby be born!"]]},
+{g:"How much is the lunch menu?",o:[["It's 11.90 euros, including soup and dessert.","Correct and informative."],["It makes 11.90 euros.","German “Das macht…”. In English: “It's…” or “That comes to…”."],["It's 11.90 euros, including soup and dessert, but soup and dessert are extra.","Contradiction: “including” means they are part of the price."],["It costs much.","Not an answer – the guest wants a number. And “It costs much” is unnatural."]]},
+{g:"Can we sit anywhere?",o:[["Yes, please sit wherever you like.","Correct and welcoming."],["Yes, please sit everywhere.","“Everywhere” = in all places at once. Impossible! You mean “anywhere / wherever you like”."],["Yes, please sit where you like it.","“Like it” is unnatural here: “wherever you like”."],["Yes, anywhere you like – except at the tables.","A joke: where else should they sit?"]]},
+{g:"Are the vegetables fresh?",o:[["Yes, we buy them fresh at the market every morning.","Correct: “at the market”."],["Yes, we buy them fresh on the market every morning.","“On the market” means “for sale” (a new phone is on the market). The place is “at the market”."],["Yes, very fresh – we bought them last month.","A month is not fresh!"],["Yes, they're fresh from the freezer.","Contradiction: frozen is not fresh."]]},
+{g:"Do you speak German?",o:[["Yes, a little.","Correct and modest."],["Yes, I speak a few German.","“A few” is for countable things (a few words). For a language: “a little German”."],["Yes, German is speaking here.","The passive is needed: “German is spoken here.”"],["Yes, I am German.","Wrong information – speaking a language doesn't make you German."]]},
+{g:"Could you call us a taxi?",o:[["Of course, I'll call one for you now.","Correct: “one” = a taxi."],["Of course – you're a taxi!","Classic joke: “call us a taxi” can also mean “give us the name ‘taxi’”. Funny, but not what the guest means!"],["Of course, I'll call for you a taxi.","Word order: “I'll call you a taxi” or “I'll call a taxi for you”."],["Of course – it arrived ten minutes ago.","Impossible: the taxi can't arrive before you call it."]]},
+{g:"We'd like to split the bill.",o:[["Of course. Shall I split it equally, or does everyone pay for their own dishes?","Correct and helpful – it clarifies how to split."],["Of course. Do you want pay separately?","Missing “to”: want TO pay."],["Of course – I'll cut it in half with scissors.","Joke: “split” here means divide the cost, not the paper."],["Sorry, splitting the bill isn't allowed in Austria.","False – of course it's allowed."]]},
+{g:"Does the fish have bones?",o:[["Yes, a few small ones, so please be careful.","Correct: “a few” + countable bones; “ones” replaces “bones”."],["Yes, a little small bones, so please be careful.","“A little” is for uncountable things. Bones can be counted → “a few”."],["No, it has no bones, so please be careful of the bones.","Contradiction."],["Bones? No, our fish is very happy.","Nonsense joke – it doesn't answer anything."]]},
+{g:"Have you got a high chair for my baby?",o:[["Yes, I'll bring one right away.","Correct."],["Yes, we have got. I'll bring.","Both sentences are incomplete: “Yes, we have.” and “I'll bring one.”"],["Yes, but babies aren't allowed to sit in it.","Joke – a high chair IS for babies."],["Yes, I'll bring you a high one.","“A high one” means a tall chair. A “high chair” is a special chair for small children."]]},
+{g:"How spicy is “medium”?",o:[["It's spicier than mild, but not as hot as “hot”.","Correct comparatives: spicier than…, not as… as."],["It's more spicier than mild.","Double comparative: “more” + “-er” is wrong. Just “spicier”."],["It's the spiciest of all.","That would describe “hot”, not “medium”."],["Medium is the size of the plate.","Content: here “medium” means spice level, not portion size."]]},
+{g:"Thank you, everything was delicious!",o:[["Thank you! I'm glad you enjoyed it.","Correct: “enjoy” needs an object (it / your meal)."],["Thank you! I'm glad you enjoyed.","“Enjoy” can't stand alone: enjoyed it / enjoyed your meal."],["You're welcome. I know.","Sounds arrogant."],["Thank you! Please come back tomorrow – it's obligatory.","Joke: guests are never obliged to come back."]]},
+{g:"Do you have a menu in English?",o:[["Yes, here you are.","Correct fixed phrase when you hand something over."],["Yes, here are you.","Wrong word order: “Here you are.”"],["Yes, I give you.","Missing object and wrong tense: “I'll give you one.”"],["Yes, but only on Tuesdays.","Silly – a menu is there every day."]]},
+{g:"Could I get a glass of tap water?",o:[["Of course, I'll bring you one.","Correct."],["Of course, I'll bring you a tap.","Joke: a tap is the thing the water comes out of!"],["Of course, I'll bring you one tap water glass.","Unnatural word order: “a glass of tap water”."],["Sorry, tap water is forbidden here.","Not true, and unfriendly – tap water is normal in Austria."]]},
+{g:"Is it far to the Schlossberg?",o:[["No, it's about ten minutes on foot.","Correct: “on foot”."],["No, it's about ten minutes with foot.","Wrong preposition: “on foot” (but “by car”, “by tram”)."],["No, it's about ten minutes by feet.","Fixed expression: “on foot” – singular, with “on”."],["Yes, very far – about ten minutes on foot.","Contradiction: ten minutes is not far."]]},
+{g:"Are you the owner?",o:[["Yes, I am. Nice to meet you!","Correct short answer."],["Yes, I'm. Nice to meet you!","You can't end a sentence with the short form “I'm” – say “Yes, I am.”"],["Yes, I own you.","“Own” + person = owning a human being. Very wrong!"],["Yes, I have it since ten years.","German pattern: “I've had it for ten years.”"]]},
+{g:"We're in a hurry – can you bring the food quickly?",o:[["Of course. I'll ask the chef to prepare your order first.","Correct: “ask somebody to do something”."],["Of course. I'll ask the chef to prepare your order fastly.","“Fastly” doesn't exist – the adverb is “fast” or “quickly”."],["Of course – then please eat slowly.","Joke and contradiction."],["Of course. I'll ask the chef that he prepares it first.","Not English: “ask the chef to prepare…”."]]}
+];
+
+const EXPR=[
+["It's on the house.","It's free – the restaurant pays.","The dessert is on the house tonight."],
+["Help yourself!","Please take as much as you like.","Here's the rice – help yourselves!"],
+["Keep the change.","You can keep the extra money.","That's 18 euros. – Here's 20, keep the change."],
+["We're fully booked.","There are no free tables.","Sorry, we're fully booked on Saturday."],
+["Right away.","Immediately, without waiting.","I'll bring your drinks right away."],
+["It's my treat.","I'm paying for you.","Put your wallet away – dinner is my treat."],
+["Let's split the bill.","Let's each pay a part.","Shall we split the bill between the four of us?"],
+["For here or to go?","Will you eat here or take it away?","One fried rice, please. – For here or to go?"],
+["Let's grab a bite.","Let's eat something quickly.","We have twenty minutes – let's grab a bite."],
+["That hit the spot!","That food was exactly what I needed.","Hot soup on a cold day – that really hit the spot!"],
+["It's mouth-watering.","It looks or smells so good you want to eat it.","The smell from your kitchen is mouth-watering!"],
+["The place is packed.","It's very full of people.","On Friday nights the place is packed."],
+["I'm stuffed.","I've eaten so much – I'm completely full.","No dessert for me, thanks – I'm stuffed!"],
+["I'll be right with you.","I'm coming in a moment.","Good evening! I'll be right with you."],
+["It's to die for.","It's incredibly delicious.","Your mango pudding is to die for!"],
+["Take your time.","There's no hurry.","Take your time with the menu – I'll come back later."],
+["It's a piece of cake.","It's very easy.","Using chopsticks? It's a piece of cake!"],
+["It's not my cup of tea.","It's not something I like.","Very spicy food is not my cup of tea."],
+["cheap and cheerful","not expensive, but nice","Our lunch menu is cheap and cheerful."],
+["a regular","a guest who comes very often","He's a regular – he comes every Friday."],
+["a walk-in","a guest without a reservation","We keep two tables free for walk-ins."],
+["a no-show","a guest who booked but didn't come","We had three no-shows last Saturday."],
+["to eat out","to have a meal in a restaurant, not at home","Austrians love to eat out on Sundays."],
+["the catch of the day","the fresh fish the restaurant got today","The catch of the day is sea bass."],
+["Can I get you anything else?","Would you like to order more?","Your dumplings are coming. Can I get you anything else?"],
+["Enjoy your meal!","What you say when you serve the food.","Here's your duck. Enjoy your meal!"],
+["Sorry to keep you waiting.","Sorry that you had to wait.","Sorry to keep you waiting – here are your menus."],
+["to spill the beans","to tell a secret","Come on, spill the beans – what's in the sauce?"],
+["full of beans","full of energy","The children are full of beans tonight!"],
+["a doggy bag","a box to take your leftovers home","Could I have a doggy bag for the rest?"],
+["Leave room for dessert!","Don't eat too much – dessert is coming.","Leave room for dessert – the sesame balls are great!"],
+["a second helping","another portion of the same food","Would you like a second helping of rice?"]
+];
+
+const MATCHSETS=[
+{t:"Arrival & Menu",p:[
+["Do you have a table for three?","Yes – the round table in the corner is free for the three of you."],
+["Can we sit by the window?","Of course – the window table has a lovely view of the street."],
+["What do you recommend?","Our crispy duck is the house speciality."],
+["Is the mapo tofu very spicy?","It's quite hot, but the chef can make it milder."],
+["Do you have anything without meat?","Yes – all dishes with a green leaf on the menu are vegetarian."],
+["Does the main course come with rice?","Yes, steamed rice is included; fried rice is two euros extra."],
+["What kind of tea do you have?","We have jasmine, oolong and green tea."],
+["What are dumplings?","Small pieces of dough filled with meat or vegetables, steamed or fried."],
+["Could I have a fork, please?","Of course, here you are – chopsticks aren't for everyone!"],
+["How big are the portions?","One dish is usually enough for one person – but sharing is fun."]]},
+{t:"Paying & Practical",p:[
+["Can I pay by card?","We accept all cards and contactless payment."],
+["Could we have the bill?","Of course, I'll bring it right away."],
+["Can we pay separately?","Sure – who would like to start?"],
+["Is service included?","Yes, but tips are always appreciated."],
+["What time do you open?","We open at half past eleven."],
+["When does the kitchen close?","Hot food is served until half past nine."],
+["Where are the toilets?","Downstairs, the second door on the right."],
+["What's the Wi-Fi password?","It's printed on the little card on your table."],
+["Do you deliver?","Yes, within five kilometres – you can order online."],
+["Is there parking nearby?","There's a car park just around the corner."]]},
+{t:"Problems & Small Talk",p:[
+["This isn't what I ordered.","I'm so sorry – I'll bring you the right dish immediately."],
+["My soup is cold.","I apologise – I'll have it heated up for you right away."],
+["We've been waiting for ages.","I'm terribly sorry for the delay – your drinks are on the house."],
+["There's a mistake on the bill.","Let me check… You're right – I'll correct it at once."],
+["It's too spicy for me.","Let me bring you some plain rice and a cold drink."],
+["Where are you from?","I'm from China, but I've lived in Austria for many years."],
+["How long have you had this restaurant?","We opened it eight years ago."],
+["The food was excellent!","Thank you so much – I'll tell the chef."],
+["Could you call us a taxi?","Of course – it'll be here in about five minutes."],
+["What should we see in Graz?","Definitely the Schlossberg with the clock tower."]]},
+{t:"Phone Booking",p:[
+["Hello, is this the Chinese restaurant?","Yes, speaking. How can I help you?"],
+["I'd like to book a table.","Certainly. For which day?"],
+["For Saturday, please.","Saturday is fine. At what time?"],
+["At seven, if possible.","Seven o'clock is no problem. For how many people?"],
+["Four adults and two children.","Lovely – shall I prepare two high chairs?"],
+["No, they're teenagers.","Oh, I see! Then six normal chairs, of course."],
+["My name is Weber.","Thank you, Mr Weber. Could I have a phone number, please?"],
+["Can I bring a cake?","Of course – we'll keep it in the fridge for you."],
+["What if we're late?","We'll keep your table for fifteen minutes."],
+["Thank you, see you on Saturday!","You're welcome – we look forward to seeing you!"]]}
+];
+
+const FINISH=[
+{g:"Can we sit on the terrace?",s:"I'm afraid…",o:[["the terrace is closed for the winter.","Correct: “I'm afraid” + a full sentence = polite bad news."],["the terrace is closing since October.","With “since” you need the present perfect: “has been closed since October”."],["the terrace is close.","“Close” = near. The opposite of open is “closed”."],["of the terrace.","“Afraid of” = scared of. You're not scared of your terrace!"]],alt:["I'm afraid we can only offer tables inside today.","I'm afraid it's too cold to open the terrace at the moment."]},
+{g:"We're waiting for our friends.",s:"Would you like…",o:[["something to drink while you wait?","Correct: would you like + noun."],["to drinking something while you wait?","After “like to” you need the base form: to drink."],["drink something while waiting you?","A verb after “would you like” needs “to” – and “waiting you” is wrong."],["the bill while you wait?","Content: they haven't eaten anything yet!"]],alt:["Would you like to look at the menu while you wait?","Would you like me to bring some water for the table?"]},
+{g:"I love spicy food!",s:"If you like spicy food, …",o:[["you should try our Sichuan beef.","Correct: if + present, you should + base verb."],["you should trying our Sichuan beef.","After “should” always the base form: try."],["you would try our Sichuan beef.","With a real situation (“if you like”) use “should/will”, not “would”."],["you should try our vanilla ice cream.","Content: vanilla ice cream isn't spicy."]],alt:["If you like spicy food, the mapo tofu will make you very happy.","If you like spicy food, ask for our homemade chilli oil."]},
+{g:"Do you have a table for six?",s:"Let me check…",o:[["if we have a table for you.","Correct: “check if…” + normal word order."],["if have we a table for you.","No question word order after “if”: “if we have”."],["your coat in the kitchen.","Coats don't go into the kitchen!"],["about a table at you.","Wrong prepositions – it means nothing."]],alt:["Let me check what we have available.","Let me check with my colleague – one moment, please."]},
+{g:"Finally! We've been waiting for ages.",s:"I'm sorry for…",o:[["keeping you waiting.","Correct: “sorry for” + -ing."],["keep you waiting.","After a preposition (for) the verb takes -ing."],["to keep you waiting.","Either “sorry for keeping” or “sorry to keep” – not both together."],["your waiting – it was nice for you.","Waiting is not nice – this sounds like mockery."]],alt:["I'm sorry for the delay – the kitchen is very busy tonight.","I'm sorry for the long wait. Your food is coming right now."]},
+{g:"How long have you been here?",s:"Our restaurant has been open…",o:[["since 2016.","Correct: since + point in time."],["since eight years.","A length of time needs “for”: for eight years."],["for 2016.","A year is a point in time: since 2016."],["until 2016.","Content: “until 2016” means it closed in 2016!"]],alt:["Our restaurant has been open for eight years.","Our restaurant has been open since my children were small."]},
+{g:"We'd like to order now.",s:"Could you tell me…",o:[["if you have any allergies?","Correct: an indirect question with normal word order."],["do you have any allergies?","After “Could you tell me” there's no second question form: “if you have…”."],["what allergies do you have them?","Double object – “what” and “them” can't both be there."],["if you had any allergies yesterday?","Wrong time – you need to know about today."]],alt:["Could you tell me if anyone at the table is vegetarian?","Could you tell me how spicy you'd like it?"]},
+{g:"What's in the dumplings?",s:"The dumplings are filled…",o:[["with pork and cabbage.","Correct: “filled with”."],["by pork and cabbage.","“By” is for the person who did it: filled by the chef."],["of pork and cabbage.","“Filled” always takes “with”."],["with pork and cabbage, so they're vegetarian.","Content: pork is meat!"]],alt:["The dumplings are filled with shrimp and chives.","The vegetable dumplings are filled with tofu and mushrooms."]},
+{g:"When are you open?",s:"We're open every day…",o:[["except Monday.","Correct: “except” = not including."],["without Monday.","German “ohne”. Use “except”."],["besides Monday.","“Besides” means “in addition to” – the opposite!"],["except Monday – and on Mondays.","Contradiction."]],alt:["We're open every day except Monday, from half past eleven.","We're open every day for lunch and dinner."]},
+{g:"This all sounds great!",s:"Please don't hesitate…",o:[["to ask if you need anything.","Correct: hesitate + to + verb."],["asking if you need anything.","“Hesitate” is followed by “to + verb”."],["for asking if you need anything.","No preposition after “hesitate”."],["to leave without paying.","A joke – absolutely not!"]],alt:["Please don't hesitate to call me if you need anything.","Please don't hesitate to ask for more rice."]},
+{g:"Which dish do most people order?",s:"The crispy duck is…",o:[["the most popular dish on our menu.","Correct superlative: the most + long adjective."],["the popularest dish on our menu.","Long adjectives take “the most”, not “-est”."],["more popular dish on our menu.","For one dish among all you need the superlative: “the most popular”."],["the most popular dish, but nobody orders it.","Contradiction."]],alt:["The crispy duck is our bestseller.","The crispy duck is what most of our regulars order."]},
+{g:"(You bring the food to the table.)",s:"Enjoy…",o:[["your meal!","Correct: enjoy + object."],["you your meal!","No “you”: just “Enjoy your meal!”"],["the bill!","A joke – nobody enjoys the bill."],["to eat!","“Enjoy” takes a noun or -ing, never “to”: enjoy eating."]],alt:["Enjoy! Let me know if you need anything else.","Enjoy your dinner!"]},
+{g:"(The table isn't clean yet.) We'll take that table.",s:"Would you mind…",o:[["waiting a few minutes while I clean it?","Correct: mind + -ing."],["to wait a few minutes?","“Mind” is followed by -ing: waiting."],["wait a few minutes?","“Mind” needs the -ing form."],["cleaning it yourselves?","A joke – guests don't clean tables."]],alt:["Would you mind sitting at the bar for a moment?","Would you mind if I took your coats?"]},
+{g:"Where are the toilets?",s:"The toilets are…",o:[["at the end of the corridor.","Correct: “at the end of” = the place."],["in the end of the corridor.","“In the end” means “finally” (time), not a place."],["on the end of the corridor.","Wrong preposition: at the end."],["at the end of the kitchen.","Guests don't walk through the kitchen!"]],alt:["The toilets are upstairs, on the left.","The toilets are just past the bar."]},
+{g:"That was delicious, but we're very full now.",s:"Shall I…",o:[["bring you the bill?","Correct: Shall I + base form – and it fits, they're full."],["to bring you the bill?","After “shall” there's no “to”."],["bringing you the bill?","After “shall” the base form."],["bring you the dessert menu?","Grammatically fine, but they just said they're full – the bill fits better."]],alt:["Shall I pack the rest for you?","Shall I call you a taxi?"]},
+{g:"Goodbye and thank you!",s:"It was a pleasure…",o:[["to have you here tonight.","Correct: a pleasure + to-infinitive."],["have you here tonight.","Missing “to”."],["to having you here tonight.","“To + -ing” is wrong here."],["to have you here – please don't come back.","A joke – very rude!"]],alt:["It was a pleasure to cook for you.","It was a pleasure – see you next time!"]}
+];
+
+const POLITE=[
+{ctx:"The restaurant is full.",rude:"No tables. Go away.",o:[["I'm afraid we're fully booked at the moment. Would you like to wait, or book a table for another day?","“I'm afraid” + an alternative = elegant."],["Sorry, no tables. Go away, please.","“Please” doesn't make a command polite."],["We are full, you must leave now.","“Must” sounds very hard."]],tip:"Polite tool: I'm afraid… + offer an alternative."},
+{ctx:"You're busy with another table.",rude:"Wait!",o:[["I'll be with you in just a moment.","Shows you've seen them and you're coming."],["Wait, please!","Still a command."],["You have to wait, thank you.","“You have to” sounds strict."]],tip:"Promise instead of command: I'll be with you…"},
+{ctx:"You want to take the order.",rude:"What do you want?",o:[["What can I get for you?","The standard polite question in restaurants."],["What do you want, please?","“What do you want?” sounds aggressive, even with please."],["Tell me your order now.","A command."]],tip:"Offer a service: Can I get you…? / May I take your order?"},
+{ctx:"It's ten o'clock and you want to close.",rude:"Pay now. We close.",o:[["I'm sorry to rush you, but we're closing soon. May I bring you the bill?","Apology + reason + polite question."],["Pay now please, we are closing.","Still a command."],["You must pay now, sorry.","“Must” + “sorry” at the end sounds cold."]],tip:"Explain the reason first, then ask a question."},
+{ctx:"The guest says the dish is wrong – you think the guest ordered it.",rude:"You ordered that. Your mistake.",o:[["I'm sorry for the misunderstanding. Let me bring you the dish you wanted.","No blaming – just solve it."],["You are wrong, but OK, I change it.","Blames the guest – and grammar: “I'll change it”."],["Maybe you don't remember what you ordered.","Sounds like an insult."]],tip:"Say “misunderstanding” – then nobody is guilty."},
+{ctx:"A guest comes in with a big dog, but dogs can't come inside.",rude:"No dogs!",o:[["I'm sorry, but unfortunately dogs aren't allowed inside. You're very welcome to sit on the terrace with your dog.","Softeners (I'm sorry, unfortunately) + an alternative."],["Dogs not allowed. Sorry.","Too short and hard."],["Your dog must go outside, please.","Sounds like an order."]],tip:"Softeners: I'm sorry, but… / Unfortunately…"},
+{ctx:"The kitchen is closed, but a guest wants food.",rude:"Kitchen closed.",o:[["I'm sorry, the kitchen has just closed, but we can still offer you drinks and dessert.","Bad news + what IS still possible."],["The kitchen is closed. Bye.","A rude ending."],["Kitchen is closed, you come too late.","Blames the guest – and grammar: “you've come too late”."]],tip:"Always say what you CAN do."},
+{ctx:"You want to show guests a table.",rude:"Sit there.",o:[["Would this table be all right for you?","A question gives the guest the choice."],["Sit there, please.","Still a command."],["You will sit there.","Sounds like a teacher or a police officer."]],tip:"Questions are more polite than commands."},
+{ctx:"A guest asks something you don't know.",rude:"Don't know.",o:[["I'm not sure, but I'll find out for you.","Honest and helpful."],["I don't know. Ask somebody else.","Pushes the guest away."],["Don't know, sorry.","Much too short."]],tip:"I'm not sure, but I'll find out – a magic sentence!"},
+{ctx:"A guest says the menu is too expensive.",rude:"Then eat somewhere else.",o:[["I understand. Our lunch menu is very good value – three courses for 11.90.","Understanding + a cheaper option."],["OK. Then go to the kebab shop.","Insulting."],["Our prices are normal. You are wrong.","Arguing never wins a guest."]],tip:"Show understanding: I understand… / I see what you mean…"},
+{ctx:"On the phone you need the guest's name spelled.",rude:"Spell your name.",o:[["Could you spell your name for me, please?","Could you… + please = a polite request."],["Spell your name, please.","Still a command."],["You must spell your name.","Strict and cold."]],tip:"Could you…? / Would you mind…?"},
+{ctx:"You didn't understand the guest.",rude:"What?",o:[["Sorry, could you say that again, please?","The standard polite phrase."],["What? Again!","Rude."],["Say again.","A command – and “it” is missing."]],tip:"Also elegant: Sorry, I didn't quite catch that."}
+];
+
+const GAPS=[
+"We're open [[from*|since|at]] Tuesday [[to*|at|on]] Sunday.",
+"The kitchen closes [[at*|on|in]] half past nine.",
+"We're closed [[on*|at|in]] Mondays.",
+"Would you like [[a*|some|any]] glass of water?",
+"Do you have [[any*|much|a]] allergies?",
+"I'm sorry, we [[don't have*|doesn't have|not have]] any duck today.",
+"This dish is [[hotter*|more hot|hoter]] than that one.",
+"I [[will*|am|do]] bring you the menu in a moment.",
+"We [[have been*|are|were]] here since 2016.",
+"The dumplings are filled [[with*|of|by]] pork and cabbage.",
+"Thank you [[for*|to|about]] coming!",
+"Could you tell me how [[many*|much|long]] people are coming?",
+"How [[much*|many|long]] is the lunch menu?",
+"Is this table all right [[for*|to|with]] you?",
+"Can I pay [[by*|on|at]] card?",
+"Our chef [[comes*|come|coming]] from Sichuan.",
+"The rice [[is*|are|be]] included.",
+"Tea and coffee [[are*|is|be]] on the second page.",
+"We recommend [[booking*|to book|book]] a table at the weekend.",
+"I'm sorry for [[keeping*|keep|to keep]] you waiting.",
+"Would you mind [[waiting*|to wait|wait]] a few minutes?",
+"The toilets are [[at*|in|on]] the end of the corridor.",
+"It's about ten minutes [[on*|by|with]] foot.",
+"I've had this restaurant [[for*|since|ago]] eight years.",
+"We opened eight years [[ago*|before|since]].",
+"I'll pack [[them*|it them|they]] up for you – the leftovers, I mean.",
+"Enjoy [[your*|you|yourself]] meal!",
+"Please don't hesitate [[to ask*|asking|for asking]] if you need anything."
+];
+
+const BUILD=[
+"Would you like something to drink?",
+"I'm afraid we're fully booked tonight.",
+"The kitchen closes at half past nine.",
+"Could you tell me if you have any allergies?",
+"All main dishes come with steamed rice.",
+"I'll bring you the bill right away.",
+"We've been open here since 2016.",
+"Please let me know if you need anything else.",
+"The toilets are downstairs on the left.",
+"Would you prefer a table by the window?",
+"This dish can be made without meat.",
+"I'm sorry for keeping you waiting.",
+"How would you like to pay?",
+"Today's special is steamed fish with ginger.",
+"Thank you for coming and see you soon!",
+"The chef can make it a little milder for you.",
+"Shall I pack the leftovers for you?",
+"Our lunch menu includes soup and dessert."
+];
+
+const STORIES=[
+{t:"Dinner for Two",d:"A couple from London comes in on a Friday evening.",steps:[
+{g:"Good evening! Do you have a table for two?",o:[["Good evening! Yes, of course – would you like to sit by the window?","Warm greeting, clear answer and a nice offer."],["Yes. Sit.","Much too short – it sounds like an order."],["Good evening! No, we have two tables.","Confusing: they want one table for two people."]]},
+{g:"By the window would be lovely.",o:[["Perfect, please follow me. Here are your menus.","Correct – “menus”, plural, for two guests."],["Perfect, please follow me. Here is your menus.","“Menus” is plural → “Here are”."],["Lovely – the window was cleaned yesterday.","That's not what they meant!"]]},
+{g:"What would you recommend for someone who doesn't like spicy food?",o:[["The sweet and sour chicken or the crispy duck – neither of them is spicy.","Correct, with two mild options."],["I recommend you the Sichuan hot pot.","Grammar mistake – and hot pot is very spicy!"],["Everything here is spicy, sorry – this is a Chinese restaurant.","Not true and not helpful."]]},
+{g:"And what can we drink with it?",o:[["Jasmine tea goes very well with it – or a glass of Austrian white wine.","“Goes well with” = matches. Elegant!"],["Jasmine tea is going very good with it.","Use the present simple for facts – and “well” (adverb), not “good”."],["Water. Next question?","Rude."]]},
+{g:"Excuse me, where are the toilets?",o:[["Just past the bar – the first door on the right.","Clear directions."],["Past the bar, on the first door on right.","Prepositions and articles: “the first door on the right”."],["You have to ask the chef.","Unhelpful."]]},
+{g:"This is delicious! What's in the sauce?",o:[["Thank you! It's soy sauce, ginger, garlic and a little honey – the rest is the chef's secret.","Friendly, informative and charming."],["Thank you! Everything is in it.","Not an answer."],["Thank you! It's in the sauce.","Nonsense."]]},
+{g:"Could we have the bill? And can we pay by card?",o:[["Of course – I'll bring the bill and the card machine.","Answers both questions."],["Of course – I'll bring the bill.","Correct, but the card question isn't answered."],["Of course – only cash, but you can pay by card.","Contradiction."]]},
+{g:"Thank you, it was a wonderful evening!",o:[["Thank you for coming – we hope to see you again soon!","A warm, professional goodbye."],["Thank you for coming – see you never!","A joke – very rude!"],["Thank you for come – we hope to see you again soon!","After “for” use -ing: coming."]]}
+]},
+{t:"Birthday Booking",d:"A phone call: a guest wants to book a birthday dinner for ten.",steps:[
+{g:"Hello, is this the Jade Garden restaurant?",o:[["Yes, this is Jade Garden. How can I help you?","Correct telephone English: “This is…”."],["Yes, I am Jade Garden.","On the phone: “This is…”. You're a person, not the restaurant."],["Yes, here speaks Jade Garden.","German pattern (“Hier spricht…”). Say “This is…”."]]},
+{g:"I'd like to book a table for a birthday dinner on Friday.",o:[["Lovely! For how many people, and at what time?","Asks for both key details."],["Lovely! How many people are you?","Unnatural – say “For how many people?”"],["Happy birthday to you!","The caller might not be the birthday person – and you didn't ask anything."]]},
+{g:"Ten people, at seven o'clock. Is that possible?",o:[["Yes, that's possible. May I have your name, please?","A polite request for the name."],["Yes, it's possible. What is your name? Say it.","Much too direct."],["Yes, that's possibly.","“Possibly” is an adverb (vielleicht). You need “possible”."]]},
+{g:"It's Karen Smith. Could you prepare a little surprise for my sister? It's her birthday.",o:[["Of course! We could bring a dessert with a candle. Would you like that?","A great offer plus a question."],["Of course! We'll sing for her in Chinese for an hour.","Too much!"],["Of course! We could bring a dessert with a candle. Would you like it that?","“Would you like that?” – no “it”."]]},
+{g:"One of our guests is vegan. Is that a problem?",o:[["Not at all – we have several vegan dishes, and the chef can adapt others.","Reassuring and specific."],["Not at all – she can eat the rice.","Only rice at a birthday dinner? Not very hospitable."],["Not at all – we have vegan dishes, for example the pork dumplings.","Pork isn't vegan!"]]},
+{g:"Do we need to pay a deposit?",o:[["For groups of ten, we ask for a deposit of 50 euros, which we take off the final bill.","Clear: the amount and what happens with it."],["For groups of ten, we ask a deposit of 50 euros.","You “ask FOR” something."],["Yes, 50 euros – and you don't get it back, even if you come.","Unfair and confusing."]]},
+{g:"Great, thank you very much!",o:[["You're welcome, Ms Smith. We look forward to seeing you on Friday at seven!","“Look forward to” + -ing. Perfect."],["You're welcome, Ms Smith. We look forward to see you on Friday!","After “look forward to” use -ing: seeing."],["You're welcome, Karen. Bye.","First name only and very short – too informal."]]}
+]},
+{t:"A Difficult Evening",d:"Something goes wrong – turn unhappy guests into happy regulars.",steps:[
+{g:"Excuse me! We ordered forty minutes ago.",o:[["I'm very sorry for the wait. Let me check with the kitchen right away.","Apology + action."],["Yes, I know. The kitchen is slow.","Admits the problem but does nothing."],["I'm very sorry for the wait. Let me to check with the kitchen.","“Let me check” – no “to”."]]},
+{g:"And this isn't the dish I ordered. I wanted chicken, not beef.",o:[["I'm so sorry! I'll bring you the chicken as quickly as possible.","Perfect."],["Beef is better – just try it.","Ignores the guest's wish."],["I'm so sorry! I'll bring you the chicken as quick as possible.","“As quickly as possible” – the adverb."]]},
+{g:"Hmm. And it's really cold in here.",o:[["I'm sorry – I'll turn up the heating. Would you like to move to a warmer table?","Two solutions at once!"],["I'm sorry – I'll turn on the heating up.","Word order: “turn up the heating” or “turn the heating up”."],["It's November – that's normal.","Unhelpful and rude."]]},
+{g:"Thank you. The chicken is perfect now.",o:[["I'm so glad! And please let me offer you dessert on the house.","A great way to save the evening."],["Finally!","Sounds as if the guest was the problem."],["I'm so glad! Please let me offer you dessert in the house.","“On the house” = free. “In the house” is just a place."]]},
+{g:"That's very kind. Could we have the bill, please?",o:[["Of course. I've taken the drinks off the bill because of the long wait.","Generous – this creates loyal guests."],["Of course. I've taken off the drinks of the bill.","You take something “off the bill”."],["Of course. Because you complained, it's more expensive.","Never!"]]},
+{g:"Thank you. We'll definitely come back.",o:[["That's wonderful to hear – thank you for your patience tonight!","Thanking guests for their patience – perfect ending."],["That's wonderful to hear – thank you for your patient tonight!","“Patient” is the adjective (or a person in hospital). The noun is “patience”."],["Please don't – just joking!","A bad joke after a difficult evening."]]}
+]}
+];
+
+/* ================= HELPERS ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
+const PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+const spk=t=>`<button class="spk" data-say="${esc(t)}" aria-label="Listen" title="Listen">${ICON}</button>`;
+const ph=t=>esc(t).replace(/\[(.+?)\]/g,"<mark>$1</mark>");
+
+let voices=[];
+function loadVoices(){voices=window.speechSynthesis?speechSynthesis.getVoices():[];}
+if(window.speechSynthesis){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function speak(t){
+  if(!window.speechSynthesis)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t.replace(/[\[\]]/g,""));
+  const v=voices.find(v=>v.lang==="en-GB")||voices.find(v=>v.lang&&v.lang.startsWith("en"));
+  if(v)u.voice=v;u.lang=v?v.lang:"en-GB";
+  u.rate=parseFloat($("#rate").value);
+  speechSynthesis.speak(u);
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".spk");if(b){e.stopPropagation();speak(b.dataset.say);}});
+
+let score=0;
+function addPoint(n=1){score+=n;$("#score").textContent=score;}
+
+/* ================= GENERIC MULTIPLE CHOICE ================= */
+function makeMC(root,source,cfg){
+  let items=cfg.ordered?source.slice():shuffle(source);
+  let i=0,right=0;
+  function draw(){
+    if(i>=items.length){
+      const pct=Math.round(right/items.length*100);
+      root.innerHTML=`<div class="card result"><div class="big">${right} / ${items.length}</div>
+      <p>${pct>=90?"Outstanding – your guests are in excellent hands!":pct>=70?"Very good! A little more practice and you'll be perfect.":"Good start! Go through the explanations again – that's where the learning happens."}</p>
+      <div class="row" style="justify-content:center"><button class="btn again">Play again</button>${cfg.back?'<button class="btn ghost back">Choose another story</button>':""}</div></div>`;
+      root.querySelector(".again").onclick=()=>{items=cfg.ordered?source.slice():shuffle(source);i=0;right=0;draw();};
+      if(cfg.back)root.querySelector(".back").onclick=cfg.back;
+      return;
+    }
+    const it=items[i];
+    const opts=shuffle(it.o.map((x,k)=>({t:x[0],why:x[1],ok:k===0})));
+    root.innerHTML=`<div class="progress"><span>${cfg.label||"Question"} ${i+1} of ${items.length}</span><span>✓ ${right}</span></div>
+    <div class="bar"><i style="width:${i/items.length*100}%"></i></div>
+    <div class="card qcard">${cfg.head(it)}</div>
+    <div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}"><span class="letter">${"ABCD"[k]}</span><span style="flex:1">${esc(o.t)}</span></button>`).join("")}</div>
+    <div class="feedback"></div>
+    <div class="row"><button class="btn next" style="display:none">Next →</button></div>`;
+    const fb=root.querySelector(".feedback"),nx=root.querySelector(".next");
+    root.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+      const chosen=opts[+b.dataset.k];
+      root.querySelectorAll(".opt").forEach((x,k)=>{x.disabled=true;if(opts[k].ok)x.classList.add("right");});
+      if(!chosen.ok)b.classList.add("wrong");else{right++;addPoint();}
+      const full=s=>cfg.full?cfg.full(it,s):s;
+      fb.innerHTML=`<div class="fb ${chosen.ok?"ok":"no"}"><b>${chosen.ok?"Excellent! ":"Not quite. "}</b>${chosen.ok?"":"The best answer is marked in green."}</div>`+
+        opts.map((o,k)=>`<div class="fb ${o.ok?"ok":"no"}"><b>${"ABCD"[k]} ${o.ok?"✓":"✗"}</b> ${esc(o.why)}</div>`).join("")+
+        `<div class="alts"><div><span><b>Say it:</b> ${esc(full(opts.find(o=>o.ok).t))}</span>${spk(full(opts.find(o=>o.ok).t))}</div></div>`+
+        (cfg.after?cfg.after(it):"");
+      nx.style.display="inline-block";
+    });
+    nx.onclick=()=>{i++;draw();window.scrollTo({top:root.offsetTop-20,behavior:"smooth"});};
+  }
+  draw();
+}
+
+/* ================= MODES ================= */
+const MODES=[
+{id:"phrase",n:"Phrasebook",s:"Learn the answers",c:"#34527e",title:"Phrasebook – questions & elegant answers",intro:"Every guest question with at least three answers: short, polite, and detailed & elegant. Click the speaker to listen. Switch on the self-test to hide the answers and try first yourself. Yellow words are placeholders – put in your own information.",render:renderPhrase},
+{id:"mc",n:"Tricky Choice",s:"Only one is right",c:"#1d6a70",title:"Tricky Choice",intro:"A guest speaks – which answer is right? Careful: some answers have a small grammar mistake, some don't fit the content, and some are jokes. After each answer you see WHY every option is right or wrong.",render:r=>makeMC(r,MC,{head:it=>`<div class="label">The guest says</div><div class="qline"><span>“${esc(it.g)}”</span>${spk(it.g)}</div>`})},
+{id:"expr",n:"Expression Match",s:"Idioms & phrases",c:"#5f4a72",title:"Expression Match",intro:"Click an expression on the left, then its meaning on the right. Every matched pair shows an example sentence – these little phrases make your English sound natural and warm.",render:renderExpr},
+{id:"m10",n:"Match 1–10",s:"Questions & answers",c:"#9a5a3c",title:"Match 1–10 with A–J",intro:"Ten guest questions, ten answers. Choose the right letter for each number, then click “Check”. Four different sets.",render:renderM10},
+{id:"finish",n:"Finish the Sentence",s:"Start → perfect end",c:"#4f6b45",title:"Finish the Sentence",intro:"You see the start of your answer. Choose the ending that is grammatically correct AND fits the situation. Afterwards you get more elegant ways to finish the same sentence.",render:r=>makeMC(r,FINISH,{label:"Sentence",head:it=>`<div class="label">Situation</div><div class="qline"><span>${it.g.startsWith("(")?esc(it.g):"“"+esc(it.g)+"”"}</span>${it.g.startsWith("(")?"":spk(it.g)}</div><div class="starter">You: <b>${esc(it.s)}</b></div>`,full:(it,t)=>it.s.replace(/…$/,"").trim()+" "+t,after:it=>`<div class="alts"><b>More ways to say it:</b>${it.alt.map(a=>`<div><span>${esc(a)}</span>${spk(a)}</div>`).join("")}</div>`})},
+{id:"build",n:"Sentence Builder",s:"Put words in order",c:"#34527e",title:"Sentence Builder",intro:"Click the words in the right order to build a perfect restaurant sentence. Click a word in your sentence to send it back.",render:renderBuild},
+{id:"polite",n:"Make It Polite",s:"From rude to elegant",c:"#1d6a70",title:"Make It Polite",intro:"Here are answers that are much too direct. Which version is truly polite and elegant? Watch out – “please” alone is not enough!",render:r=>makeMC(r,POLITE,{label:"Situation",head:it=>`<div class="label">Situation</div><div style="font-size:1.1rem">${esc(it.ctx)}</div><div class="rude">${esc(it.rude)}</div><p class="muted" style="margin:8px 0 0">Which answer is the most polite?</p>`,after:it=>`<div class="tipbox">💡 ${esc(it.tip)}</div>`})},
+{id:"gap",n:"Fill the Gap",s:"Small words, big effect",c:"#5f4a72",title:"Fill the Gap",intro:"Prepositions, tenses, much/many, -ing or to … Choose the right word for every gap, then click “Check”.",render:renderGap},
+{id:"story",n:"Restaurant Story",s:"Whole conversations",c:"#9a5a3c",title:"Restaurant Story",intro:"Play a whole visit from beginning to end. At every step choose your best answer – like a real evening in your restaurant.",render:renderStory},
+{id:"listen",n:"Listen & Answer",s:"Hear the guest",c:"#4f6b45",title:"Listen & Answer",intro:"Press play and listen to the guest. Don't read – just listen! Then choose the answer that fits. You can show the text if you need help.",render:renderListen}
+];
+
+function renderPhrase(root){
+  let cat="all",q="",test=false;
+  root.innerHTML=`<div class="card"><div class="toolbar"><input type="search" placeholder="Search a word, e.g. toilet, card, spicy…"><label class="switch"><input type="checkbox"> Self-test: hide the answers</label></div><div class="chips"></div><div class="muted" style="font-size:.9rem" id="pbCount"></div></div><div class="pbList"></div>`;
+  const chips=root.querySelector(".chips"),list=root.querySelector(".pbList");
+  chips.innerHTML=`<button class="chip on" data-c="all">All topics</button>`+PHRASES.map((c,k)=>`<button class="chip" data-c="${k}">${esc(c.cat)}</button>`).join("");
+  chips.onclick=e=>{const b=e.target.closest(".chip");if(!b)return;cat=b.dataset.c;chips.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===b));draw();};
+  root.querySelector("input[type=search]").oninput=e=>{q=e.target.value.toLowerCase();draw();};
+  root.querySelector("input[type=checkbox]").onchange=e=>{test=e.target.checked;draw();};
+  function draw(){
+    let html="",n=0;
+    PHRASES.forEach((c,k)=>{
+      if(cat!=="all"&&+cat!==k)return;
+      const its=c.items.filter(it=>!q||it.join(" ").toLowerCase().includes(q));
+      if(!its.length)return;
+      html+=`<h3 style="color:var(--sky);font-weight:600;margin:22px 0 10px">${esc(c.cat)}</h3>`;
+      its.forEach(it=>{n++;
+        html+=`<article class="scene"><div class="guest"><span class="who">Guest</span><p>“${esc(it[0])}”</p>${spk(it[0])}</div>
+        <div class="answers ${test?"hide":""}">${it.slice(1).map((a,j)=>`<div class="ans l${j}"><span class="tag">${LV[j]}</span><p>${ph(a)}</p>${spk(a)}</div>`).join("")}</div>
+        ${test?'<div class="row"><button class="btn small reveal">Show answers</button></div>':""}</article>`;
+      });
+    });
+    list.innerHTML=html||'<div class="card muted">Nothing found – try another word.</div>';
+    root.querySelector("#pbCount").textContent=n+" situations";
+    list.querySelectorAll(".reveal").forEach(b=>b.onclick=()=>{b.closest(".scene").querySelector(".answers").classList.remove("hide");b.remove();});
+  }
+  draw();
+}
+
+function renderExpr(root){
+  let pool=shuffle(EXPR),round=0;
+  const rounds=Math.ceil(pool.length/8);
+  function draw(){
+    const set=pool.slice(round*8,round*8+8);
+    const L=shuffle(set.map((x,k)=>({t:x[0],k}))),R=shuffle(set.map((x,k)=>({t:x[1],k})));
+    let sl=null,sr=null,done=0;
+    root.innerHTML=`<div class="progress"><span>Round ${round+1} of ${rounds}</span><span class="cnt">0 / ${set.length}</span></div>
+    <div class="match"><div class="mcol L">${L.map(x=>`<button class="mitem expr" data-k="${x.k}">${esc(x.t)}</button>`).join("")}</div>
+    <div class="mcol R">${R.map(x=>`<button class="mitem" data-k="${x.k}">${esc(x.t)}</button>`).join("")}</div></div>
+    <div class="card" style="margin-top:16px"><b>Your new expressions</b><div class="learned"></div></div>
+    <div class="row"><button class="btn nextR" style="display:none">${round+1<rounds?"Next round →":"Play again"}</button></div>`;
+    const learned=root.querySelector(".learned");
+    function tryMatch(){
+      if(!sl||!sr)return;
+      if(sl.dataset.k===sr.dataset.k){
+        [sl,sr].forEach(x=>{x.classList.remove("sel");x.classList.add("done");x.disabled=true;});
+        const e=set[+sl.dataset.k];done++;addPoint();
+        learned.insertAdjacentHTML("beforeend",`<div><span><b>${esc(e[0])}</b> – ${esc(e[2])}</span>${spk(e[2])}</div>`);
+        root.querySelector(".cnt").textContent=done+" / "+set.length;
+        if(done===set.length)root.querySelector(".nextR").style.display="inline-block";
+      }else{
+        [sl,sr].forEach(x=>{x.classList.remove("sel");x.classList.add("shake");setTimeout(()=>x.classList.remove("shake"),400);});
+      }
+      sl=sr=null;
+    }
+    root.querySelectorAll(".L .mitem").forEach(b=>b.onclick=()=>{if(b.disabled)return;root.querySelectorAll(".L .mitem").forEach(x=>x.classList.remove("sel"));sl=b;b.classList.add("sel");speak(b.textContent);tryMatch();});
+    root.querySelectorAll(".R .mitem").forEach(b=>b.onclick=()=>{if(b.disabled)return;root.querySelectorAll(".R .mitem").forEach(x=>x.classList.remove("sel"));sr=b;b.classList.add("sel");tryMatch();});
+    root.querySelector(".nextR").onclick=()=>{round++;if(round>=rounds){round=0;pool=shuffle(EXPR);}draw();};
+  }
+  draw();
+}
+
+function renderM10(root){
+  let si=0;
+  function draw(){
+    const set=MATCHSETS[si],letters="ABCDEFGHIJ";
+    const ans=shuffle(set.p.map((p,k)=>({t:p[1],k})));
+    const correctLetter=k=>letters[ans.findIndex(a=>a.k===k)];
+    root.innerHTML=`<div class="chips">${MATCHSETS.map((s,k)=>`<button class="chip ${k===si?"on":""}" data-s="${k}">Set ${k+1}: ${esc(s.t)}</button>`).join("")}</div>
+    <div class="m10"><div class="card"><b>Guest questions</b>${set.p.map((p,k)=>`<div class="qrow"><span class="n">${k+1}</span><p>${esc(p[0])}</p>${spk(p[0])}<select data-k="${k}"><option value="">–</option>${letters.split("").map(l=>`<option>${l}</option>`).join("")}</select></div>`).join("")}</div>
+    <div class="card"><b>Your answers</b>${ans.map((a,j)=>`<div class="arow"><span class="n">${letters[j]}</span><p>${esc(a.t)}</p>${spk(a.t)}</div>`).join("")}</div></div>
+    <div class="row"><button class="btn chk">Check</button><button class="btn ghost new">Mix again</button><span class="res muted"></span></div>`;
+    root.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{si=+b.dataset.s;draw();});
+    root.querySelector(".new").onclick=draw;
+    let rewarded=new Set();
+    root.querySelector(".chk").onclick=()=>{
+      let r=0;
+      root.querySelectorAll("select").forEach(s=>{
+        const k=+s.dataset.k,ok=s.value===correctLetter(k);
+        s.classList.remove("ok","no");if(s.value)s.classList.add(ok?"ok":"no");
+        if(ok){r++;if(!rewarded.has(k)){rewarded.add(k);addPoint();}}
+      });
+      root.querySelector(".res").textContent=`${r} of 10 correct`+(r===10?" – perfect!":" – red ones need another try.");
+    };
+  }
+  draw();
+}
+
+function renderBuild(root){
+  let items=shuffle(BUILD),i=0,right=0;
+  function draw(){
+    if(i>=items.length){items=shuffle(BUILD);i=0;}
+    const target=items[i],words=target.split(" ");
+    let pool=shuffle(words.map((w,k)=>({w,k}))),line=[],solved=false;
+    root.innerHTML=`<div class="progress"><span>Sentence ${i+1} of ${items.length}</span><span>✓ ${right}</span></div>
+    <div class="card"><p class="muted" style="margin:0">Build the sentence:</p><div class="line"></div><div class="pool"></div>
+    <div class="row"><button class="btn chk">Check</button><button class="btn ghost hint">Hint</button><button class="btn ghost show">Show answer</button></div><div class="feedback"></div></div>
+    <div class="row"><button class="btn nx">Next sentence →</button></div>`;
+    const L=root.querySelector(".line"),P=root.querySelector(".pool"),fb=root.querySelector(".feedback");
+    function paint(){
+      L.innerHTML=line.map((x,j)=>`<button class="word" data-j="${j}">${esc(x.w)}</button>`).join("");
+      P.innerHTML=pool.filter(x=>!line.includes(x)).map(x=>`<button class="word" data-k="${x.k}">${esc(x.w)}</button>`).join("");
+      L.querySelectorAll(".word").forEach(b=>b.onclick=()=>{if(solved)return;line.splice(+b.dataset.j,1);paint();});
+      P.querySelectorAll(".word").forEach(b=>b.onclick=()=>{if(solved)return;line.push(pool.find(x=>x.k===+b.dataset.k));paint();});
+    }
+    paint();
+    root.querySelector(".chk").onclick=()=>{
+      const s=line.map(x=>x.w).join(" ");
+      if(s===target){if(!solved){right++;addPoint();}solved=true;fb.innerHTML=`<div class="fb ok"><b>Perfect!</b> ${esc(target)} ${spk(target)}</div>`;}
+      else fb.innerHTML=`<div class="fb no"><b>Not yet.</b> ${line.length<words.length?"Some words are still missing.":"Check the word order again."}</div>`;
+    };
+    root.querySelector(".hint").onclick=()=>{
+      let n=0;while(n<line.length&&line[n].w===words[n])n++;
+      line=line.slice(0,n);const nextW=pool.find(x=>x.w===words[n]&&!line.includes(x));
+      if(nextW)line.push(nextW);paint();fb.innerHTML=`<div class="fb no">The first ${Math.min(n+1,words.length)} word(s) are now in place.</div>`;
+    };
+    root.querySelector(".show").onclick=()=>{solved=true;fb.innerHTML=`<div class="fb no"><b>Answer:</b> ${esc(target)} ${spk(target)}</div>`;};
+    root.querySelector(".nx").onclick=()=>{i++;draw();};
+  }
+  draw();
+}
+
+function renderGap(root){
+  let items=shuffle(GAPS);
+  function draw(){
+    let gid=0;const sols=[];
+    const rows=items.map((s,n)=>{
+      const html=s.split(/(\[\[.*?\]\])/).map(part=>{
+        if(!part.startsWith("[["))return esc(part);
+        const opts=part.slice(2,-2).split("|"),corr=opts.find(o=>o.endsWith("*")).slice(0,-1);
+        sols[gid]=corr;
+        return `<select class="gap" data-g="${gid++}"><option value="">…</option>${shuffle(opts.map(o=>o.replace("*",""))).map(o=>`<option>${esc(o)}</option>`).join("")}</select>`;
+      }).join("");
+      return `<div class="gline"><span class="n">${n+1}.</span><div class="txt">${html}<span class="sol"></span></div></div>`;
+    }).join("");
+    root.innerHTML=`<div class="card">${rows}<div class="row"><button class="btn chk">Check</button><button class="btn ghost new">New order</button><span class="res muted"></span></div></div>`;
+    const rewarded=new Set();
+    root.querySelector(".chk").onclick=()=>{
+      let r=0,t=0;
+      root.querySelectorAll(".gline").forEach(line=>{
+        const wrong=[];
+        line.querySelectorAll("select").forEach(s=>{
+          t++;const g=+s.dataset.g,ok=s.value===sols[g];
+          s.classList.remove("ok","no");s.classList.add(ok?"ok":"no");
+          if(ok){r++;if(!rewarded.has(g)){rewarded.add(g);addPoint();}}else wrong.push(sols[g]);
+        });
+        line.querySelector(".sol").textContent=wrong.length?"Correct: "+wrong.join(" … "):"";
+      });
+      root.querySelector(".res").textContent=`${r} of ${t} correct`;
+    };
+    root.querySelector(".new").onclick=()=>{items=shuffle(GAPS);draw();};
+  }
+  draw();
+}
+
+function renderStory(root){
+  function menu(){
+    root.innerHTML=`<div class="storylist">${STORIES.map((s,k)=>`<button class="story" data-k="${k}"><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p><p style="margin-top:8px">${s.steps.length} steps</p></button>`).join("")}</div>`;
+    root.querySelectorAll(".story").forEach(b=>b.onclick=()=>{
+      const s=STORIES[+b.dataset.k];
+      makeMC(root,s.steps,{ordered:true,label:s.t+" · step",back:menu,head:it=>`<div class="guest" style="margin:0"><span class="who">Guest</span><p>“${esc(it.g)}”</p>${spk(it.g)}</div><p class="muted" style="margin:10px 0 0">What do you say?</p>`});
+    });
+  }
+  menu();
+}
+
+function renderListen(root){
+  const all=[];PHRASES.forEach((c,ci)=>c.items.forEach(it=>all.push({ci,it})));
+  const items=shuffle(all).slice(0,15).map(x=>{
+    const others=shuffle(all.filter(y=>y.ci!==x.ci)).slice(0,3);
+    return {g:x.it[0],o:[[x.it[2],"This answer fits the guest's question."],...others.map(y=>[y.it[2],"This would answer a different question: “"+y.it[0]+"”"])]};
+  });
+  makeMC(root,items,{label:"Listening",head:it=>`<div class="label" style="text-align:center">Listen to the guest</div><button class="playbig" data-say="${esc(it.g)}" aria-label="Play">${PLAY}</button>
+    <div style="text-align:center"><span class="qtext hiddenq">“${esc(it.g)}”</span><br><button class="btn ghost small showq" style="margin-top:8px">Show text</button></div>`});
+  root.addEventListener("click",e=>{
+    const p=e.target.closest(".playbig");if(p)speak(p.dataset.say);
+    const s=e.target.closest(".showq");if(s){root.querySelector(".qtext").classList.remove("hiddenq");s.remove();}
+  });
+  root.addEventListener("click",e=>{if(e.target.closest(".opt")){const q=root.querySelector(".qtext");if(q)q.classList.remove("hiddenq");}},true);
+}
+
+/* ================= BOOT ================= */
+const nav=$("#nav"),main=$("#main"),rendered={};
+MODES.forEach((m,k)=>{
+  nav.insertAdjacentHTML("beforeend",`<button data-k="${k}" style="--c:${m.c}"><span class="num">${k+1}</span><span class="t">${esc(m.n)}<span class="s">${esc(m.s)}</span></span></button>`);
+  main.insertAdjacentHTML("beforeend",`<section class="mode" id="sec-${m.id}" style="--c:${m.c}"><div class="intro"><h2>${k+1}. ${esc(m.title)}</h2><p>${esc(m.intro)}</p></div><div class="body"></div></section>`);
+});
+function open(k){
+  const m=MODES[k];
+  nav.querySelectorAll("button").forEach((b,j)=>b.classList.toggle("active",j===k));
+  main.querySelectorAll(".mode").forEach(s=>s.classList.remove("show"));
+  const sec=$("#sec-"+m.id);sec.classList.add("show");
+  if(!rendered[m.id]){m.render(sec.querySelector(".body"));rendered[m.id]=true;}
+}
+nav.onclick=e=>{const b=e.target.closest("button");if(b){open(+b.dataset.k);window.scrollTo({top:nav.offsetTop+nav.offsetHeight-10,behavior:"smooth"});}};
+open(0);
+</script>
+</body>
+</html>
