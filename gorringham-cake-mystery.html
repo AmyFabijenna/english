@@ -354,16 +354,26 @@ Nell gives you a high five. "Okay, detective, I'm impressed. Let's go and get so
 
 /* ============ BONUS ============ */
 const bonus = [
-  {q:`I'm still ____ about the trip. I can't decide yet.`,opts:["on the fence","on cloud nine","in hot water","over the top"],a:0},
-  {q:`You're in ____ if you forget your homework again.`,opts:["hot water","hot air","cold water","warm hands"],a:0},
-  {q:`Mum says I should stop ____ and simply tell her what happened.`,opts:["beating around the bush","hitting the books","going Dutch","reading between the lines"],a:0},
-  {q:`The results were ____. We lost the match, but we learned a lot.`,opts:["a red herring","a blessing in disguise","a bee in the bonnet","a cup of tea"],a:1},
-  {q:`The concert was ____. The tickets sold out in five minutes.`,opts:["a hot cake","a hot ticket","a hot potato","a hot air balloon"],a:1},
-  {q:`Don't ____ until you know all the facts.`,opts:["jump the gun","jump the queue","jump for joy","jump ship"],a:0},
-  {q:`I'm sorry, I didn't mean to ____. It was supposed to be a secret.`,opts:["let the cat out of the bag","let the chips fall","let off steam","let sleeping dogs lie"],a:0},
-  {q:`Okay, we need to ____ and talk about the money.`,opts:["get down to brass tacks","go down the drain","get off the ground","put down roots"],a:0},
-  {q:`Let's ____ and agree on a plan for the group project.`,opts:["bury the hatchet","bury the dead","dig up the hatchet","break the hatchet"],a:0},
-  {q:`Dancing in public? It's not my ____. I'd rather play football.`,opts:["cup of tea","glass of water","bowl of soup","piece of pie"],a:0}
+  {q:`I'm still ____ about the trip. I can't decide yet.`,opts:["on the fence","on cloud nine","in hot water","over the top"],a:0,
+   why:`"On the fence" means undecided. "On cloud nine" means delighted, and "over the top" means excessive.`},
+  {q:`You'll be in ____ if you forget your homework again.`,opts:["hot water","hot air","cold water","warm hands"],a:0,
+   why:`"In hot water" means in trouble. "Hot air" is empty talk that means nothing.`},
+  {q:`Mum says I should stop ____ and simply tell her what happened.`,opts:["beating around the bush","hitting the books","going Dutch","reading between the lines"],a:0,
+   why:`"Beating around the bush" means avoiding the main point. "Hitting the books" means studying hard.`},
+  {q:`Losing that match was ____. We trained twice as hard afterwards.`,opts:["a red herring","a blessing in disguise","a bee in her bonnet","a piece of cake"],a:1,
+   why:`"A blessing in disguise" is something that seems bad but turns out well. "A red herring" is a misleading clue.`},
+  {q:`The concert was ____. The tickets sold out in five minutes.`,opts:["a hot cake","a hot ticket","a hot potato","a hot air balloon"],a:1,
+   why:`"A hot ticket" is something everyone wants. "A hot potato" is an awkward subject nobody wants to deal with.`},
+  {q:`Don't ____ until you know all the facts.`,opts:["jump the gun","jump the queue","jump for joy","jump ship"],a:0,
+   why:`"Jump the gun" means act too early. "Jump the queue" means push in front of other people waiting.`},
+  {q:`I'm sorry, I didn't mean to ____. It was supposed to be a surprise.`,opts:["let the cat out of the bag","let the chips fall","let off steam","let sleeping dogs lie"],a:0,
+   why:`"Let the cat out of the bag" means reveal a secret. "Let sleeping dogs lie" means leave an old problem alone.`},
+  {q:`Right, enough small talk. Let's ____ and sort out the money.`,opts:["get down to brass tacks","go down the drain","get off the ground","put down roots"],a:0,
+   why:`"Get down to brass tacks" means start dealing with the practical details. "Get off the ground" means make a start on a project.`},
+  {q:`You two have argued for weeks. Please ____ before the trip.`,opts:["bury the hatchet","bury your head","dig up the hatchet","break the hatchet"],a:0,
+   why:`"Bury the hatchet" means make peace. "Bury your head" (in the sand) means refuse to face a problem.`},
+  {q:`Dancing in public? It's not my ____. I'd much rather play football.`,opts:["cup of tea","glass of water","bowl of soup","slice of pie"],a:0,
+   why:`"Not my cup of tea" means not something I enjoy. The other three are not English idioms at all.`}
 ];
 
 /* ============ STATE ============ */
@@ -416,9 +426,17 @@ function renderNode(id){
   let html = `<article class="chapter"><div class="chap-title">${n.title}</div>`;
   html += `<div class="story">${renderText(n.text)}</div>`;
   html += `<div class="native"><b>Native tip:</b> ${n.native}</div>`;
+  const chosen = S.answered[id];
   html += `<div class="challenge"><h3>Challenge</h3><div class="q">${n.q.q}</div>` +
-    n.q.opts.map((o,i) => `<button class="opt" data-o="${i}" ${done?"disabled":""}>${o}</button>`).join("") +
-    `<div class="why" id="why">${done ? (S.answered[id]===n.q.a ? "Correct! " : "Not quite. ") + n.q.why : ""}</div></div>`;
+    n.q.opts.map((o,i) => {
+      let cls = "opt";
+      if(done){
+        if(i === n.q.a) cls += " right";
+        else if(i === chosen) cls += " wrong";
+      }
+      return `<button class="${cls}" data-o="${i}" ${done?"disabled":""}>${o}</button>`;
+    }).join("") +
+    `<div class="why" id="why">${done ? (chosen===n.q.a ? "Correct! " : "Not quite. ") + n.q.why : ""}</div></div>`;
 
   const showNext = done;
   if(n.ending){
@@ -487,11 +505,23 @@ document.getElementById("museum").addEventListener("click", e => {
 
 /* ============ BONUS ============ */
 function renderBonus(){
-  document.getElementById("bonus").innerHTML = bonus.map((b,i) => `
+  document.getElementById("bonus").innerHTML = bonus.map((b,i) => {
+    const chosen = S.bonusAnswers[i];
+    const done = chosen !== undefined;
+    return `
     <div class="qbox" data-q="${i}">
       <h3>${i+1}. ${b.q}</h3>
-      ${b.opts.map((o,oi) => `<button class="opt" data-q="${i}" data-o="${oi}" ${S.bonusAnswers[i]!==undefined?"disabled":""}>${o}</button>`).join("")}
-    </div>`).join("");
+      ${b.opts.map((o,oi) => {
+        let cls = "opt";
+        if(done){
+          if(oi === b.a) cls += " right";
+          else if(oi === chosen) cls += " wrong";
+        }
+        return `<button class="${cls}" data-q="${i}" data-o="${oi}" ${done?"disabled":""}>${o}</button>`;
+      }).join("")}
+      <div class="why">${done ? (chosen===b.a ? "Correct! " : "Not quite. ") + b.why : ""}</div>
+    </div>`;
+  }).join("");
   const answered = Object.keys(S.bonusAnswers).length;
   const correct = bonus.reduce((s,b,i) => s + (S.bonusAnswers[i]===b.a?1:0), 0);
   document.getElementById("bonusResult").textContent = answered === bonus.length
@@ -504,12 +534,6 @@ document.getElementById("bonus").addEventListener("click", e => {
   const qi = Number(btn.dataset.q), oi = Number(btn.dataset.o);
   if(S.bonusAnswers[qi] !== undefined) return;
   S.bonusAnswers[qi] = oi;
-  const box = btn.closest(".qbox");
-  box.querySelectorAll(".opt").forEach((b,i) => {
-    b.disabled = true;
-    if(i === bonus[qi].a) b.classList.add("right");
-    if(i === oi && oi !== bonus[qi].a) b.classList.add("wrong");
-  });
   renderBonus();
 });
 document.getElementById("bonusReset").addEventListener("click", () => {
