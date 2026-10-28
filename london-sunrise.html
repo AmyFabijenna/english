@@ -295,6 +295,19 @@ const quizData = [
   { q: `Martin ____ the secret! Now everybody knows it.`, opts: ["spilled the beans","broke the ice","called it a day","got cold feet"], a: 0, why: `"Spill the beans" means to tell a secret.` },
   { q: `The opposite of "expensive" is ____.`, opts: ["cheap","tall","long","quiet"], a: 0, why: `Expensive costs a lot. The opposite is cheap.` }
 ];
+/* Shuffle the options so the correct answer never sits in a predictable place.
+   Runs once per page load, so the positions stay stable while answering
+   but change again the next time the page is opened. */
+function shuffleOne(item){
+  const correct = item.opts[item.a];
+  for(let i = item.opts.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [item.opts[i], item.opts[j]] = [item.opts[j], item.opts[i]];
+  }
+  item.a = item.opts.indexOf(correct);
+}
+quizData.forEach(shuffleOne);
+
 let quizAnswers = {};
 
 /* ---------- STATE ---------- */

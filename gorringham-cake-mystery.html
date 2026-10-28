@@ -461,6 +461,7 @@ document.getElementById("backBtn").addEventListener("click", () => {
 });
 document.getElementById("restartBtn").addEventListener("click", () => {
   S.history = []; S.answered = {}; S.score = 0;
+  shuffleAll();
   renderNode("start");
 });
 
@@ -513,6 +514,7 @@ document.getElementById("bonus").addEventListener("click", e => {
 });
 document.getElementById("bonusReset").addEventListener("click", () => {
   S.bonusAnswers = {};
+  bonus.forEach(shuffleOne);
   renderBonus();
 });
 
@@ -527,7 +529,25 @@ document.querySelectorAll("nav.tabs button").forEach(btn => {
   });
 });
 
+/* ============ ANSWER SHUFFLE ============ */
+/* The correct answer must never sit in a predictable position. Options are
+   shuffled once per page load (and again on restart), so the positions stay
+   stable while answering but change for the next round. */
+function shuffleOne(item){
+  const correct = item.opts[item.a];
+  for(let i = item.opts.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [item.opts[i], item.opts[j]] = [item.opts[j], item.opts[i]];
+  }
+  item.a = item.opts.indexOf(correct);
+}
+function shuffleAll(){
+  Object.values(nodes).forEach(n => { if(n.q) shuffleOne(n.q); });
+  bonus.forEach(shuffleOne);
+}
+
 /* ============ INIT ============ */
+shuffleAll();
 load();
 renderNode("start");
 renderBonus();
