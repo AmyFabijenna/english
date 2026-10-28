@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Great Gorringham Cake Mystery</title>
+<style>
+:root{
+  --black:#0b0307;
+  --dp:#4a0a26;
+  --pink:#8e1450;
+  --rose:#b8246a;
+  --sunrise:#ffb83d;
+  --sun:#ffe066;
+  --gold:#d4af37;
+  --text:#fbe9f1;
+  --soft:#f7b6d2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Georgia,"Times New Roman",serif;color:var(--text);min-height:100vh;line-height:1.6;
+  background:radial-gradient(circle at 50% -10%, #8e1450 0%, #4a0a26 40%, #0b0307 85%) fixed;
+}
+header{text-align:center;padding:36px 20px 18px;background:linear-gradient(180deg,rgba(255,184,61,.22),transparent)}
+.sun{width:130px;height:65px;margin:0 auto -6px;border-radius:130px 130px 0 0;background:linear-gradient(#ffe066,#ffb83d 55%,#ff7a2f);box-shadow:0 0 60px #ffb83d88}
+h1{font-size:2.4rem;margin:12px 0 4px;color:var(--gold);letter-spacing:1.5px;text-shadow:0 2px 0 #000}
+.sub{margin:0;color:var(--sun);font-style:italic}
+.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0 6px}
+.stat{background:rgba(0,0,0,.45);border:1px solid var(--gold);border-radius:14px;padding:8px 16px;min-width:120px}
+.stat b{display:block;color:var(--sunrise);font-size:1.25rem;font-weight:normal}
+.stat span{font-size:.8rem;color:var(--soft);letter-spacing:.5px}
+.bar{max-width:520px;margin:12px auto 0;height:10px;border:1px solid var(--gold);border-radius:20px;background:#000;overflow:hidden}
+.bar>div{height:100%;width:0;background:linear-gradient(90deg,#ff7a2f,#ffb83d,#ffe066);transition:width .6s}
+nav.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:16px}
+nav.tabs button{background:#000;color:var(--gold);border:1px solid var(--gold);padding:10px 16px;border-radius:30px;cursor:pointer;font-family:inherit;font-size:1rem}
+nav.tabs button.on,nav.tabs button:hover{background:linear-gradient(90deg,#b8246a,#ffb83d);color:#000}
+main{max-width:880px;margin:0 auto;padding:0 18px 60px}
+.panel{display:none}
+.panel.active{display:block}
+.lead{color:var(--sun);font-size:1.02rem;line-height:1.6;margin:0 0 16px}
+.chapter{background:rgba(0,0,0,.45);border:1px solid var(--gold);border-radius:18px;padding:26px;box-shadow:0 10px 40px #000a}
+.chap-title{color:var(--sunrise);font-size:1.4rem;margin-bottom:10px}
+.story p{font-size:1.1rem;line-height:1.75;margin:0 0 14px}
+.idm{color:var(--sun);border-bottom:1px dotted var(--sunrise);cursor:pointer;position:relative;font-style:italic}
+.idm:hover,.idm:focus{color:#fff;outline:none}
+.tip{position:absolute;bottom:125%;left:50%;transform:translateX(-50%);background:#000;color:var(--text);border:1px solid var(--gold);border-radius:10px;padding:8px 12px;width:260px;font-size:.85rem;font-style:normal;line-height:1.4;z-index:5;display:none;text-align:left;box-shadow:0 8px 24px #000}
+.idm.open .tip{display:block}
+.native{background:linear-gradient(90deg,rgba(255,184,61,.15),transparent);border-left:4px solid var(--sunrise);padding:10px 14px;margin:16px 0;line-height:1.5}
+.challenge{background:#1a0410;border:1px dashed var(--gold);border-radius:14px;padding:16px;margin-top:16px}
+.challenge h3{margin:0 0 10px;color:var(--sunrise);font-size:1.02rem;font-weight:normal;letter-spacing:.5px;text-transform:uppercase}
+.challenge .q{font-size:1.05rem;margin-bottom:8px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;background:#2a0616;color:var(--text);border:1px solid #7a2350;padding:10px 14px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:1rem}
+.opt:hover:not(:disabled){border-color:var(--sunrise)}
+.opt:disabled{cursor:default}
+.opt.right{background:#1f5c2e;border-color:#7fd69a}
+.opt.wrong{background:#5c1a1a;border-color:#e88}
+.why{color:var(--sun);font-size:.95rem;margin-top:8px;min-height:1.2em}
+.choices{display:none;gap:10px;margin-top:20px;flex-direction:column}
+.choices.show{display:flex}
+.choice{text-align:left;background:linear-gradient(90deg,#4a0a26,#8e1450);color:#fff;border:1px solid var(--gold);padding:14px 18px;border-radius:12px;font-family:inherit;font-size:1.02rem;cursor:pointer;transition:transform .15s}
+.choice:hover{transform:translateX(6px);box-shadow:0 0 0 2px var(--sunrise) inset}
+.ending{margin-top:18px;text-align:center;border:2px solid var(--sunrise);border-radius:16px;padding:18px;background:rgba(255,184,61,.08);display:none}
+.ending.show{display:block}
+.ending h4{margin:0 0 6px;color:var(--sun);font-weight:normal;font-size:1.2rem}
+.ending p{margin:6px 0;color:var(--soft)}
+.controls{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:#000;color:var(--gold);border:1px solid var(--gold);padding:8px 14px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:.95rem}
+.btn:hover{background:#1d0512}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.card{perspective:800px;height:160px;cursor:pointer}
+.card.locked{cursor:default}
+.inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.card.flipped .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;padding:14px;display:flex;flex-direction:column;justify-content:center;text-align:center;border:1px solid var(--gold);overflow:auto}
+.front{background:linear-gradient(135deg,#8e1450,#4a0a26);font-size:1.1rem;font-weight:bold;color:var(--sun)}
+.front small{font-size:.7rem;color:#ffb83d;margin-top:8px;font-weight:normal}
+.locked .front{background:#000;color:#555;border-style:dashed}
+.back{background:#0b0307;transform:rotateY(180deg);font-size:.9rem;line-height:1.4}
+.back em{color:var(--soft)}
+.back .de{color:var(--gold);margin:6px 0}
+.museum-note{color:var(--soft);text-align:center;margin-bottom:14px}
+.qbox{background:rgba(0,0,0,.45);border:1px solid var(--gold);border-radius:16px;padding:18px;margin-bottom:14px}
+.qbox h3{margin:0 0 10px;color:var(--sunrise);font-size:1.02rem;font-weight:normal;line-height:1.4}
+#bonusResult{font-size:1.2rem;color:var(--gold);text-align:center;margin-top:14px}
+footer{text-align:center;color:var(--gold);font-style:italic;padding:20px}
+@media(max-width:600px){h1{font-size:1.9rem}.story p{font-size:1.02rem}.tip{width:200px;left:0;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sun"></div>
+  <h1>The Great Gorringham Cake Mystery</h1>
+  <p class="sub">A click-through detective adventure: you decide, and the idioms come with you</p>
+  <div class="stats">
+    <div class="stat"><b id="sScore">0</b><span>Points</span></div>
+    <div class="stat"><b id="sIdioms">0 / 27</b><span>Idioms collected</span></div>
+    <div class="stat"><b id="sEndings">0 / 6</b><span>Endings found</span></div>
+  </div>
+  <div class="bar"><div id="bar"></div></div>
+</header>
+
+<nav class="tabs">
+  <button class="on" data-tab="story">1. The Mystery</button>
+  <button data-tab="museum">2. Idiom Museum</button>
+  <button data-tab="bonus">3. Bonus Round</button>
+</nav>
+
+<main>
+
+  <!-- STORY -->
+  <section id="tab-story" class="panel active">
+    <p class="lead">Little Gorringham's summer fete is in chaos. Someone has stolen the Golden Crumb Cake, and you are the only one who can crack the case. Read each chapter, tap the <i>italic</i> idioms to see what they mean, answer the challenge, and then choose your next move. Every choice leads somewhere different.</p>
+    <div id="story"></div>
+    <div class="controls">
+      <button class="btn" id="backBtn">← Back</button>
+      <button class="btn" id="restartBtn">Start the case again</button>
+    </div>
+  </section>
+
+  <!-- MUSEUM -->
+  <section id="tab-museum" class="panel">
+    <p class="lead">Every idiom you meet in the story gets its own card here. Tap a card to flip it. The cards you haven't found yet stay locked until you come across them in the story.</p>
+    <p class="museum-note" id="museumNote"></p>
+    <div id="museum" class="grid"></div>
+  </section>
+
+  <!-- BONUS -->
+  <section id="tab-bonus" class="panel">
+    <p class="lead">Ten quick questions, all about the idioms you've met and a few new ones. Each question has exactly one correct answer, so take your time.</p>
+    <div id="bonus"></div>
+    <div id="bonusResult"></div>
+    <div class="controls"><button class="btn" id="bonusReset">Try the bonus round again</button></div>
+  </section>
+
+</main>
+
+<footer>Case closed… for now. See you in the next chapter.</footer>
+
+<script>
+/* ============ IDIOMS ============ */
+const idioms = {
+  storm:{p:"a storm in a teacup",m:"a big fuss about something small",de:"viel Wirbel um nichts",ex:"It's only a scratch, so don't make it a storm in a teacup."},
+  jump:{p:"jump the gun",m:"act too early, before you have all the facts",de:"voreilig handeln",ex:"Don't jump the gun. Wait for the results first."},
+  bottom:{p:"get to the bottom of",m:"discover the real reason or truth",de:"der Sache auf den Grund gehen",ex:"The police want to get to the bottom of the robbery."},
+  tree:{p:"bark up the wrong tree",m:"accuse or look for the wrong person",de:"auf dem falschen Dampfer sein",ex:"If you think I took it, you're barking up the wrong tree."},
+  cat:{p:"let the cat out of the bag",m:"reveal a secret by accident",de:"etwas ausplaudern",ex:"I wanted to surprise her, but Tom let the cat out of the bag."},
+  tail:{p:"on someone's tail",m:"following someone very closely",de:"jemandem dicht auf den Fersen sein",ex:"The reporter was on the minister's tail for weeks."},
+  butter:{p:"butter someone up",m:"flatter someone to get something from them",de:"jemandem Honig ums Maul schmieren",ex:"He tried to butter the teacher up before the test."},
+  boat:{p:"in the same boat",m:"in the same difficult situation as others",de:"im selben Boot sitzen",ex:"We all missed the bus, so we're in the same boat."},
+  deepend:{p:"go off the deep end",m:"suddenly lose your temper or act wildly",de:"völlig ausrasten",ex:"When the printer broke, Dad went off the deep end."},
+  stand:{p:"stand your ground",m:"refuse to give in and stay firm",de:"sich nicht unterkriegen lassen",ex:"You were right, so stand your ground."},
+  red:{p:"caught red-handed",m:"caught in the act of doing something wrong",de:"auf frischer Tat ertappt",ex:"The cat was caught red-handed with the fish."},
+  cold:{p:"the trail has gone cold",m:"there are no new clues, so the search is stuck",de:"die Spur ist kalt",ex:"After a year, the detectives said the trail had gone cold."},
+  bottle:{p:"bottling it up",m:"keeping your feelings inside instead of talking about them",de:"alles in sich hineinfressen",ex:"Talk to someone, because bottling it up is not healthy."},
+  extra:{p:"go the extra mile",m:"do more than is expected of you",de:"sich besonders ins Zeug legen",ex:"The nurses really go the extra mile for their patients."},
+  weight:{p:"pull your weight",m:"do your fair share of the work",de:"seinen Teil beitragen",ex:"Everyone in the group has to pull their weight."},
+  cards:{p:"put your cards on the table",m:"be completely honest about your intentions",de:"die Karten auf den Tisch legen",ex:"Let's put our cards on the table before we decide."},
+  nail:{p:"hit the nail on the head",m:"say or do exactly the right thing",de:"den Nagel auf den Kopf treffen",ex:"You've hit the nail on the head with that idea."},
+  turn:{p:"turn the tables",m:"change a bad situation so that the other side loses",de:"das Blatt wenden",ex:"The underdog turned the tables in the final round."},
+  heels:{p:"took to his heels",m:"ran away very quickly",de:"die Beine in die Hand nehmen",ex:"When the dog barked, the thief took to his heels."},
+  bat:{p:"like a bat out of hell",m:"very fast, in a huge hurry",de:"wie von der Tarantel gestochen",ex:"She ran out of the room like a bat out of hell."},
+  hatchet:{p:"bury the hatchet",m:"end an argument and make peace",de:"das Kriegsbeil begraben",ex:"After years of arguing, the brothers finally buried the hatchet."},
+  proof:{p:"the proof is in the pudding",m:"the real result shows what something is really like",de:"Probieren geht über Studieren",ex:"The new system looks great, but the proof is in the pudding."},
+  fine:{p:"a fine kettle of fish",m:"a mess, a difficult situation",de:"eine schöne Bescherung",ex:"We missed the train and lost the tickets. What a fine kettle of fish!"},
+  clean:{p:"come clean",m:"admit the truth after hiding it",de:"reinen Tisch machen",ex:"It's better to come clean now than to get caught later."},
+  chase:{p:"cut to the chase",m:"get to the important point without wasting time",de:"zur Sache kommen",ex:"Let's cut to the chase: how much does it cost?"},
+  truth:{p:"the truth will out",m:"the truth always comes out in the end",de:"die Wahrheit kommt ans Licht",ex:"Don't worry, the truth will out eventually."},
+  birds:{p:"two birds with one stone",m:"solve two problems with one action",de:"zwei Fliegen mit einer Klappe schlagen",ex:"By cooking for my friends, I got dinner and company with one stone."}
+};
+const IDIOM_ORDER = Object.keys(idioms);
+
+/* ============ STORY NODES ============ */
+const nodes = {
+  start:{
+    title:"Chapter 1: The Vanishing Cake",
+    text:`Little Gorringham is a village where nothing ever happens, which is why the summer fete matters so much. This year the prize is the Golden Crumb Cake, a three-tier masterpiece that has won the baking contest eleven years in a row.
+
+At seven o'clock in the morning, the cake is gone. Mrs Pumphrey, the judge, is hysterical. Mr Blunt, the vicar, is shouting about a scratch on the tent window. "It's {storm}!" says Nell, your best friend, rolling her eyes. "Nobody is in danger."
+
+You look at the empty table. Crumbs lead out of the tent, past the hedge, and towards the lane. Mrs Pumphrey grabs your arm. "Please help me. But don't {jump}, dear. We need facts first."`,
+    native:`Brits often say "Brilliant!" for anything great, and "Cheers!" can mean thank you, or goodbye. Tap the highlighted idioms to see their meanings.`,
+    q:{q:`The vicar is making a fuss about one tiny scratch on a window. He is making ____.`,opts:["a storm in a teacup","a bird in the hand","a drop in the ocean","a fish out of water"],a:0,why:`"A storm in a teacup" means a big reaction to something small and unimportant.`},
+    choices:[
+      {label:"Let's get to the bottom of this!",next:"nell"},
+      {label:"Follow those crumbs!",next:"bramble"},
+      {label:"Let's talk to Mrs Pumphrey first.",next:"judge"}
+    ]
+  },
+  nell:{
+    title:"Chapter 2: Nell's Theory",
+    text:`Nell has been hiding a grin since breakfast. "I saw Mr Blunt near the tent at dawn," she whispers. "He was carrying a large box, and he's been acting weird all morning." You really want to {bottom} it quickly, but Nell sometimes jumps to conclusions.
+
+"Honestly," you say, "I think you might be {tree}." Nell shrugs. "Maybe. But that box was definitely his."`,
+    native:`"Get to the bottom of" is used everywhere: in the news, in crime series on TV, and in everyday arguments.`,
+    q:{q:`What does "bark up the wrong tree" mean?`,opts:["to accuse the wrong person","to climb a tree to hide","to speak very loudly","to give up a search"],a:0,why:`It means you are looking for the answer in the wrong place or blaming the wrong person.`},
+    choices:[
+      {label:"Confront Mr Blunt right now.",next:"confront"},
+      {label:"Forget Nell and follow the crumb trail.",next:"bramble"}
+    ]
+  },
+  bramble:{
+    title:"Chapter 3: Bramble Has a Nose",
+    text:`Bramble, Mrs Pumphrey's enormous, shaggy dog, has been sniffing around since you started. Suddenly he shoots off across the field, ears flying. You run after him, and Nell yells: "Wait for me! I'm not being left out of this!"
+
+Bramble is definitely {tail} now. He leads you to the old barn at the edge of the village and sniffs at the door. From inside, you hear a soft crunch.
+
+On the windowsill, Mrs Pumphrey's cat Mabel watches you with suspicion. If she could talk, she would {cat} in a second.`,
+    native:`"On someone's tail" is informal. You can use it for a car that drives too close behind you, too.`,
+    q:{q:`What does "let the cat out of the bag" mean?`,opts:["to reveal a secret by accident","to free an animal from a box","to lose a competition","to tell a joke badly"],a:0,why:`Someone reveals a secret, often without meaning to.`},
+    choices:[
+      {label:"Open the barn door.",next:"barn"},
+      {label:"Run back and tell Mrs Pumphrey what you found.",next:"judge"}
+    ]
+  },
+  judge:{
+    title:"Chapter 4: The Judge's Little Game",
+    text:`Mrs Pumphrey is sitting on a folding chair with a lemonade and a very suspicious smile. "Oh, you've come to see me! Lovely. I know what you're thinking: you want the Golden Crumb back. But don't try to {butter}, dear. I've been judging cakes for thirty years, and I can smell flattery from across the field."
+
+She leans closer. "The contest has everyone on edge. We're all {boat}: the baker, the vicar, and me. Somebody took that cake because they were scared of losing."
+
+She slides a note across the table. "Ask Theo. He's the baker's nephew, and he's been avoiding me all morning."`,
+    native:`"In the same boat" is a common, friendly way to say that everyone is facing the same problem.`,
+    q:{q:`What does "butter someone up" mean?`,opts:["to flatter someone to get something","to spread butter on bread","to cook something sweet","to upset someone on purpose"],a:0,why:`It means to be extra nice to someone, usually because you want something from them.`},
+    choices:[
+      {label:"Go and find Theo.",next:"theo"},
+      {label:"Offer to help set up the new display.",next:"help"}
+    ]
+  },
+  confront:{
+    title:"Chapter 5: Mr Blunt Loses It",
+    text:`Mr Blunt is stacking folding chairs with the speed of a man who has something to hide. "Ah, the detectives," he snaps. "You won't find anything here, I assure you." Nell can't help herself: "Okay, so what's in the box?"
+
+His face turns red. "That is none of your business!" He throws a chair across the grass. "You two are going to make me {deepend}!"
+
+Nell whispers to you: "{stand}, he's bluffing."`,
+    native:`Americans often say "lose it" for the same idea. "Go off the deep end" is more colourful and very British-flavoured.`,
+    q:{q:`What does "go off the deep end" mean?`,opts:["to lose your temper completely","to swim to the bottom of a lake","to start a new hobby","to fall asleep at once"],a:0,why:`It means to suddenly become very angry or act wildly.`},
+    choices:[
+      {label:"Say nothing and let him storm off.",next:"blunt_flees"},
+      {label:"Apologise and ask what's really going on.",next:"peace"}
+    ]
+  },
+  barn:{
+    title:"Chapter 6: The Old Barn",
+    text:`Inside the barn it is dim and smells of hay. Something rustles in the corner, and Bramble wags his tail like mad. Then you see it: Theo, the baker's nephew, sitting on a bale of hay with frosting on his nose and the Golden Crumb balanced on his knees. He freezes.
+
+"Well, well," says Nell. "Looks like we've {red}."
+
+For a moment you think {cold}, but then Bramble sneezes, and a trail of crumbs leads right back to the cake. Your heart is pounding.`,
+    native:`"Gone cold" is used for investigations, but also for old ideas, lost relationships, or a conversation that has lost its energy.`,
+    q:{q:`What does "the trail has gone cold" mean?`,opts:["there are no new clues, so the search is stuck","the weather got colder","the dog is tired and wants to sleep","someone turned off the heating"],a:0,why:`A "cold" trail is one where the clues have dried up and progress has stopped.`},
+    choices:[
+      {label:"Ask Theo why he did it.",next:"caught"},
+      {label:"Put the whole case in front of everyone.",next:"showdown"}
+    ]
+  },
+  theo:{
+    title:"Chapter 7: Theo's Secret Tent",
+    text:`Theo's tent is pitched behind the cricket pavilion. He sits inside with a clipboard full of recipes and a face like thunder. "I didn't mean to ruin the contest," he mumbles. "It's just that every year Aunt Hetty wins, and I'm the one carrying the boxes. This year I wanted to win something for myself."
+
+He takes a deep breath. "I've been {bottle} for weeks. Sorry."
+
+He looks at you hopefully. "Please don't tell Mrs Pumphrey yet. Are you going to tell her?"`,
+    native:`"Bottling it up" is a very common expression in English when people talk about feelings and stress.`,
+    q:{q:`Theo finally decided to ____ and tell everyone the truth.`,opts:["come clean","come off","come down","come apart"],a:0,why:`"To come clean" means to admit something after hiding it.`},
+    choices:[
+      {label:"Tell Theo he should come clean to everyone.",next:"come_clean"},
+      {label:"Promise to sort it out with the judges.",next:"showdown"}
+    ]
+  },
+  help:{
+    title:"Chapter 8: Helping Hands",
+    text:`You decide to help Mrs Pumphrey set up the new display for the judging. The table wobbles, the bunting is tangled, and Nell refuses to lift anything heavier than a teaspoon. "Come on, Nell, {weight}!" you say.
+
+Mrs Pumphrey notices your effort. "You really {extra}, don't you? You're a credit to the village."`,
+    native:`"Pull your weight" is a classic phrase in group work and school sport. Teachers and coaches use it all the time.`,
+    q:{q:`What does "pull your weight" mean?`,opts:["do your fair share of the work","lift heavy weights in the gym","be heavier than the others","carry the shopping alone"],a:0,why:`When you pull your weight, you do your part in a team.`},
+    choices:[
+      {label:"Meet everyone at the cake table for the big reveal.",next:"showdown"}
+    ]
+  },
+  showdown:{
+    title:"Chapter 9: The Big Reveal",
+    text:`The whole village gathers around the cake table. Mrs Pumphrey clears her throat. "Right. I think it's time you {cards}. Who took the Golden Crumb?"
+
+Everyone looks at each other. Theo goes pale, Mr Blunt puts his hands in his pockets, and Nell gives you a look that says: you've got this.
+
+You realise the answer was right in front of you all along. "Mrs Pumphrey, I think you've {nail}," you say slowly. "If we {turn} now, the thief will have to face the village."`,
+    native:`"Put your cards on the table" comes from card games, but English speakers use it in meetings and arguments too.`,
+    q:{q:`What does "turn the tables" mean?`,opts:["to reverse a bad situation","to move a table to another room","to play a card game","to set the table for dinner"],a:0,why:`When you turn the tables, a situation that was against you changes in your favour.`},
+    choices:[
+      {label:"Lay everything out honestly for the village.",next:"honest_end"},
+      {label:"Set a clever trap so the thief reveals himself.",next:"trap_end"}
+    ]
+  },
+
+  /* ----- ENDINGS ----- */
+  blunt_flees:{
+    ending:true,endName:"Storm Over",
+    title:"Ending: Storm Over",
+    text:`Mr Blunt doesn't wait for another word. He grabs his keys and {heels} across the field, then roars off in his old van like a {bat}. Nell calls after him: "Well, that's one way to end a conversation!"
+
+Later that afternoon, the police find the Golden Crumb hidden under a tarpaulin in the back of his van. It turns out he wanted to win the contest for the vicarage roof fund. The village is shocked, but the storm in the teacup is finally over.`,
+    native:`"Like a bat out of hell" is a fun, dramatic way to say very fast. Use it when you want to sound like a storyteller.`,
+    q:{q:`What does "like a bat out of hell" mean?`,opts:["very fast, in a huge hurry","very quiet, sneaking away","very slow and tired","very scared of the dark"],a:0,why:`It's an exaggerated way to describe someone moving extremely quickly.`}
+  },
+  peace:{
+    ending:true,endName:"Peace Pudding",
+    title:"Ending: Peace Pudding",
+    text:`You apologise, and Mr Blunt sighs deeply. "Fine. I borrowed the cake for a test run, because I wanted to check whether the judges were fair. I should have asked." Nell groans. He holds out his hand. "Let's {hatchet}, shall we?"
+
+You shake his hand, and the village cheers. Mrs Pumphrey tastes the cake, nods, and says: "{proof}!" The whole fete gets back on track, and nobody mentions the scratch on the window ever again.`,
+    native:`"Bury the hatchet" started as a North American expression, but English speakers use it everywhere now.`,
+    q:{q:`Mr Blunt and Nell agreed to ____ the hatchet, so the fete could go on.`,opts:["bury","dig","throw","carry"],a:0,why:`"To bury the hatchet" means to end a conflict and make peace.`}
+  },
+  caught:{
+    ending:true,endName:"Caught Red-Handed",
+    title:"Ending: Caught Red-Handed",
+    text:`Theo jumps up, scattering frosting everywhere. The Golden Crumb wobbles on his knees. You lunge to catch it, and a tiny piece lands on Bramble's head. "This is {fine}!" Nell groans.
+
+Theo finally confesses: he wanted one moment of glory before Aunt Hetty's big win. The village is not angry, just surprised. Aunt Hetty is so touched that she hands Theo her own apron and says, "Next year, you bake, and I'll carry the boxes!"`,
+    native:`"A fine kettle of fish" is a very British way to say a mess. It is often said with a laugh, not in anger.`,
+    q:{q:`What does "a fine kettle of fish" mean?`,opts:["a mess, a difficult situation","a delicious dinner","a very cold day","a nice present"],a:0,why:`It's an ironic expression for a situation that has gone badly wrong.`}
+  },
+  come_clean:{
+    ending:true,endName:"Come Clean",
+    title:"Ending: Come Clean",
+    text:`Theo takes a long breath and says it: he took the cake to hide it, because he was scared that everyone would laugh at his recipe. You tell him that it's always better to {clean} early. Mrs Pumphrey listens quietly, then gives him a special ribbon for Courage in Baking.
+
+When Theo walks out of the barn, he's smiling for the first time all week. Nobody in Little Gorringham has ever been so proud of a slightly squashed cake.`,
+    native:`"Come clean" is common in news, films and everyday talk. "Confess" is more formal, but you'll hear it less often in casual speech.`,
+    q:{q:`Which phrase means "admit the truth after hiding it"?`,opts:["come clean","come off","come down","come apart"],a:0,why:`"To come clean" is used when someone stops hiding the truth.`}
+  },
+  honest_end:{
+    ending:true,endName:"Honest Crumb",
+    title:"Ending: Honest Crumb",
+    text:`You take a deep breath. "Right, let's {chase}," you say. "Honestly, {truth}, so we might as well tell it now." Theo confesses, the village nods in understanding, and Mrs Pumphrey gives the cake back to the stall, slightly chipped but still golden.
+
+Nell gives you a high five. "Okay, detective, I'm impressed. Let's go and get some ice cream."`,
+    native:`"Cut to the chase" comes from the film world, where the chase scene is the exciting bit. Use it when you want people to get to the point.`,
+    q:{q:`Which expression means "get to the important point without wasting time"?`,opts:["cut to the chase","cut the cake","cut corners","cut it out"],a:0,why:`"Cut to the chase" tells people to skip the small talk and come to the main point.`}
+  },
+  trap_end:{
+    ending:true,endName:"Two Birds, One Stone",
+    title:"Ending: Two Birds, One Stone",
+    text:`You set a little trap: a tempting slice of cake on the table, a bell on the cake stand, and Bramble hidden behind the tent. Nell whispers, "This is going to be so funny." Suddenly the bell rings, and the culprit is… Mabel the cat! She has been sitting in the barn all morning, guarding her very own stolen slice.
+
+"Catching the thief and finding the cake in one go," Nell says, grinning, "that's {birds}!"`,
+    native:`"Two birds with one stone" is a classic expression for a single action that solves two problems. Use it in school projects and at work.`,
+    q:{q:`Which phrase means "solve two problems with one action"?`,opts:["two birds with one stone","birds of a feather","the early bird catches the worm","a bird's eye view"],a:0,why:`The expression describes one action that achieves two results.`}
+  }
+};
+
+/* ============ BONUS ============ */
+const bonus = [
+  {q:`I'm still ____ about the trip. I can't decide yet.`,opts:["on the fence","on cloud nine","in hot water","over the top"],a:0},
+  {q:`You're in ____ if you forget your homework again.`,opts:["hot water","hot air","cold water","warm hands"],a:0},
+  {q:`Mum says I should stop ____ and simply tell her what happened.`,opts:["beating around the bush","hitting the books","going Dutch","reading between the lines"],a:0},
+  {q:`The results were ____. We lost the match, but we learned a lot.`,opts:["a red herring","a blessing in disguise","a bee in the bonnet","a cup of tea"],a:1},
+  {q:`The concert was ____. The tickets sold out in five minutes.`,opts:["a hot cake","a hot ticket","a hot potato","a hot air balloon"],a:1},
+  {q:`Don't ____ until you know all the facts.`,opts:["jump the gun","jump the queue","jump for joy","jump ship"],a:0},
+  {q:`I'm sorry, I didn't mean to ____. It was supposed to be a secret.`,opts:["let the cat out of the bag","let the chips fall","let off steam","let sleeping dogs lie"],a:0},
+  {q:`Okay, we need to ____ and talk about the money.`,opts:["get down to brass tacks","go down the drain","get off the ground","put down roots"],a:0},
+  {q:`Let's ____ and agree on a plan for the group project.`,opts:["bury the hatchet","bury the dead","dig up the hatchet","break the hatchet"],a:0},
+  {q:`Dancing in public? It's not my ____. I'd rather play football.`,opts:["cup of tea","glass of water","bowl of soup","piece of pie"],a:0}
+];
+
+/* ============ STATE ============ */
+const S = { current:"start", history:[], answered:{}, score:0, seen:new Set(), endings:new Set(), bonusAnswers:{} };
+let memStore = {};
+function load(){
+  try{
+    const v = JSON.parse(localStorage.getItem("gorringhamProgress")||"null");
+    if(v){ S.seen = new Set(v.seen||[]); S.endings = new Set(v.endings||[]); }
+  }catch(e){ S.seen = new Set(memStore.seen||[]); S.endings = new Set(memStore.endings||[]); }
+}
+function save(){
+  const data = { seen:[...S.seen], endings:[...S.endings] };
+  memStore = data;
+  try{ localStorage.setItem("gorringhamProgress", JSON.stringify(data)); }catch(e){}
+}
+
+/* ============ HELPERS ============ */
+function renderText(t){
+  return t.split(/\n\n+/).map(par => {
+    const html = par.replace(/\{(\w+)\}/g, (m,k) => {
+      if(!idioms[k]) return m;
+      return `<span class="idm" data-k="${k}" tabindex="0">${idioms[k].p}<span class="tip"><b>${idioms[k].p}</b><br>${idioms[k].m}<br><span style="color:#f7b6d2">${idioms[k].de}</span></span></span>`;
+    });
+    return `<p>${html}</p>`;
+  }).join("");
+}
+function rank(score){
+  if(score >= 14) return "Native Detective";
+  if(score >= 10) return "Sharp Sleuth";
+  return "Rising Detective";
+}
+function updateStats(){
+  document.getElementById("sScore").textContent = S.score;
+  document.getElementById("sIdioms").textContent = S.seen.size + " / " + IDIOM_ORDER.length;
+  document.getElementById("sEndings").textContent = S.endings.size + " / 6";
+  const pct = Math.round((S.seen.size/IDIOM_ORDER.length)*50 + (S.endings.size/6)*50);
+  document.getElementById("bar").style.width = pct + "%";
+}
+
+/* ============ STORY RENDER ============ */
+function renderNode(id){
+  const n = nodes[id];
+  S.current = id;
+  const keys = [...n.text.matchAll(/\{(\w+)\}/g)].map(m => m[1]);
+  keys.forEach(k => S.seen.add(k));
+  save();
+
+  const done = S.answered[id] !== undefined;
+  let html = `<article class="chapter"><div class="chap-title">${n.title}</div>`;
+  html += `<div class="story">${renderText(n.text)}</div>`;
+  html += `<div class="native"><b>Native tip:</b> ${n.native}</div>`;
+  html += `<div class="challenge"><h3>Challenge</h3><div class="q">${n.q.q}</div>` +
+    n.q.opts.map((o,i) => `<button class="opt" data-o="${i}" ${done?"disabled":""}>${o}</button>`).join("") +
+    `<div class="why" id="why">${done ? (S.answered[id]===n.q.a ? "Correct! " : "Not quite. ") + n.q.why : ""}</div></div>`;
+
+  const showNext = done;
+  if(n.ending){
+    html += `<div class="ending ${showNext?"show":""}"><h4>${n.endName}</h4><p>Say two of the idioms from this chapter out loud, slowly, then faster. Can you use one of them in a sentence today?</p><p>Your score so far: <b>${S.score}</b> points · Rank: <b>${rank(S.score)}</b></p></div>`;
+  } else {
+    html += `<div class="choices ${showNext?"show":""}">` + n.choices.map(c => `<button class="choice" data-next="${c.next}">${c.label}</button>`).join("") + `</div>`;
+  }
+  html += `</article>`;
+  document.getElementById("story").innerHTML = html;
+  updateStats();
+  renderMuseum();
+}
+
+document.getElementById("story").addEventListener("click", e => {
+  const idm = e.target.closest(".idm");
+  if(idm){ idm.classList.toggle("open"); return; }
+
+  const opt = e.target.closest(".opt");
+  if(opt){
+    const id = S.current, n = nodes[id];
+    if(S.answered[id] !== undefined) return;
+    const o = Number(opt.dataset.o);
+    S.answered[id] = o;
+    if(o === n.q.a){ S.score += 10; }
+    if(n.ending){ S.endings.add(id); }
+    save();
+    renderNode(id);
+    return;
+  }
+
+  const ch = e.target.closest(".choice");
+  if(ch){
+    S.history.push(S.current);
+    renderNode(ch.dataset.next);
+    window.scrollTo({top: document.getElementById("story").offsetTop - 20, behavior:"smooth"});
+  }
+});
+document.getElementById("backBtn").addEventListener("click", () => {
+  if(S.history.length) renderNode(S.history.pop());
+});
+document.getElementById("restartBtn").addEventListener("click", () => {
+  S.history = []; S.answered = {}; S.score = 0;
+  renderNode("start");
+});
+
+/* ============ MUSEUM ============ */
+function renderMuseum(){
+  const box = document.getElementById("museum");
+  box.innerHTML = IDIOM_ORDER.map(k => {
+    const x = idioms[k];
+    if(S.seen.has(k)){
+      return `<div class="card" data-k="${k}"><div class="inner">
+        <div class="face front">${x.p}<small>tap to flip</small></div>
+        <div class="face back"><em>${x.m}</em><div class="de">${x.de}</div><div>e.g. ${x.ex}</div></div>
+      </div></div>`;
+    }
+    return `<div class="card locked"><div class="inner"><div class="face front">??? <small>find me in the story</small></div></div></div>`;
+  }).join("");
+  document.getElementById("museumNote").textContent = `${S.seen.size} of ${IDIOM_ORDER.length} idioms collected`;
+}
+document.getElementById("museum").addEventListener("click", e => {
+  const c = e.target.closest(".card");
+  if(c && !c.classList.contains("locked")) c.classList.toggle("flipped");
+});
+
+/* ============ BONUS ============ */
+function renderBonus(){
+  document.getElementById("bonus").innerHTML = bonus.map((b,i) => `
+    <div class="qbox" data-q="${i}">
+      <h3>${i+1}. ${b.q}</h3>
+      ${b.opts.map((o,oi) => `<button class="opt" data-q="${i}" data-o="${oi}" ${S.bonusAnswers[i]!==undefined?"disabled":""}>${o}</button>`).join("")}
+    </div>`).join("");
+  const answered = Object.keys(S.bonusAnswers).length;
+  const correct = bonus.reduce((s,b,i) => s + (S.bonusAnswers[i]===b.a?1:0), 0);
+  document.getElementById("bonusResult").textContent = answered === bonus.length
+    ? `Bonus score: ${correct} / ${bonus.length}. ${correct >= 8 ? "Outstanding, you're a true idiom detective!" : "Good effort. Have another go and see how many you can get right."}`
+    : `Answered: ${answered} / ${bonus.length}`;
+}
+document.getElementById("bonus").addEventListener("click", e => {
+  const btn = e.target.closest(".opt");
+  if(!btn) return;
+  const qi = Number(btn.dataset.q), oi = Number(btn.dataset.o);
+  if(S.bonusAnswers[qi] !== undefined) return;
+  S.bonusAnswers[qi] = oi;
+  const box = btn.closest(".qbox");
+  box.querySelectorAll(".opt").forEach((b,i) => {
+    b.disabled = true;
+    if(i === bonus[qi].a) b.classList.add("right");
+    if(i === oi && oi !== bonus[qi].a) b.classList.add("wrong");
+  });
+  renderBonus();
+});
+document.getElementById("bonusReset").addEventListener("click", () => {
+  S.bonusAnswers = {};
+  renderBonus();
+});
+
+/* ============ TABS ============ */
+document.querySelectorAll("nav.tabs button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("nav.tabs button").forEach(b => b.classList.remove("on"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("on");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+    if(btn.dataset.tab === "museum") renderMuseum();
+  });
+});
+
+/* ============ INIT ============ */
+load();
+renderNode("start");
+renderBonus();
+</script>
+</body>
+</html>
