@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Englisch Zentralmatura – Dein Weg zur Eins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f2ec; --card:#ffffff; --ink:#1b1b1f; --muted:#56535d; --line:#e3ddd3;
+  --blue:#3a5a8c; --blue-soft:#e7edf6;
+  --petrol:#1d6b74; --petrol-soft:#e3eff1;
+  --lilac:#5d4a7e; --lilac-soft:#eee9f5;
+  --terra:#9c4f3d; --terra-soft:#f6e9e4;
+  --gold:#a7843b; --gold-soft:#f6efdf;
+  --radius:20px; --shadow:0 6px 24px rgba(40,30,20,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend',system-ui,sans-serif;font-size:18px;line-height:1.7}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+h1,h2,h3,h4{line-height:1.3;font-weight:600;margin:0 0 .6em}
+h2{font-size:1.7rem} h3{font-size:1.22rem}
+p{margin:0 0 1em}
+.en{font-family:'Source Serif 4',Georgia,serif;font-size:1.08rem;line-height:1.8}
+em.en{font-style:italic}
+.hero{background:linear-gradient(135deg,#2f4a75 0%,#4a3e6b 55%,#9c4f3d 100%);color:#fff;padding:64px 0 54px;border-radius:0 0 36px 36px}
+.hero h1{font-size:2.5rem;font-weight:700;margin-bottom:.3em}
+.hero p{font-size:1.12rem;max-width:740px;opacity:.95}
+.hero .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hero .chips span{background:rgba(255,255,255,.14);border-radius:999px;padding:6px 14px;font-size:.92rem}
+nav.top{position:sticky;top:0;z-index:50;background:rgba(245,242,236,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.top a{white-space:nowrap;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);padding:7px 15px;border-radius:999px;font-size:.92rem}
+nav.top a:hover{background:var(--blue-soft);border-color:var(--blue)}
+nav.top a.sim{background:var(--terra);color:#fff;border-color:var(--terra)}
+section{padding:52px 0 8px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.badge{min-width:52px;height:46px;padding:0 10px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:1rem;flex-shrink:0}
+.b-blue{background:var(--blue)}.b-petrol{background:var(--petrol)}.b-lilac{background:var(--lilac)}.b-terra{background:var(--terra)}.b-gold{background:var(--gold)}
+.lead{color:var(--muted);font-size:1.05rem;max-width:840px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px 28px;margin-bottom:20px;border:1px solid #efe9df}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.stat{border-radius:18px;padding:20px 22px}
+.stat .num{font-size:2rem;font-weight:700;line-height:1.1}
+.stat .lbl{font-size:.95rem;color:var(--muted)}
+.s-blue{background:var(--blue-soft)}.s-blue .num{color:var(--blue)}
+.s-petrol{background:var(--petrol-soft)}.s-petrol .num{color:var(--petrol)}
+.s-lilac{background:var(--lilac-soft)}.s-lilac .num{color:var(--lilac)}
+.s-terra{background:var(--terra-soft)}.s-terra .num{color:var(--terra)}
+.s-gold{background:var(--gold-soft)}.s-gold .num{color:var(--gold)}
+.note{border-left:5px solid var(--gold);background:var(--gold-soft);padding:14px 18px;border-radius:12px;margin:14px 0}
+.note.blue{border-color:var(--blue);background:var(--blue-soft)}
+.note.lilac{border-color:var(--lilac);background:var(--lilac-soft)}
+.note.terra{border-color:var(--terra);background:var(--terra-soft)}
+.note.petrol{border-color:var(--petrol);background:var(--petrol-soft)}
+table.plain{width:100%;border-collapse:separate;border-spacing:0;font-size:.97rem}
+table.plain th{background:var(--blue-soft);text-align:left;padding:10px 14px;font-weight:600}
+table.plain td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.plain tr:last-child td{border-bottom:none}
+table.plain th:first-child{border-radius:12px 0 0 0}table.plain th:last-child{border-radius:0 12px 0 0}
+.tag{display:inline-block;font-size:.78rem;padding:3px 10px;border-radius:999px;font-weight:500;background:var(--blue-soft);color:var(--blue)}
+.tag.p{background:var(--petrol-soft);color:var(--petrol)}.tag.l{background:var(--lilac-soft);color:var(--lilac)}.tag.t{background:var(--terra-soft);color:var(--terra)}.tag.g{background:var(--gold-soft);color:var(--gold)}
+.top-blue{border-top:5px solid var(--blue)}.top-petrol{border-top:5px solid var(--petrol)}.top-lilac{border-top:5px solid var(--lilac)}.top-terra{border-top:5px solid var(--terra)}
+.ex{background:var(--bg);border-radius:14px;padding:12px 16px;margin:10px 0}
+.walk{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:22px 26px;margin-bottom:18px;border:1px solid #efe9df}
+.walk .task-text{background:var(--bg);border-radius:14px;padding:14px 18px;margin:8px 0 14px}
+.wstep{display:none;gap:14px;padding:12px 0;border-top:1px dashed var(--line);animation:fade .4s}
+.wstep.show{display:flex}
+.wstep .n{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:.9rem;font-weight:600}
+.wstep.final .n{background:var(--petrol)}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+button{font-family:inherit;font-size:1rem;border:none;border-radius:14px;padding:11px 20px;cursor:pointer;background:var(--blue);color:#fff;transition:.2s}
+button:hover{filter:brightness(1.08)}
+button.ghost{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+button.terra{background:var(--terra)} button.petrol{background:var(--petrol)} button.lilac{background:var(--lilac)} button.gold{background:var(--gold)}
+button:disabled{opacity:.45;cursor:default}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+details.acc{background:#fff;border-radius:18px;box-shadow:var(--shadow);margin-bottom:14px;border:1px solid #efe9df;overflow:hidden}
+details.acc summary{list-style:none;cursor:pointer;padding:18px 24px;font-weight:600;font-size:1.06rem;display:flex;align-items:center;gap:12px}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:'+';margin-left:auto;font-size:1.5rem;color:var(--muted);transition:.2s}
+details.acc[open] summary::after{transform:rotate(45deg)}
+details.acc .inner{padding:0 24px 22px}
+.phr{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.phr div{background:var(--bg);border-radius:14px;padding:14px 16px}
+.phr b{display:block;margin-bottom:4px;color:var(--lilac)}
+/* Quiz */
+.q{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:20px 24px;margin-bottom:16px;border:1px solid #efe9df}
+.q .qhead{font-size:.85rem;color:var(--muted);margin-bottom:4px}
+.q .prompt{font-weight:500;margin-bottom:12px}
+.opts{display:grid;gap:9px}
+.opt{text-align:left;background:var(--bg);color:var(--ink);border:2px solid transparent;border-radius:13px;padding:10px 16px;font-size:.98rem;display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.opt:hover{border-color:var(--blue);filter:none}
+.opt input{margin-top:6px;transform:scale(1.2);accent-color:var(--blue)}
+.opt.right{background:var(--petrol-soft);border-color:var(--petrol)}
+.opt.wrong{background:var(--terra-soft);border-color:var(--terra)}
+.expl{display:none;margin-top:12px;padding:14px 18px;border-radius:12px;background:var(--blue-soft);font-size:.96rem}
+.expl.show{display:block}
+b.ok{color:var(--petrol)} b.no{color:var(--terra)}
+.scorebar{position:sticky;top:62px;z-index:20;background:var(--lilac);color:#fff;border-radius:14px;padding:10px 18px;margin-bottom:16px;display:flex;justify-content:space-between;font-weight:500}
+/* Simulation */
+.sim-hero{background:linear-gradient(135deg,#9c4f3d,#4a3e6b);color:#fff;border-radius:26px;padding:30px 32px;margin-bottom:22px}
+.timer{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:rgba(255,255,255,.12);border-radius:16px;padding:14px 18px;margin-top:14px}
+.timer .clock{font-size:2.1rem;font-weight:700;font-variant-numeric:tabular-nums}
+.timer button{background:#fff;color:var(--lilac)}
+.part{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:26px 28px;margin:26px 0;border-top:6px solid var(--blue)}
+.part.listen{border-top-color:var(--petrol)}.part.liu{border-top-color:var(--lilac)}.part.write{border-top-color:var(--terra)}
+.part>h3{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.part>h3 .tag{font-size:.85rem}
+.task{border-top:1px dashed var(--line);padding-top:20px;margin-top:22px}
+.task h4{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.task h4 .pts{font-size:.82rem;font-weight:500;background:var(--bg);padding:3px 12px;border-radius:999px;white-space:nowrap;color:var(--muted)}
+.instr{background:var(--blue-soft);border-radius:12px;padding:10px 16px;font-size:.95rem;margin-bottom:12px}
+.textbox{background:#fffdf9;border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:14px}
+.textbox h5{font-family:'Source Serif 4',serif;font-size:1.3rem;margin:0 0 10px;font-weight:600}
+.textbox p{margin-bottom:.8em}
+.gap{display:inline-block;min-width:46px;text-align:center;background:var(--lilac-soft);color:var(--lilac);border-radius:8px;padding:0 8px;font-family:'Lexend';font-size:.85rem;font-weight:600}
+.row{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row .nr{font-weight:600;color:var(--muted)}
+.row .ctrl{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;align-items:center}
+input[type=text],select,textarea{font-family:inherit;font-size:1rem;border:2px solid var(--line);border-radius:11px;padding:8px 12px;background:#fff;max-width:100%}
+input[type=text]{width:260px}
+input.short{width:160px}
+textarea{width:100%;line-height:1.65}
+textarea.write{min-height:360px;font-family:'Source Serif 4',serif;font-size:1.08rem}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue)}
+.mark-ok{border-color:var(--petrol)!important;background:var(--petrol-soft)!important}
+.mark-no{border-color:var(--terra)!important;background:var(--terra-soft)!important}
+.fb{display:none;font-size:.93rem;background:var(--gold-soft);border-radius:10px;padding:10px 14px;margin-top:8px}
+.fb.show{display:block}
+.player{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--petrol-soft);border-radius:14px;padding:12px 16px;margin-bottom:14px}
+.player button{background:var(--petrol)}
+.player .st{font-size:.9rem;color:var(--petrol)}
+.transcript{display:none;background:var(--bg);border-radius:14px;padding:14px 18px;font-size:.95rem;margin-top:12px}
+.transcript.show{display:block}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.bank span{background:var(--lilac-soft);color:var(--lilac);border-radius:10px;padding:4px 12px;font-size:.95rem}
+.wc{font-size:.92rem;color:var(--muted);margin-top:6px}
+.wc b{color:var(--ink)}
+.rub{display:grid;gap:10px;margin-top:12px}
+.rub .rr{display:grid;grid-template-columns:1fr 130px;gap:12px;align-items:center;background:var(--bg);border-radius:12px;padding:10px 14px}
+.model{display:none;background:var(--gold-soft);border-radius:14px;padding:18px 22px;margin-top:12px}
+.model.show{display:block}
+.result{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:28px;border:2px solid var(--lilac);margin-top:26px}
+.bar{height:16px;background:#efe9df;border-radius:999px;overflow:hidden;margin:6px 0 14px}
+.bar>div{height:100%;border-radius:999px;transition:width .8s;width:0}
+.grade{font-size:2.2rem;font-weight:700;color:var(--lilac)}
+.mini{font-size:.9rem;color:var(--muted)}
+.hidden{display:none}
+footer{padding:50px 0 60px;color:var(--muted);font-size:.9rem;text-align:center}
+@media (max-width:640px){
+  body{font-size:17px}.hero h1{font-size:1.9rem}
+  .card,.part,.q,.walk{padding:20px 18px}
+  input[type=text]{width:100%}
+  .rub .rr{grid-template-columns:1fr}
+  .scorebar{top:58px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero"><div class="wrap">
+  <h1>Englisch Zentralmatura</h1>
+  <p>Alles für eine ausgezeichnete schriftliche Reifeprüfung in Englisch: Strategien für jedes Aufgabenformat, Grammatik und Wortbildung kompakt, Textsorten mit Bauplänen und Phrasen, die typischen Fehler deutschsprachiger Lernender – und eine vollständige Maturasimulation mit allen vier Kompetenzbereichen, inklusive vorgelesener Hörtexte.</p>
+  <div class="chips"><span>Reading</span><span>Listening</span><span>Language in Use</span><span>Writing</span></div>
+</div></header>
+
+<nav class="top"><div class="wrap">
+  <a href="#ueberblick">Überblick</a>
+  <a href="#reading">Reading</a>
+  <a href="#listening">Listening</a>
+  <a href="#liu">Language in Use</a>
+  <a href="#writing">Writing</a>
+  <a href="#fallen">Fehlerfallen</a>
+  <a href="#training">Training</a>
+  <a href="#simulation" class="sim">★ Maturasimulation</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ================= ÜBERBLICK ================= -->
+<section id="ueberblick">
+  <div class="sec-head"><div class="badge b-blue">1</div><h2>Die Klausur im Überblick</h2></div>
+  <p class="lead">Die schriftliche Englischmatura an der AHS prüft vier Kompetenzbereiche, die jeweils ein Viertel der Gesamtbeurteilung ausmachen. Insgesamt hast du 270 Minuten.</p>
+  <div class="grid g3" style="margin:20px 0">
+    <div class="stat s-blue"><div class="num">60′</div><div class="lbl">Reading · 4 Aufgaben zu 4 Texten</div></div>
+    <div class="stat s-petrol"><div class="num">≤ 45′</div><div class="lbl">Listening · 4 Aufgaben zu 4 Hörtexten</div></div>
+    <div class="stat s-lilac"><div class="num">45′</div><div class="lbl">Language in Use · 4 Aufgaben</div></div>
+    <div class="stat s-terra"><div class="num">120′</div><div class="lbl">Writing · 2 Schreibaufgaben</div></div>
+    <div class="stat s-gold"><div class="num">¼</div><div class="lbl">Jeder Bereich zählt gleich viel</div></div>
+  </div>
+  <div class="card">
+    <h3>Aufgabenformate</h3>
+    <table class="plain">
+      <tr><th>Bereich</th><th>Typische Formate</th></tr>
+      <tr><td><b>Reading</b></td><td>True/False mit Begründung (die ersten vier Wörter des belegenden Satzes) · Multiple Choice · Zuordnen (Überschriften, fehlende Sätze oder Absätze) · Kurzantworten (max. 4 Wörter)</td></tr>
+      <tr><td><b>Listening</b></td><td>Multiple Choice · Zuordnen (z. B. Sprecher zu Aussagen) · Kurzantworten (max. 4 Wörter) – jeder Hörtext wird zweimal gespielt</td></tr>
+      <tr><td><b>Language in Use</b></td><td>Multiple-Choice-Lückentext · Wortbildung · offener Lückentext (ein Wort) · Lückentext mit Wortbank</td></tr>
+      <tr><td><b>Writing</b></td><td>Zwei Aufgaben aus den Textsorten Essay, Article, E-Mail, Blog und Report – eine kürzere und eine längere</td></tr>
+    </table>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3>Wie Writing bewertet wird</h3>
+      <p>Jede Schreibaufgabe wird mit einem analytischen Raster nach vier gleich gewichteten Kriterien beurteilt:</p>
+      <table class="plain">
+        <tr><td><b>Task Achievement</b></td><td>Sind alle Inhaltspunkte bearbeitet, passt die Textsorte, wird der Leser richtig angesprochen?</td></tr>
+        <tr><td><b>Organisation &amp; Layout</b></td><td>Klare Gliederung, logische Absätze, Verbindungswörter, Layout der Textsorte</td></tr>
+        <tr><td><b>Lexical Range &amp; Accuracy</b></td><td>Wortschatz: Vielfalt, Präzision, Kollokationen, Rechtschreibung</td></tr>
+        <tr><td><b>Grammatical Range &amp; Accuracy</b></td><td>Grammatik: Vielfalt der Strukturen und Fehlerfreiheit</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Die Strategie zur Eins</h3>
+      <p><b>Die rezeptiven Teile sind deine Punktebank.</b> In Reading, Listening und Language in Use gibt es eindeutige Lösungen – wer die Formate beherrscht, holt hier verlässlich über 90 %.</p>
+      <p><b>Writing entscheidet über die Eins.</b> Wer alle Inhaltspunkte ausführlich bearbeitet und das Layout der Textsorte trifft, sichert sich das wichtigste Kriterium. Danach zählt sprachliche Vielfalt: Konditionalsätze, Passiv, Relativsätze, präzise Verben.</p>
+      <p><b>Wortgrenzen und Wortanzahl sind heilig.</b> Bei Kurzantworten kosten fünf Wörter den Punkt, beim Schreiben weicht man am besten nur wenig von der angegebenen Wortanzahl ab.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= READING ================= -->
+<section id="reading">
+  <div class="sec-head"><div class="badge b-blue">R</div><h2>Reading – Strategien für jedes Format</h2></div>
+  <p class="lead">Beim Leseverstehen geht es selten darum, jedes Wort zu kennen. Entscheidend ist, die Aufgabe als Suchauftrag zu verstehen: Du weißt, was du suchst, und findest die Stelle, die es belegt.</p>
+  <div class="grid g2">
+    <div class="card top-blue"><h3>True/False mit Begründung</h3><p>Die Aussagen folgen der Reihenfolge des Textes. Unterstreiche das Schlüsselwort der Aussage und suche im Text nach Synonymen oder Umschreibungen. Als Begründung schreibst du die <b>ersten vier Wörter</b> des Satzes, der die Antwort belegt.</p><p class="mini">Punkt nur, wenn True/False <b>und</b> Begründung stimmen.</p></div>
+    <div class="card top-blue"><h3>Multiple Choice</h3><p>Lies zuerst nur die Frage, nicht die Optionen, und suche die Stelle im Text. Formuliere selbst eine Antwort und vergleiche erst dann mit A–D. Falsche Optionen enthalten oft Wörter aus dem Text, sagen aber etwas anderes.</p></div>
+    <div class="card top-blue"><h3>Zuordnen (fehlende Sätze)</h3><p>Achte auf Bindeglieder: Pronomen (<em class="en">this, they, it</em>), Verbindungswörter (<em class="en">however, instead</em>), Zeitangaben und Wiederholungen. Der fehlende Satz muss nach vorne <b>und</b> nach hinten passen. Zwei Optionen bleiben übrig.</p></div>
+    <div class="card top-blue"><h3>Kurzantworten</h3><p>Maximal vier Wörter – Zahlen zählen als Wörter. Ganze Sätze sind unnötig. Die Antwort muss inhaltlich stimmen, kleine Rechtschreibfehler sind meist kein Problem, solange das Wort eindeutig erkennbar bleibt.</p></div>
+  </div>
+
+  <div class="walk">
+    <span class="tag">Schritt für Schritt</span><h3 style="margin-top:8px">True/False mit Begründung lösen</h3>
+    <div class="task-text"><b>Text:</b> <em class="en">The museum, which opened in 1998, attracts around 200,000 visitors a year. Most of them come for the dinosaur skeletons. Surprisingly, the gift shop makes more money than the ticket office.</em><br><br><b>Aussage:</b> <em class="en">The museum earns most of its money from entrance fees.</em></div>
+    <div class="wstep"><div class="n">1</div><div>Schlüsselbegriff markieren: <em class="en">earns most of its money</em> und <em class="en">entrance fees</em>.</div></div>
+    <div class="wstep"><div class="n">2</div><div>Synonyme im Text suchen: <em class="en">makes more money</em> ≈ <em class="en">earns money</em>, <em class="en">ticket office</em> ≈ <em class="en">entrance fees</em>.</div></div>
+    <div class="wstep"><div class="n">3</div><div>Vergleichen: Der Shop verdient <b>mehr</b> als die Kassa – also stammt das meiste Geld <b>nicht</b> aus Eintrittsgebühren.</div></div>
+    <div class="wstep final"><div class="n">✓</div><div><b>FALSE</b> · Begründung: <em class="en">Surprisingly, the gift shop</em> – genau die ersten vier Wörter des belegenden Satzes.</div></div>
+    <div class="btnrow"><button class="next">Schritt für Schritt</button><button class="ghost reset">Von vorne</button></div>
+  </div>
+</section>
+
+<!-- ================= LISTENING ================= -->
+<section id="listening">
+  <div class="sec-head"><div class="badge b-petrol">L</div><h2>Listening – vorbereitet zuhören</h2></div>
+  <p class="lead">Beim Hörverstehen gewinnst du die meisten Punkte, bevor der Text überhaupt beginnt: in der Vorbereitungszeit.</p>
+  <div class="grid g2">
+    <div class="card top-petrol"><h3>Vor dem Hören</h3><p>Lies alle Fragen und markiere Schlüsselwörter. Überlege, welche Art von Information gesucht ist: eine Zahl, ein Ort, ein Grund, eine Person? Dann hörst du gezielt.</p></div>
+    <div class="card top-petrol"><h3>Erster Durchgang</h3><p>Notiere Stichworte und kreuze vorläufig an. Hänge nicht an einer verpassten Frage fest – der Text läuft weiter, und du hörst ihn ein zweites Mal.</p></div>
+    <div class="card top-petrol"><h3>Zweiter Durchgang</h3><p>Konzentriere dich auf die offenen und unsicheren Fragen. Achte auf Korrekturen der Sprecher: <em class="en">„at four – no, sorry, at five“</em>. Die zweite Angabe zählt.</p></div>
+    <div class="card top-petrol"><h3>Distraktoren erkennen</h3><p>Oft werden mehrere Optionen erwähnt, aber nur eine passt zur Frage. Typisch: eine Zahl, die genannt und dann geändert wird, oder etwas, das jemand <i>nicht</i> getan hat.</p></div>
+  </div>
+  <div class="note petrol"><b>Tipp für das Training:</b> In der Simulation liest der Browser die Hörtexte mit einer englischen Stimme vor. Höre wie in der Matura genau zweimal – das trainiert die Konzentration. Die Transkripte erscheinen erst nach der Abgabe.</div>
+</section>
+
+<!-- ================= LANGUAGE IN USE ================= -->
+<section id="liu">
+  <div class="sec-head"><div class="badge b-lilac">LiU</div><h2>Language in Use – Grammatik und Wortschatz im Kontext</h2></div>
+  <p class="lead">Hier zählt Präzision. Jede Lücke testet eine bestimmte Regel – wenn du weißt, welche, findest du die Antwort fast automatisch.</p>
+
+  <details class="acc" open>
+    <summary><span class="tag l">Grammatik</span> Zeiten – die wichtigsten Signale</summary>
+    <div class="inner"><table class="plain">
+      <tr><th>Zeit</th><th>Verwendung</th><th>Signalwörter</th><th>Beispiel</th></tr>
+      <tr><td>Present Simple</td><td>Gewohnheiten, Fakten</td><td>always, usually, every day</td><td><em class="en">She cycles to work every day.</em></td></tr>
+      <tr><td>Present Continuous</td><td>gerade jetzt, vorübergehend</td><td>now, at the moment, this week</td><td><em class="en">I am staying with friends this week.</em></td></tr>
+      <tr><td>Present Perfect</td><td>Vergangenheit mit Bezug zur Gegenwart</td><td>since, for, already, yet, ever, never</td><td><em class="en">I have lived here since 2019.</em></td></tr>
+      <tr><td>Past Simple</td><td>abgeschlossen, Zeitpunkt bekannt</td><td>yesterday, ago, in 2010, last week</td><td><em class="en">We moved two years ago.</em></td></tr>
+      <tr><td>Past Perfect</td><td>Vorvergangenheit</td><td>by the time, before, after</td><td><em class="en">The film had started when we arrived.</em></td></tr>
+      <tr><td>Future</td><td>will: Spontan/Prognose · going to: Plan</td><td>tomorrow, next year</td><td><em class="en">I'm going to apply for the exchange.</em></td></tr>
+    </table></div>
+  </details>
+  <details class="acc">
+    <summary><span class="tag l">Grammatik</span> Conditionals</summary>
+    <div class="inner"><table class="plain">
+      <tr><th>Typ</th><th>Bau</th><th>Beispiel</th></tr>
+      <tr><td>0 · Fakten</td><td>if + present, present</td><td><em class="en">If you heat ice, it melts.</em></td></tr>
+      <tr><td>1 · real möglich</td><td>if + present, will</td><td><em class="en">If it rains, we will stay inside.</em></td></tr>
+      <tr><td>2 · unwahrscheinlich / irreal Gegenwart</td><td>if + past, would</td><td><em class="en">If I had more time, I would travel more.</em></td></tr>
+      <tr><td>3 · irreal Vergangenheit</td><td>if + past perfect, would have + past participle</td><td><em class="en">If I had known, I would have helped.</em></td></tr>
+    </table><div class="note terra"><b>Falle:</b> Nie <em class="en">will</em> oder <em class="en">would</em> im if-Satz: <s>If I would have time</s> → <em class="en">If I had time</em>.</div></div>
+  </details>
+  <details class="acc">
+    <summary><span class="tag l">Grammatik</span> Passiv, Relativsätze, Reported Speech</summary>
+    <div class="inner">
+      <p><b>Passive:</b> be + past participle – <em class="en">The bridge was built in 1890. · The results will be published tomorrow.</em></p>
+      <p><b>Relative clauses:</b> <em class="en">who</em> (Personen), <em class="en">which</em> (Dinge), <em class="en">that</em> (beides, nur in notwendigen Relativsätzen), <em class="en">whose</em> (Besitz), <em class="en">where</em> (Ort). Bei Zusatzinformation stehen Kommas, und <em class="en">that</em> ist dort nicht möglich: <em class="en">My sister, who lives in Graz, is a nurse.</em></p>
+      <p><b>Reported speech:</b> Zeit rückt meist einen Schritt zurück: <em class="en">„I am tired“ → She said (that) she was tired.</em> &nbsp;<em class="en">say</em> ohne Person, <em class="en">tell</em> mit Person: <em class="en">She told me that …</em></p>
+    </div>
+  </details>
+  <details class="acc">
+    <summary><span class="tag l">Grammatik</span> Gerund oder Infinitive?</summary>
+    <div class="inner"><table class="plain">
+      <tr><th>+ -ing</th><th>+ to-Infinitiv</th></tr>
+      <tr><td><em class="en">enjoy, avoid, finish, mind, suggest, consider, look forward to, be used to</em></td><td><em class="en">decide, hope, want, plan, promise, refuse, manage, afford</em></td></tr>
+      <tr><td colspan="2">Bedeutungsunterschied: <em class="en">stop smoking</em> (aufhören) vs. <em class="en">stop to smoke</em> (anhalten, um zu rauchen) · <em class="en">remember doing</em> (sich erinnern) vs. <em class="en">remember to do</em> (daran denken)</td></tr>
+    </table></div>
+  </details>
+  <details class="acc">
+    <summary><span class="tag l">Wortbildung</span> Die wichtigsten Endungen und Vorsilben</summary>
+    <div class="inner"><table class="plain">
+      <tr><th>Wortart</th><th>Typische Endungen</th><th>Beispiele</th></tr>
+      <tr><td>Nomen (Sache)</td><td>-tion, -ment, -ness, -ity, -ance/-ence, -ship</td><td>decision, management, happiness, popularity, importance, friendship</td></tr>
+      <tr><td>Nomen (Person)</td><td>-er, -or, -ist, -ant</td><td>teacher, actor, scientist, assistant</td></tr>
+      <tr><td>Adjektiv</td><td>-ful, -less, -ous, -ive, -able, -al, -ic</td><td>helpful, careless, dangerous, creative, reliable, financial, scientific</td></tr>
+      <tr><td>Adverb</td><td>-ly</td><td>quickly, unexpectedly</td></tr>
+      <tr><td>Verb</td><td>-ise/-ize, -en, -ify</td><td>organise, strengthen, simplify</td></tr>
+      <tr><td>Verneinung</td><td>un-, in-, im-, ir-, il-, dis-, mis-</td><td>unexpected, independent, impossible, irregular, illegal, dislike, misunderstand</td></tr>
+    </table></div>
+  </details>
+
+  <div class="walk">
+    <span class="tag l">Schritt für Schritt</span><h3 style="margin-top:8px">Eine Wortbildungslücke lösen</h3>
+    <div class="task-text"><em class="en">The results of the survey were completely ______ (EXPECT).</em></div>
+    <div class="wstep"><div class="n">1</div><div><b>Wortart bestimmen:</b> Nach <em class="en">were completely</em> steht ein Adjektiv (wie <em class="en">were completely new</em>).</div></div>
+    <div class="wstep"><div class="n">2</div><div><b>Adjektiv bilden:</b> expect → <em class="en">expected</em>.</div></div>
+    <div class="wstep"><div class="n">3</div><div><b>Bedeutung prüfen:</b> <em class="en">completely</em> plus der Zusammenhang „überraschend“ verlangt die Verneinung → <em class="en">unexpected</em>.</div></div>
+    <div class="wstep"><div class="n">4</div><div><b>Form prüfen:</b> Plural? Adverb? Steigerung? Hier nichts davon.</div></div>
+    <div class="wstep final"><div class="n">✓</div><div><b>unexpected</b> – vier Prüffragen: Wortart, Bildung, Bedeutung (Verneinung?), Form (Plural, -ly, Rechtschreibung).</div></div>
+    <div class="btnrow"><button class="next">Schritt für Schritt</button><button class="ghost reset">Von vorne</button></div>
+  </div>
+</section>
+
+<!-- ================= WRITING ================= -->
+<section id="writing">
+  <div class="sec-head"><div class="badge b-terra">W</div><h2>Writing – Textsorten, Baupläne, Phrasen</h2></div>
+  <p class="lead">Jede Textsorte hat ein eigenes Gesicht. Wer Layout und Ton genau trifft, hat das wichtigste Kriterium schon halb erfüllt.</p>
+  <div class="card">
+    <table class="plain">
+      <tr><th>Textsorte</th><th>Layout</th><th>Ton</th><th>Bauplan</th></tr>
+      <tr><td><b>Essay</b></td><td>Titel, keine Zwischenüberschriften</td><td>formell, sachlich-argumentativ</td><td>Einleitung mit These → Argumente in Absätzen → Gegenargument → Schluss mit klarer Position</td></tr>
+      <tr><td><b>Article</b></td><td>packender Titel, evtl. Untertitel</td><td>lebendig, Leser direkt ansprechen</td><td>Aufhänger (Frage, Anekdote) → Hauptteil → Schluss mit Ausblick oder Appell</td></tr>
+      <tr><td><b>E-Mail</b></td><td>Betreff, Anrede, Grußformel</td><td>formell oder informell je nach Empfänger</td><td>Anlass → Inhaltspunkte → Bitte/Ausblick → Gruß</td></tr>
+      <tr><td><b>Blog</b></td><td>Titel, persönliche Ansprache</td><td>persönlich, gesprächig, aber korrekt</td><td>Einstieg → Erlebnis/Meinung → Tipps → Frage an die Leser</td></tr>
+      <tr><td><b>Report</b></td><td>Titel, Zwischenüberschriften (Introduction, Findings, Recommendations)</td><td>formell, neutral</td><td>Zweck → Ergebnisse → Empfehlungen</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Phrasenbank – Verbindungswörter nach Funktion</h3>
+    <div class="phr">
+      <div><b>Ergänzen</b><em class="en">Furthermore, Moreover, In addition, What is more, Apart from that</em></div>
+      <div><b>Gegenüberstellen</b><em class="en">However, On the other hand, Nevertheless, Although, Whereas, Despite + noun</em></div>
+      <div><b>Begründen</b><em class="en">because, since, as, due to + noun, This is why, The main reason is that</em></div>
+      <div><b>Folge</b><em class="en">Therefore, As a result, Consequently, This means that</em></div>
+      <div><b>Beispiel</b><em class="en">For example, For instance, such as, A good example of this is</em></div>
+      <div><b>Meinung</b><em class="en">In my view, I strongly believe that, From my point of view, It seems to me that</em></div>
+      <div><b>Einschränken</b><em class="en">To some extent, Admittedly, It is true that … but</em></div>
+      <div><b>Abschließen</b><em class="en">All in all, To sum up, On balance, Taking everything into account</em></div>
+    </div>
+  </div>
+  <div class="walk">
+    <span class="tag t">Schritt für Schritt</span><h3 style="margin-top:8px">Einen Essay in fünf Schritten planen</h3>
+    <div class="task-text">Aufgabe: <em class="en">Write an essay on whether schools should replace printed textbooks with tablets. Discuss advantages, point out disadvantages and give your opinion.</em> (ca. 400 Wörter)</div>
+    <div class="wstep"><div class="n">1</div><div><b>Inhaltspunkte zählen und abhaken:</b> 1. advantages, 2. disadvantages, 3. opinion. Jeder Punkt bekommt mindestens einen eigenen Absatz.</div></div>
+    <div class="wstep"><div class="n">2</div><div><b>Ideen sammeln (5 Minuten):</b> Vorteile – leichtere Schultasche, interaktive Inhalte, aktuell. Nachteile – Ablenkung, Kosten, Bildschirmzeit.</div></div>
+    <div class="wstep"><div class="n">3</div><div><b>Gliederung:</b> Einleitung (≈ 60 Wörter) · Vorteile (≈ 100) · Nachteile (≈ 100) · eigene Meinung mit Begründung (≈ 90) · Schluss (≈ 50).</div></div>
+    <div class="wstep"><div class="n">4</div><div><b>Sprachliche Highlights einplanen:</b> ein Konditionalsatz (<em class="en">If schools invested in …</em>), ein Passiv (<em class="en">Students are often distracted by …</em>), ein Relativsatz, zwei Verbindungswörter pro Absatz.</div></div>
+    <div class="wstep final"><div class="n">✓</div><div><b>Schreiben und prüfen:</b> nach dem Schreiben 10 Minuten Korrektur – Inhaltspunkte abhaken, Wortanzahl, dann gezielt nach den eigenen typischen Fehlern suchen (siehe <a href="#fallen">Fehlerfallen</a>).</div></div>
+    <div class="btnrow"><button class="next">Schritt für Schritt</button><button class="ghost reset">Von vorne</button></div>
+  </div>
+</section>
+
+<!-- ================= FEHLERFALLEN ================= -->
+<section id="fallen">
+  <div class="sec-head"><div class="badge b-gold">!</div><h2>Fehlerfallen für Deutschsprachige</h2></div>
+  <p class="lead">Diese Fehler entstehen, weil das Deutsche im Kopf mitläuft. Wer sie kennt, korrigiert sie beim Kontrolllesen in Sekunden.</p>
+  <div class="grid g2">
+    <div class="card"><h3>False Friends</h3><table class="plain">
+      <tr><td><em class="en">become</em></td><td>werden – <b>nicht</b> bekommen (= <em class="en">get, receive</em>)</td></tr>
+      <tr><td><em class="en">actual(ly)</em></td><td>tatsächlich – aktuell = <em class="en">current(ly)</em></td></tr>
+      <tr><td><em class="en">eventually</em></td><td>schließlich – eventuell = <em class="en">possibly</em></td></tr>
+      <tr><td><em class="en">sensible</em></td><td>vernünftig – sensibel = <em class="en">sensitive</em></td></tr>
+      <tr><td><em class="en">handy</em></td><td>praktisch – Handy = <em class="en">mobile phone</em></td></tr>
+      <tr><td><em class="en">chef</em></td><td>Koch – Chef = <em class="en">boss</em></td></tr>
+      <tr><td><em class="en">also</em></td><td>auch – also = <em class="en">so, therefore</em></td></tr>
+    </table></div>
+    <div class="card"><h3>Grammatik-Klassiker</h3><table class="plain">
+      <tr><td><s>I live here since 2019.</s></td><td><em class="en">I have lived here since 2019.</em></td></tr>
+      <tr><td><s>If I would have time …</s></td><td><em class="en">If I had time …</em></td></tr>
+      <tr><td><s>The most people …</s></td><td><em class="en">Most people …</em></td></tr>
+      <tr><td><s>People is …</s></td><td><em class="en">People are …</em></td></tr>
+      <tr><td><s>informations, advices</s></td><td><em class="en">information, advice</em> (unzählbar)</td></tr>
+      <tr><td><s>Explain me …</s></td><td><em class="en">Explain to me …</em></td></tr>
+      <tr><td><s>I am agree.</s></td><td><em class="en">I agree.</em></td></tr>
+    </table></div>
+    <div class="card"><h3>Wortpaare</h3><table class="plain">
+      <tr><td><em class="en">make / do</em></td><td>make a decision, make a mistake · do homework, do sport</td></tr>
+      <tr><td><em class="en">say / tell</em></td><td>say something · tell someone something</td></tr>
+      <tr><td><em class="en">lend / borrow</em></td><td>jemandem leihen · sich ausleihen</td></tr>
+      <tr><td><em class="en">since / for</em></td><td>Zeitpunkt (since Monday) · Zeitraum (for two days)</td></tr>
+      <tr><td><em class="en">until / by</em></td><td>bis (andauernd) · bis spätestens</td></tr>
+    </table></div>
+    <div class="card"><h3>Stil im Writing</h3>
+      <p>Keine Kurzformen im Essay und Report (<em class="en">do not</em> statt <em class="en">don't</em>). Keine Wiederholung derselben Verbindungswörter. <em class="en">very good</em> lieber durch präzise Wörter ersetzen: <em class="en">excellent, outstanding, impressive</em>. Und: Jeder Absatz braucht einen klaren ersten Satz, der sagt, worum es geht.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRAINING ================= -->
+<section id="training">
+  <div class="sec-head"><div class="badge b-lilac">✎</div><h2>Training – Grammatik und Wortschatz</h2></div>
+  <p class="lead">Sechzehn Aufgaben zum Aufwärmen. Jede Lösung wird erklärt – lies auch die Erklärungen zu den richtigen Antworten, dort steht die Regel dahinter.</p>
+  <div class="scorebar"><span>Training</span><span id="trainScore"></span></div>
+  <div id="quiz"></div>
+  <div class="btnrow"><button class="ghost" id="quizReset">Training neu starten</button></div>
+</section>
+
+<!-- ================= SIMULATION ================= -->
+<section id="simulation">
+  <div class="sim-hero">
+    <h2 style="color:#fff">★ Maturasimulation – teste dein Können</h2>
+    <p>Alle vier Kompetenzbereiche im Matura-Format: 4 Reading-Aufgaben, 4 Listening-Aufgaben mit vorgelesenen Hörtexten, 4 Language-in-Use-Aufgaben und 2 Schreibaufgaben. Die rezeptiven Teile werden automatisch ausgewertet, das Writing bewertest du mit dem Raster der vier Kriterien selbst. Alle Texte und Personen sind frei erfunden.</p>
+    <div class="timer">
+      <div class="clock" id="clock">270:00</div>
+      <button id="tStart">Start</button><button id="tPause">Pause</button><button id="tReset">Zurücksetzen</button>
+      <span id="tMsg" class="mini" style="color:#fff;opacity:.9"></span>
+    </div>
+  </div>
+
+  <!-- READING -->
+  <div class="part" id="partR">
+    <h3><span>Part 1 · Reading</span><span class="tag">60 Minuten · 26 Punkte</span></h3>
+
+    <div class="task">
+      <h4><span>Task 1 · The Town That Gave Up Cars</span><span class="pts">8 Punkte</span></h4>
+      <div class="instr">Read the article. Decide whether the statements are <b>true (T)</b> or <b>false (F)</b> and write the <b>first four words</b> of the sentence that justifies your answer. Both parts must be correct to score a point. The first one (0) has been done for you.</div>
+      <div class="textbox en" id="r1text"></div>
+      <div class="row"><div class="nr">0</div><div><span class="en">Before the ban, some shop owners feared losing customers.</span><div class="ctrl"><b>T</b> · <i>Shop owners warned that</i></div></div></div>
+      <div id="r1"></div>
+    </div>
+
+    <div class="task">
+      <h4><span>Task 2 · Learning to Be Bored</span><span class="pts">6 Punkte</span></h4>
+      <div class="instr">Read the article. For questions 1–6 choose the correct answer (A, B, C or D).</div>
+      <div class="textbox en">
+        <h5>Learning to Be Bored</h5>
+        <p>Most of us reach for our phones the moment we have nothing to do. Waiting for a bus, standing in a queue, even sitting at a red light – every empty minute seems to demand to be filled. Yet a growing number of psychologists argue that this habit may be costing us something valuable.</p>
+        <p>Dr Helen Marsh, who has studied boredom for over a decade, believes that moments of mental emptiness are when the brain does some of its most important work. 'When we are bored, the mind starts to wander,' she explains. 'It connects memories, makes plans for the future and plays with ideas. That is exactly the kind of thinking we need for creative problem-solving.'</p>
+        <p>In one of her experiments, two groups of students were asked to come up with unusual uses for a paper cup. Before the task, the first group spent fifteen minutes copying numbers from an old telephone directory – a deliberately dull activity – while the second group went straight to work. The students who had been bored produced significantly more original ideas.</p>
+        <p>Marsh is careful, however, not to romanticise boredom. 'Chronic boredom, the kind that lasts for weeks, is linked to low mood and risky behaviour,' she says. 'What I am talking about is short, everyday boredom that we no longer allow ourselves to experience.'</p>
+        <p>Parents, she suggests, should resist the urge to plan every minute of their children's free time. A child who complains that there is nothing to do is often just a few minutes away from inventing a game. For adults, her advice is simple: leave your phone in your pocket the next time you wait for a train, and see where your thoughts take you.</p>
+        <p>Not all researchers agree. Some point out that the experiments were small and that creativity is notoriously hard to measure. Marsh accepts the criticism. 'We need larger studies,' she admits. 'But the cost of trying is very low. The worst thing that can happen is that you look out of the window for five minutes.'</p>
+      </div>
+      <div id="r2"></div>
+    </div>
+
+    <div class="task">
+      <h4><span>Task 3 · A Year in the Wild</span><span class="pts">6 Punkte</span></h4>
+      <div class="instr">Six sentences have been removed from the text. Choose the correct sentence (A–H) for each gap (1–6). There are two extra sentences that you do not need.</div>
+      <div class="textbox en">
+        <h5>A Year in the Wild</h5>
+        <p>When I finished school, I had no idea what I wanted to study. So instead of going straight to university, I spent a year as a volunteer in a national park in the north of Scotland. <span class="gap">1</span></p>
+        <p>My first weeks were anything but romantic. I spent most of my days repairing footpaths that had been damaged by heavy rain. <span class="gap">2</span> By the end of the first month, however, I could build a drainage channel faster than some of the permanent staff.</p>
+        <p>The work was not only physical. Every Saturday, we led guided walks for visitors, most of whom had never seen a red deer up close. <span class="gap">3</span> Explaining the landscape to strangers forced me to learn far more than any textbook could have taught me.</p>
+        <p>The hardest part was the isolation. The nearest town was an hour away, and mobile reception was patchy at best. <span class="gap">4</span> Instead, we played cards, cooked together and talked late into the night. Some of those conversations changed the way I see the world.</p>
+        <p>In spring, I was given responsibility for monitoring a colony of seabirds on the coast. <span class="gap">5</span> Every morning, I counted nests, recorded the weather and watched out for predators. It was the first time anyone had trusted me with something that really mattered.</p>
+        <p>When I returned home, I applied to study environmental science, something I would never have considered a year earlier. <span class="gap">6</span> What I can say is that I now know what I want, and why.</p>
+      </div>
+      <div class="textbox en" style="background:var(--bg)">
+        <b>A</b> Looking back, it was the best decision I have ever made.<br>
+        <b>B</b> It was exhausting, and in the evenings I was often too tired to eat.<br>
+        <b>C</b> At first I was terrified of being asked questions I could not answer.<br>
+        <b>D</b> This meant that, for the first time in my life, I could not simply escape into my phone.<br>
+        <b>E</b> The birds had arrived from Africa only a few weeks earlier and were already building nests.<br>
+        <b>F</b> I cannot say whether I will work in a national park one day.<br>
+        <b>G</b> The park rangers there earn surprisingly high salaries.<br>
+        <b>H</b> Unfortunately, the weather stayed perfect for the whole year.
+      </div>
+      <div id="r3"></div>
+    </div>
+
+    <div class="task">
+      <h4><span>Task 4 · The Repair Café</span><span class="pts">6 Punkte</span></h4>
+      <div class="instr">Read the article and answer the questions in <b>no more than four words</b>.</div>
+      <div class="textbox en">
+        <h5>Fix It Together</h5>
+        <p>Every second Saturday, the community hall in Brookside turns into a workshop. Volunteers with screwdrivers, sewing machines and soldering irons sit at long tables, and residents queue up with broken toasters, torn jackets and bicycles with flat tyres. Welcome to the Brookside Repair Café.</p>
+        <p>The idea came from Tom Avery, a retired electrician who was tired of seeing perfectly good appliances thrown away. 'Most things break because of one small part,' he says. 'People just don't know how simple the repair can be.'</p>
+        <p>The café opened three years ago with four volunteers. Today there are twenty-two, including a former tailor, two engineering students and a twelve-year-old who specialises in game controllers. Repairs are free, but visitors are asked to leave a donation, which pays for spare parts and coffee.</p>
+        <p>What makes the café different from a repair shop is that visitors are expected to help. 'We don't just fix things for you,' explains Avery. 'We fix them with you. Next time, you might be able to do it yourself.'</p>
+        <p>Last year, the volunteers repaired more than 900 items, which, according to their own calculations, saved around four tonnes of waste. The most common problem? Loose connections in kettles.</p>
+        <p>Not every repair succeeds. About one in five items cannot be saved, usually because spare parts are no longer available. Avery hopes that new rules on the 'right to repair' will make it easier to get parts in future.</p>
+      </div>
+      <div id="r4"></div>
+    </div>
+    <div class="btnrow"><button id="checkR">Reading abgeben und auswerten</button></div>
+    <div class="note blue hidden" id="resR"></div>
+  </div>
+
+  <!-- LISTENING -->
+  <div class="part listen" id="partL">
+    <h3><span>Part 2 · Listening</span><span class="tag p">max. 45 Minuten · 20 Punkte</span></h3>
+    <div class="note petrol" id="ttsNote">Die Hörtexte werden von der Sprachausgabe deines Browsers vorgelesen. Wie in der Matura hörst du jeden Text <b>zweimal</b>. Lies vor dem ersten Durchgang die Fragen. Falls dein Gerät keine englische Stimme hat, kannst du nach zwei Versuchen das Transkript zum Selberlesen öffnen.</div>
+
+    <div class="task">
+      <h4><span>Task 1 · Mountain Safety</span><span class="pts">5 Punkte</span></h4>
+      <div class="instr">You are going to listen to a radio programme about hiking safety. First you will have 45 seconds to study the questions. Choose the correct answer (A, B, C or D).</div>
+      <div class="player" data-s="0"></div>
+      <div id="l1"></div>
+    </div>
+    <div class="task">
+      <h4><span>Task 2 · My First Job</span><span class="pts">5 Punkte</span></h4>
+      <div class="instr">You are going to listen to five people talking about their first job. Match each speaker (1–5) with the correct statement (A–G). There are two extra statements that you do not need.</div>
+      <div class="player" data-s="1"></div>
+      <div class="textbox" style="background:var(--bg)"><span class="en">
+        <b>A</b> came to enjoy something they had disliked at first.<br>
+        <b>B</b> became more self-confident.<br>
+        <b>C</b> was not given any real responsibility.<br>
+        <b>D</b> met someone who became important in their life.<br>
+        <b>E</b> saved up for something special.<br>
+        <b>F</b> was dismissed after a few weeks.<br>
+        <b>G</b> decided to study a subject related to the job.</span>
+      </div>
+      <div id="l2"></div>
+    </div>
+    <div class="task">
+      <h4><span>Task 3 · The Food-Sharing App</span><span class="pts">5 Punkte</span></h4>
+      <div class="instr">You are going to listen to an interview with a young app developer. Answer the questions in <b>no more than four words</b>.</div>
+      <div class="player" data-s="2"></div>
+      <div id="l3"></div>
+    </div>
+    <div class="task">
+      <h4><span>Task 4 · Welcome to Summer School</span><span class="pts">5 Punkte</span></h4>
+      <div class="instr">You are going to listen to announcements at a summer school. Choose the correct answer (A, B, C or D).</div>
+      <div class="player" data-s="3"></div>
+      <div id="l4"></div>
+    </div>
+    <div class="btnrow"><button class="petrol" id="checkL">Listening abgeben und auswerten</button></div>
+    <div class="note petrol hidden" id="resL"></div>
+  </div>
+
+  <!-- LANGUAGE IN USE -->
+  <div class="part liu" id="partU">
+    <h3><span>Part 3 · Language in Use</span><span class="tag l">45 Minuten · 34 Punkte</span></h3>
+    <div class="task">
+      <h4><span>Task 1 · A Weekend Offline</span><span class="pts">10 Punkte</span></h4>
+      <div class="instr">Read the text and choose the correct word (A, B, C or D) for each gap.</div>
+      <div class="textbox en">Last month, I decided to <span class="gap">1</span> part in a digital detox weekend. The organisers asked us to hand <span class="gap">2</span> our phones on arrival, and I must admit I felt nervous. <span class="gap">3</span> the first evening, I kept reaching for my pocket out of habit. By Saturday, <span class="gap">4</span>, something had changed. I noticed details I would normally have <span class="gap">5</span>, like the sound of the river or the colour of the sky at sunset. We spent the afternoon hiking, and in the evening we cooked a meal together <span class="gap">6</span> of ordering food. Several participants said they hadn't had such a long conversation <span class="gap">7</span> years. When I got my phone back on Sunday, I had 143 unread messages. <span class="gap">8</span> of them turned out to be urgent. Since then, I have made it a <span class="gap">9</span> to leave my phone in another room during dinner. It's a small change, but it has made a real <span class="gap">10</span>.</div>
+      <div id="u1"></div>
+    </div>
+    <div class="task">
+      <h4><span>Task 2 · The Teenage Baker</span><span class="pts">8 Punkte</span></h4>
+      <div class="instr">Use the word in brackets to form a word that fits the gap. The first one (0) has been done for you.</div>
+      <div class="textbox en">Starting your own business at sixteen may sound (0) <b>impossible</b> (POSSIBLE), but for Lena it was a <span class="gap">1</span> (NECESSARY). After her mother lost her job, the family's <span class="gap">2</span> (FINANCE) situation became difficult. Lena, who had always loved baking, began selling cakes at the local market. The response was <span class="gap">3</span> (EXPECT) positive. Within months, her cakes had gained such <span class="gap">4</span> (POPULAR) that she could hardly keep up with the orders. She now employs two <span class="gap">5</span> (ASSIST) and has learned a great deal about <span class="gap">6</span> (MANAGE). Her teachers describe her as remarkably <span class="gap">7</span> (CREATE), always inventing new recipes. Of course, there have been many <span class="gap">8</span> (DIFFICULT) along the way, but Lena says she would do it all again.</div>
+      <div id="u2"></div>
+    </div>
+    <div class="task">
+      <h4><span>Task 3 · Uniform or Not?</span><span class="pts">8 Punkte</span></h4>
+      <div class="instr">Fill each gap with <b>one</b> suitable word.</div>
+      <div class="textbox en">The idea of school uniforms divides opinion <span class="gap">1</span> many countries. Supporters argue <span class="gap">2</span> uniforms reduce social pressure, because students cannot be judged <span class="gap">3</span> the brands they wear. Critics, on the <span class="gap">4</span> hand, claim that uniforms limit self-expression. In Austria, uniforms are rare, <span class="gap">5</span> a few private schools have introduced them. A survey at one school found that most students <span class="gap">6</span> prefer to choose their own clothes <span class="gap">7</span> they were given the choice. However, a surprising number said they would not mind wearing a school hoodie, as long <span class="gap">8</span> they could pick the colour.</div>
+      <div id="u3"></div>
+    </div>
+    <div class="task">
+      <h4><span>Task 4 · Green Cities</span><span class="pts">8 Punkte</span></h4>
+      <div class="instr">Choose the correct word from the box (A–K) for each gap. There are three extra words that you do not need.</div>
+      <div class="bank"><span>A absorb</span><span>B bring</span><span>C list</span><span>D offer</span><span>E popular</span><span>F recognise</span><span>G spaces</span><span>H water</span><span>I arrive</span><span>J rarely</span><span>K lend</span></div>
+      <div class="textbox en">Urban gardening has become increasingly <span class="gap">1</span> in recent years. In many cities, residents have turned empty car parks and rooftops into green <span class="gap">2</span> where vegetables, herbs and flowers grow side by side. Apart from producing food, these gardens <span class="gap">3</span> people together. Neighbours who had never spoken before now share tools, swap seeds and <span class="gap">4</span> each other's plants during the holidays. Some projects also <span class="gap">5</span> workshops for schools, so that children can learn where their food comes from. City councils have started to <span class="gap">6</span> the benefits: gardens cool the air on hot days and <span class="gap">7</span> rainwater after storms. Not surprisingly, the waiting <span class="gap">8</span> for a plot is often several years long.</div>
+      <div id="u4"></div>
+    </div>
+    <div class="btnrow"><button class="lilac" id="checkU">Language in Use abgeben und auswerten</button></div>
+    <div class="note lilac hidden" id="resU"></div>
+  </div>
+
+  <!-- WRITING -->
+  <div class="part write" id="partW">
+    <h3><span>Part 4 · Writing</span><span class="tag t">120 Minuten · 2 Aufgaben</span></h3>
+    <p class="mini">Die genaue Wortanzahl steht in der Matura immer in der Aufgabenstellung. Hier gilt: Task 1 etwa 250 Wörter, Task 2 etwa 400 Wörter.</p>
+
+    <div class="task">
+      <h4><span>Task 1 · Blog Post</span><span class="pts">ca. 250 Wörter</span></h4>
+      <div class="textbox en">You have just returned from a two-week school exchange in an English-speaking country. Write a <b>blog post</b> for your school's website in which you
+        <ul><li><b>describe</b> what you experienced during your stay,</li><li><b>explain</b> a difficulty you faced and how you dealt with it,</li><li><b>give advice</b> to students who are thinking about taking part next year.</li></ul>
+        Give your blog post a title. Write around 250 words.</div>
+      <textarea class="write" id="w1" placeholder="Write your blog post here …"></textarea>
+      <div class="wc" id="wc1"></div>
+      <div class="btnrow"><button class="gold" data-model="mw1">Musterlösung zeigen</button></div>
+      <div class="model en" id="mw1">
+        <h5>Two Weeks in Leeds – and Why I Want to Go Back</h5>
+        <p>Hi everyone! As some of you know, I spent the last two weeks of October in Leeds on our school's exchange programme, and I promised to tell you all about it.</p>
+        <p>My host family could not have been kinder. Emma, my exchange partner, has two younger brothers who wanted to know everything about Austria – mostly whether we really yodel before breakfast. I had to disappoint them! What surprised me most was how relaxed school felt. Students call their teachers 'Miss' or 'Sir', and in drama class we spent a whole lesson improvising a scene in a supermarket. I was nervous at first, but by the end I was laughing so hard I could barely speak.</p>
+        <p>Of course, not everything went smoothly. On my second day, I got on the wrong bus after school and ended up on the other side of the city. Instead of panicking, I asked an elderly man for help. He not only explained the route but also walked me to the right stop. That taught me an important lesson: just ask. People are usually happy to help.</p>
+        <p>If you are thinking about applying next year, here are my three tips. First, pack a small present for your host family – chocolate from home always works. Second, speak English even when it feels awkward, because your confidence will grow faster than you think. Finally, say yes to everything, whether it is a football match in the rain or beans on toast for breakfast.</p>
+        <p>Has anyone else been on an exchange? Tell me about it in the comments!</p>
+        <p class="mini" style="font-family:Lexend">Warum das eine Eins wäre: Titel und persönliche Leseransprache (Blog-Layout), alle drei Inhaltspunkte jeweils in einem eigenen Absatz ausgearbeitet, klare Verbindungswörter (<i>Of course, Instead of, First, Second, Finally</i>), vielfältige Strukturen (not only … but also, Relativsatz, Konditionalsatz, Vergangenheitszeiten) und ein Schluss mit Frage an die Leser.</p>
+      </div>
+    </div>
+
+    <div class="task">
+      <h4><span>Task 2 · Essay</span><span class="pts">ca. 400 Wörter</span></h4>
+      <div class="textbox en">Some countries are discussing a ban on social media for teenagers under sixteen. Your English teacher has asked you to write an <b>essay</b> on this topic. In your essay you should
+        <ul><li><b>outline</b> the reasons why some people support such a ban,</li><li><b>discuss</b> possible disadvantages of a ban,</li><li><b>suggest</b> alternative ways to protect young people online.</li></ul>
+        Give your essay a title. Write around 400 words.</div>
+      <textarea class="write" id="w2" placeholder="Write your essay here …"></textarea>
+      <div class="wc" id="wc2"></div>
+      <div class="btnrow"><button class="gold" data-model="mw2">Musterlösung zeigen</button></div>
+      <div class="model en" id="mw2">
+        <h5>Protecting Teenagers Online: Is a Ban the Answer?</h5>
+        <p>For most teenagers, social media is as much a part of daily life as school or sport. They use it to stay in touch with friends, follow their interests and express themselves. At the same time, concerns about its effects on young people are growing, and some governments are considering banning it for everyone under sixteen. But would such a ban really protect teenagers?</p>
+        <p>Supporters of a ban put forward several convincing arguments. Firstly, many parents worry that endless scrolling keeps their children awake at night and distracts them from homework. Secondly, platforms are designed to be addictive, which makes it extremely difficult for young people to control the time they spend online. Furthermore, teenagers are often exposed to cyberbullying and to unrealistic images of beauty and success, which can damage their self-esteem. From this point of view, a clear age limit seems like a simple and effective solution.</p>
+        <p>However, a ban would also have serious disadvantages. To begin with, it would be very hard to enforce, since tech-savvy teenagers could easily lie about their age or use their parents' accounts. What is more, social media is not only a source of risks. For many young people, especially those who feel lonely or different, online communities offer support and a sense of belonging. If these were taken away overnight, some teenagers might feel more isolated than before. Finally, a ban could simply postpone the problem: at sixteen, young people would suddenly be confronted with the online world without ever having learned how to handle it.</p>
+        <p>In my view, there are better ways to protect young people. Schools should teach media literacy from an early age, so that students learn to recognise manipulation, protect their privacy and deal with online conflicts. In addition, platforms should be required by law to offer safer settings for younger users, such as time limits and stricter controls on harmful content. Parents, too, have an important role to play: instead of simply forbidding apps, they could talk openly with their children about their experiences online.</p>
+        <p>All in all, I believe that a ban would send a strong signal but would fail to solve the real problem. Young people need guidance and better protection rather than a closed door. If we give them the skills to use social media responsibly, they will be far better prepared for the digital world they will grow up in.</p>
+        <p class="mini" style="font-family:Lexend">Warum das eine Eins wäre: Titel, Einleitung mit Leitfrage, je ein Absatz pro Inhaltspunkt, klare Meinung im Schluss. Breiter Wortschatz (enforce, self-esteem, media literacy, sense of belonging), Passiv (should be required), Konditionalsätze, Relativsätze und ein abwechslungsreiches Spektrum an Verbindungswörtern.</p>
+      </div>
+    </div>
+
+    <div class="card" style="background:var(--bg);box-shadow:none">
+      <h3>Selbstbewertung Writing</h3>
+      <p class="mini">Lies deine Texte nach dem Schreiben mit etwas Abstand und vergleiche sie mit den Musterlösungen. Wähle für jedes Kriterium die Stufe, die am besten passt. 10 = ausgezeichnet, 8 = sehr gut mit kleinen Schwächen, 6 = solide, 4 = deutliche Schwächen, 2 = kaum erfüllt, 0 = nicht erfüllt.</p>
+      <div id="rubric"></div>
+    </div>
+    <div class="btnrow"><button class="terra" id="checkW">Writing auswerten</button></div>
+    <div class="note terra hidden" id="resW"></div>
+  </div>
+
+  <div class="result">
+    <h3>Gesamtauswertung</h3>
+    <p class="mini">Werte zuerst alle vier Teile aus. Jeder Kompetenzbereich zählt ein Viertel.</p>
+    <div class="btnrow" style="margin-bottom:16px"><button class="lilac" id="finalBtn">Gesamtergebnis anzeigen</button></div>
+    <div id="finalOut" class="hidden">
+      <div id="finalBars"></div>
+      <p><b>Gesamt:</b> <span id="ftot"></span></p>
+      <div class="grade" id="fgrade"></div>
+      <p id="ftext" style="margin-top:12px"></p>
+      <p class="mini">Die Notenangabe ist eine Orientierung auf Basis des Gesamtprozentsatzes. In der echten Matura gilt der offizielle Beurteilungsschlüssel des jeweiligen Termins.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>Englisch Zentralmatura · Lern- und Übungsseite · alle Texte und Aufgaben eigens erstellt, Personen und Orte frei erfunden</footer>
+
+<script>
+function sget(k){try{return localStorage.getItem('engmat_'+k)}catch(e){return null}}
+function sset(k,v){try{localStorage.setItem('engmat_'+k,v)}catch(e){}}
+const norm=s=>String(s||'').toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9' ]/g,' ').replace(/\s+/g,' ').trim();
+const wcount=s=>{const t=String(s||'').trim();return t?t.split(/\s+/).length:0};
+
+/* ===== Schritt für Schritt ===== */
+document.querySelectorAll('.walk').forEach(w=>{const st=[...w.querySelectorAll('.wstep')];let i=0;const nb=w.querySelector('.next');
+  function show(){st.forEach((s,j)=>s.classList.toggle('show',j<i));nb.disabled=i>=st.length;nb.textContent=i===0?'Schritt für Schritt':'Nächster Schritt'}
+  nb.onclick=()=>{i++;show()};w.querySelector('.reset').onclick=()=>{i=0;show()};show()});
+
+/* ===== Training ===== */
+const quiz=[
+ {p:'I ______ in Vienna since 2020.',o:['live','am living','have lived','lived'],a:2,e:'<i>since</i> + Zeitpunkt verbindet Vergangenheit und Gegenwart – dafür braucht es das Present Perfect. Die deutsche Gegenwart „Ich wohne seit …“ verleitet zum Fehler <i>I live</i>.'},
+ {p:'If I ______ more time, I would learn Spanish.',o:['have','had','would have','will have'],a:1,e:'Conditional 2 (irreal Gegenwart): if + Past Simple, Hauptsatz mit would. <i>would</i> steht nie im if-Satz.'},
+ {p:'If she had left earlier, she ______ the train.',o:['would catch','will catch','would have caught','had caught'],a:2,e:'Conditional 3 (irreal Vergangenheit): if + Past Perfect, Hauptsatz would have + Past Participle.'},
+ {p:'The bridge ______ in 1890.',o:['built','was built','has built','is building'],a:1,e:'Die Brücke baut nicht selbst, sie wurde gebaut – Passiv im Past Simple: was + Past Participle. Die Jahreszahl 1890 verlangt das Past Simple, nicht das Present Perfect.'},
+ {p:'My cousin, ______ lives in Dublin, is visiting us.',o:['that','which','who','whose'],a:2,e:'Zusatzinformation zwischen Kommas über eine Person → <i>who</i>. <i>that</i> ist in Relativsätzen mit Kommas nicht möglich.'},
+ {p:'She told me that she ______ tired.',o:['is being','was','has been being','be'],a:1,e:'Reported Speech: „I am tired“ wird nach Vergangenheit im Einleitungssatz zu <i>she was tired</i>.'},
+ {p:'I really enjoy ______ in the mountains.',o:['to hike','hike','hiking','to hiking'],a:2,e:'Nach <i>enjoy</i> steht immer das Gerund (-ing).'},
+ {p:'We can\'t afford ______ a new car this year.',o:['buying','to buy','buy','bought'],a:1,e:'Nach <i>afford</i> folgt der to-Infinitiv.'},
+ {p:'Could you give me some ______ about the exam?',o:['informations','advices','information','an information'],a:2,e:'<i>information</i> ist im Englischen unzählbar – kein Plural-s, kein <i>an</i>. Dasselbe gilt für <i>advice</i>.'},
+ {p:'Which sentence is correct?',o:['The most people like summer.','Most people like summer.','Most of people like summer.','The most of people like summer.'],a:1,e:'„Die meisten Leute“ heißt <i>most people</i> – ohne Artikel. Mit Artikel nur bei <i>most of the people</i> (eine bestimmte Gruppe).'},
+ {p:'I ______ a terrible mistake in my essay.',o:['did','made','had','took'],a:1,e:'Kollokation: <i>make a mistake</i>. Ebenso <i>make a decision, make progress</i> – aber <i>do homework, do research</i>.'},
+ {p:'What does <i>eventually</i> mean?',o:['eventuell','schließlich, letztendlich','vielleicht','sofort'],a:1,e:'False Friend: <i>eventually</i> = schließlich. „eventuell“ heißt <i>possibly</i> oder <i>perhaps</i>.'},
+ {p:'Could you ______ me your pen for a moment?',o:['borrow','lend','rent','give back'],a:1,e:'<i>lend</i> = jemandem etwas leihen; <i>borrow</i> = sich etwas ausleihen (<i>Can I borrow your pen?</i>).'},
+ {p:'The project must be finished ______ Friday at the latest.',o:['until','by','since','for'],a:1,e:'„bis spätestens“ = <i>by</i>. <i>until</i> beschreibt etwas, das bis zu einem Zeitpunkt andauert (<i>I\'ll wait until Friday</i>).'},
+ {p:'Choose the correct word: The situation is ______ (DANGER).',o:['danger','dangerous','dangerously','endangered'],a:1,e:'Nach <i>is</i> steht hier ein Adjektiv. Danger → dangerous (-ous). <i>endangered</i> heißt „gefährdet“ und passt inhaltlich nicht.'},
+ {p:'Which linking word fits? <i>The plan is expensive. ______, it could save money in the long run.</i>',o:['Therefore','Moreover','However','For example'],a:2,e:'Der zweite Satz bildet einen Gegensatz zum ersten (teuer – spart Geld) → <i>However</i>. <i>Therefore</i> würde eine Folge ausdrücken.'}
+];
+let qD=0,qR=0;
+function renderQuiz(){qD=0;qR=0;upd();document.getElementById('quiz').innerHTML=quiz.map((q,i)=>`<div class="q"><div class="qhead">Aufgabe ${i+1} von ${quiz.length}</div><div class="prompt en">${q.p}</div><div class="opts">${q.o.map((o,j)=>`<button class="opt en" data-q="${i}" data-o="${j}">${o}</button>`).join('')}</div><div class="expl" id="qe${i}"></div></div>`).join('')}
+function upd(){document.getElementById('trainScore').textContent=`${qR} / ${qD} richtig · ${quiz.length-qD} offen`}
+document.getElementById('quiz').onclick=e=>{const b=e.target.closest('.opt');if(!b)return;const box=b.parentElement;if(box.dataset.done)return;box.dataset.done=1;qD++;
+  const qi=+b.dataset.q,oi=+b.dataset.o,q=quiz[qi],ok=oi===q.a;if(ok)qR++;
+  box.querySelectorAll('.opt').forEach((x,j)=>{if(j===q.a)x.classList.add('right');else if(j===oi)x.classList.add('wrong')});
+  const ex=document.getElementById('qe'+qi);ex.innerHTML=(ok?'<b class="ok">Richtig! </b>':'<b class="no">Noch nicht ganz. </b>')+q.e;ex.classList.add('show');upd()};
+document.getElementById('quizReset').onclick=renderQuiz;renderQuiz();
+
+/* ===== Timer ===== */
+let total=270*60,left=total,tid=null;const sv=sget('timer');if(sv!==null&&!isNaN(+sv))left=+sv;
+function showClock(){const m=Math.floor(left/60),s=left%60;document.getElementById('clock').textContent=`${m}:${String(s).padStart(2,'0')}`;
+  const u=(total-left)/60,el=document.getElementById('tMsg');
+  el.textContent=left===0?'Die Zeit ist um!':u<60?'Phase: Reading (bis Minute 60)':u<105?'Phase: Listening (bis Minute 105)':u<150?'Phase: Language in Use (bis Minute 150)':'Phase: Writing (120 Minuten)'}
+document.getElementById('tStart').onclick=()=>{if(tid)return;tid=setInterval(()=>{if(left>0){left--;sset('timer',left);showClock()}else{clearInterval(tid);tid=null}},1000)};
+document.getElementById('tPause').onclick=()=>{clearInterval(tid);tid=null};
+document.getElementById('tReset').onclick=()=>{clearInterval(tid);tid=null;left=total;sset('timer',left);showClock()};
+showClock();
+
+/* ===== Generische Renderer ===== */
+function mcBlock(id,items,start=1){return items.map((q,i)=>`<div class="row"><div class="nr">${i+start}</div><div><div class="en">${q.p}</div><div class="opts" style="margin-top:8px">${q.o.map((o,j)=>`<label class="opt en"><input type="radio" name="${id}_${i}" value="${j}"> <b>${'ABCD'[j]}</b>&nbsp; ${o}</label>`).join('')}</div><div class="fb" id="${id}fb${i}"></div></div></div>`).join('')}
+function checkMC(id,items){let s=0;items.forEach((q,i)=>{const ch=document.querySelector(`input[name=${id}_${i}]:checked`),ok=ch&&+ch.value===q.a;if(ok)s++;
+  document.querySelectorAll(`input[name=${id}_${i}]`).forEach(r=>{const l=r.parentElement;l.classList.remove('right','wrong');if(+r.value===q.a)l.classList.add('right');else if(r.checked)l.classList.add('wrong')});
+  const f=document.getElementById(id+'fb'+i);f.innerHTML=(ok?'<b class="ok">✓ </b>':'<b class="no">✗ </b>')+q.e;f.classList.add('show')});return s}
+function selBlock(id,n,letters,start=1,labels){return Array.from({length:n},(_,i)=>`<div class="row"><div class="nr">${i+start}</div><div>${labels?`<span class="en">${labels[i]}</span>`:''}<div class="ctrl"><select id="${id}_${i}"><option value="">–</option>${letters.map(l=>`<option>${l}</option>`).join('')}</select></div><div class="fb" id="${id}fb${i}"></div></div></div>`).join('')}
+function checkSel(id,ans,expl){let s=0;ans.forEach((a,i)=>{const el=document.getElementById(id+'_'+i),ok=el.value===a;if(ok)s++;el.classList.remove('mark-ok','mark-no');el.classList.add(ok?'mark-ok':'mark-no');
+  const f=document.getElementById(id+'fb'+i);f.innerHTML=(ok?'<b class="ok">✓ </b>':`<b class="no">✗ Lösung: ${a}.</b> `)+expl[i];f.classList.add('show')});return s}
+function txtBlock(id,qs,start=1,cls='short'){return qs.map((q,i)=>`<div class="row"><div class="nr">${i+start}</div><div>${q.p?`<span class="en">${q.p}</span>`:''}<div class="ctrl"><input type="text" class="${cls}" id="${id}_${i}" autocomplete="off" spellcheck="false"></div><div class="fb" id="${id}fb${i}"></div></div></div>`).join('')}
+function checkTxt(id,qs,limit){let s=0;qs.forEach((q,i)=>{const el=document.getElementById(id+'_'+i),v=norm(el.value);let ok=q.ok.some(r=>r.test(v));let extra='';
+  if(ok&&limit&&wcount(el.value)>limit){ok=false;extra=' <b class="no">Mehr als vier Wörter – in der Matura kein Punkt.</b>'}
+  if(!v)ok=false;if(ok)s++;el.classList.remove('mark-ok','mark-no');el.classList.add(ok?'mark-ok':'mark-no');
+  const f=document.getElementById(id+'fb'+i);f.innerHTML=(ok?'<b class="ok">✓ </b>':`<b class="no">✗ </b>`)+`Mögliche Lösung: <i>${q.sol}</i>. ${q.e}${extra}`;f.classList.add('show')});return s}
+
+/* ===== READING ===== */
+const R1S=["When the small town of Ellingford voted to ban private cars from its centre five years ago, many residents predicted the end of local business.","Shop owners warned that customers would simply drive to the large shopping mall twenty kilometres away.","Today, however, the town square is busier than it has been in decades.","According to the local chamber of commerce, the number of independent shops has risen from 34 to 51.","Not everyone is convinced, though.","Elderly residents in particular complain that the new electric minibuses do not run often enough in the evenings.","'I used to visit my sister every Sunday night,' says 78-year-old Margaret Hale. 'Now I stay at home because the last bus leaves at seven.'","The town council has promised to extend the timetable, but only once a new depot has been built, which is not expected before next year.","Interestingly, the ban was not originally an environmental project.","It began as a safety measure after two serious accidents involving children near the primary school.","Air quality has nevertheless improved noticeably: nitrogen dioxide levels in the centre have fallen by almost 40 per cent.","Several other towns in the region have sent delegations to study the scheme, although none has yet decided to copy it.","The mayor, who cycles to work every day, admits that the change required patience.","'For the first year, I received angry letters almost daily,' she says. 'Now people stop me in the street to suggest which road should be closed next.'"];
+const paras=[[0,1],[2,3],[4,5,6,7],[8,9,10],[11],[12,13]];
+document.getElementById('r1text').innerHTML='<h5>The Town That Gave Up Cars</h5>'+paras.map(p=>'<p>'+p.map(i=>R1S[i]).join(' ')+'</p>').join('');
+const R1=[
+ {p:'The town centre is now busier than it has been for a long time.',t:'T',j:[2],e:'„busier than it has been in decades“ = seit langer Zeit nicht mehr so belebt.'},
+ {p:'There are fewer independent shops than before the ban.',t:'F',j:[3],e:'Die Zahl ist von 34 auf 51 <b>gestiegen</b>.'},
+ {p:'Older residents are satisfied with the evening bus service.',t:'F',j:[5,6],e:'Ältere Menschen beschweren sich, dass die Busse abends zu selten fahren.'},
+ {p:'The bus timetable will be extended within the next few weeks.',t:'F',j:[7],e:'Erst nach dem Bau eines neuen Depots – nicht vor nächstem Jahr.'},
+ {p:'Protecting the environment was the original reason for the ban.',t:'F',j:[8,9],e:'Ursprünglich war es eine Sicherheitsmaßnahme nach zwei Unfällen mit Kindern.'},
+ {p:'Air pollution in the centre has decreased.',t:'T',j:[10],e:'Die Stickstoffdioxidwerte sind um fast 40 % gesunken.'},
+ {p:'Other towns in the region have already copied the scheme.',t:'F',j:[11],e:'Andere Orte haben es nur studiert – noch keiner hat es übernommen.'},
+ {p:'The mayor faced a lot of criticism at the beginning.',t:'T',j:[13],e:'Im ersten Jahr bekam sie fast täglich wütende Briefe.'}
+];
+document.getElementById('r1').innerHTML=R1.map((q,i)=>`<div class="row"><div class="nr">${i+1}</div><div><span class="en">${q.p}</span><div class="ctrl"><select id="r1tf_${i}"><option value="">T / F</option><option>T</option><option>F</option></select><input type="text" id="r1j_${i}" placeholder="first four words" autocomplete="off" spellcheck="false"></div><div class="fb" id="r1fb${i}"></div></div></div>`).join('');
+const nw=x=>norm(x).split(' ').map(w=>w.replace(/^'+|'+$/g,'')).filter(Boolean);
+const first4=i=>nw(R1S[i]).slice(0,4);
+function justOK(input,ids){const w=nw(input);if(w.length<3)return false;return ids.some(id=>{const f=first4(id);return w.slice(0,4).every((x,k)=>x===f[k])&&w.length<=4})}
+const R2=[
+ {p:'According to the first paragraph, many people …',o:['enjoy waiting in queues.','feel they have to fill every free moment.','use their phones mainly for work.','avoid public transport.'],a:1,e:'„every empty minute seems to demand to be filled“.'},
+ {p:'Dr Marsh believes that a wandering mind …',o:['is a sign of poor concentration.','helps us to connect ideas.','should be trained through meditation.','is mainly found in children.'],a:1,e:'Der umherschweifende Geist verbindet Erinnerungen, Pläne und Ideen – wichtig für kreatives Problemlösen.'},
+ {p:'In the experiment, the first group …',o:['was given a boring task before the creative one.','used telephones to find ideas.','worked on the creative task for longer.','received more detailed instructions.'],a:0,e:'Sie schrieben 15 Minuten lang Nummern aus einem Telefonbuch ab – „a deliberately dull activity“. Das Telefonbuch ist ein Distraktor für B.'},
+ {p:'What was the result of the experiment?',o:['Both groups performed equally well.','The second group finished faster.','The group that had been bored was more original.','The students refused to copy the numbers.'],a:2,e:'„The students who had been bored produced significantly more original ideas.“'},
+ {p:'Marsh distinguishes between …',o:['boredom in adults and in children.','long-term boredom and short everyday boredom.','creative and uncreative people.','useful and harmful phones.'],a:1,e:'Chronische Langeweile (wochenlang) ist schädlich; sie spricht von kurzer, alltäglicher Langeweile.'},
+ {p:'How does Marsh respond to her critics?',o:['She rejects their arguments.','She claims her studies were large enough.','She agrees that more research is needed.','She decides to stop her research.'],a:2,e:'„Marsh accepts the criticism. ‚We need larger studies.‘“'}
+];
+document.getElementById('r2').innerHTML=mcBlock('r2',R2);
+const R3A=['A','B','C','D','E','F'];
+const R3E=['„Looking back“ blickt auf die Entscheidung zurück, die gerade beschrieben wurde – ein runder Abschluss des ersten Absatzes.','Nach der harten Arbeit folgt die Erschöpfung; „however“ im nächsten Satz stellt den Kontrast her (am Ende des Monats war ich schneller).','Die Angst vor Fragen der Besucher leitet über zu „Explaining the landscape to strangers …“.','„could not simply escape into my phone“ knüpft an den schlechten Empfang an; „Instead, we played cards“ setzt fort.','Die Vögel sind gerade angekommen und bauen Nester – danach „Every morning, I counted nests“.','„I cannot say …“ wird vom folgenden „What I can say is …“ aufgegriffen.'];
+document.getElementById('r3').innerHTML=selBlock('r3',6,['A','B','C','D','E','F','G','H']);
+const R4=[
+ {p:'How often does the Repair Café take place?',ok:[/every (second|other) saturday/,/fortnight/,/every (two|2) weeks/,/twice a month/],sol:'every second Saturday',e:'Erster Satz des Textes.'},
+ {p:'What was Tom Avery\'s job before he retired?',ok:[/electrician/],sol:'(an) electrician',e:'„a retired electrician“.'},
+ {p:'What are visitors expected to do?',ok:[/help/,/repair/,/fix/],sol:'(to) help (with repairs)',e:'„visitors are expected to help“ – „We fix them with you.“'},
+ {p:'How much waste did the repairs save last year?',ok:[/\b4\b/,/four/],sol:'(around) four tonnes',e:'„saved around four tonnes of waste“.'},
+ {p:'Which items most often have problems?',ok:[/kettle/],sol:'kettles',e:'„Loose connections in kettles.“'},
+ {p:'Why can some items not be repaired?',ok:[/part/],sol:'no spare parts available',e:'„usually because spare parts are no longer available“.'}
+];
+document.getElementById('r4').innerHTML=txtBlock('r4',R4);
+let scR=null;
+document.getElementById('checkR').onclick=()=>{
+  let s1=0;R1.forEach((q,i)=>{const tf=document.getElementById('r1tf_'+i),jj=document.getElementById('r1j_'+i);const okT=tf.value===q.t,okJ=justOK(jj.value,q.j);
+    tf.classList.remove('mark-ok','mark-no');jj.classList.remove('mark-ok','mark-no');tf.classList.add(okT?'mark-ok':'mark-no');jj.classList.add(okJ?'mark-ok':'mark-no');
+    const ok=okT&&okJ;if(ok)s1++;const f=document.getElementById('r1fb'+i);
+    f.innerHTML=(ok?'<b class="ok">✓ 1 Punkt.</b> ':'<b class="no">✗ 0 Punkte.</b> ')+`Lösung: <b>${q.t}</b> · <i>${q.j.map(id=>first4(id).join(' ')).join('</i> oder <i>')}</i> – ${q.e}`;f.classList.add('show')});
+  const s2=checkMC('r2',R2),s3=checkSel('r3',R3A,R3E),s4=checkTxt('r4',R4,4);
+  scR=s1+s2+s3+s4;const r=document.getElementById('resR');r.classList.remove('hidden');
+  r.innerHTML=`<b>Reading: ${scR} / 26 Punkte (${Math.round(scR/26*100)} %)</b><br>Task 1: ${s1}/8 · Task 2: ${s2}/6 · Task 3: ${s3}/6 · Task 4: ${s4}/6`;
+};
+
+/* ===== LISTENING (Sprachausgabe) ===== */
+const SCRIPTS=[
+ [[0,"Hello and welcome to Outdoor Hour. My guest today would normally be sitting here with me, but she is stuck in the Alps because of the weather, so I'll pass on her advice myself."],
+  [0,"Rachel has worked as a mountain guide for nineteen years, and she says the most common mistake people make is starting too late in the day. In summer, thunderstorms often build up in the early afternoon, so her rule is simple: be on your way by seven in the morning and be heading down by one."],
+  [0,"Her second tip is about clothing. Many hikers, she says, think about warm jackets, but forget that most problems come from wet feet. Good boots and a spare pair of socks are, in her words, worth more than any expensive gadget."],
+  [0,"Third, always tell someone where you are going. Rachel recommends leaving a note with your route and the time you expect to be back. Not just a post on social media, but a message to a real person."],
+  [0,"And finally, don't be afraid to turn back. The mountain will still be there next week, she likes to say. The question is whether you will be. That's all for today. Next week, we'll be talking about camping with children."]],
+ [[1,"Speaker one."],[0,"My first job was in a bakery. I had to be there at four in the morning, which I hated at first. But by the end of the summer, I actually loved walking through the empty streets while the rest of the town was still asleep."],
+  [1,"Speaker two."],[2,"I worked at a call centre. The pay was all right, but what I really took away was confidence. Before that job, I couldn't even order a pizza on the phone. After three months of talking to angry customers, nothing scared me any more."],
+  [1,"Speaker three."],[0,"I helped out in my uncle's garage. Honestly, I learned very little about cars, because he never let me touch anything important. Mostly I swept the floor and made tea for everyone."],
+  [1,"Speaker four."],[2,"I was a waitress in a hotel restaurant, and that's where I met the woman who later became my business partner. We still laugh about the night we dropped a whole tray of desserts together."],
+  [1,"Speaker five."],[0,"I delivered newspapers. It wasn't exciting, but I saved every cent, and by the end of the year I had enough money to buy my first guitar. I still play it today."]],
+ [[0,"Maya, you're only nineteen and your app already has fifty thousand users. How did it all start?"],[2,"It started at home, actually. My family threw away so much bread every week that I began keeping a spreadsheet to track it. My brother joked that I should turn it into an app, so I did."],
+  [0,"What does the app do exactly?"],[2,"It connects people who have food they won't eat with neighbours who'd like it. You take a photo, set a pickup time, and someone nearby collects it."],
+  [0,"Did you have any programming experience?"],[2,"Almost none. I taught myself with free online courses during the summer holidays. The first version crashed every time more than ten people used it at once."],
+  [0,"What has been the biggest challenge?"],[2,"Trust, definitely. People were worried about food safety, so we added a rating system. Now users can see how reliable someone is before they meet."],
+  [0,"And what's next?"],[2,"We want to work with supermarkets. They throw away enormous amounts of food, and I think we could help them give it to people instead."]],
+ [[0,"Good morning, everyone, and welcome to the Westbury Summer School. Before you go to your classes, a few important announcements."],
+  [0,"First, there has been a change of room for the advanced conversation group. Instead of Room 12, you'll be meeting in the library on the second floor."],
+  [0,"Lunch is served in the main hall from half past twelve until two o'clock. But please note that on Wednesday it will finish an hour earlier because of the staff meeting."],
+  [0,"If you'd like to join Saturday's trip to the coast, please put your name on the list outside the office by Thursday evening. The trip costs fifteen pounds, which includes the bus and a picnic lunch."],
+  [0,"Finally, the computer room is now open until nine at night, but only for students who have collected their password from reception. Have a wonderful first day."]]
+];
+const NAMES=[['Presenter'],['Speaker','Announcer','Speaker'],['Interviewer','','Maya'],['Announcer']];
+let voices=[];function loadV(){try{voices=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));voices.sort((a,b)=>(/GB/.test(b.lang)?1:0)-(/GB/.test(a.lang)?1:0))}catch(e){}}
+if('speechSynthesis' in window){loadV();speechSynthesis.onvoiceschanged=loadV}else{document.getElementById('ttsNote').innerHTML+=' <b>Dein Browser unterstützt keine Sprachausgabe – nutze bitte die Transkripte.</b>'}
+const plays=[0,0,0,0];let speaking=null;
+function speakScript(si){
+  if(!('speechSynthesis' in window))return;speechSynthesis.cancel();
+  const lines=SCRIPTS[si];let k=0;speaking=si;
+  const st=document.getElementById('pst'+si);
+  function next(){if(k>=lines.length||speaking!==si){st.textContent=`Durchgang ${plays[si]} beendet.`+(plays[si]>=2?' Beide Durchgänge gehört.':'');return}
+    const [who,txt]=lines[k++];const u=new SpeechSynthesisUtterance(txt);u.lang='en-GB';u.rate=.93;
+    if(voices.length){u.voice=voices[who===2?Math.min(1,voices.length-1):who===1?Math.min(2,voices.length-1)%voices.length:0];}
+    u.pitch=who===2?1.15:who===1?.9:1;u.onend=()=>setTimeout(next,who===1?250:500);speechSynthesis.speak(u)}
+  plays[si]++;st.textContent=`Durchgang ${plays[si]} läuft …`;next();
+}
+document.querySelectorAll('.player').forEach(p=>{const si=+p.dataset.s;
+  p.innerHTML=`<button data-play="${si}">▶ Abspielen</button><button class="ghost" data-stop="${si}" style="background:#fff;color:var(--petrol);border-color:var(--petrol)">■ Stopp</button><span class="st" id="pst${si}">Noch nicht gehört (2 Durchgänge)</span><button class="ghost hidden" data-tr="${si}" id="trb${si}" style="background:#fff;color:var(--petrol);border-color:var(--petrol)">Transkript</button><div class="transcript" id="tr${si}" style="flex-basis:100%"></div>`;
+  document.getElementById('tr'+si).innerHTML=SCRIPTS[si].map(([w,t])=>w===1&&si===1?`<b>${t}</b>`:`<p style="margin:.3em 0"><b>${(NAMES[si][w]||'')}${NAMES[si][w]?':':''}</b> ${t}</p>`).join('')});
+document.getElementById('partL').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.play!==undefined){const si=+b.dataset.play;if(plays[si]>=2&&!confirm('In der Matura hörst du jeden Text nur zweimal. Trotzdem noch einmal abspielen?'))return;speakScript(si);if(plays[si]>=2)document.getElementById('trb'+si).classList.remove('hidden')}
+  if(b.dataset.stop!==undefined){speaking=null;try{speechSynthesis.cancel()}catch(x){}document.getElementById('pst'+b.dataset.stop).textContent='Gestoppt.'}
+  if(b.dataset.tr!==undefined){document.getElementById('tr'+b.dataset.tr).classList.toggle('show')}});
+const L1=[
+ {p:'Why is Rachel not in the studio?',o:['She is ill.','She is stuck in the Alps.','She is on holiday.','She is at another radio station.'],a:1,e:'„she is stuck in the Alps because of the weather“.'},
+ {p:'According to Rachel, the most common mistake is …',o:['taking the wrong food.','starting too late in the day.','walking alone.','carrying a heavy backpack.'],a:1,e:'„the most common mistake people make is starting too late in the day“.'},
+ {p:'By what time should hikers be heading down?',o:['7 am','11 am','1 pm','3 pm'],a:2,e:'„be on your way by seven … and be heading down by one“ – 7 Uhr ist die Startzeit (Distraktor A).'},
+ {p:'Most problems on hikes are caused by …',o:['cold hands.','wet feet.','cheap gadgets.','heavy jackets.'],a:1,e:'„most problems come from wet feet“.'},
+ {p:'Rachel advises hikers to leave their route details with …',o:['a social media post.','a real person.','the police.','a hotel.'],a:1,e:'„Not just a post on social media, but a message to a real person.“'}
+];
+const L2A=['A','B','C','D','E'];
+const L2E=['Anfangs hasste sie das frühe Aufstehen, am Ende liebte sie die leeren Straßen.','„what I really took away was confidence … nothing scared me any more“.','„he never let me touch anything important“ – nur Boden kehren und Tee kochen.','Sie lernte dort ihre spätere Geschäftspartnerin kennen.','Er sparte jeden Cent für seine erste Gitarre.'];
+const L3=[
+ {p:'What did Maya\'s family throw away most?',ok:[/bread/],sol:'bread',e:'„My family threw away so much bread every week“.'},
+ {p:'Who suggested turning the idea into an app?',ok:[/brother/],sol:'her brother',e:'„My brother joked that I should turn it into an app“.'},
+ {p:'How did Maya learn programming?',ok:[/online/,/course/,/taught (her)?self/,/self taught/],sol:'(free) online courses',e:'„I taught myself with free online courses“.'},
+ {p:'What did they add to build trust?',ok:[/rating/],sol:'a rating system',e:'„so we added a rating system“.'},
+ {p:'Who does Maya want to work with next?',ok:[/supermarket/],sol:'supermarkets',e:'„We want to work with supermarkets.“'}
+];
+const L4=[
+ {p:'Where will the advanced conversation group meet?',o:['in Room 12','in the library','in the main hall','in the office'],a:1,e:'„Instead of Room 12, you\'ll be meeting in the library“ – Room 12 ist der Distraktor.'},
+ {p:'On Wednesday, lunch will end at …',o:['12.30.','1 o\'clock.','2 o\'clock.','3 o\'clock.'],a:1,e:'Normal bis 2 Uhr, am Mittwoch eine Stunde früher → 1 Uhr.'},
+ {p:'To join the trip, students must …',o:['pay at reception.','put their name on a list by Thursday evening.','email their teacher.','buy a bus ticket.'],a:1,e:'„put your name on the list outside the office by Thursday evening“.'},
+ {p:'The price of the trip includes …',o:['only the bus.','the bus and a picnic lunch.','lunch and entrance fees.','nothing at all.'],a:1,e:'„which includes the bus and a picnic lunch“.'},
+ {p:'To use the computer room, students need …',o:['a teacher\'s permission.','a password from reception.','their own laptop.','to book a time slot.'],a:1,e:'„only for students who have collected their password from reception“.'}
+];
+document.getElementById('l1').innerHTML=mcBlock('l1',L1);
+document.getElementById('l2').innerHTML=selBlock('l2',5,['A','B','C','D','E','F','G'],1,['Speaker 1','Speaker 2','Speaker 3','Speaker 4','Speaker 5']);
+document.getElementById('l3').innerHTML=txtBlock('l3',L3);
+document.getElementById('l4').innerHTML=mcBlock('l4',L4);
+let scL=null;
+document.getElementById('checkL').onclick=()=>{
+  const s1=checkMC('l1',L1),s2=checkSel('l2',L2A,L2E),s3=checkTxt('l3',L3,4),s4=checkMC('l4',L4);
+  scL=s1+s2+s3+s4;[0,1,2,3].forEach(i=>{document.getElementById('trb'+i).classList.remove('hidden')});
+  const r=document.getElementById('resL');r.classList.remove('hidden');
+  r.innerHTML=`<b>Listening: ${scL} / 20 Punkte (${Math.round(scL/20*100)} %)</b><br>Task 1: ${s1}/5 · Task 2: ${s2}/5 · Task 3: ${s3}/5 · Task 4: ${s4}/5 · Die Transkripte sind jetzt freigeschaltet.`;
+};
+
+/* ===== LANGUAGE IN USE ===== */
+const U1=[
+ {p:'Gap 1',o:['take','make','do','have'],a:0,e:'Feste Wendung: <i>take part in</i> = teilnehmen.'},
+ {p:'Gap 2',o:['out','in','on','up'],a:1,e:'<i>hand in</i> = abgeben. <i>hand out</i> hieße „austeilen“.'},
+ {p:'Gap 3',o:['While','During','Since','Until'],a:1,e:'<i>During</i> + Nomen (the first evening). <i>While</i> braucht einen Satz mit Verb.'},
+ {p:'Gap 4',o:['however','although','despite','unless'],a:0,e:'Eingeschoben zwischen Kommas, mit Gegensatz zum Vorigen → <i>however</i>. <i>although</i> und <i>despite</i> brauchen eine Ergänzung.'},
+ {p:'Gap 5',o:['missed','lost','failed','lacked'],a:0,e:'<i>miss a detail</i> = übersehen. Die anderen Verben ergeben keinen Sinn.'},
+ {p:'Gap 6',o:['instead','because','rather','in spite'],a:0,e:'<i>instead of</i> + -ing = statt. <i>in spite of</i> würde „trotz“ bedeuten.'},
+ {p:'Gap 7',o:['since','for','during','ago'],a:1,e:'Zeitraum (years) → <i>for</i>. <i>since</i> braucht einen Zeitpunkt.'},
+ {p:'Gap 8',o:['None','Nothing','No','Neither'],a:0,e:'<i>None of them</i> = keine davon. <i>Neither</i> bezieht sich nur auf zwei Dinge.'},
+ {p:'Gap 9',o:['rule','law','order','custom'],a:0,e:'Feste Wendung: <i>make it a rule to do something</i> = es sich zur Regel machen.'},
+ {p:'Gap 10',o:['difference','effect','result','advantage'],a:0,e:'Kollokation: <i>make a difference</i> = etwas bewirken. <i>effect</i> verbindet man mit <i>have</i>.'}
+];
+document.getElementById('u1').innerHTML=mcBlock('u1',U1);
+const U2=[
+ {ok:[/^necessity$/],sol:'necessity',e:'Nach <i>a</i> steht ein Nomen: necessary → necessity.'},
+ {ok:[/^financial$/],sol:'financial',e:'Adjektiv vor dem Nomen <i>situation</i>: finance → financial.'},
+ {ok:[/^unexpectedly$/],sol:'unexpectedly',e:'Vor dem Adjektiv <i>positive</i> steht ein Adverb; inhaltlich „unerwartet“ → Verneinung un- und Endung -ly.'},
+ {ok:[/^popularity$/],sol:'popularity',e:'<i>gained such …</i> verlangt ein Nomen: popular → popularity.'},
+ {ok:[/^assistants$/],sol:'assistants',e:'Personen-Nomen im Plural (<i>two</i>): assist → assistants.'},
+ {ok:[/^management$/],sol:'management',e:'Nach <i>about</i> steht ein Nomen: manage → management.'},
+ {ok:[/^creative$/],sol:'creative',e:'Nach <i>remarkably</i> (Adverb) steht ein Adjektiv: create → creative.'},
+ {ok:[/^difficulties$/],sol:'difficulties',e:'Nach <i>many</i> steht ein Nomen im Plural: difficult → difficulty → difficulties (y → ies).'}
+];
+document.getElementById('u2').innerHTML=txtBlock('u2',U2);
+const U3=[
+ {ok:[/^in$/,/^across$/],sol:'in',e:'<i>in many countries</i>.'},
+ {ok:[/^that$/],sol:'that',e:'<i>argue that</i> + Satz.'},
+ {ok:[/^by$/,/^on$/],sol:'by',e:'<i>be judged by</i> = beurteilt werden nach.'},
+ {ok:[/^other$/],sol:'other',e:'Feste Wendung: <i>on the other hand</i>.'},
+ {ok:[/^(although|though|but|while|whereas|yet|even though)$/],sol:'although / though / but / while',e:'Ein Gegensatz zwischen zwei Satzteilen.'},
+ {ok:[/^would$/,/^'d$/],sol:'would',e:'Konditionalsatz Typ 2 mit <i>if they were given</i> → Hauptsatz mit <i>would</i>.'},
+ {ok:[/^if$/],sol:'if',e:'<i>if</i> leitet die Bedingung ein (were given = Past Simple Passiv).'},
+ {ok:[/^as$/],sol:'as',e:'Feste Wendung: <i>as long as</i> = solange.'}
+];
+document.getElementById('u3').innerHTML=txtBlock('u3',U3);
+const U4A=['E','G','B','H','D','F','A','C'];
+const U4E=['<i>increasingly popular</i> – immer beliebter.','<i>green spaces</i> – Grünflächen.','<i>bring people together</i> – Menschen zusammenbringen.','<i>water each other\'s plants</i> – gegenseitig Pflanzen gießen.','<i>offer workshops</i> – Workshops anbieten.','<i>recognise the benefits</i> – die Vorteile erkennen.','<i>absorb rainwater</i> – Regenwasser aufnehmen.','<i>waiting list</i> – Warteliste.'];
+document.getElementById('u4').innerHTML=selBlock('u4',8,['A','B','C','D','E','F','G','H','I','J','K']);
+let scU=null;
+document.getElementById('checkU').onclick=()=>{
+  const s1=checkMC('u1',U1),s2=checkTxt('u2',U2),s3=checkTxt('u3',U3),s4=checkSel('u4',U4A,U4E);
+  scU=s1+s2+s3+s4;const r=document.getElementById('resU');r.classList.remove('hidden');
+  r.innerHTML=`<b>Language in Use: ${scU} / 34 Punkte (${Math.round(scU/34*100)} %)</b><br>Task 1: ${s1}/10 · Task 2: ${s2}/8 · Task 3: ${s3}/8 · Task 4: ${s4}/8`;
+};
+
+/* ===== WRITING ===== */
+[['w1',250],['w2',400]].forEach(([id,target],k)=>{const t=document.getElementById(id);t.value=sget(id)||'';
+  const up=()=>{const n=wcount(t.value),d=n-target;const out=document.getElementById('wc'+(k+1));
+    out.innerHTML=`<b>${n}</b> Wörter · Ziel etwa ${target} · ${n===0?'':Math.abs(d)<=target*.1?'im passenden Bereich ✓':d<0?'noch '+(-d)+' Wörter bis zum Ziel':(d)+' Wörter über dem Ziel – kürzen lohnt sich'}`;sset(id,t.value)};
+  t.oninput=up;up()});
+document.querySelectorAll('[data-model]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.model).classList.toggle('show'));
+const CRIT=[['Task Achievement','Alle Inhaltspunkte ausführlich bearbeitet, Textsorte, Leser und Zweck getroffen'],['Organisation & Layout','Klare Absätze, logischer Aufbau, abwechslungsreiche Verbindungswörter, Layout der Textsorte'],['Lexical Range & Accuracy','Breiter, präziser Wortschatz mit passenden Kollokationen, korrekte Rechtschreibung'],['Grammatical Range & Accuracy','Vielfältige Strukturen (Konditionale, Passiv, Relativsätze …), kaum Fehler']];
+document.getElementById('rubric').innerHTML=['Task 1 · Blog Post','Task 2 · Essay'].map((t,ti)=>`<h4 style="margin-top:14px">${t}</h4><div class="rub">${CRIT.map((c,ci)=>`<div class="rr"><div><b>${c[0]}</b><br><span class="mini">${c[1]}</span></div><select id="rb${ti}_${ci}"><option value="">Stufe</option>${[10,8,6,4,2,0].map(v=>`<option value="${v}">${v}</option>`).join('')}</select></div>`).join('')}</div>`).join('');
+document.querySelectorAll('#rubric select').forEach(s=>{s.value=sget(s.id)||'';s.onchange=()=>sset(s.id,s.value)});
+let scW=null;
+document.getElementById('checkW').onclick=()=>{let sum=0,miss=0;document.querySelectorAll('#rubric select').forEach(s=>{if(s.value==='')miss++;else sum+=+s.value});
+  if(miss&&!confirm(`Bei ${miss} Kriterien fehlt noch eine Stufe (zählt als 0). Trotzdem auswerten?`))return;
+  scW=sum;const r=document.getElementById('resW');r.classList.remove('hidden');
+  const low=[];document.querySelectorAll('#rubric select').forEach(s=>{if(s.value!==''&&+s.value<=6){const [ti,ci]=s.id.slice(2).split('_');low.push(`${CRIT[ci][0]} (Task ${+ti+1})`)}});
+  r.innerHTML=`<b>Writing: ${sum} / 80 Punkte (${Math.round(sum/80*100)} %)</b>`+(low.length?`<br>Hier liegt dein größtes Potenzial: ${low.join(', ')}.`:'<br>Sehr stark – alle Kriterien auf hohem Niveau.')};
+
+/* ===== Gesamt ===== */
+document.getElementById('finalBtn').onclick=()=>{
+  const parts=[['Reading',scR,26,'var(--blue)'],['Listening',scL,20,'var(--petrol)'],['Language in Use',scU,34,'var(--lilac)'],['Writing',scW,80,'var(--terra)']];
+  if(parts.some(p=>p[1]===null)){alert('Bitte zuerst alle vier Teile auswerten.');return}
+  const pcts=parts.map(p=>p[1]/p[2]*100),avg=pcts.reduce((a,b)=>a+b,0)/4;
+  document.getElementById('finalOut').classList.remove('hidden');
+  document.getElementById('finalBars').innerHTML=parts.map((p,i)=>`<p style="margin:0"><b>${p[0]}:</b> ${p[1]} / ${p[2]} (${Math.round(pcts[i])} %)</p><div class="bar"><div style="width:${pcts[i]}%;background:${p[3]}"></div></div>`).join('');
+  document.getElementById('ftot').textContent=`${avg.toLocaleString('de-DE',{maximumFractionDigits:1})} % (Mittelwert der vier Bereiche)`;
+  const weakest=parts[pcts.indexOf(Math.min(...pcts))][0];
+  let g,t;
+  if(avg>=91){g='Sehr gut';t='Hervorragend! Das ist Eins-Niveau in allen Bereichen. Halte die Form mit regelmäßigem Lesen englischer Artikel und einem Text pro Woche.'}
+  else if(avg>=81){g='Gut';t=`Starke Leistung! Am meisten Luft nach oben hast du im Bereich ${weakest}. Dort liegen die Punkte für die Eins.`}
+  else if(avg>=71){g='Befriedigend';t=`Solide! Konzentriere dich auf ${weakest} – arbeite die Strategien dieses Bereichs und die Fehlerfallen gezielt durch.`}
+  else if(avg>=60){g='Genügend';t=`Positiv – darauf lässt sich aufbauen. Beginne mit ${weakest} und wiederhole die Grammatikübersicht.`}
+  else {g='Noch nicht positiv';t=`Jetzt weißt du genau, wo du ansetzen kannst: im Bereich ${weakest}. Arbeite die Lernkapitel durch und wiederhole die Simulation.`}
+  document.getElementById('fgrade').textContent=g;document.getElementById('ftext').textContent=t;
+  try{document.getElementById('finalOut').scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}
+};
+</script>
+</body>
+</html>
