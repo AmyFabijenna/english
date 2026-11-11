@@ -1,0 +1,1147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grammar Boost · From Table to Take-off</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f1ea; --card:#ffffff; --ink:#1b1b1f; --muted:#56535c; --line:#e5ddd1;
+  --sky:#34527e; --petrol:#1d6a70; --lilac:#5f4a72; --terra:#9a5a3c; --plum:#7a3b5c; --ochre:#8a6a1f; --slate:#3e5566;
+  --okc:#2d5d8a; --ok-bg:#e6eef7; --bad:#a3463e; --bad-bg:#f7e7e3;
+  --c:var(--sky); --soft:#eef2f7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Lexend",system-ui,sans-serif;font-size:18px;line-height:1.65;font-weight:300;min-height:100vh;overflow-x:hidden}
+button,select,input{font-family:inherit;font-size:inherit;color:inherit}
+b,strong{font-weight:600}
+.bubbles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bubbles span{position:absolute;border-radius:50%;opacity:.13;animation:float 26s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-60px) translateX(24px)}}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:24px 16px 90px}
+header.top{background:linear-gradient(135deg,#2c4669 0%,#34527e 40%,#5f4a72 100%);color:#fff;border-radius:28px;padding:30px 30px 26px;margin-bottom:22px;box-shadow:0 12px 32px rgba(30,40,70,.18)}
+header.top h1{margin:0 0 6px;font-size:2.05rem;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+header.top p{margin:0;opacity:.93;font-size:1.05rem;max-width:780px}
+.topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:18px}
+.pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 14px;font-size:.92rem}
+.pill select{background:transparent;border:none;color:#fff;font-weight:500;cursor:pointer}
+.pill select option{color:#1b1b1f}
+.pill.btn{cursor:pointer}
+.pill.btn:hover{background:rgba(255,255,255,.26)}
+.crumb{display:flex;gap:10px;align-items:center;margin:0 0 16px;flex-wrap:wrap}
+.back{border:none;background:#fff;border-radius:999px;padding:8px 16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06);font-weight:400}
+.back:hover{box-shadow:0 3px 12px rgba(0,0,0,.1)}
+.card{background:var(--card);border-radius:22px;padding:22px 24px;margin-bottom:16px;box-shadow:0 3px 14px rgba(40,30,20,.06);border:1px solid #efe8dc}
+.card h2{margin:0 0 8px;font-size:1.4rem;font-weight:600;color:var(--c)}
+.card h3{margin:0 0 6px;font-size:1.15rem;font-weight:600;color:var(--c)}
+.intro p{margin:.3em 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:18px}
+.unit{background:#fff;border-radius:22px;padding:18px 20px;cursor:pointer;border:2px solid transparent;box-shadow:0 3px 12px rgba(40,30,20,.06);text-align:left;display:flex;flex-direction:column;gap:6px;transition:transform .15s,border-color .15s}
+.unit:hover{border-color:var(--c);transform:translateY(-2px)}
+.unit .num{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:var(--muted)}
+.unit .num .n{background:var(--c);color:#fff;border-radius:10px;padding:2px 10px;font-weight:500}
+.unit h3{margin:4px 0 0;font-size:1.18rem;font-weight:600;color:var(--c)}
+.unit p{margin:0;color:var(--muted);font-size:.95rem}
+.tag{font-size:.78rem;border-radius:999px;padding:2px 10px;font-weight:500}
+.tag.from{background:#e9eef6;color:#34527e}
+.tag.next{background:#f1e8ef;color:#7a3b5c}
+.bar{height:8px;background:#efe9df;border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--c);border-radius:99px;transition:width .3s}
+.small{font-size:.86rem;color:var(--muted)}
+.big2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.feature{border-radius:24px;padding:22px 24px;color:#fff;cursor:pointer;border:none;text-align:left;box-shadow:0 8px 22px rgba(30,30,60,.16);transition:transform .15s}
+.feature:hover{transform:translateY(-2px)}
+.feature h3{margin:0 0 6px;font-size:1.3rem;font-weight:600}
+.feature p{margin:0;opacity:.94}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.tab{border:none;background:#fff;border-radius:999px;padding:9px 18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.05);font-weight:400}
+.tab.on{background:var(--c);color:#fff;font-weight:500}
+.uhead{background:var(--c);color:#fff;border-radius:24px;padding:22px 26px;margin-bottom:14px}
+.uhead h2{margin:0;font-size:1.6rem;font-weight:600;color:#fff}
+.uhead p{margin:4px 0 0;opacity:.93}
+.rule{border-left:5px solid var(--c);}
+.rule .t{margin:0 0 10px}
+.ex{display:flex;align-items:flex-start;gap:10px;background:var(--soft);border-radius:14px;padding:9px 14px;margin:6px 0}
+.ex span{flex:1}
+.spk{flex:none;width:34px;height:34px;border-radius:50%;border:none;background:#fff;color:var(--c);cursor:pointer;display:grid;place-items:center;box-shadow:0 1px 5px rgba(0,0,0,.1)}
+.spk:hover{background:var(--c);color:#fff}
+.spk svg{width:18px;height:18px}
+.watch{display:grid;grid-template-columns:1fr auto 1fr;gap:6px 12px;align-items:center}
+.watch .w{background:var(--bad-bg);border-radius:12px;padding:7px 12px;text-decoration:line-through;text-decoration-color:rgba(163,70,62,.6)}
+.watch .r{background:var(--ok-bg);border-radius:12px;padding:7px 12px;font-weight:400}
+.watch .arr{color:var(--muted)}
+.q{position:relative}
+.q .qn{font-size:.82rem;color:var(--muted);margin-bottom:2px}
+.q .qt{font-size:1.12rem;margin:0 0 10px;font-weight:400}
+.hint{display:inline-block;font-size:.85rem;background:var(--soft);color:var(--c);border-radius:999px;padding:1px 10px;margin-left:6px;font-weight:500;vertical-align:middle}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:8px 16px;cursor:pointer;transition:border-color .12s}
+.opt:hover:not(:disabled){border-color:var(--c)}
+.opt.ok{background:var(--ok-bg);border-color:var(--okc);font-weight:500}
+.opt.no{background:var(--bad-bg);border-color:var(--bad);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.fb{margin-top:12px;border-radius:14px;padding:11px 15px;font-size:.98rem;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-bg);border-left:5px solid var(--okc)}
+.fb.no{background:var(--bad-bg);border-left:5px solid var(--bad)}
+.fb .lbl{font-weight:600;margin-right:4px}
+.fb .full{display:flex;gap:8px;align-items:center;margin-top:6px;font-weight:400}
+.gapline{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.gapin{border:2px solid var(--line);border-radius:12px;padding:6px 12px;min-width:200px;background:#fffdf9}
+.gapin:focus{outline:none;border-color:var(--c)}
+.gapin.ok{border-color:var(--okc);background:var(--ok-bg)}
+.gapin.no{border-color:var(--bad);background:var(--bad-bg)}
+.act{border:none;background:var(--c);color:#fff;border-radius:12px;padding:7px 16px;cursor:pointer;font-weight:500}
+.act.ghost{background:#fff;color:var(--c);border:2px solid var(--c)}
+.act:hover{filter:brightness(1.08)}
+.toks{display:flex;flex-wrap:wrap;gap:7px}
+.tok{border:2px solid var(--line);background:#fff;border-radius:12px;padding:6px 12px;cursor:pointer}
+.tok:hover:not(:disabled){border-color:var(--c)}
+.tok.no{background:var(--bad-bg);border-color:var(--bad)}
+.tok.ok{background:var(--ok-bg);border-color:var(--okc);font-weight:500}
+.tok:disabled{cursor:default}
+.line{min-height:54px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;background:#fffdf9}
+.line.ok{border-color:var(--okc);border-style:solid;background:var(--ok-bg)}
+.line.no{border-color:var(--bad);border-style:solid}
+.tile{border:none;background:var(--soft);color:var(--ink);border-radius:10px;padding:6px 12px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.tile:hover{background:var(--c);color:#fff}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.text{font-size:1.1rem;line-height:2.25}
+.text select{border:2px solid var(--line);border-radius:10px;padding:2px 6px;background:#fffdf9;cursor:pointer;max-width:100%}
+.text select.ok{border-color:var(--okc);background:var(--ok-bg)}
+.text select.no{border-color:var(--bad);background:var(--bad-bg)}
+.text .gn{font-size:.72rem;vertical-align:super;color:var(--c);font-weight:600;margin-left:2px}
+.text .say{font-weight:500;color:var(--c)}
+.explist{margin:0;padding-left:0;list-style:none}
+.explist li{padding:8px 12px;border-radius:12px;margin:6px 0;background:var(--soft)}
+.explist li.no{background:var(--bad-bg)}
+.explist li.ok{background:var(--ok-bg)}
+.choice{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.result{text-align:center}
+.result .big{font-size:2.8rem;font-weight:600;color:var(--c)}
+.sumrow{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;border-radius:12px;background:var(--soft);margin:6px 0;cursor:pointer}
+.sumrow:hover{outline:2px solid var(--c)}
+.prog{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:var(--muted);font-size:.92rem}
+footer{margin-top:30px;text-align:center;color:var(--muted);font-size:.85rem}
+@media (max-width:720px){
+  header.top h1{font-size:1.55rem}
+  .big2{grid-template-columns:1fr}
+  .watch{grid-template-columns:1fr}
+  .watch .arr{display:none}
+  .gapin{min-width:150px;flex:1}
+}
+</style>
+</head>
+<body>
+<div class="bubbles" id="bubbles"></div>
+<div class="wrap">
+  <header class="top">
+    <h1>Grammar Boost · From Table to Take-off</h1>
+    <p>All the grammar behind your restaurant and travel English – explained clearly, practised step by step, and taken one level higher.</p>
+    <div class="topbar">
+      <span class="pill">★ Points: <b id="score">0</b></span>
+      <span class="pill">Voice speed:
+        <select id="rate"><option value="0.7">slow</option><option value="0.85" selected>relaxed</option><option value="1">normal</option></select>
+      </span>
+      <span class="pill btn" id="homeBtn">⌂ Grammar map</span>
+      <span class="pill">British English</span>
+    </div>
+  </header>
+  <main id="main"></main>
+  <footer>Click the speaker next to any sentence to hear it. Your progress is saved in this browser.</footer>
+</div>
+<script>
+/* ================= DATA: UNITS ================= */
+const UNITS=[
+/* ---------- 1 ---------- */
+{id:"u1",tag:"from",c:"#34527e",soft:"#e9eef6",title:"Now & always",sub:"Present simple vs. present continuous",
+intro:"In the restaurant you describe routines (“We open at half past eleven”) and what is happening right now (“The chef is preparing your soup”). These two tenses are the basis for everything else.",
+rules:[
+{h:"Present simple – habits, routines, timetables, facts",t:"Use the base verb. With <b>he / she / it</b> add <b>-s</b>. Questions and negatives need <b>do / does</b> – and then the main verb has <b>no -s</b>.",ex:["We open at half past eleven every day.","The shuttle bus leaves every twenty minutes.","Does the bus stop at the airport?","The chef doesn't work on Mondays."]},
+{h:"Present continuous – now, at the moment, temporary",t:"<b>am / is / are + verb-ing</b>. Use it for actions happening right now or for a limited time around now.",ex:["The chef is preparing your soup right now.","We're renovating the terrace this month.","Look! The guests at table seven are waving at you."]},
+{h:"State verbs – normally no -ing",t:"Some verbs describe states, not actions: <b>like, love, want, need, know, understand, believe, mean, prefer, cost, belong, seem</b>. Use them in the present simple, even when you mean “now”.",ex:["This dish costs eighteen euros fifty.","I don't understand – could you say that again?","Do you want some more tea?"]},
+{h:"Signal words help you choose",t:"<b>always, usually, often, every day, on Mondays, never</b> → present simple.<br><b>now, right now, at the moment, today, this week, Look!, Listen!</b> → present continuous.",ex:["We usually close at ten.","At the moment we're looking for a new waiter."]}
+],
+watch:[["She work in a hotel.","She works in a hotel."],["Does the bus stops here?","Does the bus stop here?"],["I am needing a taxi.","I need a taxi."],["We are eating usually at one.","We usually eat at one."]],
+mc:[
+{q:"Our restaurant ___ at 11:30 every day.",o:["opens","is opening","open"],e:"“Every day” shows a routine or timetable → present simple. The subject (our restaurant = it) needs -s: opens."},
+{q:"Sorry, the chef can't come out. He ___ a big order right now.",o:["is cooking","cooks","cook"],e:"“Right now” → the action is happening at this moment → present continuous: is cooking."},
+{q:"This duck dish ___ €18.50.",o:["costs","is costing","cost"],e:"“Cost” is a state verb – no -ing form. Dish = it → costs."},
+{q:"Excuse me, ___ this bus go to the airport?",o:["does","is","do"],e:"Question in the present simple with he/she/it → does + base verb (go). “Is this bus go” mixes two tenses."},
+{q:"We can't use the terrace this month because we ___ it.",o:["are renovating","renovate","renovates"],e:"“This month” + a temporary situation → present continuous: are renovating."},
+{q:"The guest at table 4 ___ chopsticks. Please bring her a fork.",o:["doesn't want","isn't wanting","don't want"],e:"“Want” is a state verb → present simple. The guest = she → doesn't want (not don't)."},
+{q:"Listen! The phone ___ at reception.",o:["is ringing","rings","ring"],e:"“Listen!” tells you it is happening now → present continuous: is ringing."},
+{q:"Flight LH 1234 usually ___ from Gate B12.",o:["departs","is departing","depart"],e:"“Usually” is a frequency word → present simple. The flight = it → departs."},
+{q:"I ___ what you mean – could you say it again, please?",o:["don't understand","am not understanding","doesn't understand"],e:"“Understand” is a state verb → present simple. With I we use don't (doesn't is only for he/she/it)."},
+{q:"What ___ you ___ at the moment? – I'm checking the reservations.",o:["are … doing","do … do","are … do"],e:"“At the moment” → present continuous: What are you doing? The answer (I'm checking) uses the same tense."},
+{q:"My sister ___ in London, but this week she ___ with us.",o:["lives / is staying","is living / stays","live / is staying"],e:"Where she lives is permanent → present simple (lives). This week is temporary → present continuous (is staying)."},
+{q:"How often ___ the shuttle bus ___?",o:["does … leave","is … leaving","do … leave"],e:"“How often” asks about a routine → present simple. The bus = it → does … leave."}
+],
+gap:[
+{s:"The kitchen ___ (close) at 10 pm every night.",a:["closes"],e:"Every night = routine → present simple; the kitchen = it → closes."},
+{s:"Look! The guests at table 7 ___ (wave) at you.",a:["are waving","'re waving"],e:"“Look!” = happening now → present continuous: are waving."},
+{s:"We ___ (not / serve) breakfast on Sundays.",a:["don't serve","do not serve"],e:"A regular rule (on Sundays) → present simple negative: don't + base verb."},
+{s:"Right now I ___ (wait) for my luggage at belt 5.",a:["am waiting","'m waiting"],e:"Right now → present continuous: am waiting."},
+{s:"The receptionist ___ (speak) four languages.",a:["speaks"],e:"A fact about a person → present simple; the receptionist = he/she → speaks."},
+{s:"Please be quiet – the baby ___ (sleep).",a:["is sleeping","'s sleeping"],e:"Happening at this moment → present continuous: is sleeping."},
+{s:"This suitcase ___ (belong) to the lady at the window.",a:["belongs"],e:"“Belong” is a state verb → present simple: belongs."},
+{s:"Where ___ (you / usually / buy) your vegetables?",a:["do you usually buy"],e:"Routine question → do + subject + usually + base verb."},
+{s:"At the moment we ___ (look) for a new waiter.",a:["are looking","'re looking"],e:"At the moment → present continuous: are looking."}
+],
+fix:[
+{w:["The","shuttle","bus","leave","every","twenty","minutes."],i:3,c:"The shuttle bus leaves every twenty minutes.",e:"The bus = it → the verb needs -s: leaves."},
+{w:["I","am needing","a","taxi","to","the","airport."],i:1,c:"I need a taxi to the airport.",e:"“Need” is a state verb – no -ing form."},
+{w:["Does","the","restaurant","opens","on","Mondays?"],i:3,c:"Does the restaurant open on Mondays?",e:"After does, the main verb has no -s: open."},
+{w:["Be","careful","–","the","waiter","carry","hot","soup","right","now."],i:5,c:"Be careful – the waiter is carrying hot soup right now.",e:"Right now → present continuous: is carrying."},
+{w:["We","usually","are eating","lunch","at","one","o'clock."],i:2,c:"We usually eat lunch at one o'clock.",e:"“Usually” = routine → present simple: eat."}
+],
+build:[
+{t:["What","time","does","the","restaurant","close?"],e:"Question word + does + subject + base verb."},
+{t:["The","chef","is","preparing","your","noodles","right now."],e:"Subject + is + verb-ing – happening now."},
+{t:["We","don't","serve","alcohol","before","noon."],e:"Present simple negative: don't + base verb."},
+{t:["How","often","do","you","travel","abroad?"],e:"How often + do + subject + base verb."}
+]},
+
+/* ---------- 2 ---------- */
+{id:"u2",tag:"from",c:"#1d6a70",soft:"#e3eff0",title:"Yesterday & last week",sub:"Past simple and past continuous",
+intro:"Guests tell you about their trip, you tell a colleague what happened last night, you report a problem at the airport – all of this needs the past.",
+rules:[
+{h:"Past simple – finished actions at a finished time",t:"Signal words: <b>yesterday, last night, last week, two days ago, in 2019, when …?</b><br>Regular verbs: <b>-ed</b> (booked, arrived, stopped, carried). Many verbs are irregular and must be learned.",ex:["We booked a table for six last Friday.","Our plane landed two hours late."]},
+{h:"Irregular verbs you need all the time",t:"go – went · take – took · leave – left · lose – lost · eat – ate · pay – paid · bring – brought · buy – bought · forget – forgot · find – found · send – sent · fly – flew · get – got · see – saw · make – made",ex:["The waiter brought the wrong dish.","Last summer we flew to Shanghai."]},
+{h:"Questions and negatives: did / didn't + base verb",t:"The past is already in <b>did</b> – so the main verb goes back to its base form.",ex:["Did you enjoy your meal?","We didn't receive your email."]},
+{h:"was / were",t:"<b>I / he / she / it → was</b>, <b>you / we / they → were</b>. No “did” with be: Were you at home? The room wasn't ready.",ex:["The soup was very hot.","The guests were very happy."]},
+{h:"Past continuous – an action in progress",t:"<b>was / were + verb-ing</b>. Use it for a longer action that was going on when something shorter happened (past simple).",ex:["I was waiting at the belt when I saw my suitcase.","While the guests were having dinner, the lights went out."]}
+],
+watch:[["I didn't paid for the drinks.","I didn't pay for the drinks."],["Did you enjoyed the duck?","Did you enjoy the duck?"],["A guest losed his wallet.","A guest lost his wallet."],["The rooms was clean.","The rooms were clean."]],
+mc:[
+{q:"We ___ a table for six last Friday.",o:["booked","have booked","book"],e:"“Last Friday” is a finished time → past simple: booked. The present perfect cannot be used with a finished time."},
+{q:"___ you enjoy your meal?",h:"the meal is finished",o:["Did","Do","Were"],e:"The meal is over → past simple question: Did + subject + base verb (enjoy). “Were you enjoy” is not possible."},
+{q:"The guest ___ his umbrella under the table yesterday.",o:["left","leaved","leaves"],e:"“Leave” is irregular: leave – left. Yesterday → past."},
+{q:"I'm sorry, I ___ your name. Could you tell me again?",o:["didn't catch","didn't caught","not caught"],e:"Negative past simple: didn't + base verb (catch). “Catch your name” = hear and understand it."},
+{q:"Our plane ___ two hours late last night.",o:["landed","lands","has landed"],e:"“Last night” → finished time → past simple: landed."},
+{q:"Where ___ you yesterday evening? – I was at the cinema.",o:["were","was","did"],e:"With “be” we don't use did. You → were."},
+{q:"We ___ the parcel three days ago.",o:["sent","sended","send"],e:"“Send” is irregular: send – sent. “Ago” → past simple."},
+{q:"The soup ___ very hot, so I waited a minute.",o:["was","were","did"],e:"The soup = it → was."},
+{q:"When ___ the guests ___? – At about 9 pm.",o:["did … leave","did … left","were … leave"],e:"Past question: did + subject + base verb (leave). After did, never the past form."},
+{q:"Last summer we ___ to Shanghai to visit our family.",o:["flew","flied","fly"],e:"“Fly” is irregular: fly – flew – flown."},
+{q:"The waiter ___ the wrong dish, so we sent it back.",o:["brought","bringed","brang"],e:"“Bring” is irregular: bring – brought."},
+{q:"We ___ any free rooms last weekend – the hotel was full.",o:["didn't have","don't have","didn't had"],e:"Last weekend → past. Negative: didn't + base verb (have)."},
+{q:"I ___ at the belt when I saw my suitcase.",h:"action in progress",o:["was waiting","have waited","am waiting"],e:"A longer action in progress (was waiting) is interrupted by a short one (saw) → past continuous + past simple."},
+{q:"While the guests ___ dinner, the lights went out.",h:"action in progress",o:["were having","have had","are having"],e:"“While” + an action in progress in the past → past continuous: were having (guests = they → were)."}
+],
+gap:[
+{s:"Yesterday a guest ___ (pay) with a 500-euro note.",a:["paid"],e:"“Pay” is irregular: pay – paid."},
+{s:"We ___ (not / receive) your email last week.",a:["didn't receive","did not receive"],e:"Negative past: didn't + base verb."},
+{s:"___ you find your passport in the end?",h:"past question",a:["did"],e:"Past question: Did + subject + base verb (find)."},
+{s:"The flight ___ (be) full, so I sat in the last row.",a:["was"],e:"The flight = it → was."},
+{s:"The guests ___ (be) very happy with the dumplings.",a:["were"],e:"The guests = they → were."},
+{s:"I ___ (buy) these stamps yesterday morning.",a:["bought"],e:"“Buy” is irregular: buy – bought."},
+{s:"The taxi driver ___ (stop) in front of the hotel.",a:["stopped"],e:"Short verb ending in one vowel + one consonant → double the consonant: stopped."},
+{s:"We ___ (forget) to switch off the oven last night!",a:["forgot"],e:"“Forget” is irregular: forget – forgot."},
+{s:"The phone rang while I ___ (cook).",a:["was cooking"],e:"Action in progress, interrupted by the phone → past continuous: was cooking."}
+],
+fix:[
+{w:["I","didn't","paid","for","the","drinks."],i:2,c:"I didn't pay for the drinks.",e:"After didn't, use the base verb: pay."},
+{w:["Did","you","enjoyed","the","duck?"],i:2,c:"Did you enjoy the duck?",e:"After did, use the base verb: enjoy."},
+{w:["Last","week","a","guest","losed","his","wallet","here."],i:4,c:"Last week a guest lost his wallet here.",e:"“Lose” is irregular: lose – lost."},
+{w:["The","rooms","was","very","clean","and","quiet."],i:2,c:"The rooms were very clean and quiet.",e:"The rooms = they → were."},
+{w:["We","arrive","at","the","hotel","two","hours","ago."],i:1,c:"We arrived at the hotel two hours ago.",e:"“Ago” → past simple: arrived."}
+],
+build:[
+{t:["What","time","did","your","flight","land?"],e:"Question word + did + subject + base verb."},
+{t:["We","didn't","have","enough","tables","last night."],e:"didn't + base verb + time at the end."},
+{t:["The","guests","left","a","very","nice","review."],e:"Irregular past: leave – left."},
+{t:["I","was","waiting","for","the","bus","when","it","started","to","rain."],e:"Past continuous (in progress) + when + past simple (short action)."}
+]},
+
+/* ---------- 3 ---------- */
+{id:"u3",tag:"from",c:"#5f4a72",soft:"#eee8f2",title:"Have you ever …?",sub:"Present perfect vs. past simple",
+intro:"“Have you booked a table?” – “Have you been here before?” – “Your room has been cleaned.” The present perfect connects the past with now. This is one of the most important steps from A2 to B1.",
+rules:[
+{h:"Form: have / has + past participle",t:"I / you / we / they <b>have</b> (I've), he / she / it <b>has</b> (she's). Past participles: booked, been, done, seen, eaten, taken, written, given, flown, lost, had, made, gone.",ex:["I've checked in online.","She has never flown before."]},
+{h:"Experience in your life (no exact time)",t:"With <b>ever</b> (in questions) and <b>never</b>. The time is “my whole life up to now”.",ex:["Have you ever eaten Peking duck?","I've never been to New York."]},
+{h:"A past action with a result now",t:"The action is finished, but we care about the situation <b>now</b>. Often with <b>just, already, yet</b>.",ex:["I've lost my room key! (= I don't have it now.)","The guests have just arrived.","Has the taxi arrived yet?"]},
+{h:"Unfinished time: for and since",t:"<b>for</b> + a period (for eight years, for two weeks) · <b>since</b> + a starting point (since 2017, since Monday). The situation continues now.",ex:["We've had this restaurant for eight years.","She has worked here since March."]},
+{h:"Past simple when the time is finished or named",t:"<b>yesterday, last …, … ago, in 2018, When …?</b> → past simple, never present perfect.",ex:["We arrived in Austria in 2015.","When did you make your booking?"]}
+],
+watch:[["I have seen this film last week.","I saw this film last week."],["When have you arrived?","When did you arrive?"],["We live here since 2019.","We have lived here since 2019."],["She has never flew.","She has never flown."]],
+mc:[
+{q:"___ you ever ___ Peking duck?",o:["Have … eaten","Have … ate","Has … eaten"],e:"Experience → present perfect: have + past participle (eaten). “Ate” is the past simple form; “has” is only for he/she/it."},
+{q:"We ___ this restaurant since 2017.",o:["have had","had","have"],e:"“Since” + a situation that continues now → present perfect: have had."},
+{q:"I ___ my room key! Can you give me a new one?",o:["have lost","lose","am losing"],e:"A past action with a result now (no key now) → present perfect: have lost."},
+{q:"We ___ in Austria in 2015.",o:["arrived","have arrived","arrive"],e:"“In 2015” is a finished, named time → past simple: arrived."},
+{q:"The taxi ___ yet.",o:["hasn't arrived","hasn't arrive","haven't arrived"],e:"“Yet” → present perfect. The taxi = it → has + past participle: hasn't arrived."},
+{q:"When ___ you ___ your booking?",o:["did … make","have … made","did … made"],e:"“When” asks for a point in time → past simple: did + base verb. Never “When have you …?”"},
+{q:"Your parcel ___ just arrived – it's at reception now.",o:["has","have","did"],e:"“Just” + result now → present perfect. Parcel = it → has."},
+{q:"I ___ never ___ to New York, but I'd love to go.",o:["have … been","did … go","have … went"],e:"Experience → have + never + past participle. The participle of go here is been (= visited and came back)."},
+{q:"How long ___ you ___ in Austria? – For twelve years.",h:"she still lives there",o:["have … lived","did … live","are … living"],e:"The situation started in the past and continues now → present perfect: have lived. “Did you live” would mean she doesn't live there any more."},
+{q:"The guests at table 3 ___ their main course, so you can bring the dessert.",o:["have finished","finish","has finished"],e:"Result now (plates are empty) → present perfect. The guests = they → have finished."},
+{q:"Last year we ___ to Italy for our holiday.",o:["went","have gone","have been"],e:"“Last year” is a finished time → past simple: went."},
+{q:"She ___ at this hotel for three days now.",o:["has been","was","is"],e:"“For three days now” → the stay continues → present perfect: has been."}
+],
+gap:[
+{s:"We ___ (be) open since eight o'clock this morning.",a:["have been","'ve been"],e:"Since + continuing situation → present perfect: have been."},
+{s:"I ___ (already / check) in online.",a:["have already checked","'ve already checked"],e:"“Already” goes between have and the past participle."},
+{s:"Has the post office ___ (open) yet?",a:["opened"],e:"Has + past participle: opened."},
+{s:"My husband ___ (work) here for ten years.",a:["has worked","'s worked","has been working"],e:"For + a period that continues now → present perfect: has worked (or has been working)."},
+{s:"They ___ (open) a second restaurant in 2021.",a:["opened"],e:"“In 2021” is finished → past simple: opened."},
+{s:"I'm sorry, the chef ___ (just / go) home.",a:["has just gone","'s just gone"],e:"Just + result now (he isn't here) → has just gone."},
+{s:"I ___ (never / see) so much snow!",a:["have never seen","'ve never seen"],e:"Experience → have + never + seen (see – saw – seen)."},
+{s:"We ___ (meet) the new manager last Tuesday.",a:["met"],e:"“Last Tuesday” → past simple: meet – met."}
+],
+fix:[
+{w:["I","have seen","this","film","last","week."],i:1,c:"I saw this film last week.",e:"“Last week” is a finished time → past simple: saw."},
+{w:["We","live","in","Vienna","since","2019."],i:1,c:"We have lived in Vienna since 2019.",e:"Since + continuing situation → present perfect: have lived."},
+{w:["My","sister","has","never","flew","before."],i:4,c:"My sister has never flown before.",e:"Has + past participle: fly – flew – flown."},
+{w:["I","have booked","the","table","two","days","ago."],i:1,c:"I booked the table two days ago.",e:"“Ago” → past simple: booked."},
+{w:["How","long","do you know","the","owner?"],i:2,c:"How long have you known the owner?",e:"How long + a situation that continues now → present perfect: have you known."}
+],
+build:[
+{t:["Have","you","ever","been","to","China?"],e:"Have + subject + ever + past participle."},
+{t:["We","have","just","sold","the","last","portion."],e:"Have + just + past participle – result now."},
+{t:["How","long","have","you","worked","here?"],e:"How long + have + subject + past participle."},
+{t:["The","guests","haven't","ordered","yet."],e:"Negative present perfect + yet at the end."}
+]},
+
+/* ---------- 4 ---------- */
+{id:"u4",tag:"from",c:"#9a5a3c",soft:"#f5ebe4",title:"What's next?",sub:"will, going to, present continuous for the future",
+intro:"“I'll bring the menu.” – “We're going to open a second restaurant.” – “I'm flying to Rome on Friday.” English has several futures – each one has its own job.",
+rules:[
+{h:"will – quick decisions, offers, promises, predictions",t:"Decided at this moment, or what you think will happen. <b>will + base verb</b> (I'll, won't).",ex:["Of course, I'll bring it right away.","I promise I won't be late.","I think it will be busy tonight."]},
+{h:"going to – plans and decisions made before",t:"<b>am / is / are going to + base verb</b>. Also for predictions you can see coming (evidence now).",ex:["We're going to change the menu in January.","Look at that queue – we're going to miss our flight!"]},
+{h:"Present continuous – fixed arrangements",t:"Something is organised: there is a time, a place, other people, a ticket.",ex:["I'm meeting my parents at the airport on Saturday.","We're flying to Rome on 3 May."]},
+{h:"Present simple – timetables",t:"Trains, flights, opening hours – the timetable decides.",ex:["The train to Vienna leaves at 6:15 tomorrow.","What time does your flight leave?"]},
+{h:"Offers and suggestions: Shall I / Shall we …?",t:"<b>Shall I …?</b> offers help. <b>Shall we …?</b> suggests something together.",ex:["Shall I open the window for you?","Shall we take a taxi?"]}
+],
+watch:[["I will to call you.","I will call you."],["The train will leaving at six.","The train leaves at six."],["Next week I going to visit my cousin.","Next week I'm going to visit my cousin."],["Don't worry, I help you.","Don't worry, I'll help you."]],
+mc:[
+{q:"Could I have some water? – Of course, I ___ it right away.",h:"quick offer",o:["'ll bring","am bringing","bring"],e:"Decided at this moment (an offer) → will: I'll bring."},
+{q:"We ___ a second restaurant in Vienna next year – we signed the contract last week.",o:["are going to open","will opening","open"],e:"A plan made before → going to + base verb. “Will opening” is not a correct form."},
+{q:"Look at that queue! We ___ our flight!",h:"you can see it coming",o:["are going to miss","will to miss","miss"],e:"Evidence now (the long queue) → going to: are going to miss."},
+{q:"The train to Vienna ___ at 6:15 tomorrow morning.",h:"timetable",o:["leaves","is leave","will leaving"],e:"Timetables use the present simple: leaves. The other two are not correct forms."},
+{q:"I ___ my parents at the airport on Saturday – I've already told them.",h:"arrangement",o:["am meeting","meet","will meeting"],e:"A fixed arrangement (day, place, people) → present continuous: am meeting."},
+{q:"This bag is very heavy. – Wait, I ___ you.",o:["'ll help","help","am helping"],e:"Spontaneous offer → will: I'll help."},
+{q:"I think it ___ very busy tonight – it's Valentine's Day.",o:["will be","is being","be"],e:"Prediction with “I think” → will be."},
+{q:"What time ___ your flight ___ tomorrow?",o:["does … leave","will … leaving","is … leave"],e:"Flight times are timetables → present simple question: does … leave."},
+{q:"I promise I ___ late again.",o:["won't be","am not being","don't be"],e:"Promises use will: won't (= will not) be."},
+{q:"___ I open the window for you?",h:"offer",o:["Shall","Will","Am"],e:"Offers with I: Shall I …? “Will I open the window?” asks about the future, not an offer."},
+{q:"We've decided: we ___ the menu in January.",o:["are going to change","will changing","change"],e:"The decision was made before → going to: are going to change."},
+{q:"The parcel ___ probably ___ on Monday.",o:["will … arrive","will … arrives","is … arrive"],e:"Prediction with probably → will + base verb (no -s after will)."}
+],
+gap:[
+{s:"It's cold in here. – I ___ (close) the window.",a:["'ll close","will close"],e:"Quick decision → will: I'll close."},
+{s:"We ___ (fly) to Rome on 3 May – the tickets are booked.",a:["are flying","'re flying","are going to fly","'re going to fly"],e:"Fixed arrangement (tickets booked) → present continuous (or going to)."},
+{s:"Watch out! You ___ (drop) the plates!",a:["are going to drop","'re going to drop"],e:"You can see it coming → going to."},
+{s:"The bus ___ (leave) at 7:40, so don't be late.",a:["leaves"],e:"Timetable → present simple: leaves."},
+{s:"I think you ___ (love) our new dessert.",a:["will love","'ll love"],e:"Prediction with I think → will love."},
+{s:"I ___ (not / tell) anyone, I promise.",a:["won't tell","will not tell"],e:"Promise → won't + base verb."},
+{s:"Next month we ___ (paint) the dining room.",h:"plan",a:["are going to paint","'re going to paint","are painting","'re painting"],e:"A plan → going to (or present continuous if it is already organised)."},
+{s:"___ I carry your suitcase upstairs?",h:"offer",a:["shall"],e:"Offer → Shall I …?"}
+],
+fix:[
+{w:["I","will","to","call","you","tomorrow."],i:2,c:"I will call you tomorrow.",e:"After will, use the base verb without to."},
+{w:["The","train","will","leaving","at","six."],i:3,c:"The train leaves at six.",e:"“Will leaving” is not possible. For a timetable, use the present simple: leaves."},
+{w:["Shall","you","help","me","with","my","bags,","please?"],i:0,c:"Could you help me with my bags, please?",e:"Shall is for offers with I / we. To ask someone else for help: Could you …?"},
+{w:["Next","week","I","going","to","visit","my","cousin."],i:3,c:"Next week I am going to visit my cousin.",e:"Going to needs am / is / are: I am going to."},
+{w:["When","will","the","parcel","arrives?"],i:4,c:"When will the parcel arrive?",e:"After will, the verb has no -s: arrive."}
+],
+build:[
+{t:["I'll","bring","you","the","bill","right away."],e:"Spontaneous offer: I'll + base verb."},
+{t:["We","are","going","to","open","a","new","restaurant."],e:"Plan: are going to + base verb."},
+{t:["What","time","does","the","next","bus","leave?"],e:"Timetable question in the present simple."},
+{t:["I'm","meeting","my","sister","at","the","station","tonight."],e:"Arrangement: present continuous."}
+]},
+
+/* ---------- 5 ---------- */
+{id:"u5",tag:"from",c:"#7a3b5c",soft:"#f3e8ee",title:"Could you …? Would you like …?",sub:"Polite requests, offers and permission",
+intro:"This is the grammar of good service. As a host you offer (“Would you like …?”), as a traveller you ask (“Could you …?”). Here you learn exactly how these sentences are built.",
+rules:[
+{h:"Asking someone to do something",t:"<b>Can you …?</b> (friendly) · <b>Could you …?</b> (more polite) · <b>Would you mind + -ing?</b> (very polite). After can / could / would: <b>base verb</b>, no to.",ex:["Could you call me a taxi, please?","Would you mind waiting for five minutes?"]},
+{h:"Asking for permission",t:"<b>Can I …?</b> · <b>Could I …?</b> · <b>May I …?</b> (very polite, formal).",ex:["May I see your passport, please?","Could I pay by card?"]},
+{h:"Offering",t:"<b>Can I help you?</b> · <b>Shall I …?</b> · <b>Would you like + noun</b> or <b>Would you like + to + verb</b>.",ex:["Would you like a glass of water?","Would you like to see the dessert menu?","Shall I take your coat?"]},
+{h:"Saying what you want – politely",t:"<b>I'd like …</b> (= I would like) is the polite way to say “I want”. <b>Do you like …?</b> is a different question: it asks about taste in general.",ex:["I'd like a room with a view, please.","Do you like spicy food? – Yes, I love it."]},
+{h:"Modal verbs never change",t:"No -s with he / she / it, no to after them: she <b>can</b> speak, he <b>could</b> help.",ex:["The receptionist can speak five languages."]}
+],
+watch:[["Can you to help me?","Can you help me?"],["Would you like drink something?","Would you like to drink something?"],["She cans speak English.","She can speak English."],["Would you mind to close the door?","Would you mind closing the door?"]],
+mc:[
+{q:"___ you like something to drink?",h:"offer",o:["Would","Do","Will"],e:"An offer = Would you like …? “Do you like” asks about taste in general."},
+{q:"Could you ___ me a taxi, please?",o:["call","to call","calling"],e:"After could, use the base verb: call."},
+{q:"I ___ a room with a view of the mountains, please.",o:["'d like","like","'m liking"],e:"Polite request → I'd like (= I would like). “I like a room” describes taste, not a request."},
+{q:"Would you mind ___ the window?",o:["closing","to close","close"],e:"Would you mind + verb-ing: closing."},
+{q:"___ I pay by card?",h:"very polite permission",o:["May","Shall","Would"],e:"Asking for permission, very politely → May I …?"},
+{q:"Your suitcase looks heavy. ___ I carry it for you?",h:"offer",o:["Shall","Would","Must"],e:"Offer with I → Shall I …?"},
+{q:"Would you like ___ the dessert menu?",o:["to see","seeing","see"],e:"Would like + to + base verb: to see."},
+{q:"Excuse me, ___ you tell me where the toilets are?",o:["could","shall","may"],e:"Asking someone to do something → Could you …? “May you” is not used."},
+{q:"The receptionist ___ speak Chinese.",o:["can","cans","can to"],e:"Modal verbs never take -s and are not followed by to."},
+{q:"___ you like spicy food? – Yes, I love it!",h:"general taste, not an offer",o:["Do","Would","Are"],e:"A question about taste in general → Do you like …?"},
+{q:"We ___ like to book a table for Saturday.",o:["would","will","are"],e:"Polite wish → would like."},
+{q:"___ I take your coat?",h:"the waiter offers",o:["Can","Do","Am"],e:"Offer → Can I …? (or Shall I / May I)."}
+],
+gap:[
+{s:"___ you like to order now?",a:["would"],e:"Offer → Would you like to …?"},
+{s:"Could you ___ (repeat) that, please?",a:["repeat"],e:"After could → base verb."},
+{s:"Would you mind ___ (wait) for five minutes?",a:["waiting"],e:"Would you mind + -ing."},
+{s:"I ___ like a window seat, please.",a:["would","'d"],e:"Polite wish: I would like / I'd like."},
+{s:"Would you like ___ (try) our homemade ice cream?",a:["to try"],e:"Would like + to + base verb."},
+{s:"___ I help you with anything else?",h:"offer",a:["can","may","could","shall"],e:"Offers: Can / May / Could / Shall I help you?"},
+{s:"The chef can ___ (cook) it without garlic if you prefer.",a:["cook"],e:"After can → base verb."},
+{s:"Could you tell me where the post office ___ (be)?",a:["is"],e:"After “Could you tell me where …” the word order is normal: the post office is."}
+],
+fix:[
+{w:["Can","you","to","help","me,","please?"],i:2,c:"Can you help me, please?",e:"No to after can."},
+{w:["Would","you","like","drink","something?"],i:3,c:"Would you like to drink something?",e:"Would like + to + verb."},
+{w:["My","colleague","cans","speak","English."],i:2,c:"My colleague can speak English.",e:"Modal verbs never take -s."},
+{w:["Would","you","mind","to close","the","door?"],i:3,c:"Would you mind closing the door?",e:"Would you mind + -ing."},
+{w:["Do","you","like","a","cup","of","tea?","–","Yes,","please!"],i:0,c:"Would you like a cup of tea? – Yes, please!",e:"“Yes, please” answers an offer → Would you like …?"}
+],
+build:[
+{t:["Could","you","bring","us","some","more","napkins,","please?"],e:"Could you + base verb … please?"},
+{t:["Would","you","like","to","see","the","menu?"],e:"Would you like + to + verb."},
+{t:["Would","you","mind","waiting","a","moment?"],e:"Would you mind + -ing."},
+{t:["May","I","see","your","passport,","please?"],e:"May I + base verb – polite permission."}
+]},
+
+/* ---------- 6 ---------- */
+{id:"u6",tag:"from",c:"#3e5566",soft:"#e8edf0",title:"Rules, duties & advice",sub:"must, have to, don't have to, mustn't, should",
+intro:"At the airport there are many rules, in the restaurant you explain them to guests, and travellers love good advice. A small word decides whether something is forbidden or just not necessary.",
+rules:[
+{h:"must / have to – it is necessary",t:"<b>must</b> = a rule or what you feel is important. <b>have to</b> = necessary because of a rule or a situation. With he / she / it: <b>has to</b>.",ex:["All passengers must show their boarding pass.","The waiter has to wear a uniform."]},
+{h:"mustn't – it is forbidden",t:"<b>mustn't</b> (= must not): you are not allowed to do it.",ex:["You mustn't smoke in the restaurant.","Liquids over 100 ml mustn't go in your hand luggage."]},
+{h:"don't have to / don't need to – it is not necessary",t:"You can do it if you want, but it's not necessary. This is the opposite of must – very different from mustn't!",ex:["Breakfast is included, so you don't have to pay extra.","You don't need to book on weekdays."]},
+{h:"should / shouldn't – advice",t:"A good idea / not a good idea.",ex:["You should try the dumplings.","You shouldn't carry too much cash."]},
+{h:"Past and questions",t:"The past of must and have to is <b>had to</b>. Questions: <b>Do I have to …? Does she have to …?</b>",ex:["Yesterday I had to wait two hours.","Do I have to show my ID?"]}
+],
+watch:[["You mustn't pay now – you can pay later.","You don't have to pay now – you can pay later."],["She musts be there at six.","She must be there at six."],["Yesterday I must work late.","Yesterday I had to work late."],["Do I must fill in this form?","Do I have to fill in this form?"]],
+mc:[
+{q:"You ___ smoke in the restaurant – it's against the law.",o:["mustn't","don't have to","needn't"],e:"Against the law = forbidden → mustn't."},
+{q:"Breakfast is included, so you ___ pay extra.",o:["don't have to","mustn't","shouldn't"],e:"Not necessary → don't have to. “Mustn't” would mean paying is forbidden."},
+{q:"All passengers ___ show their boarding pass at the gate.",h:"it's a rule",o:["must","shouldn't","don't have to"],e:"A rule = necessary → must."},
+{q:"It's very cold in Vienna in January. You ___ take a warm coat.",h:"advice",o:["should","mustn't","don't have to"],e:"A good idea → should."},
+{q:"Yesterday I ___ wait two hours for my luggage.",o:["had to","must","have to"],e:"Yesterday → past. Must has no past form → had to."},
+{q:"My sister ___ work on Sundays – her shop is closed.",h:"not necessary",o:["doesn't have to","mustn't","don't have to"],e:"Not necessary → don't have to; with she → doesn't have to."},
+{q:"Liquids over 100 ml ___ go in your hand luggage.",o:["mustn't","don't have to","shouldn't to"],e:"It's not allowed → mustn't. (“Shouldn't to” is never correct.)"},
+{q:"___ I have to show my ID at the post office?",o:["Do","Must","Am"],e:"Questions with have to use do: Do I have to …?"},
+{q:"You look tired. You ___ go to bed earlier.",o:["should","must to","have"],e:"Advice → should + base verb."},
+{q:"We ___ order more rice – there are only two bags left.",o:["need to","mustn't","don't need"],e:"It is necessary → need to (= have to)."},
+{q:"The waiter ___ wear a uniform every day.",o:["has to","have to","must to"],e:"The waiter = he/she → has to. Must is never followed by to."},
+{q:"You ___ book a table on weekdays – there's always space.",o:["don't need to","mustn't","need to"],e:"Not necessary → don't need to."}
+],
+gap:[
+{s:"You ___ pay now – you can pay when you check out.",h:"not necessary",a:["don't have to","don't need to","needn't","do not have to","do not need to"],e:"Not necessary → don't have to / don't need to."},
+{s:"Passengers ___ leave their bags alone.",h:"forbidden",a:["mustn't","must not"],e:"Forbidden → mustn't."},
+{s:"Last night we ___ close early because of the storm.",h:"necessary – past",a:["had to"],e:"Past of must / have to → had to."},
+{s:"You ___ try the dumplings – they're fantastic!",h:"advice",a:["should"],e:"Advice → should."},
+{s:"Does the guest ___ sign this form?",h:"necessary",a:["have to","need to"],e:"Does … have to + base verb."},
+{s:"You ___ wear a seat belt during take-off.",h:"rule",a:["must","have to"],e:"A rule → must / have to."},
+{s:"You ___ carry too much cash on holiday.",h:"advice, negative",a:["shouldn't","should not"],e:"Not a good idea → shouldn't."},
+{s:"We ___ buy new chairs – these are broken.",h:"necessary",a:["have to","need to","must"],e:"Necessary → have to / need to / must."}
+],
+fix:[
+{w:["You","mustn't","pay","now","–","you","can","pay","later."],i:1,c:"You don't have to pay now – you can pay later.",e:"Paying later is possible, so paying now is not necessary → don't have to. Mustn't means forbidden."},
+{w:["She","musts","be","at","the","airport","by","six."],i:1,c:"She must be at the airport by six.",e:"Must never takes -s."},
+{w:["Yesterday","I","must","work","until","midnight."],i:2,c:"Yesterday I had to work until midnight.",e:"Past → had to."},
+{w:["You","should","to","visit","the","old","town."],i:2,c:"You should visit the old town.",e:"No to after should."},
+{w:["Do","I","must","fill","in","this","form?"],i:2,c:"Do I have to fill in this form?",e:"Questions: Do I have to …?"}
+],
+build:[
+{t:["You","don't","have","to","pay","for","the","parking."],e:"Not necessary: don't have to + verb."},
+{t:["Passengers","must","switch","off","their","phones."],e:"Rule: must + base verb."},
+{t:["You","should","try","the","hot and sour","soup."],e:"Advice: should + base verb."},
+{t:["Did","you","have","to","wait","long?"],e:"Past question: Did … have to …?"}
+]},
+
+/* ---------- 7 ---------- */
+{id:"u7",tag:"from",c:"#34527e",soft:"#e9eef6",title:"Asking the right way",sub:"Questions, indirect questions and question tags",
+intro:"“Could you tell me where the gate is?” sounds much more elegant than “Where is the gate?” – but the word order changes. This unit makes your questions correct and polite.",
+rules:[
+{h:"Normal questions",t:"<b>Question word + auxiliary (do / does / did / is / are / have / can …) + subject + verb</b>.",ex:["What time does breakfast start?","How long did you stay in London?","Where is the lift?"]},
+{h:"Subject questions – no do / did",t:"When <b>who</b> or <b>what</b> is the subject (the person or thing doing the action), use normal word order without do / did.",ex:["Who booked the table for eight?","What happened to your suitcase?"]},
+{h:"Indirect questions – polite and elegant",t:"<b>Could you tell me / Do you know / I'd like to know + question word + subject + verb</b>. The word order is like a normal sentence – and there is no do / does / did.",ex:["Could you tell me where the gate is?","Do you know what time the restaurant opens?","I'd like to know how long the flight takes."]},
+{h:"Yes / no questions → if",t:"If there is no question word, use <b>if</b> (or whether).",ex:["Do you know if the bus stops at the airport?"]},
+{h:"Question tags – checking information",t:"Positive sentence → negative tag; negative sentence → positive tag. Use the same auxiliary.",ex:["You're the manager, aren't you?","The flight leaves at six, doesn't it?","We haven't met before, have we?"]}
+],
+watch:[["Can you tell me where is the toilet?","Can you tell me where the toilet is?"],["Do you know what time does it open?","Do you know what time it opens?"],["How much does the room costs?","How much does the room cost?"],["You speak German, isn't it?","You speak German, don't you?"]],
+mc:[
+{q:"Could you tell me where ___?",o:["the lift is","is the lift","does the lift"],e:"Indirect question → normal word order: subject + verb (the lift is)."},
+{q:"What time ___ breakfast ___?",o:["does … start","does … starts","is … start"],e:"Direct question: does + subject + base verb (start, without -s)."},
+{q:"Who ___ the table for eight?",h:"who = the person who did it",o:["booked","did booked","does booked"],e:"Who is the subject → no did: Who booked …?"},
+{q:"Do you know ___ the bus stops at the airport?",o:["if","what","that"],e:"Yes/no question inside a question → if."},
+{q:"How much ___ it cost to send this parcel to China?",o:["does","is","do"],e:"Present simple question with it → does + base verb (cost)."},
+{q:"I'd like to know how long ___.",o:["the flight takes","does the flight take","takes the flight"],e:"Indirect question → subject + verb, no does: the flight takes."},
+{q:"___ did you stay in London? – For five days.",o:["How long","How often","How much"],e:"The answer is a period of time → How long."},
+{q:"What ___ to your suitcase? – It got lost.",h:"what = the thing that happened",o:["happened","did happen","did it happen"],e:"What is the subject → no did: What happened?"},
+{q:"Excuse me, ___ this seat taken?",o:["is","does","has"],e:"“Taken” is used like an adjective here → be: Is this seat taken?"},
+{q:"Do you know what time ___?",o:["the post office closes","does the post office close","closes the post office"],e:"Indirect question → subject + verb: the post office closes."},
+{q:"You're the manager, ___?",o:["aren't you","isn't it","don't you"],e:"Positive sentence with are → negative tag with are: aren't you?"},
+{q:"The flight leaves at six, ___?",o:["doesn't it","isn't it","don't it"],e:"Present simple with it → tag with does: doesn't it?"},
+{q:"Which gate ___ our flight leave from?",o:["does","is","do"],e:"Our flight = it → does + base verb (leave)."}
+],
+gap:[
+{s:"Where ___ you buy that lovely bag?",h:"past",a:["did"],e:"Past question → did + subject + base verb."},
+{s:"Could you tell me how much this ___ (cost)?",a:["costs"],e:"Indirect question → normal word order, verb with -s: this costs."},
+{s:"Do you know ___ the hotel has a gym?",h:"yes / no",a:["if","whether"],e:"Yes/no question inside a question → if / whether."},
+{s:"What time ___ the restaurant open on Sundays?",a:["does"],e:"The restaurant = it → does."},
+{s:"Who ___ (make) these dumplings? They're delicious!",a:["made"],e:"Who is the subject → no did: Who made …?"},
+{s:"I'd like to know where the nearest ATM ___ (be).",a:["is"],e:"Indirect question → subject + verb: the nearest ATM is."},
+{s:"How ___ times have you been to Austria?",a:["many"],e:"Times can be counted → How many."},
+{s:"We haven't met before, ___ we?",a:["have"],e:"Negative sentence → positive tag with the same auxiliary: have we?"}
+],
+fix:[
+{w:["Could","you","tell","me","where","is the toilet?"],i:5,c:"Could you tell me where the toilet is?",e:"Indirect question → subject before verb: the toilet is."},
+{w:["How","much","does","the","room","costs?"],i:5,c:"How much does the room cost?",e:"After does → base verb: cost."},
+{w:["Do","you","know","what","time","does it open?"],i:5,c:"Do you know what time it opens?",e:"Indirect question → no does, normal order: it opens."},
+{w:["Where","did","you","went","on","holiday?"],i:3,c:"Where did you go on holiday?",e:"After did → base verb: go."},
+{w:["You","speak","German,","isn't it?"],i:3,c:"You speak German, don't you?",e:"Present simple with you → tag with do: don't you?"}
+],
+build:[
+{t:["Could","you","tell","me","where","the","gate","is?"],e:"Indirect question: … where + subject + verb."},
+{t:["Do","you","know","if","the","museum","is","open","today?"],e:"Yes/no indirect question with if."},
+{t:["How","long","did","you","wait","for","the","bus?"],e:"How long + did + subject + base verb."},
+{t:["Who","sent","you","this","parcel?"],e:"Subject question – no did."}
+]},
+
+/* ---------- 8 ---------- */
+{id:"u8",tag:"from",c:"#1d6a70",soft:"#e3eff0",title:"How much? How many?",sub:"Countable & uncountable, some / any, much / many, a few / a little",
+intro:"Rice, water, luggage, information – some things can't be counted in English. Getting this right makes you sound much more natural, at the table and at the check-in desk.",
+rules:[
+{h:"Countable and uncountable nouns",t:"Countable: a dumpling – two dumplings, a suitcase – three suitcases.<br>Uncountable (no a / an, no plural): <b>rice, water, bread, money, luggage, information, advice, news, traffic, furniture, milk</b>.",ex:["How many suitcases do you have?","How much luggage are you taking?"]},
+{h:"some and any",t:"<b>some</b> in positive sentences, offers and requests. <b>any</b> in negatives and normal questions.",ex:["Would you like some more tea?","We don't have any free tables tonight.","Do you have any vegetarian dishes?"]},
+{h:"much, many, a lot of",t:"<b>many</b> + countable, <b>much</b> + uncountable (mostly in questions and negatives), <b>a lot of</b> + both.",ex:["There were so many people at the airport.","There's a lot of traffic today."]},
+{h:"a few and a little",t:"<b>a few</b> + countable (a small number), <b>a little</b> + uncountable (a small amount).",ex:["There are only a few guests tonight.","Could I have a little milk, please?"]},
+{h:"Making uncountable things countable",t:"a <b>glass</b> of water · a <b>bowl</b> of rice · a <b>piece</b> of luggage · a <b>piece</b> of advice · a <b>bottle</b> of wine · a <b>slice</b> of bread",ex:["I have two pieces of luggage.","Can I give you a piece of advice?"]}
+],
+watch:[["Can you give me some informations?","Can you give me some information?"],["How much people are coming?","How many people are coming?"],["We don't have some rooms with a balcony.","We don't have any rooms with a balcony."],["My luggages are heavy.","My luggage is heavy."]],
+mc:[
+{q:"How ___ suitcases do you have?",o:["many","much","lot"],e:"Suitcases can be counted → How many."},
+{q:"How ___ luggage are you taking?",o:["much","many","a lot"],e:"Luggage is uncountable → How much."},
+{q:"I'm sorry, we don't have ___ free tables tonight.",o:["any","some","many of"],e:"Negative sentence → any."},
+{q:"Would you like ___ more tea?",h:"offer",o:["some","any","many"],e:"Offers use some, even though they are questions."},
+{q:"Could you give me ___ information about the city tours?",o:["some","an","many"],e:"Information is uncountable → no an, no many → some."},
+{q:"There are only ___ guests in the restaurant – it's very quiet.",o:["a few","a little","much"],e:"Guests can be counted → a few."},
+{q:"Could I have ___ milk in my coffee, please?",h:"a small amount",o:["a little","a few","many"],e:"Milk is uncountable → a little."},
+{q:"My suitcase is very heavy – I have too ___ things in it.",o:["many","much","few"],e:"Things can be counted → too many."},
+{q:"Do you have ___ vegetarian dishes?",o:["any","much","a"],e:"Normal question + plural countable noun → any."},
+{q:"I have two pieces of ___.",o:["luggage","luggages","a luggage"],e:"Luggage is uncountable – never luggages. To count it: pieces of luggage."},
+{q:"There's ___ traffic on the motorway today.",o:["a lot of","many","a few"],e:"Traffic is uncountable → a lot of (not many / a few)."},
+{q:"We need ___ new chairs for the terrace – maybe five or six.",o:["a few","a little","much"],e:"Chairs can be counted → a few."}
+],
+gap:[
+{s:"How ___ does a stamp to China cost?",a:["much"],e:"Price → How much."},
+{s:"We haven't got ___ fish left, sorry.",h:"none at all",a:["any"],e:"Negative sentence → any."},
+{s:"There were so ___ people at the airport!",a:["many"],e:"People can be counted → many."},
+{s:"Can I give you a ___ of advice? Book early!",a:["piece"],e:"Advice is uncountable → a piece of advice."},
+{s:"Could I have a ___ of water, please?",a:["glass","bottle","jug","carafe"],e:"Water is uncountable → a glass / bottle / jug of water."},
+{s:"I only have a ___ minutes before my train leaves.",a:["few"],e:"Minutes can be counted → a few."},
+{s:"Is there ___ bread left? – Yes, there's a little.",a:["any"],e:"Normal question → any."},
+{s:"Would you like ___ rice with your chicken?",a:["some"],e:"Offer → some."}
+],
+fix:[
+{w:["Can","you","give","me","some","informations?"],i:5,c:"Can you give me some information?",e:"Information is uncountable – no -s."},
+{w:["How","much","people","are","coming","tonight?"],i:1,c:"How many people are coming tonight?",e:"People can be counted → How many."},
+{w:["We","don't","have","some","rooms","with","a","balcony."],i:3,c:"We don't have any rooms with a balcony.",e:"Negative → any."},
+{w:["I","need","a few","help","with","my","bags."],i:2,c:"I need a little help with my bags.",e:"Help is uncountable → a little (or some)."},
+{w:["My","luggages","are","very","heavy."],i:1,c:"My luggage is very heavy.",e:"Luggage is uncountable: no -s, and the verb is singular (is)."}
+],
+build:[
+{t:["How","many","people","are","in","your","group?"],e:"How many + countable plural."},
+{t:["Could","I","have","a","glass","of","water,","please?"],e:"a glass of + uncountable noun."},
+{t:["We","don't","have","any","free","rooms","tonight."],e:"Negative → any."},
+{t:["Would","you","like","some","more","rice?"],e:"Offer → some."}
+]},
+
+/* ---------- 9 ---------- */
+{id:"u9",tag:"from",c:"#5f4a72",soft:"#eee8f2",title:"Better, best & too spicy",sub:"Comparatives, superlatives, as … as, too and enough",
+intro:"Guests compare dishes, travellers compare hotels and flights. With comparatives you can recommend, explain and describe – and “too” and “enough” help you explain problems politely.",
+rules:[
+{h:"Short adjectives: -er / the -est",t:"cheap – cheaper – the cheapest · big – bigger – the biggest · spicy – spicier – the spiciest · nice – nicer – the nicest",ex:["This room is bigger than the one we had last year.","Sichuan food is spicier than Cantonese food."]},
+{h:"Long adjectives: more / the most",t:"comfortable – more comfortable – the most comfortable · expensive · popular · beautiful",ex:["The train is more comfortable than the bus.","This is the most popular dish on our menu."]},
+{h:"Irregular forms",t:"<b>good – better – the best</b> · <b>bad – worse – the worst</b> · <b>far – farther / further – the farthest / furthest</b>",ex:["This is the best soup I have ever eaten.","The weather is worse than yesterday."]},
+{h:"as … as / not as … as",t:"<b>as + adjective + as</b> = the same. <b>not as … as</b> = less.",ex:["The hotel isn't as nice as the one in Vienna."]},
+{h:"too and enough",t:"<b>too + adjective</b> = more than is good. <b>adjective + enough</b> = as much as is needed. Note the position: big enough, not enough big.",ex:["The soup is too hot – I can't eat it yet.","Is the table big enough for ten people?"]},
+{h:"Make it stronger or softer",t:"<b>much / a lot / far</b> + comparative = a big difference. <b>a bit / slightly</b> + comparative = a small difference.",ex:["Flying is much faster than taking the train.","Could you make it a bit less spicy?"]}
+],
+watch:[["This hotel is more cheap.","This hotel is cheaper."],["Your English is more better now.","Your English is better now."],["The soup is spicier as yesterday.","The soup is spicier than yesterday."],["The room isn't enough big.","The room isn't big enough."]],
+mc:[
+{q:"This room is ___ than the one we had last year.",o:["bigger","more big","biggest"],e:"Short adjective → -er + than: bigger (double g)."},
+{q:"This is the ___ restaurant in town – everybody loves it.",o:["most popular","popularest","more popular"],e:"Long adjective + the → the most popular."},
+{q:"The train is ___ than the bus.",o:["more comfortable","comfortabler","most comfortable"],e:"Long adjective + than → more comfortable."},
+{q:"The weather today is ___ than yesterday – the sun is shining!",o:["better","gooder","more good"],e:"Irregular: good – better – best."},
+{q:"This is the ___ flight I've ever had – four hours late and no food!",o:["worst","baddest","worse"],e:"Irregular superlative: bad – worse – the worst."},
+{q:"The hotel isn't ___ the one in Vienna.",o:["as nice as","as nicer as","so nice than"],e:"Comparison of equality: (not) as + adjective + as."},
+{q:"The soup is ___ hot – I can't eat it yet.",o:["too","enough","very much"],e:"More than is good → too + adjective."},
+{q:"Is the table ___ for ten people?",o:["big enough","enough big","too big"],e:"Enough comes after the adjective: big enough. “Too big” doesn't fit the question."},
+{q:"Flying is much ___ than taking the train.",o:["faster","more fast","fastest"],e:"Short adjective → faster. “Much” makes the difference bigger."},
+{q:"Sichuan food is ___ than Cantonese food.",o:["spicier","spicyer","more spicier"],e:"Adjectives ending in -y: y → i + er: spicier. Never more + -er."},
+{q:"This suitcase is ___ heavy – you'll have to pay extra.",o:["too","enough","as"],e:"More than allowed → too heavy."},
+{q:"This is ___ expensive hotel in the city.",o:["the most","the more","most"],e:"Superlative of a long adjective → the most expensive."}
+],
+gap:[
+{s:"The new chef is ___ (good) than the old one.",a:["better"],e:"Irregular: good – better."},
+{s:"Room 12 is ___ (quiet) than room 14.",a:["quieter"],e:"Short adjective → quieter."},
+{s:"This is the ___ (cheap) way to send a parcel.",a:["cheapest"],e:"Superlative of a short adjective → the cheapest."},
+{s:"Our terrace is the ___ (beautiful) place in the restaurant.",a:["most beautiful"],e:"Long adjective → the most beautiful."},
+{s:"The airport is ___ (far) from the city than I thought.",a:["farther","further"],e:"Irregular: far – farther / further."},
+{s:"Your English is getting ___ (good) every week!",a:["better"],e:"Getting better = improving."},
+{s:"The coffee isn't hot ___. Could you warm it up?",a:["enough"],e:"Adjective + enough: hot enough."},
+{s:"This bag is ___ (small) than my old one.",a:["smaller"],e:"Short adjective → smaller."},
+{s:"The water is ___ cold for swimming.",a:["too"],e:"More than is good → too cold."}
+],
+fix:[
+{w:["This","hotel","is","more cheap","than","that","one."],i:3,c:"This hotel is cheaper than that one.",e:"Short adjective → -er: cheaper."},
+{w:["Your","English","is","more better","now."],i:3,c:"Your English is better now.",e:"Better is already a comparative – no more."},
+{w:["The","soup","is","spicier","as","yesterday."],i:4,c:"The soup is spicier than yesterday.",e:"Comparative + than (as only in as … as)."},
+{w:["The","room","isn't","enough big","for","four","people."],i:3,c:"The room isn't big enough for four people.",e:"Enough goes after the adjective."},
+{w:["This","is","the","most good","restaurant","in","town."],i:3,c:"This is the best restaurant in town.",e:"Irregular superlative: good – the best."}
+],
+build:[
+{t:["This","room","is","much","quieter","than","the","last","one."],e:"much + comparative + than."},
+{t:["Is","the","bed","big","enough","for","two?"],e:"adjective + enough."},
+{t:["The","airport","is","not","as","far","as","I","thought."],e:"not as + adjective + as."},
+{t:["This","is","the","best","soup","I","have","ever","eaten."],e:"Superlative + present perfect with ever."}
+]},
+
+/* ---------- 10 ---------- */
+{id:"u10",tag:"from",c:"#9a5a3c",soft:"#f5ebe4",title:"At, on, in & co.",sub:"Prepositions of time and place",
+intro:"“At gate B12”, “on the third floor”, “in ten minutes”, “by eleven o'clock” – small words, big effect. In travel and service English you need them in every second sentence.",
+rules:[
+{h:"Time: at – on – in",t:"<b>at</b> + clock times, night, the weekend (at 7 o'clock, at night) · <b>on</b> + days and dates (on Monday, on 3 May, on Christmas Day) · <b>in</b> + months, years, seasons, parts of the day (in May, in 2019, in summer, in the morning) · <b>in</b> + a time from now (in ten minutes).",ex:["Check-out is at 11 o'clock.","We are closed on Mondays.","The bus will arrive in ten minutes."]},
+{h:"for, since, during, ago",t:"<b>for</b> + a period (for two weeks) · <b>since</b> + a starting point (since 2016) · <b>during</b> + an event (during the flight) · <b>ago</b> after the period (two days ago).",ex:["Please don't use your phone during take-off."]},
+{h:"until and by",t:"<b>until</b> = the whole time up to that moment (you can stay until 2 pm) · <b>by</b> = not later than (please check out by 11 am).",ex:["You can stay in the room until 2 pm.","The parcel will arrive by Friday."]},
+{h:"Place: at – on – in",t:"<b>at</b> + a point (at the gate, at reception, at the airport, at the table) · <b>on</b> + a surface, floor, side, transport, list (on the third floor, on the left, on the plane, on the menu) · <b>in</b> + inside a space or city (in the room, in the kitchen, in Vienna).",ex:["Please wait at gate B12.","Your room is on the third floor.","Is there anything vegetarian on the menu?"]},
+{h:"Position and movement",t:"next to · opposite · between · behind · in front of · by the window · get <b>on / off</b> a bus, train, plane · get <b>in / out of</b> a taxi or car",ex:["The post office is between the bank and the pharmacy.","Please get off the bus at the next stop."]}
+],
+watch:[["The restaurant is closed in Monday.","The restaurant is closed on Monday."],["My plane lands on 8 pm.","My plane lands at 8 pm."],["Please pay the bill until Friday.","Please pay the bill by Friday."],["The shop opens at the morning.","The shop opens in the morning."]],
+mc:[
+{q:"Check-out is ___ 11 o'clock.",o:["at","on","in"],e:"Clock times → at."},
+{q:"We are closed ___ Mondays.",o:["on","at","in"],e:"Days → on."},
+{q:"Your room is ___ the third floor.",o:["on","in","at"],e:"Floors → on."},
+{q:"Please wait ___ gate B12.",o:["at","on","in"],e:"A point / meeting place → at."},
+{q:"The restaurant opened ___ 2016.",o:["in","on","at"],e:"Years → in."},
+{q:"Please check out ___ 11 am at the latest.",o:["by","until","since"],e:"Not later than → by. “At the latest” is the signal."},
+{q:"You can stay in the room ___ 2 pm – we have a late check-out offer.",o:["until","by","since"],e:"The whole time up to 2 pm → until."},
+{q:"We have lived here ___ ten years.",o:["for","since","during"],e:"A period of time → for."},
+{q:"Please don't use your phone ___ take-off.",o:["during","for","while"],e:"During + a noun / event. (While needs a clause: while the plane is taking off.)"},
+{q:"Get ___ the taxi and I'll put your bags in the boot.",o:["in","on","at"],e:"Taxis and cars → get in / get out of."},
+{q:"The toilets are ___ the left, next to the lift.",o:["on","in","at"],e:"Sides → on the left / on the right."},
+{q:"The bus will arrive ___ ten minutes.",o:["in","after","for"],e:"A time from now → in ten minutes."},
+{q:"Is there anything vegetarian ___ the menu?",o:["on","in","at"],e:"Lists and menus → on the menu."}
+],
+gap:[
+{s:"My flight leaves ___ 6:45.",a:["at"],e:"Clock time → at."},
+{s:"We are open every day except ___ Christmas Day.",a:["on"],e:"A special day → on."},
+{s:"I'll be back ___ twenty minutes.",a:["in"],e:"A time from now → in."},
+{s:"Our restaurant has been here ___ 2016.",a:["since"],e:"Starting point → since."},
+{s:"The post office is ___ the bank and the pharmacy.",a:["between"],e:"In the middle of two things → between."},
+{s:"We stayed ___ a lovely hotel in Salzburg.",a:["at","in"],e:"Stay at / in a hotel – both are correct."},
+{s:"Please get ___ the bus at the next stop – the airport is there.",a:["off"],e:"Leave a bus → get off."},
+{s:"The parcel will arrive ___ Friday at the latest.",a:["by"],e:"Not later than → by."},
+{s:"I always feel sleepy ___ the afternoon.",a:["in"],e:"Parts of the day → in the afternoon."}
+],
+fix:[
+{w:["The","restaurant","is","closed","in","Monday."],i:4,c:"The restaurant is closed on Monday.",e:"Days → on."},
+{w:["My","plane","lands","on","8","pm."],i:3,c:"My plane lands at 8 pm.",e:"Clock times → at."},
+{w:["Please","pay","the","bill","until","Friday."],i:4,c:"Please pay the bill by Friday.",e:"Not later than → by."},
+{w:["Your","table","is","in","the","window,","on","the","left."],i:3,c:"Your table is by the window, on the left.",e:"Next to the window → by the window."},
+{w:["The","shop","opens","at","the","morning."],i:3,c:"The shop opens in the morning.",e:"Parts of the day → in the morning."}
+],
+build:[
+{t:["Breakfast","is","served","from","seven","until","ten."],e:"from … until."},
+{t:["The","lift","is","on","the","right,","next","to","the","stairs."],e:"on the right / next to."},
+{t:["Please","be","at","the","gate","by","half past nine."],e:"at the gate + by (not later than)."},
+{t:["We","have","been","open","since","eight","o'clock."],e:"since + starting point."}
+]},
+
+/* ---------- 11 ---------- */
+{id:"u11",tag:"next",c:"#7a3b5c",soft:"#f3e8ee",title:"If & when",sub:"Conditionals and time clauses",
+intro:"Next level: “If you book now, you'll get a free drink.” – “If I were you, I'd take the earlier flight.” With conditionals you can explain options, give advice and talk about dreams.",
+rules:[
+{h:"First conditional – real possibilities",t:"<b>If + present simple, will + base verb</b>. Never will in the if-part!",ex:["If it rains tomorrow, we'll eat inside.","If you book online, you'll get 10% off."]},
+{h:"Time clauses: when, as soon as, before, after, until",t:"When they talk about the future, these words are followed by the <b>present simple</b> – not will.",ex:["I'll call you as soon as I land.","When the guests arrive, please show them to table 5.","We won't leave until the taxi comes."]},
+{h:"Zero conditional – always true",t:"<b>If + present, present</b> – facts and general rules.",ex:["If you heat ice, it melts.","If the parcel is heavier than 2 kg, it costs more."]},
+{h:"Second conditional – imaginary or unlikely",t:"<b>If + past simple, would + base verb</b>. The past form here doesn't mean past time – it means “not real”. With be, <b>were</b> is used for all persons (was is also common in everyday speech).",ex:["If I had more time, I would travel more.","What would you do if you lost your passport?"]},
+{h:"Advice and very polite requests",t:"<b>If I were you, I'd …</b> = my advice. <b>It would be great if you could …</b> = a very polite request.",ex:["If I were you, I'd take a taxi.","It would be great if you could send me the photos."]}
+],
+watch:[["If it will rain, we'll stay at home.","If it rains, we'll stay at home."],["When I will arrive, I'll call you.","When I arrive, I'll call you."],["If I would have more time …","If I had more time …"],["I'll wait until you will come back.","I'll wait until you come back."]],
+mc:[
+{q:"If it ___ tomorrow, we'll eat inside.",o:["rains","will rain","rained"],e:"First conditional: if + present simple. No will after if."},
+{q:"If you book online, you ___ 10% off.",h:"real possibility",o:["will get","would get","got"],e:"Real possibility → will + base verb in the main clause."},
+{q:"I'll call you as soon as I ___ in Shanghai.",o:["land","will land","landed"],e:"After as soon as (future meaning) → present simple: land."},
+{q:"When the guests ___, please show them to table 5.",o:["arrive","will arrive","arrived"],e:"Time clause with when → present simple."},
+{q:"If I ___ more money, I would buy a house by the sea.",h:"imaginary",o:["had","have","will have"],e:"Second conditional: if + past simple, would + base verb."},
+{q:"If I were you, I ___ the earlier flight.",o:["would take","will take","take"],e:"Advice with “If I were you” → would + base verb."},
+{q:"If you heat ice, it ___.",h:"always true",o:["melts","would melt","melted"],e:"A general fact → zero conditional: present + present."},
+{q:"We won't leave until the taxi ___.",o:["comes","will come","came"],e:"Until (future meaning) → present simple."},
+{q:"What ___ you do if you lost your passport?",h:"imaginary",o:["would","will","do"],e:"“If you lost” (past form, imaginary) → would in the main clause."},
+{q:"If the parcel ___ heavier than 2 kg, it costs more.",o:["is","will be","would be"],e:"A general rule → zero conditional: if + present simple."},
+{q:"It would be great if you ___ send me the photos.",o:["could","can","will"],e:"Very polite request: It would be great if you could …"},
+{q:"Before you ___ the hotel, please return your key.",o:["leave","will leave","left"],e:"Time clause with before → present simple."}
+],
+gap:[
+{s:"If you ___ (not / hurry), you'll miss the train.",a:["don't hurry","do not hurry"],e:"If + present simple (negative)."},
+{s:"When you ___ (get) to the hotel, send me a message.",a:["get"],e:"Time clause → present simple."},
+{s:"If we ___ (have) a bigger kitchen, we would cook more dishes.",a:["had"],e:"Second conditional: if + past simple."},
+{s:"I ___ (help) you if I can.",a:["will help","'ll help"],e:"First conditional main clause → will + base verb."},
+{s:"If I ___ (be) you, I'd book a table in advance.",a:["were","was"],e:"If I were you … (was is also used in everyday English)."},
+{s:"As soon as the soup ___ (be) ready, I'll bring it.",a:["is"],e:"As soon as → present simple."},
+{s:"If I won the lottery, I ___ (travel) around the world.",a:["would travel","'d travel"],e:"Second conditional main clause → would + base verb."},
+{s:"If you press the red button, the door ___ (open).",a:["opens"],e:"Always true → present simple."}
+],
+fix:[
+{w:["If","it","will rain,","we'll","stay","at","home."],i:2,c:"If it rains, we'll stay at home.",e:"No will after if → present simple."},
+{w:["When","I","will arrive,","I'll","call","you."],i:2,c:"When I arrive, I'll call you.",e:"No will after when → present simple."},
+{w:["If","I","would have","more","time,","I","would","learn","Italian."],i:2,c:"If I had more time, I would learn Italian.",e:"Second conditional: if + past simple (had), would only in the main clause."},
+{w:["I","will","wait","here","until","you","will come","back."],i:6,c:"I will wait here until you come back.",e:"After until → present simple."},
+{w:["If","you","will need","anything,","just","call","reception."],i:2,c:"If you need anything, just call reception.",e:"No will after if."}
+],
+build:[
+{t:["If","you","book","now,","you","will","get","a","free","drink."],e:"If + present, will + base verb."},
+{t:["Please","call","me","when","you","arrive","at","the","airport."],e:"when + present simple."},
+{t:["If","I","were","you,","I","would","take","a","taxi."],e:"Advice: If I were you, I would …"},
+{t:["What","would","you","do","if","you","lost","your","luggage?"],e:"Second conditional question."}
+]},
+
+/* ---------- 12 ---------- */
+{id:"u12",tag:"next",c:"#3e5566",soft:"#e8edf0",title:"It is done",sub:"The passive",
+intro:"“Breakfast is served from seven.” – “Your parcel was delivered.” – “Your room has been cleaned.” Hotels, airports and restaurants use the passive all the time, because the action is more important than the person.",
+rules:[
+{h:"Form: be + past participle",t:"The tense is shown by <b>be</b>, the meaning by the <b>past participle</b> (served, cleaned, sent, built, made, taken).",ex:["Breakfast is served from 7 to 10.","All our dumplings are made by hand."]},
+{h:"Present and past",t:"Present: <b>is / are + participle</b>. Past: <b>was / were + participle</b>.",ex:["Credit cards are accepted.","Your parcel was delivered yesterday.","This hotel was built in 1890."]},
+{h:"Present perfect and future",t:"<b>has / have been + participle</b> · <b>will be + participle</b>",ex:["Your room has been cleaned.","Your luggage will be brought to your room."]},
+{h:"After modal verbs",t:"<b>must / can / should + be + participle</b>",ex:["This form must be signed by the sender.","The bill can be paid at the counter."]},
+{h:"by + the person – only if important",t:"Usually we don't say who did it. Add <b>by …</b> only when it's interesting.",ex:["The museum is visited by thousands of tourists every year."]}
+],
+watch:[["Breakfast is serve in the garden.","Breakfast is served in the garden."],["The parcel delivered yesterday.","The parcel was delivered yesterday."],["This bridge was builded in 1900.","This bridge was built in 1900."],["Smoking is not allow.","Smoking is not allowed."]],
+mc:[
+{q:"Breakfast ___ from 7 to 10 am.",o:["is served","serves","is serving"],e:"Breakfast doesn't serve – people serve it → passive: is served."},
+{q:"Your parcel ___ yesterday at 3 pm.",o:["was delivered","is delivered","delivered"],e:"Yesterday → past passive: was delivered."},
+{q:"This hotel ___ in 1890.",o:["was built","was builded","built"],e:"Build is irregular: build – built – built. Past passive: was built."},
+{q:"Your room ___ – you can go up now.",o:["has been cleaned","has cleaned","is cleaning"],e:"Result now + passive → has been cleaned."},
+{q:"Your luggage ___ to your room in a few minutes.",o:["will be brought","will bring","will be bringed"],e:"Future passive: will be + participle (bring – brought)."},
+{q:"This form must ___ by the sender.",o:["be signed","sign","signed"],e:"Modal + be + participle: must be signed."},
+{q:"Chinese and English ___ in our restaurant.",o:["are spoken","speak","are speaking"],e:"Languages are spoken (by people) → present passive: are spoken."},
+{q:"The flight ___ because of the storm.",o:["was cancelled","cancelled","was cancel"],e:"Someone cancelled the flight → past passive: was cancelled."},
+{q:"Were the tickets ___ online?",o:["bought","buy","buyed"],e:"Past passive question: Were + subject + participle (buy – bought)."},
+{q:"All the dumplings ___ by hand.",o:["are made","make","are making"],e:"Present passive: are made."},
+{q:"My wallet ___ on the train last week!",o:["was stolen","stole","was stealed"],e:"Steal – stole – stolen. Past passive: was stolen."},
+{q:"The new menu ___ next week.",o:["will be printed","will print","is print"],e:"Future passive: will be printed."}
+],
+gap:[
+{s:"The rooms ___ (clean) every morning.",a:["are cleaned"],e:"Present passive, plural: are cleaned."},
+{s:"My suitcase ___ (lose) on my last flight.",a:["was lost"],e:"Past passive: was lost."},
+{s:"This letter ___ (send) yesterday.",a:["was sent"],e:"Past passive: was sent."},
+{s:"Credit cards ___ (accept) at all our hotels.",a:["are accepted"],e:"Present passive: are accepted."},
+{s:"Your order ___ (already / prepare).",a:["has already been prepared"],e:"Present perfect passive: has already been prepared."},
+{s:"The bill must ___ (pay) at the counter.",a:["be paid"],e:"Modal + be + participle."},
+{s:"The museum ___ (visit) by thousands of tourists every year.",a:["is visited"],e:"Present passive: is visited."},
+{s:"Your taxi ___ (book) for 6 am tomorrow.",a:["has been booked","is booked"],e:"Result now → has been booked (is booked is also fine)."}
+],
+fix:[
+{w:["Breakfast","is","serve","in","the","garden."],i:2,c:"Breakfast is served in the garden.",e:"Passive needs the past participle: served."},
+{w:["The","parcel","delivered","to","the","wrong","address."],i:2,c:"The parcel was delivered to the wrong address.",e:"The parcel didn't deliver anything → passive: was delivered."},
+{w:["This","bridge","was","builded","in","1900."],i:3,c:"This bridge was built in 1900.",e:"build – built – built."},
+{w:["Your","room","has","been","clean."],i:4,c:"Your room has been cleaned.",e:"Past participle: cleaned."},
+{w:["Smoking","is","not","allow","in","the","rooms."],i:3,c:"Smoking is not allowed in the rooms.",e:"Past participle: allowed."}
+],
+build:[
+{t:["The","rooms","are","cleaned","every","day."],e:"Present passive."},
+{t:["Your","bags","will","be","brought","to","your","room."],e:"Future passive."},
+{t:["The","parcel","was","sent","last Monday."],e:"Past passive."},
+{t:["English","is","spoken","at","reception."],e:"Present passive."}
+]},
+
+/* ---------- 13 ---------- */
+{id:"u13",tag:"next",c:"#34527e",soft:"#e9eef6",title:"Enjoy eating, want to eat",sub:"-ing form or to + infinitive",
+intro:"“Thank you for visiting.” – “We look forward to seeing you.” – “I'd like to change my booking.” Some verbs are followed by -ing, others by to. These are the phrases that make your English sound polished.",
+rules:[
+{h:"Verbs + to + infinitive",t:"<b>want, would like, need, hope, decide, plan, forget, promise, offer, agree, learn</b>",ex:["I'd like to book a table for two.","We decided to open a second restaurant.","Don't forget to take your passport!"]},
+{h:"Verbs + -ing",t:"<b>enjoy, mind, finish, suggest, recommend, avoid, keep, practise, imagine, can't stand</b>",ex:["Did you enjoy staying in Vienna?","The chef suggests trying the fish today."]},
+{h:"After prepositions: always -ing",t:"thank you <b>for</b> coming · look forward <b>to</b> seeing · interested <b>in</b> learning · good <b>at</b> cooking · <b>before</b> leaving · <b>without</b> paying. (In “look forward to”, to is a preposition!)",ex:["Thank you for visiting our restaurant.","We look forward to seeing you again!"]},
+{h:"Purpose: to + verb",t:"Why? → <b>to</b> + verb. Not “for + verb”.",ex:["I came to the post office to buy some stamps.","I called the hotel to ask about parking."]},
+{h:"like / love / hate",t:"Both are possible: I like cooking / I like to cook. But <b>would like</b> always takes <b>to</b>.",ex:["I love cooking for my guests.","I would love to visit Japan."]}
+],
+watch:[["I enjoy to cook.","I enjoy cooking."],["We look forward to see you.","We look forward to seeing you."],["Thank you for come.","Thank you for coming."],["I went there for buy stamps.","I went there to buy stamps."]],
+mc:[
+{q:"Did you enjoy ___ in Vienna?",o:["staying","to stay","stay"],e:"Enjoy + -ing."},
+{q:"We look forward to ___ you again!",o:["seeing","see","saw"],e:"Look forward to + -ing (to is a preposition here)."},
+{q:"I'd like ___ a table for two.",o:["to book","booking","book"],e:"Would like + to + verb."},
+{q:"Thank you for ___ our restaurant.",o:["visiting","to visit","visit"],e:"After the preposition for → -ing."},
+{q:"The chef suggests ___ the fish today.",o:["trying","to try","try"],e:"Suggest + -ing."},
+{q:"Don't forget ___ your passport!",h:"remember to do it",o:["to take","taking","take"],e:"Forget + to = not remember to do something in the future."},
+{q:"Would you mind ___ a photo of us?",o:["taking","to take","take"],e:"Mind + -ing."},
+{q:"We decided ___ a second restaurant.",o:["to open","opening","open"],e:"Decide + to + verb."},
+{q:"I came to the post office ___ some stamps.",o:["to buy","for buy","buying"],e:"Purpose → to + verb."},
+{q:"She is very good at ___ with difficult guests.",o:["dealing","to deal","deal"],e:"After the preposition at → -ing."},
+{q:"Please finish ___ the form before you sign it.",o:["filling in","to fill in","fill in"],e:"Finish + -ing."},
+{q:"We hope ___ you again next summer.",o:["to see","seeing","see"],e:"Hope + to + verb."},
+{q:"Avoid ___ on the motorway at rush hour.",o:["driving","to drive","drive"],e:"Avoid + -ing."}
+],
+gap:[
+{s:"I really enjoy ___ (cook) for my guests.",a:["cooking"],e:"Enjoy + -ing."},
+{s:"We need ___ (order) more napkins.",a:["to order"],e:"Need + to + verb."},
+{s:"Thank you for ___ (wait).",a:["waiting"],e:"After for → -ing."},
+{s:"I'm interested in ___ (learn) more English.",a:["learning"],e:"After in → -ing."},
+{s:"The guest promised ___ (come) back next year.",a:["to come"],e:"Promise + to + verb."},
+{s:"I recommend ___ (book) your flight early.",a:["booking"],e:"Recommend + -ing."},
+{s:"I went to the bank ___ (change) some money.",a:["to change"],e:"Purpose → to + verb."},
+{s:"We look forward to ___ (hear) from you.",a:["hearing"],e:"Look forward to + -ing."},
+{s:"Would you like ___ (try) our jasmine tea?",a:["to try"],e:"Would like + to + verb."}
+],
+fix:[
+{w:["I","enjoy","to travel","by","train."],i:2,c:"I enjoy travelling by train.",e:"Enjoy + -ing. (British spelling: travelling.)"},
+{w:["We","look","forward","to","see","you","soon."],i:4,c:"We look forward to seeing you soon.",e:"Look forward to + -ing."},
+{w:["Thank","you","for","come","to","our","restaurant."],i:3,c:"Thank you for coming to our restaurant.",e:"After for → -ing."},
+{w:["I","want","going","to","the","airport","by","taxi."],i:2,c:"I want to go to the airport by taxi.",e:"Want + to + verb."},
+{w:["She","suggested","to take","the","early","bus."],i:2,c:"She suggested taking the early bus.",e:"Suggest + -ing."}
+],
+build:[
+{t:["Thank","you","for","choosing","our","hotel."],e:"for + -ing."},
+{t:["We","look","forward","to","seeing","you","again."],e:"look forward to + -ing."},
+{t:["I","would","like","to","change","my","booking."],e:"would like + to."},
+{t:["I","came","here","to","learn","English."],e:"Purpose: to + verb."}
+]},
+
+/* ---------- 14 ---------- */
+{id:"u14",tag:"next",c:"#1d6a70",soft:"#e3eff0",title:"The guest who …",sub:"Relative clauses: who, which, that, where, whose",
+intro:"With relative clauses you can join two short sentences into one elegant sentence: “The guest who ordered the duck wants the bill.” This is a big step towards fluent English.",
+rules:[
+{h:"who – for people",t:"",ex:["The guest who ordered the duck wants the bill.","Do you know the woman who owns that café?"]},
+{h:"which – for things and animals",t:"",ex:["The parcel which arrived this morning is for you."]},
+{h:"that – for people or things",t:"In normal (defining) relative clauses, <b>that</b> can replace who or which.",ex:["Is this the bus that goes to the airport?","The room that you booked has a balcony."]},
+{h:"where – for places · whose – for possession",t:"<b>where</b> = in / at which place. <b>whose</b> = his / her / their.",ex:["This is the restaurant where we celebrated my birthday.","The man whose suitcase was lost is waiting at the desk."]},
+{h:"Extra information with commas → which / who (never that)",t:"When the clause only adds extra information, use commas and <b>which</b> or <b>who</b>.",ex:["Vienna, which is the capital of Austria, has a big airport."]},
+{h:"You can leave out who / which / that …",t:"… when it is the object of the clause (another subject follows).",ex:["The dish (that) you recommended was excellent."]}
+],
+watch:[["The man which booked table 5 …","The man who booked table 5 …"],["Our hotel, that is near the station, …","Our hotel, which is near the station, …"],["This is the hotel where we stayed in it.","This is the hotel where we stayed."],["The dish what you recommended …","The dish that you recommended …"]],
+mc:[
+{q:"The guest ___ ordered the duck wants the bill.",o:["who","which","where"],e:"A person → who."},
+{q:"The room ___ you booked has a balcony.",o:["that","who","where"],e:"A thing → that (or which)."},
+{q:"This is the restaurant ___ we celebrated my birthday.",o:["where","which","who"],e:"A place where something happened → where."},
+{q:"The man ___ suitcase was lost is waiting at the desk.",o:["whose","who's","which"],e:"Possession (his suitcase) → whose. Who's = who is."},
+{q:"The waiter ___ served us was very friendly.",o:["who","which","whose"],e:"A person → who."},
+{q:"Vienna, ___ is the capital of Austria, has a big airport.",o:["which","that","where"],e:"Extra information with commas → which. That is not used after a comma."},
+{q:"Is this the bus ___ goes to the airport?",o:["that","who","where"],e:"A thing → that (or which)."},
+{q:"The town ___ I grew up is very small.",o:["where","which","who"],e:"A place + something happened there → where."},
+{q:"Do you know the woman ___ owns that café?",o:["who","which","whose"],e:"A person → who."},
+{q:"The parcel ___ arrived this morning is for you.",o:["which","who","where"],e:"A thing → which."},
+{q:"The guest ___ wallet I found came back to say thank you.",o:["whose","who","which"],e:"Possession (her/his wallet) → whose."},
+{q:"The hotel ___ we stayed was close to the beach.",o:["where","which","who"],e:"A place → where (= in which)."}
+],
+gap:[
+{s:"The woman ___ works at reception speaks five languages.",a:["who","that"],e:"A person → who / that."},
+{s:"The phone ___ I bought last week is broken.",a:["which","that"],e:"A thing → which / that."},
+{s:"This is the café ___ we first met.",a:["where"],e:"A place → where."},
+{s:"The guest ___ car was parked outside left early.",a:["whose"],e:"Possession → whose."},
+{s:"Salzburg, ___ is famous for Mozart, is very beautiful.",a:["which"],e:"Extra information with commas → which."},
+{s:"Is that the flight ___ goes to London?",a:["that","which"],e:"A thing → that / which."},
+{s:"I spoke to the receptionist ___ helped us yesterday.",a:["who","that"],e:"A person → who / that."},
+{s:"The airport ___ we landed was very modern.",a:["where"],e:"A place → where."}
+],
+fix:[
+{w:["The","man","which","booked","table","5","is","here."],i:2,c:"The man who booked table 5 is here.",e:"A person → who."},
+{w:["Our","hotel,","that","is","near","the","station,","has","50","rooms."],i:2,c:"Our hotel, which is near the station, has 50 rooms.",e:"After a comma → which, not that."},
+{w:["This","is","the","hotel","where","we","stayed","in it."],i:7,c:"This is the hotel where we stayed.",e:"Where already means “in it” – don't repeat it."},
+{w:["The","lady","who her","bag","was","stolen","called","the","police."],i:2,c:"The lady whose bag was stolen called the police.",e:"Possession → whose."},
+{w:["The","dish","what","you","recommended","was","delicious."],i:2,c:"The dish that you recommended was delicious.",e:"What is not a relative pronoun → that / which (or nothing)."}
+],
+build:[
+{t:["The","waiter","who","served","us","was","very","kind."],e:"who + verb, inside the sentence."},
+{t:["This","is","the","hotel","where","we","stayed","last year."],e:"where for a place."},
+{t:["The","dish","that","you","recommended","was","excellent."],e:"that for a thing."},
+{t:["Do","you","know","the","man","whose","car","is","outside?"],e:"whose for possession."}
+]},
+
+/* ---------- 15 ---------- */
+{id:"u15",tag:"next",c:"#9a5a3c",soft:"#f5ebe4",title:"Because, although, however",sub:"Linking words for longer sentences",
+intro:"For emails, reviews and longer conversations you need words that connect ideas: reasons, results, contrasts and purposes. This unit prepares you for writing at B1 level.",
+rules:[
+{h:"Reason: because / because of",t:"<b>because</b> + subject + verb · <b>because of</b> + noun",ex:["We closed the terrace because it was too windy.","The flight was delayed because of the snow."]},
+{h:"Result: so",t:"",ex:["We were tired, so we went to bed early."]},
+{h:"Contrast: but, although, however, despite",t:"<b>but</b> joins two parts of one sentence · <b>although / even though</b> + subject + verb (never together with but!) · <b>However,</b> starts a new sentence · <b>despite / in spite of</b> + noun or -ing",ex:["Although the room was small, it was very comfortable.","The food was excellent. However, the service was slow.","Despite the rain, we had a great time."]},
+{h:"Purpose: to / so that",t:"<b>to</b> + verb · <b>so that</b> + subject + can / could / would",ex:["I called the hotel to ask about parking.","We booked early so that we could sit by the window."]},
+{h:"Condition: unless (= if not)",t:"",ex:["You can't board the plane unless you have a boarding pass."]},
+{h:"Order: first, then, after that, finally",t:"",ex:["First, fill in the form. Then, take it to counter 3."]}
+],
+watch:[["Because of it was raining, …","Because it was raining, …"],["Although the hotel was old, but it was clean.","Although the hotel was old, it was clean."],["Despite it was late, …","Although it was late, …"],["We went home because of we were tired.","We went home because we were tired."]],
+mc:[
+{q:"The flight was delayed ___ the snow.",o:["because of","because","so"],e:"+ a noun (the snow) → because of."},
+{q:"We were tired, ___ we went to bed early.",o:["so","because","although"],e:"Result → so."},
+{q:"___ the room was small, it was very comfortable.",o:["Although","However","Despite"],e:"Contrast + subject + verb in the same sentence → although."},
+{q:"The food was excellent. ___, the service was slow.",o:["However","Although","Because"],e:"Contrast at the beginning of a new sentence, with a comma → However."},
+{q:"We booked early ___ we could get a good seat.",o:["so that","because of","although"],e:"Purpose + subject + could → so that."},
+{q:"___ the rain, we had a great time.",o:["Despite","Although","However"],e:"Contrast + a noun (the rain) → despite."},
+{q:"We closed the terrace ___ it was too windy.",o:["because","because of","so"],e:"Reason + subject + verb → because."},
+{q:"You can't board the plane ___ you have a boarding pass.",o:["unless","if","so"],e:"Unless = if not: you can't board if you don't have one."},
+{q:"First, fill in the form. ___, take it to counter 3.",o:["Then","Although","Because"],e:"The next step → Then."},
+{q:"I'd like the soup, ___ please make it without coriander.",o:["but","so","because"],e:"A small contrast inside one sentence → but."},
+{q:"In spite of ___ late, the restaurant was still full.",o:["being","it was","be"],e:"In spite of + noun or -ing → being."},
+{q:"I called the hotel ___ ask about parking.",o:["to","for","so"],e:"Purpose → to + verb."}
+],
+gap:[
+{s:"We couldn't land ___ of the fog.",a:["because"],e:"because of + noun."},
+{s:"___ it was expensive, the hotel was worth it.",a:["although","even though","though"],e:"Contrast + subject + verb → although."},
+{s:"The bus was late, ___ I took a taxi.",a:["so"],e:"Result → so."},
+{s:"We had a lovely evening ___ the bad weather.",a:["despite","in spite of"],e:"Contrast + noun → despite / in spite of."},
+{s:"Please come early ___ that we can start on time.",a:["so"],e:"Purpose → so that."},
+{s:"The restaurant was full. ___, they found a table for us.",a:["however"],e:"Contrast at the start of a new sentence → However."},
+{s:"You'll miss your flight ___ you leave now.",a:["unless"],e:"Unless = if not."},
+{s:"I went to the post office ___ send a parcel.",a:["to"],e:"Purpose → to + verb."}
+],
+fix:[
+{w:["Because of","it","was","raining,","we","stayed","inside."],i:0,c:"Because it was raining, we stayed inside.",e:"Subject + verb follows → because (without of)."},
+{w:["Although","the","hotel","was","old,","but","it","was","clean."],i:5,c:"Although the hotel was old, it was clean.",e:"Although and but are never used together."},
+{w:["Despite","it","was","late,","the","shop","was","open."],i:0,c:"Although it was late, the shop was open.",e:"Subject + verb follows → although. Despite needs a noun."},
+{w:["The","food","was","great,","however","the","service","was","slow."],i:4,c:"The food was great, but the service was slow.",e:"Inside one sentence → but. However starts a new sentence."},
+{w:["We","went","home","early","because of","we","were","tired."],i:4,c:"We went home early because we were tired.",e:"Subject + verb follows → because."}
+],
+build:[
+{t:["Although","it","was","late,","the","kitchen","was","still","open."],e:"Although + clause, main clause."},
+{t:["The","flight","was","cancelled","because","of","the","storm."],e:"because of + noun."},
+{t:["We","booked","early","so that","we","could","sit","by","the","window."],e:"so that + subject + could."},
+{t:["The","room","was","small.","However,","it","was","very","clean."],e:"However, at the start of a new sentence."}
+]}
+];
+
+/* ================= REAL-LIFE TEXTS ================= */
+/* {correct|wrong|wrong#hint} – the first option is correct; explanations in the same order as the gaps */
+const TEXTS=[
+{id:"t1",c:"#34527e",title:"An email to a hotel",sub:"You write a polite complaint",
+text:"Dear Sir or Madam,\n\nI {stayed|have stayed|stay} at your hotel from 3 to 6 March, and I {am writing|write|wrote} to tell you about some problems. When we {arrived|have arrived|arrive}, our room {wasn't|hasn't been|isn't} ready, so we {had to|must|should} wait for two hours. The room was also much {smaller|more small|smallest} than in the photos on your website.\n\n{Although|Despite|However} the staff were very friendly, the air conditioning {didn't work|doesn't worked|hasn't work} during our whole stay. I {have stayed|stayed|stay#in my life up to now} in many hotels, but I {have never had|never had had|had never have} such a noisy night.\n\nI would be grateful if you {could|can|will} offer us a partial refund. I look forward to {hearing|hear|heard} from you.\n\nKind regards,\n[your name]",
+exp:["From 3 to 6 March is a finished time → past simple: stayed.","Right now, while writing → present continuous: I am writing to … (a fixed email phrase).","A finished moment in the past → past simple: arrived.","Past situation → wasn't.","Necessary in the past → had to.","Short adjective → smaller (much makes it stronger).","Contrast + subject + verb → Although.","Negative past simple: didn't + base verb.","Experience up to now, no time given → present perfect: have stayed.","Experience → have never had.","Very polite request: I would be grateful if you could …","Look forward to + -ing: hearing."]},
+{id:"t2",c:"#7a3b5c",title:"Reply to an online review",sub:"You answer a guest as the restaurant owner",
+text:"Dear guest,\n\nThank you very much for {taking|to take|take} the time to write a review. We are glad that you {enjoyed|have enjoyed|enjoy} the dumplings last Saturday!\n\nI'm sorry that you {had to|must|should} wait so long for your main course. That evening, two of our cooks {were|was|have been} ill, and the kitchen {was|is|has been} extremely busy. Since then, we {have hired|hired|hire} a new cook, so this {won't|doesn't|isn't} happen again.\n\nNext time you come, your dessert {will be served|will serve|is serving} free of charge. And the table {which|who|where} you had by the window is our favourite, too! We hope {to see|seeing|see} you again soon.\n\nBest wishes,\nThe restaurant team",
+exp:["After the preposition for → -ing: taking.","“Last Saturday” is a finished time → past simple: enjoyed.","Necessary in the past → had to.","Two cooks = they → were.","That evening (past) → was.","Since then → present perfect: have hired.","A promise about the future → won't (= will not).","The dessert doesn't serve – it is served → future passive: will be served.","A thing (the table) → which.","Hope + to + verb."]},
+{id:"t3",c:"#1d6a70",title:"A phone call: booking a table",sub:"You are the host on the phone",
+text:"<span class='say'>Guest:</span> Hello, I'd like {to book|booking|book} a table for Saturday evening.\n<span class='say'>You:</span> Of course. How {many|much|lot} people are in your group?\n<span class='say'>Guest:</span> Eight. And {could|shall|must} we sit outside?\n<span class='say'>You:</span> I'm sorry, the terrace {is being renovated|is renovating|renovates#right now} at the moment, but we have a large table {which|who|where} is right next to the window.\n<span class='say'>Guest:</span> Perfect. Do you know {if|what|that} you have vegetarian dishes?\n<span class='say'>You:</span> Yes, we have {a lot of|much|a few of} vegetarian dishes – and if you {tell|will tell|told} me now, the chef {will prepare|prepares|would prepared} something special.\n<span class='say'>Guest:</span> Wonderful! What time {does the kitchen close|the kitchen closes|closes the kitchen}?\n<span class='say'>You:</span> {At|On|In} 10 pm. So – eight people {on|at|in} Saturday at 7 pm.\n<span class='say'>Guest:</span> Great, thanks. I've never {been|went|was} to your restaurant, but my friends say it's the {best|better|most good} in town!",
+exp:["Would like + to + verb.","People can be counted → How many.","Polite request for permission → could we …?","Someone is renovating it now → present continuous passive: is being renovated.","A thing → which.","Yes/no indirect question → if.","Dishes can be counted; positive sentence → a lot of.","First conditional: if + present simple.","First conditional main clause → will + base verb.","Direct question: does + subject + base verb.","Clock time → at.","Days → on.","Experience → I've never been.","Irregular superlative: the best."]},
+{id:"t4",c:"#9a5a3c",title:"The story of the lost suitcase",sub:"You tell a friend what happened on a trip",
+text:"Last month I {flew|have flown|fly} from Vienna to Shanghai. When I {arrived|have arrived|arrive}, I went straight to the baggage belt. I {was waiting|have waited|am waiting#in progress} there for almost an hour when an announcement {came|was coming|has come}: my suitcase {was sent|sent|was send} to Bangkok by mistake!\n\nI {had to|must|should} fill in a long form at the lost luggage desk. The man {who|which|whose} helped me was very kind. He said: “If we {find|will find|found} your suitcase, we {will bring|bring|would brought} it to your hotel.”\n\n{Although|Despite|However} I was very tired, I went shopping {to buy|for buying|buy} a toothbrush and {some|any|a} clothes. Two days later, my suitcase {arrived|has arrived|arrives} at the hotel – it was fine!\n\nNow I always {pack|am packing|packed} a T-shirt in my hand luggage – just in case.",
+exp:["Last month → past simple: fly – flew.","A finished moment → past simple: arrived.","A longer action in progress → past continuous: was waiting.","The short action that interrupted it → past simple: came.","Someone sent it → past passive: was sent.","Necessary in the past → had to.","A person → who.","First conditional: if + present simple.","Main clause → will + base verb.","Contrast + subject + verb → Although.","Purpose → to + verb.","Positive sentence, uncountable/plural → some.","Two days later (finished time) → past simple: arrived.","“Always” + a habit now → present simple: pack."]}
+];
+
+/* ================= ENGINE ================= */
+const $=s=>document.querySelector(s);
+const main=$("#main");
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>';
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let DONE=store.get("gb_done",{});
+let SCORE=store.get("gb_score",0);
+function addPoint(key){if(DONE[key])return;DONE[key]=1;SCORE++;store.set("gb_done",DONE);store.set("gb_score",SCORE);$("#score").textContent=SCORE;}
+$("#score").textContent=SCORE;
+
+/* speech */
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/en-GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null;}
+if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function say(t){if(!("speechSynthesis" in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t.replace(/\[|\]/g,"").replace(/–/g,","));u.lang="en-GB";if(voice)u.voice=voice;u.rate=parseFloat($("#rate").value);speechSynthesis.speak(u);}
+function spk(t){return `<button class="spk" title="Listen" data-say="${esc(t)}">${SPK}</button>`;}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-say]");if(b){say(b.dataset.say);}});
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function norm(s){return s.toLowerCase().replace(/[’‘`´]/g,"'").replace(/\s+/g," ").trim().replace(/[.!?,]+$/,"");}
+function fill(q,opt){const parts=opt.split(/ … | \/ /);let k=0;return q.replace(/___/g,()=>{const p=parts[Math.min(k,parts.length-1)];k++;return p;}).replace(/\s+'/g,"'");}
+function setTheme(c,soft){document.documentElement.style.setProperty("--c",c);document.documentElement.style.setProperty("--soft",soft||"#eef2f7");}
+
+/* bubbles */
+(function(){const b=$("#bubbles");const cols=["#34527e","#5f4a72","#9a5a3c","#7a3b5c","#3e5566"];for(let i=0;i<14;i++){const s=document.createElement("span");const z=40+Math.random()*120;s.style.width=s.style.height=z+"px";s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";s.style.background=cols[i%cols.length];s.style.animationDelay=(-Math.random()*26)+"s";s.style.animationDuration=(20+Math.random()*16)+"s";b.appendChild(s);}})();
+
+function unitTotal(u){return u.mc.length+u.gap.length+u.fix.length+u.build.length;}
+function unitDone(u){let n=0;["mc","gap","fix","build"].forEach(t=>u[t].forEach((_,i)=>{if(DONE[`${u.id}-${t}-${i}`])n++;}));return n;}
+
+/* ================= HOME ================= */
+function home(){
+  setTheme("#34527e","#e9eef6");
+  let h=`<div class="card intro"><h2>Your grammar map</h2>
+  <p>On the <b>Restaurant English</b> page and on <b>English on the Road</b> (hotel, post office, airport) you already used a lot of grammar – often as ready-made phrases. Here you look behind those phrases: <b>why</b> is it “Have you booked?”, but “When did you book?” Why “Could you tell me where the gate <i>is</i>?” and not “where <i>is</i> the gate”?</p>
+  <p>Units <b>1–10</b> make the grammar of your two pages solid. Units <b>11–15</b> take you one level higher – the grammar you need for longer conversations, emails and more difficult tasks.</p>
+  <p class="small">Each unit: Learn → Choose → Write → Find the mistake → Build the sentence. Every answer comes with an explanation.</p></div>`;
+  h+=`<div class="grid">`;
+  UNITS.forEach((u,i)=>{const d=unitDone(u),t=unitTotal(u);
+    h+=`<button class="unit" style="--c:${u.c}" data-u="${u.id}">
+      <div class="num"><span class="n">Unit ${i+1}</span><span class="tag ${u.tag}">${u.tag==="from"?"From your pages":"Next level"}</span></div>
+      <h3>${u.title}</h3><p>${u.sub}</p>
+      <div class="bar"><i style="width:${Math.round(d/t*100)}%"></i></div><span class="small">${d} of ${t} tasks done</span></button>`;});
+  h+=`</div><div class="big2">
+    <button class="feature" style="background:linear-gradient(135deg,#5f4a72,#7a3b5c)" id="goTexts"><h3>✉ Real-life texts</h3><p>An email, a review reply, a phone call and a travel story – all the grammar together, in real situations.</p></button>
+    <button class="feature" style="background:linear-gradient(135deg,#1d6a70,#34527e)" id="goMix"><h3>⚡ Mixed challenge</h3><p>Random questions from all 15 units. At the end you see which units to repeat.</p></button>
+  </div>`;
+  main.innerHTML=h;
+  main.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>unit(b.dataset.u,"learn"));
+  $("#goTexts").onclick=()=>texts(0);
+  $("#goMix").onclick=()=>mixStart();
+  window.scrollTo(0,0);
+}
+$("#homeBtn").onclick=home;
+
+/* ================= UNIT ================= */
+const TABS=[["learn","📖 Learn"],["mc","☑ Choose"],["gap","✎ Write"],["fix","🔍 Find the mistake"],["build","🧩 Build the sentence"]];
+function unit(id,tab){
+  const u=UNITS.find(x=>x.id===id);const idx=UNITS.indexOf(u);
+  setTheme(u.c,u.soft);
+  let h=`<div class="crumb"><button class="back" id="bk">← Grammar map</button>`;
+  if(idx>0)h+=`<button class="back" data-go="${UNITS[idx-1].id}">‹ Unit ${idx}</button>`;
+  if(idx<UNITS.length-1)h+=`<button class="back" data-go="${UNITS[idx+1].id}">Unit ${idx+2} ›</button>`;
+  h+=`</div><div class="uhead"><div class="small" style="color:#fff;opacity:.85">Unit ${idx+1} · ${u.tag==="from"?"From your pages":"Next level"}</div><h2>${u.title}</h2><p>${u.sub}</p></div>
+  <div class="tabs">${TABS.map(([k,l])=>`<button class="tab ${k===tab?"on":""}" data-t="${k}">${l}</button>`).join("")}</div><div id="pane"></div>`;
+  main.innerHTML=h;
+  $("#bk").onclick=home;
+  main.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>unit(b.dataset.go,"learn"));
+  main.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>unit(id,b.dataset.t));
+  const pane=$("#pane");
+  ({learn:renderLearn,mc:renderMC,gap:renderGap,fix:renderFix,build:renderBuild})[tab](u,pane);
+  const next=TABS.findIndex(t=>t[0]===tab)+1;
+  if(next<TABS.length){const nb=document.createElement("div");nb.className="row";nb.style.justifyContent="flex-end";nb.innerHTML=`<button class="act">Next: ${TABS[next][1]} →</button>`;nb.firstChild.onclick=()=>{unit(id,TABS[next][0]);};pane.appendChild(nb);}
+  else if(idx<UNITS.length-1){const nb=document.createElement("div");nb.className="row";nb.style.justifyContent="flex-end";nb.innerHTML=`<button class="act">Next unit: ${UNITS[idx+1].title} →</button>`;nb.firstChild.onclick=()=>unit(UNITS[idx+1].id,"learn");pane.appendChild(nb);}
+  window.scrollTo(0,0);
+}
+
+function renderLearn(u,p){
+  let h=`<div class="card"><p style="margin:0">${u.intro}</p></div>`;
+  u.rules.forEach(r=>{h+=`<div class="card rule"><h3>${r.h}</h3>${r.t?`<p class="t">${r.t}</p>`:""}${r.ex.map(x=>`<div class="ex"><span>${x}</span>${spk(x)}</div>`).join("")}</div>`;});
+  h+=`<div class="card"><h3>⚠ Watch out – typical mistakes</h3><div class="watch">${u.watch.map(([w,r])=>`<div class="w">${w}</div><div class="arr">→</div><div class="r">${r}</div>`).join("")}</div></div>`;
+  p.innerHTML=h;
+}
+
+function mcCard(m,num,key,label){
+  const d=document.createElement("div");d.className="card q";
+  const opts=shuffle(m.o.map((t,i)=>({t,ok:i===0})));
+  d.innerHTML=`<div class="qn">${label||("Question "+num)}</div><p class="qt">${esc(m.q).replace(/___/g,"<b>_____</b>")}${m.h?`<span class="hint">${m.h}</span>`:""}</p>
+  <div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o.t)}</button>`).join("")}</div><div class="fb"></div>`;
+  let tried=false;
+  d.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    const o=opts[+b.dataset.i];const fb=d.querySelector(".fb");
+    if(o.ok){b.classList.add("ok");d.querySelectorAll(".opt").forEach(x=>x.disabled=true);
+      if(!tried&&key)addPoint(key);
+      const full=fill(m.q,m.o[0]);
+      fb.className="fb show ok";fb.innerHTML=`<span class="lbl">${tried?"Now it's right.":"Correct!"}</span>${m.e}<div class="full">${spk(full)}<span>${esc(full)}</span></div>`;
+      d.dispatchEvent(new CustomEvent("answered",{detail:{first:!tried}}));
+    }else{tried=true;b.classList.add("no");b.disabled=true;fb.className="fb show no";fb.innerHTML=`<span class="lbl">Not quite.</span>Think again: ${m.h?"look at the hint – ":""}which form fits the rule? Try once more.`;}
+  });
+  return d;
+}
+function renderMC(u,p){u.mc.forEach((m,i)=>p.appendChild(mcCard(m,i+1,`${u.id}-mc-${i}`)));}
+
+function renderGap(u,p){
+  u.gap.forEach((g,i)=>{const key=`${u.id}-gap-${i}`;const d=document.createElement("div");d.className="card q";
+    const parts=g.s.split("___");
+    d.innerHTML=`<div class="qn">Sentence ${i+1}</div>${g.h?`<span class="hint" style="margin:0 0 8px">${g.h}</span>`:""}<div class="gapline qt"><span>${esc(parts[0])}</span><input class="gapin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type here"><span>${esc(parts[1]||"")}</span></div>
+    <div class="row"><button class="act" data-a="c">Check</button><button class="act ghost" data-a="s">Show answer</button></div><div class="fb"></div>`;
+    const inp=d.querySelector("input"),fb=d.querySelector(".fb");let tries=0;
+    const full=()=>g.s.replace("___",g.a[0]).replace(/\s*\([^)]*\)/,"").replace(/\s+'/g,"'").replace(/^./,c=>c.toUpperCase());
+    const check=()=>{const v=norm(inp.value);if(!v)return;
+      if(g.a.some(a=>norm(a)===v)){inp.classList.remove("no");inp.classList.add("ok");inp.disabled=true;if(tries===0)addPoint(key);
+        fb.className="fb show ok";fb.innerHTML=`<span class="lbl">Correct!</span>${g.e}${g.a.length>1?`<div class="small">Also correct: ${g.a.filter(a=>norm(a)!==v).map(esc).join(" · ")}</div>`:""}<div class="full">${spk(full())}<span>${esc(full())}</span></div>`;}
+      else{tries++;inp.classList.add("no");fb.className="fb show no";fb.innerHTML=`<span class="lbl">Not yet.</span>${tries>=2?"Tip: "+g.e:"Check the form and the spelling, then try again."}`;}};
+    d.querySelector('[data-a="c"]').onclick=check;
+    inp.addEventListener("keydown",e=>{if(e.key==="Enter")check();});
+    d.querySelector('[data-a="s"]').onclick=()=>{inp.value=g.a[0];inp.disabled=true;inp.classList.add("ok");fb.className="fb show ok";fb.innerHTML=`<span class="lbl">Answer:</span>${esc(g.a.join(" / "))} – ${g.e}<div class="full">${spk(full())}<span>${esc(full())}</span></div>`;};
+    p.appendChild(d);});
+}
+
+function renderFix(u,p){
+  const c=document.createElement("div");c.className="card";c.innerHTML=`<p style="margin:0">Each sentence has <b>exactly one</b> mistake. Click on the wrong word or group of words.</p>`;p.appendChild(c);
+  u.fix.forEach((f,i)=>{const key=`${u.id}-fix-${i}`;const d=document.createElement("div");d.className="card q";
+    d.innerHTML=`<div class="qn">Sentence ${i+1}</div><div class="toks">${f.w.map((w,j)=>`<button class="tok" data-j="${j}">${esc(w)}</button>`).join("")}</div><div class="row"><button class="act ghost" data-a="s">Show me</button></div><div class="fb"></div>`;
+    let tried=false;const fb=d.querySelector(".fb");
+    const solve=(earned)=>{d.querySelectorAll(".tok").forEach(t=>t.disabled=true);d.querySelector(`[data-j="${f.i}"]`).classList.add("ok");if(earned&&!tried)addPoint(key);
+      fb.className="fb show ok";fb.innerHTML=`<span class="lbl">${earned?(tried?"Found it.":"Well spotted!"):"Here it is."}</span>${f.e}<div class="full">${spk(f.c)}<span>✓ ${esc(f.c)}</span></div>`;};
+    d.querySelectorAll(".tok").forEach(t=>t.onclick=()=>{if(+t.dataset.j===f.i)solve(true);else{tried=true;t.classList.add("no");t.disabled=true;fb.className="fb show no";fb.innerHTML=`<span class="lbl">This part is correct.</span>Look for the verb form or the small word that breaks a rule of this unit.`;}});
+    d.querySelector('[data-a="s"]').onclick=()=>{tried=true;solve(false);};
+    p.appendChild(d);});
+}
+
+function renderBuild(u,p){
+  const c=document.createElement("div");c.className="card";c.innerHTML=`<p style="margin:0">Click the words in the right order. Click a word in your sentence to put it back.</p>`;p.appendChild(c);
+  u.build.forEach((b,i)=>{const key=`${u.id}-build-${i}`;const d=document.createElement("div");d.className="card q";
+    const target=b.t.join(" ");let pool=shuffle(b.t.map((w,k)=>({w,k})));
+    if(pool.map(x=>x.w).join(" ")===target&&b.t.length>2)pool=pool.slice(1).concat(pool[0]);
+    let line=[];let tries=0;
+    d.innerHTML=`<div class="qn">Sentence ${i+1}</div><div class="line"></div><div class="toks pool"></div><div class="row"><button class="act" data-a="c">Check</button><button class="act ghost" data-a="r">Start again</button><button class="act ghost" data-a="s">Show answer</button></div><div class="fb"></div>`;
+    const L=d.querySelector(".line"),P=d.querySelector(".pool"),fb=d.querySelector(".fb");let locked=false;
+    const draw=()=>{L.innerHTML="";P.innerHTML="";
+      line.forEach((x,n)=>{const t=document.createElement("button");t.className="tile";t.textContent=x.w;t.onclick=()=>{if(locked)return;line.splice(n,1);pool.push(x);draw();};L.appendChild(t);});
+      pool.forEach((x,n)=>{const t=document.createElement("button");t.className="tok";t.textContent=x.w;t.onclick=()=>{if(locked)return;pool.splice(n,1);line.push(x);draw();};P.appendChild(t);});};
+    draw();
+    const win=(earned)=>{locked=true;L.className="line ok";if(earned&&tries===0)addPoint(key);fb.className="fb show ok";fb.innerHTML=`<span class="lbl">${earned?"Perfect!":"Answer:"}</span>${b.e}<div class="full">${spk(target)}<span>${esc(target)}</span></div>`;};
+    d.querySelector('[data-a="c"]').onclick=()=>{if(locked||pool.length)return void(pool.length&&(fb.className="fb show no",fb.innerHTML="Use all the words first."));
+      if(line.map(x=>x.w).join(" ")===target)win(true);else{tries++;L.className="line no";fb.className="fb show no";fb.innerHTML=`<span class="lbl">Not quite.</span>${tries>=2?"Tip: "+b.e:"Check the word order – where does the verb go?"}`;}};
+    d.querySelector('[data-a="r"]').onclick=()=>{if(locked)return;pool=pool.concat(line);line=[];L.className="line";fb.className="fb";draw();};
+    d.querySelector('[data-a="s"]').onclick=()=>{if(locked)return;tries++;line=b.t.map((w,k)=>({w,k}));pool=[];draw();win(false);};
+    p.appendChild(d);});
+}
+
+/* ================= REAL-LIFE TEXTS ================= */
+function texts(n){
+  const T=TEXTS[n];setTheme(T.c,"#eef2f7");
+  let h=`<div class="crumb"><button class="back" id="bk">← Grammar map</button></div>
+  <div class="uhead" style="background:${T.c}"><div class="small" style="color:#fff;opacity:.85">Real-life texts</div><h2>${T.title}</h2><p>${T.sub}</p></div>
+  <div class="choice">${TEXTS.map((t,i)=>`<button class="tab ${i===n?"on":""}" data-n="${i}">${t.title}</button>`).join("")}</div>
+  <div class="card"><p style="margin:0">Choose the right form in every gap. All the grammar from the 15 units can appear. Then click <b>Check</b> – you get an explanation for every gap.</p></div>`;
+  let gi=0;const gaps=[];
+  const body=T.text.replace(/\{([^}]+)\}/g,(m,inner)=>{const [opts,hint]=inner.split("#");const o=opts.split("|");gaps.push(o[0]);gi++;
+    return `<select data-g="${gi-1}"><option value="">…</option>${shuffle(o).map(x=>`<option>${esc(x)}</option>`).join("")}</select><span class="gn">${gi}</span>${hint?`<span class="hint">${hint}</span>`:""}`;});
+  h+=`<div class="card text">${body.split("\n\n").map(par=>"<p style=\"margin:0 0 14px\">"+par.split("\n").join("<br>")+"</p>").join("")}</div>
+  <div class="row"><button class="act" id="chk">Check</button><button class="act ghost" id="rd">Read the whole text aloud</button></div><div id="res"></div>`;
+  main.innerHTML=h;
+  $("#bk").onclick=home;
+  main.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>texts(+b.dataset.n));
+  const plain=()=>T.text.replace(/<[^>]+>/g,"").replace(/\{([^}|#]+)[^}]*\}/g,"$1");
+  $("#rd").onclick=()=>say(plain());
+  $("#chk").onclick=()=>{let ok=0;let list="";
+    main.querySelectorAll(".text select").forEach(s=>{const g=+s.dataset.g;const right=s.value===gaps[g];s.classList.remove("ok","no");s.classList.add(right?"ok":"no");if(right){ok++;addPoint(`${T.id}-${g}`);}
+      list+=`<li class="${right?"ok":"no"}"><b>${g+1}. ${esc(gaps[g])}</b>${!right&&s.value?` <span class="small">(you chose: ${esc(s.value)})</span>`:""} – ${T.exp[g]}</li>`;});
+    $("#res").innerHTML=`<div class="card" style="margin-top:14px"><h3>${ok} of ${gaps.length} correct</h3><ul class="explist">${list}</ul></div>`;
+    $("#res").scrollIntoView({behavior:"smooth"});};
+  window.scrollTo(0,0);
+}
+
+/* ================= MIXED CHALLENGE ================= */
+function mixStart(){
+  setTheme("#1d6a70","#e3eff0");
+  main.innerHTML=`<div class="crumb"><button class="back" id="bk">← Grammar map</button></div>
+  <div class="uhead"><div class="small" style="color:#fff;opacity:.85">All units</div><h2>⚡ Mixed challenge</h2><p>Questions from all 15 units in random order. No unit title tells you the grammar – you have to recognise it yourself.</p></div>
+  <div class="card"><h3>How many questions?</h3><div class="row"><button class="act" data-n="15">15 questions</button><button class="act" data-n="30">30 questions</button><button class="act" data-n="50">50 questions</button></div>
+  <p class="small" style="margin-top:12px">Choose units (all are selected):</p><div class="choice" id="us">${UNITS.map((u,i)=>`<button class="tab on" data-u="${u.id}">${i+1}. ${u.title}</button>`).join("")}</div></div>`;
+  $("#bk").onclick=home;
+  main.querySelectorAll("#us [data-u]").forEach(b=>b.onclick=()=>b.classList.toggle("on"));
+  main.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>{const sel=[...main.querySelectorAll("#us .on")].map(x=>x.dataset.u);if(!sel.length)return;
+    let all=[];UNITS.filter(u=>sel.includes(u.id)).forEach(u=>u.mc.forEach(m=>all.push({m,u})));
+    mixRun(shuffle(all).slice(0,+b.dataset.n));});
+}
+function mixRun(list){
+  let i=0;const res=[];
+  const step=()=>{
+    if(i>=list.length)return mixEnd(list,res);
+    const {m,u}=list[i];
+    main.innerHTML=`<div class="crumb"><button class="back" id="bk">← Grammar map</button></div><div class="prog"><span>Question ${i+1} of ${list.length}</span><span>${res.filter(Boolean).length} correct on the first try</span></div><div class="bar" style="margin-bottom:16px"><i style="width:${i/list.length*100}%"></i></div><div id="qq"></div>`;
+    $("#bk").onclick=home;
+    const card=mcCard(m,i+1,null,"Which form is right?");
+    card.addEventListener("answered",ev=>{res[i]=ev.detail.first;if(ev.detail.first)addPoint(`mix-${u.id}-${u.mc.indexOf(m)}`);
+      const fb=card.querySelector(".fb");fb.insertAdjacentHTML("beforeend",`<div class="small" style="margin-top:6px">Grammar: Unit ${UNITS.indexOf(u)+1} – ${u.sub}</div>`);
+      const r=document.createElement("div");r.className="row";r.style.justifyContent="flex-end";r.innerHTML=`<button class="act">${i<list.length-1?"Next question →":"See my result"}</button>`;r.firstChild.onclick=()=>{i++;step();};card.appendChild(r);r.firstChild.focus();});
+    $("#qq").appendChild(card);
+  };
+  step();
+}
+function mixEnd(list,res){
+  const ok=res.filter(Boolean).length;const per={};
+  list.forEach(({u},k)=>{per[u.id]=per[u.id]||{u,ok:0,n:0};per[u.id].n++;if(res[k])per[u.id].ok++;});
+  const rows=Object.values(per).sort((a,b)=>a.ok/a.n-b.ok/b.n);
+  const pct=Math.round(ok/list.length*100);
+  const msg=pct>=90?"Excellent – you are ready for harder tasks!":pct>=70?"Very good! Repeat the units at the top of the list and you'll be perfect.":pct>=50?"Good progress. Go back to the units at the top of the list – the Learn tab will help.":"Keep going – work through the units at the top of the list step by step.";
+  main.innerHTML=`<div class="crumb"><button class="back" id="bk">← Grammar map</button></div>
+  <div class="card result"><div class="big">${ok} / ${list.length}</div><p>${msg}</p></div>
+  <div class="card"><h3>Your units – weakest first</h3><p class="small">Click a unit to practise it again.</p>${rows.map(r=>`<div class="sumrow" data-u="${r.u.id}"><span>Unit ${UNITS.indexOf(r.u)+1}: ${r.u.title} <span class="small">· ${r.u.sub}</span></span><b>${r.ok}/${r.n}</b></div>`).join("")}</div>
+  <div class="row"><button class="act" id="again">New challenge</button></div>`;
+  $("#bk").onclick=home;$("#again").onclick=mixStart;
+  main.querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>unit(b.dataset.u,"learn"));
+  window.scrollTo(0,0);
+}
+
+home();
+</script>
+</body>
+</html>
