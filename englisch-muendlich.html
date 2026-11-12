@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Englisch – die mündliche Reifeprüfung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f2ec; --card:#fff; --ink:#1b1b1f; --muted:#56535d; --line:#e3ddd3;
+  --blue:#3a5a8c; --petrol:#1d6b74; --lilac:#5d4a7e; --terra:#9c4f3d; --gold:#a7843b;
+  --soft-b:#e7edf6; --soft-p:#e3eff1; --soft-l:#eee9f5; --soft-t:#f6e9e4; --soft-g:#f6efdf;
+  --radius:20px; --shadow:0 6px 24px rgba(40,30,20,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend',system-ui,sans-serif;font-size:18px;line-height:1.75}
+h1,h2,h3,h4{line-height:1.25;font-weight:600;margin:0 0 .6em}
+h2{font-size:1.75rem;margin-top:0}
+h3{font-size:1.22rem;margin-top:1.6em}
+h4{font-size:1.03rem;margin-top:1.3em}
+p{margin:0 0 1em}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+li{margin-bottom:.35em}
+a{color:var(--petrol)}
+.en{font-style:italic;color:#17565e}
+b.e{color:var(--petrol);font-weight:600}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(245,242,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:9px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topbar .brand{font-weight:600;white-space:nowrap}
+.topbar .brand small{font-weight:400;color:var(--muted)}
+.topbar nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.topbar nav a{text-decoration:none;color:var(--muted);font-size:.86rem;padding:5px 11px;border-radius:999px}
+.topbar nav a:hover,.topbar nav a.on{background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+
+main{max-width:900px;margin:0 auto;padding:26px 22px 90px}
+.hero{background:linear-gradient(135deg,#1d5d68 0%,#2f4a75 55%,#4a3e6b 100%);color:#fff;padding:40px 34px;border-radius:28px;margin-bottom:24px}
+.hero h1{font-size:2.15rem;font-weight:700;margin-bottom:.3em}
+.hero p{font-size:1.06rem;opacity:.96;margin:0;max-width:650px}
+.chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.chips span{background:rgba(255,255,255,.16);border-radius:999px;padding:5px 13px;font-size:.88rem}
+
+section{margin-bottom:34px;scroll-margin-top:62px}
+.card{background:var(--card);border:1px solid #efe9df;border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px;margin-bottom:16px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.fact{background:#fff;border:1px solid #efe9df;border-left:5px solid var(--c,var(--petrol));border-radius:16px;padding:14px 18px}
+.fact b{display:block;font-size:1.3rem;font-weight:600;color:var(--c,var(--petrol));line-height:1.2}
+.fact small{color:var(--muted);font-size:.86rem;line-height:1.4;display:block;margin-top:2px}
+
+.tw{overflow-x:auto;margin:14px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:.97rem;background:#fff;border-radius:14px;overflow:hidden}
+th{background:var(--soft-p);text-align:left;padding:10px 14px;font-weight:600}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+
+.note{border-left:5px solid var(--gold);background:var(--soft-g);padding:14px 18px;border-radius:12px;margin:14px 0}
+.note.f{border-color:var(--terra);background:var(--soft-t)}
+.note.t{border-color:var(--petrol);background:var(--soft-p)}
+.note b.lab{display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+
+.tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.t1{background:var(--soft-b);color:var(--blue)}
+.t2{background:var(--soft-p);color:var(--petrol)}
+
+button{font-family:inherit;font-size:1rem;border:none;border-radius:14px;padding:10px 20px;cursor:pointer;background:var(--petrol);color:#fff;transition:.18s}
+button:hover{filter:brightness(1.08)}
+button.ghost{background:#fff;color:var(--petrol);border:2px solid var(--petrol);padding:8px 18px}
+button.blue{background:var(--blue)} button.lilac{background:var(--lilac)}
+button:disabled{opacity:.45;cursor:default;filter:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+
+.task{background:var(--bg);border-radius:16px;padding:18px 22px;margin:12px 0}
+.task h4{margin-top:0}
+.task ul{margin:.4em 0 0}
+figure{margin:14px 0;text-align:center}
+figure svg{max-width:100%;height:auto;background:#fff;border-radius:14px;border:1px solid var(--line)}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:4px}
+
+.phr{background:#fff;border:1px solid #efe9df;border-radius:14px;padding:14px 18px;margin-bottom:10px}
+.phr h4{margin:0 0 .3em;color:var(--petrol);font-size:.95rem}
+.phr p{margin:0;font-size:.95rem;line-height:1.75}
+
+.acc{background:#fff;border:1px solid #efe9df;border-radius:14px;margin-bottom:8px;overflow:hidden}
+.acc>button.h{width:100%;text-align:left;background:#fff;color:var(--ink);border-radius:0;padding:13px 18px;font-size:1rem;font-weight:500;display:flex;gap:10px;align-items:center}
+.acc>button.h:hover{background:var(--bg);filter:none}
+.acc>button.h .plus{margin-left:auto;color:var(--petrol);font-weight:600}
+.acc .body{display:none;padding:2px 18px 16px;font-size:.96rem}
+.acc.open .body{display:block}
+.acc.open>button.h{background:var(--soft-p)}
+
+.timer{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid #efe9df;border-radius:16px;padding:14px 18px;margin:14px 0}
+.clock{font-size:2.1rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--petrol);line-height:1}
+.clock.warn{color:var(--terra)}
+.bar{flex:1;min-width:110px;height:9px;background:#ece6da;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--petrol);border-radius:99px;transition:width 1s linear}
+.modes{display:flex;gap:6px;flex-wrap:wrap}
+.modes button{padding:6px 13px;font-size:.86rem;border-radius:999px;background:#fff;color:var(--petrol);border:2px solid var(--line)}
+.modes button.on{background:var(--petrol);color:#fff;border-color:var(--petrol)}
+textarea{width:100%;font-family:inherit;font-size:.97rem;line-height:1.6;padding:13px 16px;border-radius:14px;border:2px solid var(--line);background:#fff;resize:vertical;min-height:140px}
+textarea:focus{outline:none;border-color:var(--petrol)}
+
+.ex{background:#fff;border:1px solid #efe9df;border-radius:16px;box-shadow:var(--shadow);padding:18px 22px;margin-bottom:14px}
+.ex.ok{border-left:5px solid var(--petrol)}
+.ex.no{border-left:5px solid var(--terra)}
+.ex .nr{font-size:.76rem;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.opts{display:grid;gap:7px;margin:10px 0 0}
+.opt{display:block;text-align:left;background:var(--bg);color:var(--ink);border:2px solid transparent;border-radius:13px;padding:9px 15px;cursor:pointer;font:inherit;font-size:.97rem;line-height:1.5}
+.opt:hover{border-color:var(--petrol);filter:none}
+.opt.right{background:var(--soft-p);border-color:var(--petrol)}
+.opt.wrong{background:var(--soft-t);border-color:var(--terra)}
+.fb{margin-top:11px;border-radius:13px;padding:11px 15px;display:none;font-size:.95rem}
+.fb.show{display:block}
+.fb.good{background:var(--soft-p)} .fb.bad{background:var(--soft-t)} .fb.hint{background:var(--soft-g)}
+.fb b.h{display:block;margin-bottom:2px}
+
+.check{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid #efe9df;border-radius:13px;padding:11px 15px;margin-bottom:7px;cursor:pointer;font-size:.95rem;line-height:1.5}
+.check input{margin-top:5px;width:18px;height:18px;accent-color:var(--petrol);flex-shrink:0}
+.check small{display:block;color:var(--muted);font-size:.82rem}
+.score{font-weight:600;color:var(--petrol)}
+
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{background:#fff;color:var(--muted);border:2px solid var(--line);border-radius:999px;padding:7px 15px;font-size:.88rem}
+.tabs button i{font-style:normal;font-size:.76rem;opacity:.7;margin-left:3px}
+.tabs button.on{background:var(--petrol);color:#fff;border-color:var(--petrol)}
+.tabs button:hover{border-color:var(--petrol);filter:none}
+p.bd{color:var(--muted);font-size:.95rem;margin-bottom:14px}
+.ex .qt{font-size:1.05rem;margin:6px 0 2px}
+.ex .dp{font-size:1.15rem;font-weight:500;margin:8px 0 2px}
+.inrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.inrow input{flex:1;min-width:190px;font-family:inherit;font-size:1rem;padding:9px 15px;border-radius:13px;border:2px solid var(--line);background:#fff}
+.inrow input:focus{outline:none;border-color:var(--petrol)}
+.inrow input.right{border-color:var(--petrol);background:var(--soft-p)}
+.inrow input.wrong{border-color:var(--terra);background:var(--soft-t)}
+.inrow button{padding:9px 18px;font-size:.95rem}
+#selfhost h4,#dcheck h4{margin-top:1.2em}
+footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:48px}
+
+@media(max-width:700px){
+  body{font-size:17px}
+  main{padding:18px 14px 70px}
+  .hero{padding:28px 22px}.hero h1{font-size:1.6rem}
+  .card{padding:18px 16px}
+  .topbar nav{display:none}
+  .task{padding:14px 15px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">Englisch mündlich <small>· Reifeprüfung</small></div>
+  <nav>
+    <a href="#ablauf">Ablauf</a>
+    <a href="#aufgabe">Aufgabenstellung</a>
+    <a href="#bewertung">Bewertung</a>
+    <a href="#monolog">Monolog</a>
+    <a href="#dialog">Dialog</a>
+    <a href="#vorbereitung">Die 15 Minuten</a>
+    <a href="#sprache">Sprache</a>
+    <a href="#themen">Themenbereiche</a>
+    <a href="#training">Training</a>
+    <a href="#sim">Simulation</a>
+  </nav>
+</div>
+
+<main id="main">
+
+<div class="hero">
+  <h1>Die mündliche Reifeprüfung in Englisch</h1>
+  <p>Zwei Teile, ein Themenbereich: Zuerst sprichst du allein über einen Impuls, dann führst du ein Gespräch, das zu einer Entscheidung führen muss. Beurteilt wird dein Englisch, nicht dein Wissen. Diese Seite zeigt dir, wonach genau bewertet wird und wie du dich darauf einstellst.</p>
+  <div class="chips"><span>Format und Ablauf</span><span>Die vier Bewertungskriterien</span><span>Redemittel für beide Teile</span><span>6 vollständige Aufgabenstellungen</span><span>Simulation mit Uhr</span></div>
+</div>
+
+<div class="note t"><b class="lab">Zuerst das Wichtigste</b>Das ist eine <b>Sprachprüfung</b>, keine Sachprüfung. Niemand erwartet Fachwissen über Klimapolitik oder Schulsysteme. Erwartet wird, dass du auf Niveau B2 zusammenhängend sprichst, auf dein Gegenüber eingehst und am Ende zu einem Ergebnis kommst. Eine inhaltlich einfache, aber flüssige und gut gegliederte Antwort ist deutlich besser als eine kluge, die stockt.</div>
+
+<section id="ablauf">
+  <h2>So läuft die Prüfung ab</h2>
+
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="fact" style="--c:var(--petrol)"><b>18</b><small>Themenbereiche im Pool bei der ersten lebenden Fremdsprache</small></div>
+    <div class="fact" style="--c:var(--blue)"><b>B2</b><small>Das Niveau, das du erreichen musst</small></div>
+    <div class="fact" style="--c:var(--terra)"><b>15 Min.</b><small>Vorbereitungszeit, mindestens – ohne Hilfsmittel</small></div>
+    <div class="fact" style="--c:var(--lilac)"><b>5 + 10</b><small>Minuten: Monolog und Dialog, empfohlene Dauer auf B2</small></div>
+    <div class="fact" style="--c:var(--gold)"><b>2 Teile</b><small>monologisch und dialogisch, gleich gewichtet</small></div>
+    <div class="fact" style="--c:var(--petrol)"><b>4</b><small>Bewertungskriterien, ebenfalls gleich gewichtet</small></div>
+  </div>
+
+  <table><tbody>
+    <tr><td style="width:150px"><b>Vorher</b></td><td>Die Themenbereiche werden bis Ende November bekanntgegeben. Zu jedem gibt es mehrere vorbereitete Aufgabenstellungen.</td></tr>
+    <tr><td><b>Ziehung</b></td><td>Du ziehst zwei Themenbereiche und wählst einen aus. Die Prüferin teilt dir dann eine Aufgabenstellung zu.</td></tr>
+    <tr><td><b>Vorbereitung</b></td><td>Mindestens 15 Minuten, <b>ohne Hilfsmittel</b>: Wörterbücher sind nicht erlaubt. Du machst Notizen und nimmst sie mit.</td></tr>
+    <tr><td><b>Teil 1</b></td><td>Monolog: Du sprichst etwa 5 Minuten zusammenhängend über den Impuls und die drei Unterpunkte. Danach kommen oft ein, zwei Nachfragen.</td></tr>
+    <tr><td><b>Teil 2</b></td><td>Dialog: etwa 10 Minuten Gespräch, in dem ihr euch auf etwas einigen müsst. Dein Gegenüber ist entweder die Lehrkraft als Interlokutorin oder eine zweite Kandidatin.</td></tr>
+    <tr><td><b>Beurteilung</b></td><td>Prüferin und Beisitzer bewerten nach einem vorgegebenen Raster mit vier Kriterien und schlagen gemeinsam die Note vor. Empfohlen wird, direkt nach der Prüfung zu beurteilen.</td></tr>
+  </tbody></table>
+
+  <h3>Zwei Prüfungsformen</h3>
+  <div class="grid g2">
+    <div class="card" style="margin:0"><h4 style="margin-top:0;color:var(--blue)">Herkömmliche Form</h4><p style="margin:0">Du bist allein. Du ziehst zwei Themenbereiche, wählst einen, bereitest mindestens 15 Minuten vor. Im Dialog ist deine Lehrkraft dein Gesprächspartner und folgt dabei einer vorgegebenen Anleitung für Interlokutorinnen und Interlokutoren.</p></div>
+    <div class="card" style="margin:0"><h4 style="margin-top:0;color:var(--petrol)">Alternative Form zu zweit</h4><p style="margin:0">Zwei Kandidatinnen ziehen gemeinsam drei Themenbereiche, jede streicht einen; der übrige Bereich ist der für den Dialog. Streichen beide denselben, entscheidet die Prüferin. Zuerst hält jede für sich den Monolog, unmittelbar danach führt ihr gemeinsam das Gespräch. Für den Monolog gibt es mindestens 10 Minuten Vorbereitung.</p></div>
+  </div>
+  <div class="note"><b class="lab">Frag nach, welche Form bei euch gilt</b>Davon hängt ab, worauf du dich einstellst: ein Gespräch mit einer erwachsenen Lehrkraft, die dich bewusst fordert, oder eines mit einer Mitschülerin, bei dem du auch darauf achten musst, der anderen Person Raum zu geben. Beurteilt wird in beiden Fällen nur deine eigene Leistung.</div>
+</section>
+
+<section id="aufgabe">
+  <h2>Wie eine Aufgabenstellung gebaut ist</h2>
+  <p>Beide Teile gehören zum selben Themenbereich, behandeln aber verschiedene Aspekte davon. Die Angabe ist auf Englisch und einfach gehalten.</p>
+
+  <div class="grid g2">
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0"><span class="tag t1">Teil 1 · monologisch</span></h4>
+      <p>Ein <b>Impuls</b>: ein oder zwei Bilder, eine Grafik, ein kurzes Zitat oder ein kurzes Video. Dazu <b>drei Unterpunkte</b> mit Operatoren wie <span class="en">describe</span>, <span class="en">analyse</span>, <span class="en">compare</span>, <span class="en">discuss</span>, <span class="en">explain</span>.</p>
+      <p style="margin:0">Erwartet wird eine kurze, zusammenhängende und eher formelle Präsentation. Ausdrücklich <b>nicht</b> erwartet wird eine auswendig gelernte Rede.</p>
+    </div>
+    <div class="card" style="margin:0">
+      <h4 style="margin-top:0"><span class="tag t2">Teil 2 · dialogisch</span></h4>
+      <p>Ein <b>situativer Kontext</b> mit einer klaren Aufgabe und <b>fünf Inhaltspunkten</b>. Diese Punkte enthalten keine Operatoren, weil die Situation schon sagt, was zu tun ist.</p>
+      <p style="margin:0">Auf B1 und B2 ist die Aufgabe <b>ergebnisorientiert</b>: Ihr müsst zu einer Entscheidung kommen. Das Gespräch ist informeller als der Monolog und läuft zwischen gleichberechtigten Partnern.</p>
+    </div>
+  </div>
+
+  <div class="note f"><b class="lab">Die Falle im zweiten Teil</b>Viele reden zehn Minuten lang freundlich über das Thema und treffen nie eine Entscheidung. Damit ist das Kriterium „Erfüllung der Aufgabenstellung“ im Dialog nicht erfüllt, und genau dieses Kriterium muss in <b>beiden</b> Teilen positiv sein, sonst ist die ganze Prüfung negativ. Sage also spätestens zwei Minuten vor Schluss: <span class="en">„So, shall we agree on … ?“</span></div>
+</section>
+
+<section id="bewertung">
+  <h2>Wonach beurteilt wird</h2>
+  <p>Der Beurteilungsraster enthält vier voneinander unabhängige, gleich gewichtete Kriterien. Sie werden auf die <b>gesamte</b> Leistung angewendet, also auf Monolog und Dialog zusammen. Die Skala reicht von 0 bis 10, beschrieben sind die Stufen 0, 2, 4, 6, 8 und 10; <b>Stufe 6 ist die Mindestanforderung</b>.</p>
+  <div class="tw"><table><thead><tr><th style="width:62px">Kürzel</th><th style="width:210px">Kriterium</th><th>Was beurteilt wird · was du dafür tust</th></tr></thead><tbody>
+    <tr><td><b>EA</b></td><td>Erfüllung der Aufgabenstellung</td><td>Werden alle Teile der Aufgabe angesprochen und überzeugend ausgeführt? <b>Das heißt für dich:</b> alle drei Unterpunkte im Monolog und alle fünf im Dialog abhaken, jeden mit mehr als einem Satz, und im Dialog zu einem Ergebnis kommen.</td></tr>
+    <tr><td><b>FLIN</b></td><td>Flüssigkeit und Interaktion</td><td>Sprichst du zusammenhängend, ohne ständig neu anzusetzen, und gehst du auf dein Gegenüber ein? <b>Das heißt für dich:</b> lieber einfacher formulieren als mitten im Satz abbrechen, Fragen stellen, auf Gesagtes Bezug nehmen.</td></tr>
+    <tr><td><b>SGS</b></td><td>Spektrum gesprochener Sprache</td><td>Wie breit ist dein Repertoire an Wortschatz und Strukturen? <b>Das heißt für dich:</b> Synonyme statt Wiederholung, Nebensätze, Konditionalsätze, Passiv, themenspezifische Wörter.</td></tr>
+    <tr><td><b>RGS</b></td><td>Richtigkeit gesprochener Sprache</td><td>Wie korrekt sind Strukturen, Wortschatz und Aussprache? <b>Das heißt für dich:</b> Selbstkorrektur ist erlaubt und zählt positiv, Sicherheit geht vor Risiko bei Zeiten und Wortstellung.</td></tr>
+  </tbody></table></div>
+  <div class="note t"><b class="lab">Die wichtigste Regel der Bewertung</b>Für eine positive Gesamtbeurteilung muss das Kriterium „Erfüllung der Aufgabenstellung“ sowohl im monologischen als auch im dialogischen Teil positiv erfüllt sein. Danach fließen beide Teile gleichwertig ein. Mit anderen Worten: Ein brillanter Monolog rettet dich nicht, wenn du im Dialog die Aufgabe verfehlst.</div>
+  <div class="note"><b class="lab">Was daraus folgt</b>Zwei der vier Kriterien, EA und FLIN, kannst du ohne jedes zusätzliche Vokabel verbessern, allein durch Struktur und Gesprächsverhalten. Das ist der schnellste Weg zu einer besseren Note, wenn die Prüfung nah ist.</div>
+</section>
+
+<section id="monolog">
+  <h2>Teil 1: der Monolog</h2>
+  <p>Fünf Minuten sind länger, als man denkt, und sie zerfallen in klare Abschnitte. Dieser Aufbau funktioniert bei jedem Impuls.</p>
+  <table><tbody>
+    <tr><td style="width:120px"><b>ca. 30 Sek.</b></td><td><b>Einleitung:</b> Thema benennen und ankündigen, worüber du sprechen wirst. Damit kaufst du dir Zeit und zeigst Struktur.</td></tr>
+    <tr><td><b>ca. 80 Sek.</b></td><td><b>Erster Unterpunkt,</b> meist <span class="en">describe</span> oder <span class="en">analyse</span>: Was ist auf dem Bild oder in der Grafik zu sehen? Zuerst das Auffälligste, dann die Einzelheiten.</td></tr>
+    <tr><td><b>ca. 90 Sek.</b></td><td><b>Zweiter Unterpunkt,</b> meist <span class="en">explain</span> oder <span class="en">compare</span>: Gründe, Zusammenhänge, Vergleich.</td></tr>
+    <tr><td><b>ca. 90 Sek.</b></td><td><b>Dritter Unterpunkt,</b> meist <span class="en">discuss</span> oder die eigene Sicht: beide Seiten, dann deine Position.</td></tr>
+    <tr><td><b>ca. 20 Sek.</b></td><td><b>Schluss:</b> ein Satz, der zusammenfasst. Nie mitten im Satz aufhören und fragen, ob es genug war.</td></tr>
+  </tbody></table>
+
+  <h3>Redemittel</h3>
+  <div class="phr"><h4>Einleitung und Gliederung (signposting)</h4><p class="en">The picture / chart shows … · I’d like to start by describing … and then move on to … · First of all, … · Let me now turn to my second point. · Finally, I’d like to say a few words about …</p></div>
+  <div class="phr"><h4>Ein Bild beschreiben</h4><p class="en">In the foreground / background we can see … · On the left-hand side there is … · The people in the picture seem to be … · It looks as if … · What strikes me most is …</p></div>
+  <div class="phr"><h4>Eine Grafik auswerten</h4><p class="en">The chart shows the percentage of … · The most striking figure is … · Almost half of the students said … · Only a small minority … · The figure for … is twice as high as … · There is a clear gap between … and …</p></div>
+  <div class="phr"><h4>Gründe und Zusammenhänge</h4><p class="en">One reason for this could be … · This is probably due to … · This may well be explained by the fact that … · As a result, … · which in turn means that …</p></div>
+  <div class="phr"><h4>Die eigene Sicht und ein Schluss</h4><p class="en">Personally, I find it worrying that … · In my experience, … · All things considered, I would say … · To sum up, the main point for me is …</p></div>
+
+  <div class="note f"><b class="lab">Drei Fehler, die Punkte kosten</b>Die Bildbeschreibung über die halbe Zeit ausdehnen und für die beiden anderen Unterpunkte keine Zeit mehr haben. Eine auswendig gelernte Rede halten, die man sofort hört. Und so leise ausklingen, dass die Prüferin nachfragen muss, ob du fertig bist.</div>
+</section>
+
+<section id="dialog">
+  <h2>Teil 2: der Dialog</h2>
+  <p>Zehn Minuten Gespräch, fünf Inhaltspunkte, ein Ergebnis. Teile dir die Zeit grob so ein: eine Minute Einstieg, sieben Minuten für die fünf Punkte, zwei Minuten für die Einigung.</p>
+
+  <h3>Redemittel</h3>
+  <div class="phr"><h4>Einstieg und Übergänge</h4><p class="en">Shall we start with …? · That’s a good point. Another thing we should think about is … · Before we move on, can I just add …? · So where are we? We’ve agreed on … but not yet on …</p></div>
+  <div class="phr"><h4>Vorschlagen</h4><p class="en">How about …? · What if we …? · I’d suggest … · It might be a good idea to … · Wouldn’t it make more sense to …?</p></div>
+  <div class="phr"><h4>Zustimmen und widersprechen</h4><p class="en">That’s exactly what I was thinking. · I see your point, but … · I’m not entirely convinced, because … · I’d rather … · Fair enough, but what about …?</p></div>
+  <div class="phr"><h4>Nachfragen und einbeziehen</h4><p class="en">What do you think? · How would you feel about …? · Sorry, could you say that again? · So if I understand you correctly, you mean … · Do you see what I mean?</p></div>
+  <div class="phr"><h4>Zu einer Entscheidung kommen</h4><p class="en">So, shall we agree on …? · Let’s go for the first option, then. · If we put it all together, our plan is … · Right, so to summarise what we’ve decided: …</p></div>
+
+  <div class="note t"><b class="lab">Interaktion heißt wirklich Interaktion</b>Das Kriterium FLIN misst auch, ob du auf dein Gegenüber eingehst. Wer nur abwechselnd eigene Standpunkte vorträgt, führt kein Gespräch. Zwei Gewohnheiten genügen: Nimm jedes Mal auf, was die andere Person gesagt hat, bevor du Eigenes sagst, und stelle mindestens dreimal im Gespräch eine echte Frage.</div>
+
+  <div class="note f"><b class="lab">Wenn dein Gegenüber zu viel redet</b>Höflich unterbrechen ist erlaubt und wird positiv bewertet: <span class="en">„Sorry to interrupt, but …“</span> oder <span class="en">„Can I come in here?“</span> Wer zehn Minuten schweigend zuhört, kann die Kriterien nicht erfüllen, auch wenn das freundlich gemeint ist.</div>
+</section>
+
+<section id="vorbereitung">
+  <h2>Die fünfzehn Minuten Vorbereitung</h2>
+  <p>Ohne Wörterbuch. Das heißt: Du kannst keine Vokabel nachschlagen, und deshalb ist die wichtigste Entscheidung, <b>nicht</b> nach dem perfekten Wort zu suchen, sondern nach einem, das du sicher hast.</p>
+
+  <div class="acc"><button class="h">Minute 1–2 · Beide Teile lesen und einteilen <span class="plus">+</span></button><div class="body">
+    Lies zuerst beide Teile ganz durch. Markiere im Monolog die Operatoren der drei Unterpunkte und im Dialog die fünf Inhaltspunkte sowie die Frage, worauf ihr euch einigen sollt. Schreibe dir die Zahl der Punkte groß an den Rand: 3 und 5. Diese zwei Zahlen sind deine Checkliste in der Prüfung.
+  </div></div>
+  <div class="acc"><button class="h">Minute 3–8 · Stichworte für den Monolog <span class="plus">+</span></button><div class="body">
+    Zu jedem der drei Unterpunkte drei bis vier Stichworte, keine Sätze. Ausformulierte Sätze liest man ab, und Ablesen zerstört genau das Kriterium, das am leichtesten zu erfüllen wäre. Zwei Dinge schreibst du trotzdem wörtlich auf: den ersten Satz, mit dem du beginnst, und zwei oder drei Fachwörter zum Thema, die dir eingefallen sind. Wenn dir ein Wort fehlt, notiere eine Umschreibung, nicht das deutsche Wort.
+  </div></div>
+  <div class="acc"><button class="h">Minute 9–13 · Stichworte für den Dialog <span class="plus">+</span></button><div class="body">
+    Zu jedem der fünf Punkte eine Idee und ein Gegenargument. Das Gegenargument brauchst du, falls dein Gegenüber dir zustimmt: Dann kannst du das Gespräch trotzdem weiterführen. Überlege dir außerdem schon jetzt, welche Entscheidung du am Ende vorschlagen willst. Du darfst im Gespräch davon abweichen, aber du hast dann immer etwas in der Hand.
+  </div></div>
+  <div class="acc"><button class="h">Minute 14–15 · Einmal stumm durchgehen <span class="plus">+</span></button><div class="body">
+    Geh deine Stichworte durch und prüfe: Habe ich zu jedem der drei und jedem der fünf Punkte etwas? Fehlt irgendwo etwas, erfinde schnell das Einfachste, das dir einfällt. Ein schlichter Gedanke, der die Aufgabe erfüllt, ist mehr wert als ein kluger, der fehlt.
+  </div></div>
+
+  <h3>So kann das Blatt aussehen</h3>
+  <div class="task">
+    <p style="margin:0 0 .5em"><b>MONO (3)</b> &nbsp;① chart: most popular = videos (42 %), books lowest &nbsp;② reasons: time, phones, school reading = duty &nbsp;③ my view: both, audiobooks on the bus</p>
+    <p style="margin:0 0 .5em"><b>Start:</b> <span class="en">„The chart shows what Austrian teenagers like to read in their free time.“</span></p>
+    <p style="margin:0 0 .5em"><b>Words:</b> <span class="en">screen time · attention span · a matter of habit</span></p>
+    <p style="margin:0"><b>DIALOG (5)</b> &nbsp;① budget → books or tablets? &nbsp;② who decides &nbsp;③ where: library corner &nbsp;④ when: reading week in May &nbsp;⑤ how to get others on board &nbsp;<b>→ Ziel:</b> agree on reading corner + May</p>
+  </div>
+</section>
+
+<section id="sprache">
+  <h2>Sprache, die den Unterschied macht</h2>
+
+  <h3>Spektrum zeigen, ohne zu riskieren</h3>
+  <p>Für das Kriterium SGS genügen wenige Strukturen, wenn du sie sicher beherrschst. Nimm dir drei davon vor und benütze sie bewusst.</p>
+  <div class="tw"><table><thead><tr><th style="width:190px">Struktur</th><th>Beispiel</th></tr></thead><tbody>
+    <tr><td>Conditional II</td><td class="en">If schools had more funding, they would be able to …</td></tr>
+    <tr><td>Passiv</td><td class="en">Much more could be done to …</td></tr>
+    <tr><td>Relativsatz</td><td class="en">… students who grow up with smartphones, which makes it harder to …</td></tr>
+    <tr><td>Partizipialkonstruktion</td><td class="en">Having looked at both sides, I’d say …</td></tr>
+    <tr><td>Abstufung</td><td class="en">slightly / considerably / by far the most …</td></tr>
+    <tr><td>Bewertende Adjektive</td><td class="en">striking, worrying, encouraging, surprising</td></tr>
+  </tbody></table></div>
+
+  <h3>Typische Fehler deutschsprachiger Lernender</h3>
+  <div class="tw"><table><thead><tr><th style="width:230px">Statt</th><th>Richtig</th></tr></thead><tbody>
+    <tr><td class="en">I become a new phone.</td><td class="en">I get a new phone. (<i>become</i> heißt „werden“)</td></tr>
+    <tr><td class="en">Eventually she was late.</td><td class="en">Possibly / Perhaps she was late. (<i>eventually</i> heißt „schließlich“)</td></tr>
+    <tr><td class="en">I live here since 2019.</td><td class="en">I have lived here since 2019.</td></tr>
+    <tr><td class="en">informations, advices, knowledges</td><td class="en">information, advice, knowledge (unzählbar)</td></tr>
+    <tr><td class="en">I am agree with you.</td><td class="en">I agree with you.</td></tr>
+    <tr><td class="en">I make a photo / make sport.</td><td class="en">I take a photo / do sport.</td></tr>
+    <tr><td class="en">Yesterday have I seen …</td><td class="en">Yesterday I saw … (keine Inversion nach Zeitangabe)</td></tr>
+    <tr><td class="en">The most people think …</td><td class="en">Most people think …</td></tr>
+    <tr><td class="en">In the near future we will can …</td><td class="en">… we will be able to …</td></tr>
+    <tr><td class="en">It gives many reasons.</td><td class="en">There are many reasons.</td></tr>
+  </tbody></table></div>
+
+  <h3>Wenn dir ein Wort fehlt</h3>
+  <p>Das passiert in jeder Prüfung und ist kein Problem, solange du nicht stehen bleibst. Vier Auswege, alle besser als eine Pause:</p>
+  <ul>
+    <li><b>Umschreiben:</b> <span class="en">„It’s the thing you use to …“</span>, <span class="en">„a kind of …“</span></li>
+    <li><b>Oberbegriff:</b> statt des genauen Begriffs einfach <span class="en">„this kind of material“</span></li>
+    <li><b>Beispiel geben:</b> <span class="en">„like when you …“</span></li>
+    <li><b>Offen ansprechen:</b> <span class="en">„I’m not sure what you call it in English, but it’s …“</span> Das ist eine Kompetenz und wird nicht als Fehler gewertet.</li>
+  </ul>
+  <div class="note"><b class="lab">Selbstkorrektur</b>Wenn du einen Fehler bemerkst, korrigiere ihn kurz und sprich weiter: <span class="en">„… she go— she goes to …“</span>. Das zeigt Sprachbewusstsein. Was du nicht tun solltest, ist dich zu entschuldigen oder den ganzen Satz noch einmal von vorne zu beginnen.</div>
+</section>
+
+<section id="themen">
+  <h2>Themenbereiche vorbereiten</h2>
+  <p>Für jeden Themenbereich brauchst du kein Fachwissen, sondern Wortschatz, zwei Beispiele aus deinem eigenen Leben und je ein Argument für beide Seiten. Hier acht verbreitete Bereiche als Muster.</p>
+  <div id="tbhost"></div>
+</section>
+
+<section id="training">
+  <h2>Trainingszentrum</h2>
+  <p>Sieben Übungsteile und ein Sprechtraining. Bei einer falschen Antwort bekommst du zuerst einen Hinweis und beim zweiten Versuch die Lösung mit Erklärung. <b class="e" id="total"></b></p>
+  <div id="tabhost"></div>
+  <div id="exhost"></div>
+</section>
+
+<section id="sim">
+  <h2>Prüfungssimulation</h2>
+  <p>Zwei Themenbereiche ziehen, einen wählen, Aufgabenstellung bekommen, fünfzehn Minuten vorbereiten. Danach stellst du die Uhr auf Monolog und sprichst laut, am besten mit Aufnahme. Erst dann sieh dir die Musterlösung an.</p>
+  <div id="simhost"></div>
+</section>
+
+<footer>Alle Aufgabenstellungen, Grafiken und Beispieldaten auf dieser Seite sind eigens erstellt. Die Zahlen in den Grafiken sind erfunden und dienen nur als Sprechanlass. Deine Notizen bleiben in deinem Browser.</footer>
+
+</main>
+
+<script>
+const TB=[
+ {t:'Education and school life',
+  w:'compulsory subjects · curriculum · to drop a subject · peer pressure · workload · to keep up with · grading system · extracurricular activities · lifelong learning',
+  a:'Dafür: Noten schaffen Vergleichbarkeit und motivieren. Dagegen: Sie messen nur einen Ausschnitt und erzeugen Druck.',
+  b:'Eine Erfahrung aus deiner eigenen Schulzeit, die du in zwei Sätzen erzählen kannst, etwa ein Projekt, ein Fach, das dich überrascht hat, oder ein Austausch.'},
+ {t:'Media and digital life',
+  w:'screen time · attention span · to scroll through · algorithm · echo chamber · fake news · to fact-check · privacy settings · digital detox',
+  a:'Dafür: Soziale Medien halten Freundschaften über Entfernungen lebendig. Dagegen: Sie sind darauf gebaut, Aufmerksamkeit zu binden.',
+  b:'Wie du selbst dein Handy nutzt und was du geändert hast oder ändern wolltest.'},
+ {t:'Environment and sustainability',
+  w:'carbon footprint · renewable energy · single-use plastic · to cut down on · climate targets · public transport · second-hand · to raise awareness',
+  a:'Dafür: Jede kleine Änderung summiert sich. Dagegen: Ohne politische Regeln bleibt individuelles Verhalten wirkungslos.',
+  b:'Eine Sache, die bei euch an der Schule oder zu Hause geändert wurde, und ob sie funktioniert hat.'},
+ {t:'Work and future careers',
+  w:'apprenticeship · to apply for · job interview · work-life balance · remote work · gap year · skills · to gain experience · entry-level job',
+  a:'Dafür: Ein Jahr Pause nach der Matura bringt Erfahrung und Klarheit. Dagegen: Es kostet Zeit und man verliert den Anschluss.',
+  b:'Dein Ferial- oder Nebenjob, ein Praktikum oder ein Beruf, den du dir vorstellen könntest, mit einem Grund.'},
+ {t:'Travel, tourism and living abroad',
+  w:'to go on an exchange · host family · culture shock · overtourism · budget airline · off the beaten track · to broaden your horizons · homesickness',
+  a:'Dafür: Reisen bildet und baut Vorurteile ab. Dagegen: Massentourismus schadet genau den Orten, die er beliebt macht.',
+  b:'Eine Reise oder ein Austausch, bei dem dich etwas überrascht hat, in zwei Sätzen.'},
+ {t:'Health and lifestyle',
+  w:'balanced diet · to work out · sedentary lifestyle · mental health · to deal with stress · sleep deprivation · processed food · to take up a sport',
+  a:'Dafür: Sport gehört in den Stundenplan, weil er Konzentration und Stimmung verbessert. Dagegen: Pflichtsport verdirbt manchen die Freude daran.',
+  b:'Was du selbst tust, um dich in Form oder im Gleichgewicht zu halten, auch wenn es Kleinigkeiten sind.'},
+ {t:'Living together: family, friends, generations',
+  w:'to get on well with · to move out · peer group · generation gap · to take responsibility · household chores · to rely on someone · shared flat',
+  a:'Dafür: Früh ausziehen macht selbständig. Dagegen: Zu Hause wohnen spart Geld und Nerven.',
+  b:'Wie bei euch Aufgaben verteilt werden oder worüber zwischen den Generationen diskutiert wird.'},
+ {t:'Austria and the English-speaking world',
+  w:'stereotype · cultural differences · small talk · to be used to · native speaker · the UK, the US, Ireland, Australia · bilingual · to pick up a language',
+  a:'Dafür: Englisch als Weltsprache erleichtert Verständigung. Dagegen: Sie verdrängt kleinere Sprachen.',
+  b:'Ein Unterschied, der dir an einem englischsprachigen Land aufgefallen ist, aus einem Film, einer Reise oder einem Gespräch.'}
+];
+
+const EXS=[
+ {q:'Woraus besteht die Aufgabenstellung?',
+  o:['Aus einem monologischen und einem dialogischen Teil zum selben Themenbereich.','Aus drei kurzen Aufgaben zu drei verschiedenen Themenbereichen.','Aus einer Textanalyse und einem Gespräch darüber.','Aus einem Hörtext und einer anschließenden Diskussion.'],
+  h:'Beide Teile gehören zusammen, behandeln aber verschiedene Aspekte.',
+  s:'Eine Aufgabenstellung zu einem Themenbereich, untergliedert in einen monologischen und einen dialogischen Teil. Beide werden gleich gewichtet.'},
+ {q:'Wie viele Unterpunkte haben die beiden Teile?',
+  o:['Drei im Monolog, fünf im Dialog.','Fünf im Monolog, drei im Dialog.','Jeweils vier.','Das ist von Schule zu Schule verschieden.'],
+  h:'Der Dialog braucht mehr Punkte, weil zwei Personen sprechen.',
+  s:'Der monologische Teil hat einen Impuls und drei Unterpunkte mit Operatoren, der dialogische Teil einen situativen Kontext und fünf Inhaltspunkte ohne Operatoren.'},
+ {q:'Welche Hilfsmittel darfst du in der Vorbereitungszeit verwenden?',
+  o:['Keine, Wörterbücher sind nicht erlaubt.','Ein einsprachiges englisches Wörterbuch.','Ein zweisprachiges Wörterbuch wie bei der Klausur.','Deine eigenen Aufzeichnungen aus dem Unterricht.'],
+  h:'Das ist anders als in Latein.',
+  s:'Für die mündliche Prüfung in den lebenden Fremdsprachen sind keine Hilfsmittel vorgesehen. Deshalb lohnt es sich, Umschreibungen zu üben statt nach dem perfekten Wort zu suchen.'},
+ {q:'Wie lange dauert die Prüfung auf Niveau B2 nach der Empfehlung?',
+  o:['Etwa 15 Minuten: 5 Minuten Monolog und 10 Minuten Dialog.','Genau 20 Minuten, je zur Hälfte.','10 Minuten: 3 Minuten Monolog und 7 Minuten Dialog.','So lange, bis alle Punkte besprochen sind.'],
+  h:'Der Dialog ist doppelt so lang wie der Monolog.',
+  s:'Gesetzlich sind 10 bis 20 Minuten möglich. Für B2 werden 15 Minuten empfohlen, aufgeteilt in 5 Minuten monologisch und 10 Minuten dialogisch. Die Vorbereitungszeit beträgt mindestens 15 Minuten.'},
+ {q:'Welche vier Kriterien werden beurteilt?',
+  o:['Erfüllung der Aufgabenstellung, Flüssigkeit und Interaktion, Spektrum und Richtigkeit gesprochener Sprache.','Aussprache, Grammatik, Wortschatz und Inhalt.','Hören, Lesen, Sprechen und Schreiben.','Fachwissen, Struktur, Sprache und Auftreten.'],
+  h:'Eines der Kriterien betrifft gar nicht die Sprache selbst.',
+  s:'EA (Erfüllung der Aufgabenstellung), FLIN (Flüssigkeit und Interaktion), SGS (Spektrum gesprochener Sprache) und RGS (Richtigkeit gesprochener Sprache). Alle vier sind gleich gewichtet und werden auf die gesamte Leistung angewendet.'},
+ {q:'Was gilt für die positive Gesamtbeurteilung?',
+  o:['Die Erfüllung der Aufgabenstellung muss im Monolog und im Dialog positiv sein.','Es genügt, wenn der Durchschnitt aller Kriterien positiv ist.','Der Monolog zählt doppelt, weil er allein zu bewältigen ist.','Ein negativer Dialog kann durch einen sehr guten Monolog ausgeglichen werden.'],
+  h:'Ein Kriterium hat eine Sonderstellung.',
+  s:'Das Kriterium „Erfüllung der Aufgabenstellung“ muss in beiden Teilen positiv erfüllt sein. Erst danach fließen die Leistungen beider Teilbereiche gleichwertig in die Beurteilung ein.'},
+ {q:'Worauf läuft der dialogische Teil auf Niveau B2 hinaus?',
+  o:['Auf eine gemeinsame Entscheidung, die Aufgabe ist ergebnisorientiert.','Auf eine möglichst lange Diskussion ohne festes Ziel.','Auf eine Zusammenfassung des Monologs.','Auf eine Pro-und-Contra-Liste, die die Prüferin bewertet.'],
+  h:'Was fehlt, wenn ihr euch nett unterhaltet und dann die Zeit um ist?',
+  s:'Der Dialog ist ergebnisorientiert: Ihr müsst euch auf etwas einigen. Ohne Entscheidung ist die Aufgabenstellung nicht erfüllt, und genau dieses Kriterium muss positiv sein.'},
+ {q:'Dein Gegenüber redet sehr viel und du kommst kaum zu Wort. Was tust du?',
+  o:['Höflich unterbrechen, etwa mit „Can I come in here?“','Abwarten, bis die andere Person fertig ist, auch wenn das lange dauert.','Dich am Ende bei der Prüferin beschweren.','Lauter sprechen und gleichzeitig weiterreden.'],
+  h:'Beurteilt wird deine eigene Leistung, und du kannst sie nur zeigen, wenn du sprichst.',
+  s:'Höfliches Unterbrechen gehört zur Gesprächskompetenz und wird positiv bewertet. Wer schweigend zuhört, kann die Kriterien nicht erfüllen, so freundlich das auch gemeint ist.'},
+ {q:'Welche Antwort zeigt mehr Spektrum gesprochener Sprache?',
+  o:['„If schools had more funding, they would be able to offer a much wider range of activities.“','„Schools need more money. Then they can do more things. That is good.“','„Schools need more money, more money is very important for schools.“','„More money for schools, yes, I think so.“'],
+  h:'Achte auf Satzbau und Wortschatz, nicht auf den Inhalt.',
+  s:'Die erste Antwort verwendet einen Conditional II, eine Passivkonstruktion und gehobenen Wortschatz („funding“, „a wider range of“). Die anderen reihen kurze Hauptsätze aneinander oder wiederholen dieselben Wörter.'},
+ {q:'Welche Notiz ist für den Monolog brauchbarer?',
+  o:['„① chart: videos 42 % highest, books lowest ② reasons: time, phones, duty ③ my view: both, audiobooks“','Ein vollständig ausformulierter Text von einer halben Seite.','„Grafik beschreiben, Gründe, Meinung.“','Eine Liste von zwanzig Vokabeln zum Thema.'],
+  h:'Was liest man beim Sprechen am wenigsten ab?',
+  s:'Stichworte zu jedem der drei Unterpunkte lassen sich beim Sprechen aufnehmen. Ein ausformulierter Text verführt zum Ablesen und klingt sofort auswendig gelernt, ein Schlagwort hilft nicht weiter, und eine reine Vokabelliste gibt keine Struktur.'},
+ {q:'Dir fehlt mitten im Satz ein Wort. Was ist am besten?',
+  o:['Das Wort umschreiben, etwa „it’s the thing you use to …“, und weitersprechen.','Das deutsche Wort einsetzen und hoffen, dass es verstanden wird.','Stehen bleiben und überlegen, bis es dir einfällt.','Den Satz abbrechen und ein anderes Thema beginnen.'],
+  h:'Es gibt kein Wörterbuch, und eine Pause kostet beim Kriterium Flüssigkeit.',
+  s:'Umschreiben ist eine Kompetenz und wird nicht als Fehler gewertet. Auch „I’m not sure what you call it in English, but it’s …“ ist völlig in Ordnung. Nur die Pause und das deutsche Wort helfen dir nicht.'},
+ {q:'Was ist mit der alternativen Prüfungsform gemeint?',
+  o:['Zwei Kandidatinnen ziehen gemeinsam drei Themenbereiche, jede streicht einen, der übrige dient dem Dialog.','Die Prüfung findet schriftlich statt, wenn jemand nicht sprechen kann.','Der Monolog entfällt und es wird nur ein Gespräch geführt.','Die Prüfung wird auf zwei Termine aufgeteilt.'],
+  h:'Es geht darum, mit wem du den Dialog führst.',
+  s:'Bei der alternativen Form prüfen zwei Kandidatinnen gemeinsam: Zuerst hält jede ihren Monolog, danach führen beide gemeinsam den Dialog. Bei der herkömmlichen Form ist die Lehrkraft die Gesprächspartnerin. Beurteilt wird immer die eigene Leistung.'}
+];
+
+function chart(title,labels,values,unit,color){
+  const W=540,H=250,L=150,R=56,T=34,B=18;
+  const max=Math.max(...values),bw=(H-T-B)/labels.length;
+  let g='<text x="12" y="20" font-size="14" font-weight="600" fill="#1b1b1f">'+title+'</text>';
+  labels.forEach((lab,i)=>{
+    const y=T+i*bw, h=bw*0.62, w=(values[i]/max)*(W-L-R);
+    g+='<rect x="'+L+'" y="'+y+'" width="'+w.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="4" fill="'+color+'" opacity="'+(0.55+0.45*values[i]/max).toFixed(2)+'"/>';
+    g+='<text x="'+(L-8)+'" y="'+(y+h*0.72)+'" font-size="12.5" text-anchor="end" fill="#1b1b1f">'+lab+'</text>';
+    g+='<text x="'+(L+w+6)+'" y="'+(y+h*0.72)+'" font-size="12.5" fill="#56535d">'+values[i]+unit+'</text>';
+  });
+  return '<figure><svg viewBox="0 0 '+W+' '+H+'" width="'+W+'">'+g+'</svg><figcaption>Erfundene Zahlen, nur als Sprechanlass.</figcaption></figure>';
+}
+
+const AUFGABEN=[
+{
+ tb:'Education and school life',
+ mTitle:'How students prefer to learn',
+ mImpulse:chart('"Which way of learning works best for you?" – 300 students','video / tutorial;explaining to a friend;reading on my own;practising exercises;listening in class'.split(';'),[34,25,16,15,10],' %','#3a5a8c'),
+ mIntro:'Your class carried out a survey among 300 students at your school. Here are the results:',
+ mBullets:['describe the main findings shown in the chart','explain why these ways of learning might be so popular','discuss how schools could make use of these results'],
+ dContext:'Your school has been given €3,000 to improve the way students learn. You and a classmate have been asked to make a suggestion to the head teacher.',
+ dPoints:['what the money could be spent on','which students would benefit most','where in the school it should be used','how to find out later whether it worked','what to tell students who disagree with your choice'],
+ dGoal:'Agree on one proposal you will hand in together.',
+ lang:'to work best for me · a hands-on approach · to retain information · at your own pace · to make the most of · trial and error',
+ model:'<b>Einleitung:</b> <span class="en">„The chart shows the results of a survey among 300 students at our school about the way they learn best.“</span><br><b>① Describe:</b> Das Auffälligste zuerst: <span class="en">„By far the most popular option is watching videos or tutorials, chosen by just over a third. Explaining something to a friend comes second with a quarter. Interestingly, only one student in ten says that listening in class works best for them.“</span><br><b>② Explain:</b> Zwei bis drei Gründe, jeder mit einem Beispiel: <span class="en">„One reason could be that videos let you go at your own pace and watch a difficult part again, which is something a lesson can never offer. Explaining to a friend probably works because you only notice the gaps in your own understanding once you have to put it into words.“</span><br><b>③ Discuss:</b> Beide Seiten und eine eigene Position: <span class="en">„Schools could react by using more flipped classroom formats. On the other hand, not everything can be learnt from a screen, and there is a risk that students only watch passively. Personally, I think the most useful finding is the second one: if explaining helps that much, we should simply do far more of it in class.“</span><br><b>Schluss:</b> <span class="en">„To sum up, the survey suggests that students learn best when they are active rather than when they just listen.“</span>'
+},
+{
+ tb:'Media and digital life',
+ mTitle:'Screen time by age group',
+ mImpulse:chart('Average daily screen time in free time (hours)','10–13 years;14–17 years;18–24 years;25–40 years;over 60 years'.split(';'),[2.5,4.2,5.1,3.4,1.8],' h','#5d4a7e'),
+ mIntro:'A youth magazine has published the following figures about daily screen time in free time:',
+ mBullets:['analyse the figures shown in the graph','compare the age groups and suggest reasons for the differences','discuss what, if anything, should be done about these numbers'],
+ dContext:'Your school wants to run a workshop on digital habits for the 12-year-olds. You and a classmate are planning it.',
+ dPoints:['what the main message of the workshop should be','which activities would work with that age group','how long the workshop should be and when it should take place','how to avoid sounding like a lecture from adults','how to involve parents, or whether to involve them at all'],
+ dGoal:'Agree on a plan for the workshop that you can present to your teacher.',
+ lang:'screen time · to scroll endlessly · attention span · a matter of habit · to set limits · to switch off notifications · peer pressure',
+ model:'<b>Einleitung:</b> <span class="en">„The graph compares average daily screen time in free time across five age groups.“</span><br><b>① Analyse:</b> Zahlen nennen und ordnen: <span class="en">„Screen time rises steadily from early teens onwards and peaks at just over five hours in the 18-to-24 group. After that it falls again, and people over 60 spend less than two hours, which is roughly a third of the peak.“</span><br><b>② Compare and explain:</b> <span class="en">„The difference between the 14-to-17 group and the over-60s is striking. One explanation is simply what you grow up with; another is that younger people organise their whole social life online, so being offline means missing out.“</span><br><b>③ Discuss:</b> <span class="en">„Some would say five hours is alarming and schools should intervene. I’d be more careful: the figure says nothing about what people actually do on screen. Reading the news, doing homework and scrolling through short videos all count the same here. So instead of cutting down on hours, I’d rather talk about what we spend them on.“</span><br><b>Schluss:</b> <span class="en">„All things considered, the numbers are a starting point for a discussion, not a problem in themselves.“</span>'
+},
+{
+ tb:'Environment and sustainability',
+ mTitle:'Where our rubbish comes from',
+ mImpulse:chart('School waste collected in one week (share of total)','packaging from snacks;paper and printouts;plastic bottles;food left over;other'.split(';'),[38,27,18,12,5],' %','#1d6b74'),
+ mIntro:'For one week, your school collected and sorted its rubbish. This is what came out:',
+ mBullets:['describe what the chart shows','explain which of these figures surprises you and why','discuss what a school realistically can and cannot change'],
+ dContext:'Your head teacher has asked two students to suggest three measures that would make the school greener from next term.',
+ dPoints:['which three measures you want to suggest','how much effort and money each one needs','who would have to be convinced','how to measure whether the measures work','what to do if students simply ignore them'],
+ dGoal:'Agree on the three measures you will suggest, in order of importance.',
+ lang:'single-use plastic · to cut down on · to sort waste · refillable bottle · a drop in the ocean · to set a good example · carbon footprint',
+ model:'<b>Einleitung:</b> <span class="en">„The chart shows what our school’s rubbish consisted of during one week of collecting and sorting.“</span><br><b>① Describe:</b> <span class="en">„Packaging from snacks makes up the largest share at almost 40 per cent. Paper and printouts come second with just over a quarter, followed by plastic bottles. Food left over and other waste together account for less than a fifth.“</span><br><b>② Explain:</b> Persönlich werden, das ist ausdrücklich gefragt: <span class="en">„What surprises me most is the amount of paper. I would have expected that to go down now that we work on tablets, but apparently we print more than ever.“</span><br><b>③ Discuss:</b> Grenzen benennen zeigt Reflexionsfähigkeit: <span class="en">„A school can change its own habits, for instance by installing water fountains or printing double-sided. What it cannot change is how snacks are packaged in the first place, because that is decided somewhere else entirely. That’s why I’d focus on the two things we actually control.“</span><br><b>Schluss:</b> <span class="en">„In short, the chart tells us where to start, even if the biggest share is not the easiest one to tackle.“</span>'
+},
+{
+ tb:'Work and future careers',
+ mTitle:'What matters in a job',
+ mImpulse:chart('"What matters most in your future job?" – school leavers','good atmosphere at work;secure job;high salary;time for private life;doing something meaningful'.split(';'),[29,24,19,17,11],' %','#9c4f3d'),
+ mIntro:'A careers magazine asked school leavers what matters most to them in their future job:',
+ mBullets:['describe the results of the survey','compare them with what you think your grandparents’ generation would have answered','discuss how realistic these expectations are'],
+ dContext:'Your school is organising a careers day for the classes below you. You and a classmate are in charge of planning it.',
+ dPoints:['which jobs or fields should be represented','whether to invite former students or professionals','what format works better: talks, stands or workshops','how to make sure students actually ask questions','how to deal with jobs that nobody signs up for'],
+ dGoal:'Agree on a programme for the careers day.',
+ lang:'job security · work-life balance · to make a living · fulfilling work · to climb the career ladder · entry-level job · to take on responsibility',
+ model:'<b>Einleitung:</b> <span class="en">„The chart shows what school leavers say matters most to them in their future job.“</span><br><b>① Describe:</b> <span class="en">„The most frequent answer is a good atmosphere at work with almost a third, closely followed by job security. A high salary only comes third, and doing something meaningful is mentioned by around one in ten.“</span><br><b>② Compare:</b> Vermutungen sind erlaubt, wenn du sie als solche kennzeichnest: <span class="en">„I imagine my grandparents’ generation would have put security first without hesitating, and the atmosphere at work might not even have been on the list. For them a job was something you kept for life, not something you expected to enjoy.“</span><br><b>③ Discuss:</b> <span class="en">„Whether these expectations are realistic depends a lot on the field. In nursing or teaching you may well find meaning but neither high pay nor a relaxed atmosphere. I’d say the honest answer is that you can have two of these, rarely all five, and that part of growing up is deciding which two.“</span><br><b>Schluss:</b> <span class="en">„To sum up, what young people want from work has clearly shifted from security towards satisfaction.“</span>'
+},
+{
+ tb:'Travel, tourism and living abroad',
+ mTitle:'Why students want to go abroad',
+ mImpulse:chart('Reasons given for spending time abroad after school','improve language skills;see something different;get work experience;friends are going;to get away from home'.split(';'),[31,26,21,13,9],' %','#a7843b'),
+ mIntro:'A student organisation asked young people why they want to spend time abroad after school:',
+ mBullets:['describe the main reasons shown in the chart','explain which reason you find the most convincing and why','discuss the difficulties that such a stay can bring'],
+ dContext:'A partner school from Ireland is sending ten students to your school for a week. You and a classmate are planning their stay.',
+ dPoints:['what they should see in your region','how much of the week should be spent at school','whether they should stay with host families or in a hostel','what to plan for a rainy day','how to make sure your own classmates get involved'],
+ dGoal:'Agree on a programme for the week.',
+ lang:'to broaden your horizons · host family · culture shock · homesickness · to settle in · off the beaten track · to pick up a language',
+ model:'<b>Einleitung:</b> <span class="en">„The chart shows the reasons young people give for wanting to spend time abroad after leaving school.“</span><br><b>① Describe:</b> <span class="en">„Improving language skills is the most common reason with almost a third, followed by the wish to see something different. Work experience is mentioned by a fifth, while social reasons play a much smaller part.“</span><br><b>② Explain:</b> Eine klare Position mit Begründung: <span class="en">„The reason I find most convincing is the second one. Language skills you can also improve at home nowadays, but you cannot recreate the experience of being the one who does not understand how things work. That changes how you look at your own country afterwards.“</span><br><b>③ Discuss:</b> <span class="en">„Of course such a stay is not easy. There is homesickness, there is the cost, and there is the awkward phase where you understand the words but not the jokes. And some people come back and find that nothing at home has changed while they have.“</span><br><b>Schluss:</b> <span class="en">„All in all, the difficulties are real, but they are part of what makes the experience worth having.“</span>'
+},
+{
+ tb:'Health and lifestyle',
+ mTitle:'Lunch at school',
+ mImpulse:chart('"What do you usually have for lunch on a school day?"','something from the bakery;packed lunch from home;school canteen;nothing at all;fast food nearby'.split(';'),[33,24,18,15,10],' %','#2f6b8c'),
+ mIntro:'Your school asked students what they usually eat for lunch on a school day:',
+ mBullets:['describe what the chart shows','explain what the figures say about the school day','discuss whether schools should take responsibility for what students eat'],
+ dContext:'Your school canteen is being redesigned and students have been asked for their input.',
+ dPoints:['what should definitely be on the menu','what prices would be acceptable','how long the lunch break should be','what to do about students who bring their own food','how to make the canteen a place people actually want to go to'],
+ dGoal:'Agree on three changes you want to suggest.',
+ lang:'a balanced diet · to skip a meal · processed food · to grab something quickly · affordable · to cut down on sugar · eating habits',
+ model:'<b>Einleitung:</b> <span class="en">„The chart shows what students at our school usually eat for lunch on a school day.“</span><br><b>① Describe:</b> <span class="en">„A third buy something from the bakery, which makes it the most common option, and a quarter bring a packed lunch. The canteen is used by fewer than one in five. What I find most telling is that 15 per cent have no lunch at all.“</span><br><b>② Explain:</b> Vom Befund auf die Umstände schließen: <span class="en">„These figures say quite a lot about how our school day is organised. If the break is only twenty minutes long, a bakery two minutes away will always beat a canteen with a queue. The group who eat nothing probably do not choose that either; they simply run out of time.“</span><br><b>③ Discuss:</b> <span class="en">„Whether schools should take responsibility is a fair question. One could argue that what students eat is a private matter and that teenagers are old enough to decide. On the other hand, a school already decides when we eat, and it chooses what the canteen sells, so it is involved anyway. I’d say it should make the good choice the easy one rather than ban anything.“</span><br><b>Schluss:</b> <span class="en">„To sum up, the figures are less about food than about time.“</span>'
+}
+];
+
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function wireAcc(root){
+  (root||document).querySelectorAll('.acc').forEach(a=>{
+    const b=a.querySelector('button.h'); if(b.dataset.w)return; b.dataset.w=1;
+    b.onclick=()=>{a.classList.toggle('open');b.querySelector('.plus').textContent=a.classList.contains('open')?'−':'+'};
+  });
+}
+
+$('#tbhost').innerHTML=TB.map(t=>'<div class="acc"><button class="h">'+t.t+'<span class="plus">+</span></button><div class="body">'+
+ '<p style="margin:.5em 0"><b>Wortschatz:</b> <span class="en">'+t.w+'</span></p>'+
+ '<p style="margin:.5em 0"><b>Je ein Argument für beide Seiten:</b> '+t.a+'</p>'+
+ '<p style="margin:.5em 0"><b>Dein eigenes Beispiel:</b> '+t.b+'</p></div></div>').join('');
+wireAcc();
+
+/* ===== Trainingszentrum ===== */
+const TRAIN=[
+{id:'format',t:'Format und Bewertung',d:'Was in der Prüfung verlangt wird und wonach beurteilt wird. Wer das sicher weiß, verliert keine Punkte an Formalien.',type:'mc',items:EXS},
+
+{id:'op',t:'Operatoren treffen',d:'Jeder Unterpunkt im Monolog beginnt mit einem Operator. Er sagt dir genau, was du tun sollst. Welcher Satz erfüllt ihn wirklich?',type:'mc',items:[
+ {q:'<b>describe the main findings shown in the chart</b> — welcher Anfang erfüllt den Operator?',
+  o:['„The chart shows that videos are the most popular option with 34 per cent, while only 10 per cent prefer listening in class.“',
+     '„I think videos are popular because young people like watching things.“',
+     '„The chart is about learning, which is an important topic for all of us.“',
+     '„In my opinion schools should use more videos in the classroom.“'],
+  h:'„Describe“ verlangt, was dasteht — noch keine Gründe und keine Meinung.',
+  s:'Beschreiben heißt: wiedergeben, was zu sehen ist, mit Zahlen und Vergleichen. Gründe gehören zu „explain“, die eigene Sicht zu „discuss“. Wer hier schon interpretiert, hat beim dritten Unterpunkt nichts mehr zu sagen.'},
+ {q:'<b>explain why these ways of learning might be so popular</b> — welcher Satz erfüllt den Operator?',
+  o:['„One reason could be that videos let you go at your own pace and watch a difficult part again.“',
+     '„Watching videos is the most popular way of learning in this survey.“',
+     '„Personally, I also like learning with videos.“',
+     '„Schools should therefore buy more tablets.“'],
+  h:'„Explain“ fragt nach dem Warum, nicht nach dem Was und nicht nach einer Forderung.',
+  s:'Erklären heißt Gründe und Zusammenhänge nennen, erkennbar an Wendungen wie „one reason could be“, „this is probably due to“ oder „which in turn means that“. Die zweite Antwort beschreibt nur, die dritte ist Meinung, die vierte ein Vorschlag.'},
+ {q:'<b>compare the age groups</b> — welcher Satz vergleicht tatsächlich?',
+  o:['„Teenagers spend more than twice as much time in front of a screen as people over 60.“',
+     '„Teenagers spend 4.2 hours a day in front of a screen.“',
+     '„People over 60 do not use screens very much.“',
+     '„Screen time is a problem in every age group.“'],
+  h:'Ein Vergleich braucht zwei Größen und eine Beziehung zwischen ihnen.',
+  s:'Vergleichen heißt zwei Werte zueinander in Beziehung setzen: „twice as much as“, „considerably higher than“, „by far the lowest“. Die anderen Sätze nennen Einzelwerte oder verallgemeinern.'},
+ {q:'<b>discuss what should be done about these numbers</b> — welcher Satz erfüllt den Operator am besten?',
+  o:['„Some would say five hours is alarming and schools should intervene. I’d be more careful, because the figure says nothing about what people actually do on screen.“',
+     '„Five hours is far too much and everybody knows that.“',
+     '„The 18-to-24 group has the highest value with 5.1 hours.“',
+     '„I use my phone about three hours a day.“'],
+  h:'„Discuss“ verlangt zwei Seiten, nicht nur eine Behauptung.',
+  s:'Diskutieren heißt: eine Position nennen, eine Gegenposition nennen, dann eine eigene Antwort geben. Genau dafür brauchst du Wendungen wie „some would say … on the other hand … personally, I’d say“. Eine einzelne Behauptung erfüllt den Operator nicht.'},
+ {q:'<b>analyse the figures shown in the graph</b> — was gehört hier hinein?',
+  o:['Auffälligstes zuerst, dann Reihenfolge, Spitzenwert und Abstand zwischen den Gruppen.',
+     'Eine Schätzung, wie die Zahlen in zehn Jahren aussehen werden.',
+     'Die eigene Erfahrung mit dem Thema.',
+     'Ein Vorschlag, was die Schule tun sollte.'],
+  h:'„Analyse“ geht etwas weiter als „describe“, bleibt aber bei den Daten.',
+  s:'Analysieren heißt die Zahlen ordnen und Auffälliges herausarbeiten: Was ist der Höchstwert, wie verläuft die Entwicklung, wo ist der größte Abstand? Prognosen, Erfahrungen und Vorschläge gehören zu anderen Unterpunkten.'},
+ {q:'Du hast alle drei Unterpunkte besprochen und es sind noch zwei Minuten übrig. Was tust du?',
+  o:['Den interessantesten Punkt vertiefen, mit einem Beispiel aus deinem Alltag.',
+     'Die Unterpunkte noch einmal von vorne durchgehen.',
+     'Sagen, dass du fertig bist, und auf Fragen warten.',
+     'Schweigen und den Blickkontakt suchen.'],
+  h:'Zeit ist eine Gelegenheit, Spektrum zu zeigen.',
+  s:'Vertiefen bringt bei allen vier Kriterien etwas: Du zeigst mehr Sprache, bleibst flüssig und erfüllst die Aufgabe noch überzeugender. Wiederholen wirkt hilflos, und wer abbricht, verschenkt die Zeit, die er zum Punktesammeln hätte.'},
+ {q:'Ein Unterpunkt lautet <b>give examples of …</b>. Wie viele Beispiele bringst du mindestens?',
+  o:['Zwei, und mindestens eines davon führst du kurz aus.',
+     'Eines reicht, der Operator steht ja im Singular.',
+     'Fünf, damit die Zeit sicher voll wird.',
+     'Keines, Beispiele gehören in den Dialog.'],
+  h:'Der Operator steht im Plural.',
+  s:'„Examples“ ist Plural, also brauchst du mindestens zwei. Eines davon solltest du ausführen, weil eine bloße Aufzählung weder Spektrum noch Flüssigkeit zeigt. Fünf Beispiele dagegen fressen die Zeit für die anderen Unterpunkte.'},
+ {q:'Was bedeutet es für deine Vorbereitung, dass jeder Unterpunkt einen eigenen Operator hat?',
+  o:['Du notierst zu jedem Operator eigene Stichworte, damit du keinen Teil der Aufgabe doppelt oder gar nicht behandelst.',
+     'Du schreibst einen durchgehenden Text, der alle drei Punkte irgendwie enthält.',
+     'Du konzentrierst dich auf den Operator, den du am besten kannst.',
+     'Du kannst die Operatoren ignorieren, weil ohnehin frei gesprochen wird.'],
+  h:'Das Kriterium EA zählt, ob alle Teile der Aufgabe angesprochen wurden.',
+  s:'Drei Operatoren heißen drei getrennte Abschnitte. Genau darauf schaut das Kriterium „Erfüllung der Aufgabenstellung“. Wer alles zu einem Brei verrührt, behandelt erfahrungsgemäß einen Punkt gar nicht.'}
+]},
+
+{id:'up',t:'Stärker formulieren',d:'Dieselbe Aussage, zwei Niveaus. Für das Kriterium Spektrum gesprochener Sprache entscheidet nicht der Inhalt, sondern der Satzbau.',type:'mc',items:[
+ {q:'„Schools need more money. Then they can do more things.“ Welche Fassung zeigt mehr Spektrum?',
+  o:['„If schools had more funding, they would be able to offer a much wider range of activities.“',
+     '„Schools need more money, and that is very important for schools.“',
+     '„More money for schools would be good, I think.“',
+     '„Schools need money. Money is important. Activities cost money.“'],
+  h:'Achte auf Konditionalsatz und gehobenen Wortschatz.',
+  s:'Die erste Fassung verbindet einen Conditional II mit „be able to“ und ersetzt „money“ durch „funding“ sowie „things“ durch „a wider range of activities“. Das ist genau das, was das Kriterium SGS messen soll.'},
+ {q:'„A lot of people think that social media is bad.“',
+  o:['„Social media is widely believed to have a negative influence on young people.“',
+     '„Many people think social media is not good for people.“',
+     '„People say that social media is bad, that is their opinion.“',
+     '„Social media is bad, a lot of people think so.“'],
+  h:'Welche Fassung benützt eine Passivkonstruktion?',
+  s:'„is widely believed to“ ist eine Passivkonstruktion mit Infinitiv und ersetzt das blasse „a lot of people think“. Dazu kommt „negative influence on“ statt „bad“. Mehr Struktur und präziserer Wortschatz in einem Satz.'},
+ {q:'„I think it is important to learn languages because you need it later.“',
+  o:['„To my mind, learning languages pays off later on, both professionally and personally.“',
+     '„I think languages are important because you need languages later in your life.“',
+     '„Languages are important, that is my opinion about languages.“',
+     '„It is important to learn languages, I think it is important.“'],
+  h:'Welche Fassung vermeidet die Wiederholung und wird konkreter?',
+  s:'„To my mind“ variiert das ewige „I think“, „pays off“ ist ein Phrasal Verb mit Bild, und „both … and …“ fächert die Aussage auf. Die anderen drei wiederholen dieselben Wörter.'},
+ {q:'„There are many people who do not have money for holidays.“',
+  o:['„A considerable number of families simply cannot afford to go on holiday.“',
+     '„There are many people who have no money for holidays, which is sad.“',
+     '„Many people do not have money, so they cannot make holidays.“',
+     '„People without money cannot go on holiday, that is clear.“'],
+  h:'„There are many people who …“ ist der Standardanfang, der sich fast immer ersetzen lässt.',
+  s:'„A considerable number of“ ersetzt die schwerfällige Einleitung, „cannot afford to“ ist die idiomatische Wendung für fehlendes Geld. Nebenbei ist „make holidays“ in der dritten Fassung ein direkter Fehler aus dem Deutschen.'},
+ {q:'„The chart shows that 34 % like videos. The chart shows that 25 % like explaining.“',
+  o:['„While a third of the students prefer videos, a quarter say they learn best by explaining things to a friend.“',
+     '„The chart shows 34 % for videos and the chart shows 25 % for explaining.“',
+     '„34 % like videos. 25 % like explaining. That is what the chart shows.“',
+     '„Videos have 34 % and explaining has 25 % in the chart.“'],
+  h:'Welche Fassung macht aus zwei Sätzen einen und rundet die Zahlen sprachlich?',
+  s:'„While …, …“ verbindet die beiden Werte zu einem Vergleich, und „a third“ und „a quarter“ klingen natürlicher als die nackten Prozentzahlen. Beides zusammen zeigt Spektrum und wirkt zugleich flüssiger.'},
+ {q:'„It is difficult to say what is better.“',
+  o:['„It is hard to say which option works better, as both have obvious drawbacks.“',
+     '„It is difficult to say what is better, it is really difficult.“',
+     '„I cannot say what is better because I do not know.“',
+     '„That is a difficult question for me to answer.“'],
+  h:'Welche Fassung bleibt nicht bei der Schwierigkeit stehen?',
+  s:'Die erste Fassung nennt den Grund für die Schwierigkeit und bringt mit „drawbacks“ ein präzises Wort. Die anderen drei sagen nur aus, dass die Frage schwer sei, und bringen das Gespräch keinen Schritt weiter.'},
+ {q:'„In the future more people will work at home.“',
+  o:['„Over the next few years, working from home is likely to become the norm rather than the exception.“',
+     '„In the future more people will work at home than today.“',
+     '„People will work at home in the future, that is sure.“',
+     '„Working at home will be more in the future.“'],
+  h:'Welche Fassung drückt eine Abstufung der Sicherheit aus?',
+  s:'„is likely to“ zeigt, dass du zwischen Vermutung und Tatsache unterscheiden kannst, und „the norm rather than the exception“ ist eine feste Wendung. Beides hebt eine Prognose deutlich über das schlichte „will“.'},
+ {q:'„We should do something against plastic.“',
+  o:['„We should take action to cut down on single-use plastic wherever we can.“',
+     '„We should do something against plastic in our everyday life.“',
+     '„Plastic is bad and we should do something.“',
+     '„Something must be done against plastic, I think so.“'],
+  h:'„Do something against“ ist eine wörtliche Übersetzung aus dem Deutschen.',
+  s:'„take action to“ und „cut down on“ sind die idiomatischen Wendungen, „single-use plastic“ ist der Fachbegriff. „Do something against something“ klingt dagegen hörbar übersetzt.'},
+ {q:'„The people in the picture look happy.“',
+  o:['„The people in the picture seem to be enjoying themselves, judging by their body language.“',
+     '„The people in the picture look very happy and glad.“',
+     '„In the picture the people are happy.“',
+     '„The people look happy, that is what I see in the picture.“'],
+  h:'Bei einer Bildbeschreibung sollst du deuten, nicht behaupten.',
+  s:'„seem to be“ und „judging by“ zeigen, dass du einen Eindruck schilderst und nicht etwas Unbekanntes behauptest. Genau diese vorsichtige Sprache gehört zur Bildbeschreibung auf B2.'},
+ {q:'„I want to say that this is a big problem for young people.“',
+  o:['„What worries me most is the effect this has on young people.“',
+     '„I want to say that this is a big problem for the young people.“',
+     '„This is a big problem, that is what I want to say.“',
+     '„For young people this is a problem, I want to say.“'],
+  h:'„I want to say that“ kannst du fast immer streichen.',
+  s:'Ankündigungen wie „I want to say that“ kosten Zeit und sagen nichts. „What worries me most is …“ ist eine Spaltsatzkonstruktion, die zugleich betont und Spektrum zeigt.'}
+]},
+
+{id:'num',t:'Zahlen versprachlichen',d:'Fast jeder Impuls ist eine Grafik. Diese Wendungen brauchst du im Monolog in den ersten zwei Minuten.',type:'mc',items:[
+ {q:'A: 42 %, B: 21 %. Welcher Satz stimmt und klingt idiomatisch?',
+  o:['„The figure for A is twice as high as the figure for B.“',
+     '„A is the double from B.“',
+     '„A has two times more than B.“',
+     '„A is 21 per cent higher than B.“'],
+  h:'„doppelt so hoch wie“ heißt „twice as high as“.',
+  s:'„twice as high as“ ist die Standardwendung. „The double from“ ist eine wörtliche Übersetzung, „two times more“ ist umgangssprachlich und unklar, und 21 Prozentpunkte Unterschied sind nicht dasselbe wie 21 Prozent höher.'},
+ {q:'Ein Wert liegt bei 33 %. Wie sagst du das elegant?',
+  o:['„roughly a third“',
+     '„the third part“',
+     '„33 from 100“',
+     '„a three-part“'],
+  h:'Brüche formuliert man im Englischen mit a half, a third, a quarter.',
+  s:'„roughly a third“ oder „about a third“ klingt natürlicher als die nackte Prozentzahl und zeigt, dass du Zahlen sprachlich verarbeiten kannst. Üblich sind außerdem „almost half“, „a quarter“ und „one in five“.'},
+ {q:'Der höchste Wert der Grafik. Welche Formulierung ist am stärksten?',
+  o:['„by far the most frequent answer“',
+     '„the most biggest answer“',
+     '„the answer with the most percent“',
+     '„the number one answer of all“'],
+  h:'Welche Steigerung ist korrekt und idiomatisch?',
+  s:'„by far the most frequent“ verbindet eine korrekte Superlativform mit einer Verstärkung. „Most biggest“ ist eine Doppelsteigerung und damit ein Fehler, die beiden anderen klingen umgangssprachlich.'},
+ {q:'Ein Wert ist sehr klein, etwa 4 %. Wie beschreibst du ihn?',
+  o:['„Only a small minority, around four per cent, chose this option.“',
+     '„Nearly nobody has chosen this, only 4 %.“',
+     '„This option has the least percent of all options.“',
+     '„4 % is a very small number in this chart.“'],
+  h:'Welche Fassung benützt einen Fachausdruck statt einer Umschreibung?',
+  s:'„a small minority“ ist der treffende Ausdruck. Die zweite Fassung ist umgangssprachlich und übertreibt, die dritte enthält einen Grammatikfehler, die vierte beschreibt die Zahl statt die Sache.'},
+ {q:'Die Werte steigen von Gruppe zu Gruppe und fallen danach wieder. Wie sagst du das?',
+  o:['„The figures rise steadily up to the 18-to-24 group and then drop again.“',
+     '„The figures go up and after they go down.“',
+     '„The numbers are becoming higher and then lower.“',
+     '„First more, then less, that is the development.“'],
+  h:'Für Entwicklungen gibt es eigene Verben.',
+  s:'„rise steadily“, „peak at“, „drop“ und „level off“ sind die Verben für Verläufe. „Go up and down“ ist richtig, aber blass, und „become higher“ klingt übersetzt.'},
+ {q:'Zwei Werte liegen nah beieinander, 27 % und 25 %. Wie formulierst du das?',
+  o:['„The two options are almost on a par, with only two percentage points between them.“',
+     '„27 % and 25 % are nearly the same, so it is almost equal.“',
+     '„There is nearly no difference between the two numbers.“',
+     '„Both have more or less the same percent.“'],
+  h:'Für kleine Unterschiede gibt es eine feste Wendung und einen Fachbegriff.',
+  s:'„on a par with“ und „percentage points“ sind genau die Ausdrücke, die hier Niveau zeigen. Inhaltlich sind die anderen Fassungen nicht falsch, sprachlich bleiben sie auf B1.'},
+ {q:'Du willst sagen, dass dich ein Wert überrascht. Was ist am besten?',
+  o:['„What I find most striking is that paper still accounts for a quarter of the waste.“',
+     '„I am surprised about the paper, it is 27 %.“',
+     '„The paper number is surprising for me.“',
+     '„It surprises me the paper, because of the tablets.“'],
+  h:'„account for“ ist das Verb für Anteile.',
+  s:'„What I find most striking is that …“ leitet die eigene Deutung ein, ohne die Beschreibung zu verlassen, und „account for“ ist genau das Verb für einen Anteil an einer Gesamtmenge.'},
+ {q:'Welche Angabe gehört in jede Grafikbeschreibung, wird aber fast immer vergessen?',
+  o:['Worum es überhaupt geht: Erhebung, Gruppe und Einheit, also wer gefragt wurde und wie gemessen wurde.',
+     'Die genaue Quelle mit Jahreszahl und Verlag.',
+     'Die Summe aller Werte.',
+     'Die Farben der Balken.'],
+  h:'Denk an den allerersten Satz deiner Beschreibung.',
+  s:'Der erste Satz sagt, was die Grafik zeigt: „The chart shows how 300 students at our school answered the question …“. Erst danach kommen die Werte. Ohne diesen Rahmen hängen alle Zahlen in der Luft.'}
+]},
+
+{id:'err',t:'Fehlerjagd',d:'Jeder Satz enthält genau einen Fehler, der bei deutschsprachigen Lernenden typisch ist. Schreib den ganzen Satz richtig auf.',type:'txt',items:[
+ {q:'I live in Vienna since 2019.',a:['I have lived in Vienna since 2019.','i have been living in vienna since 2019','i’ve lived in vienna since 2019','i’ve been living in vienna since 2019'],
+  h:'Eine Handlung, die in der Vergangenheit begann und bis jetzt andauert.',
+  s:'„I have lived in Vienna since 2019.“ Im Englischen steht dafür das Present Perfect, im Deutschen das Präsens. Dieser Fehler verfolgt fast alle Lernenden bis ins C-Niveau.'},
+ {q:'Yesterday have I seen a very good film.',a:['Yesterday I saw a very good film.','i saw a very good film yesterday'],
+  h:'Im Englischen gibt es nach einer Zeitangabe am Satzanfang keine Umstellung.',
+  s:'„Yesterday I saw a very good film.“ Die Inversion nach einer vorangestellten Zeitangabe gibt es nur im Deutschen. Dazu kommt: Bei einem abgeschlossenen Zeitpunkt steht das Simple Past.'},
+ {q:'I am agree with you.',a:['I agree with you.'],
+  h:'„agree“ ist im Englischen ein Vollverb.',
+  s:'„I agree with you.“ Weil es im Deutschen „ich bin einverstanden“ heißt, setzen viele ein „am“ davor. „Agree“ braucht aber kein Hilfsverb.'},
+ {q:'The most people think that this is a problem.',a:['Most people think that this is a problem.','most people think this is a problem'],
+  h:'Vor „most“ steht kein Artikel, wenn es allgemein gemeint ist.',
+  s:'„Most people think that this is a problem.“ „The most“ gibt es nur beim Superlativ („the most important“). Allgemein heißt es schlicht „most“.'},
+ {q:'She gave me some informations about the course.',a:['She gave me some information about the course.'],
+  h:'Manche Wörter gibt es im Englischen nur im Singular.',
+  s:'„She gave me some information about the course.“ „Information“ ist unzählbar, genau wie „advice“, „knowledge“, „furniture“ und „news“. Wenn du zählen willst: „a piece of information“.'},
+ {q:'We will can decide that tomorrow.',a:['We will be able to decide that tomorrow.','we will be able to decide this tomorrow'],
+  h:'Zwei Modalverben hintereinander sind im Englischen nicht möglich.',
+  s:'„We will be able to decide that tomorrow.“ Für „können“ im Futur braucht man die Umschreibung „be able to“. Dasselbe gilt für „müssen“: „will have to“.'},
+ {q:'It gives many reasons for this development.',a:['There are many reasons for this development.'],
+  h:'„Es gibt“ heißt nicht „it gives“.',
+  s:'„There are many reasons for this development.“ Die wörtliche Übersetzung von „es gibt“ gehört zu den Fehlern, die sofort auffallen, weil sie in fast jedem Monolog vorkommen können.'},
+ {q:'I become a new laptop for my birthday.',a:['I get a new laptop for my birthday.','i am getting a new laptop for my birthday','i’m getting a new laptop for my birthday','i will get a new laptop for my birthday'],
+  h:'Ein falscher Freund, der in England für Erheiterung sorgt.',
+  s:'„I get a new laptop for my birthday.“ „Become“ heißt „werden“, nicht „bekommen“. Der Klassiker unter den false friends, zusammen mit „eventually“ für „eventuell“ und „actually“ für „aktuell“.'},
+ {q:'Eventually we can meet on Friday.',a:['Perhaps we can meet on Friday.','maybe we can meet on friday','possibly we can meet on friday','we could possibly meet on friday','we might meet on friday'],
+  h:'„Eventually“ heißt „schließlich“, nicht „eventuell“.',
+  s:'„Perhaps we can meet on Friday.“ Für „eventuell“ sagt man „perhaps“, „maybe“ oder „possibly“. „Eventually“ bedeutet, dass etwas nach längerer Zeit doch noch eintritt.'},
+ {q:'I look forward to see you next week.',a:['I look forward to seeing you next week.','i am looking forward to seeing you next week','i’m looking forward to seeing you next week'],
+  h:'Nach dieser Wendung steht die -ing-Form.',
+  s:'„I look forward to seeing you next week.“ Das „to“ ist hier eine Präposition, kein Infinitivzeichen. Dasselbe gilt für „be used to doing“ und „object to doing“.'},
+ {q:'She suggested me to take the bus.',a:['She suggested that I take the bus.','she suggested taking the bus','she suggested i take the bus','she suggested that i should take the bus','she suggested i should take the bus'],
+  h:'„Suggest“ steht nie mit Objekt und Infinitiv.',
+  s:'„She suggested taking the bus.“ oder „She suggested that I take the bus.“ Nach „suggest“ folgt entweder die -ing-Form oder ein that-Satz, niemals „suggest somebody to do something“.'},
+ {q:'If I would have more time, I would read more.',a:['If I had more time, I would read more.'],
+  h:'Im if-Satz steht kein „would“.',
+  s:'„If I had more time, I would read more.“ Im Bedingungssatz steht das Simple Past, „would“ nur im Hauptsatz. Im Deutschen steht in beiden Teilen der Konjunktiv, daher der Fehler.'},
+ {q:'We discussed about the new timetable.',a:['We discussed the new timetable.'],
+  h:'Dieses Verb braucht keine Präposition.',
+  s:'„We discussed the new timetable.“ „Discuss“ steht ohne „about“, ebenso „answer“, „enter“ und „marry“ ohne Präposition. Umgekehrt braucht „listen“ immer ein „to“.'},
+ {q:'He makes a photo of the chart.',a:['He takes a photo of the chart.','he is taking a photo of the chart','he’s taking a photo of the chart'],
+  h:'Im Englischen macht man Fotos nicht, man nimmt sie.',
+  s:'„He takes a photo of the chart.“ Zur selben Gruppe gehören „do sport“, „do homework“, „make a decision“ und „make an effort“. Diese Verbindungen lernt man als Paket, nicht nach Regel.'},
+ {q:'I am since two years at this school.',a:['I have been at this school for two years.','i’ve been at this school for two years'],
+  h:'Hier stecken zwei Fehler in einem Satz: die Zeit und das Wort für den Zeitraum.',
+  s:'„I have been at this school for two years.“ Das Present Perfect für den Zeitraum bis jetzt und „for“ statt „since“, weil eine Dauer angegeben wird. „Since“ steht nur beim Anfangszeitpunkt: „since 2024“.'}
+]},
+
+{id:'talk',t:'Im Gespräch reagieren',d:'Der dialogische Teil wird über das Kriterium Flüssigkeit und Interaktion gewonnen oder verloren. Was sagst du?',type:'mc',items:[
+ {q:'Dein Gegenüber: „I think we should spend all the money on new tablets.“ Du siehst das anders.',
+  o:['„I see your point, but wouldn’t it make more sense to start with something everybody can use?“',
+     '„No, that is wrong. Tablets are not good.“',
+     '„Yes, tablets are a good idea.“',
+     '„Hm, I do not know. What else is on our list?“'],
+  h:'Widersprechen heißt anerkennen, dann begründen, dann einen eigenen Vorschlag anbieten.',
+  s:'Die erste Antwort nimmt das Gesagte auf, widerspricht höflich, begründet und gibt eine Richtung vor. Barsches Widersprechen kostet Punkte, reines Zustimmen bringt das Gespräch nicht weiter, und ein Themenwechsel wirkt ausweichend.'},
+ {q:'Dein Gegenüber stimmt dir sofort bei allem zu. Das Gespräch droht einzuschlafen.',
+  o:['„Good, then let’s play devil’s advocate for a moment: what could go wrong with this plan?“',
+     '„Yes, I think so too. So we agree.“',
+     'Du schweigst und wartest, bis die Prüferin eine neue Frage stellt.',
+     'Du wiederholst deinen Vorschlag mit anderen Worten.'],
+  h:'Du darfst ein Gespräch aktiv am Leben halten, das ist ausdrücklich erwünscht.',
+  s:'Gespräche in Gang zu halten, gehört zur Interaktionskompetenz. Mit „let’s play devil’s advocate“ oder „what if …“ eröffnest du einen neuen Strang, ohne unhöflich zu werden. Schweigen bringt das Kriterium FLIN sofort nach unten.'},
+ {q:'Du hast dein Gegenüber akustisch nicht verstanden.',
+  o:['„Sorry, could you say that again? I didn’t quite catch the last part.“',
+     'Du nickst und sagst irgendetwas, das ungefähr passt.',
+     '„What?“',
+     'Du wartest, bis der Satz von selbst noch einmal kommt.'],
+  h:'Nachfragen ist eine Kompetenz und kein Eingeständnis von Schwäche.',
+  s:'Eine höfliche Rückfrage wird positiv bewertet, weil sie zeigt, dass du ein Gespräch steuern kannst. Zu raten ist riskant, ein nacktes „What?“ ist unhöflich, und Abwarten kostet Zeit.'},
+ {q:'Es sind noch zwei Minuten und ihr habt euch auf nichts geeinigt.',
+  o:['„We’re running out of time, so shall we agree on the first two points and leave the rest?“',
+     'Du besprichst den letzten Punkt in Ruhe zu Ende.',
+     'Du fasst zusammen, was ihr alles besprochen habt.',
+     'Du fragst die Prüferin, wie viel Zeit noch bleibt.'],
+  h:'Welches Kriterium muss im Dialog unbedingt positiv sein?',
+  s:'Die Aufgabe ist ergebnisorientiert, also muss am Ende eine Entscheidung stehen. Wer die Zeit im Blick behält und selbst zum Abschluss drängt, erfüllt das Kriterium EA und zeigt obendrein Gesprächsführung.'},
+ {q:'Dein Gegenüber redet seit zwei Minuten ohne Pause.',
+  o:['„Sorry to interrupt, but can I come in here? I’d like to add something about the costs.“',
+     'Du wartest höflich ab, auch wenn es noch zwei Minuten dauert.',
+     'Du beginnst gleichzeitig zu sprechen.',
+     'Du machst Handzeichen, bis du bemerkt wirst.'],
+  h:'Beurteilt wird deine eigene Leistung, und dafür musst du sprechen.',
+  s:'Höfliches Unterbrechen ist eine Prüfungsleistung, kein Fauxpas. „Can I come in here?“ und „Sorry to interrupt, but …“ sind genau dafür gemacht. Wer schweigend zuhört, kann kein Kriterium erfüllen.'},
+ {q:'Dein Gegenüber bringt einen Vorschlag, an den du nicht gedacht hast und der dir gefällt.',
+  o:['„That’s a good point, I hadn’t thought of that. We could even combine it with the idea of a reading corner.“',
+     '„Yes, okay.“',
+     '„That is what I wanted to say too.“',
+     '„Fine, and now to my next point.“'],
+  h:'Interaktion heißt, auf Gesagtes aufzubauen.',
+  s:'Anerkennen, aufgreifen, weiterentwickeln: Das ist der Dreischritt, den das Kriterium FLIN belohnt. Ein knappes „okay“ beendet den Gedanken, und die beiden anderen Antworten nehmen dem Gegenüber den Vorschlag weg oder gehen darüber hinweg.'},
+ {q:'Dir fällt mitten im Satz das Wort für „Mülltrennung“ nicht ein.',
+  o:['„… when you put paper, plastic and glass into different bins, I mean separating your waste, …“',
+     'Du hältst an und überlegst, bis es dir einfällt.',
+     'Du sagst das deutsche Wort und sprichst weiter.',
+     'Du brichst den Satz ab und beginnst einen neuen.'],
+  h:'Es gibt kein Wörterbuch, also musst du dir selbst helfen.',
+  s:'Umschreiben ist eine Kompetenzstrategie und wird nicht als Fehler gewertet, oft findet man das Wort dabei sogar wieder. Pausen und deutsche Wörter kosten dagegen direkt Punkte bei Flüssigkeit und Richtigkeit.'},
+ {q:'Dein Gegenüber fragt: „And what do you think about that?“ Du hast dazu keine feste Meinung.',
+  o:['„To be honest, I can see both sides. It depends on whether we want a quick solution or a lasting one.“',
+     '„I don’t know.“',
+     '„I have no opinion about that.“',
+     '„The same as you.“'],
+  h:'Keine Meinung zu haben, ist kein Grund, nichts zu sagen.',
+  s:'„I can see both sides“ und eine Bedingung dahinter ist eine vollwertige Antwort, die sogar Diskursfähigkeit zeigt. Die anderen drei beenden das Gespräch und lassen das Kriterium EA unerfüllt.'},
+ {q:'Ihr habt euch geeinigt. Wie schließt du den Dialog ab?',
+  o:['„Right, so to summarise: we’ll go for the reading corner in May and ask the parents’ association for the money. Agreed?“',
+     '„Okay, finished.“',
+     '„I think we have said everything.“',
+     'Du siehst die Prüferin an und wartest.'],
+  h:'Eine Entscheidung muss hörbar ausgesprochen werden.',
+  s:'Die Zusammenfassung macht das Ergebnis für die Beurteilenden sichtbar und ist oft der Satz, der das Kriterium EA im Dialog absichert. Sie dauert zehn Sekunden und ist die lohnendste Gewohnheit der ganzen Prüfung.'},
+ {q:'Dein Gegenüber macht einen Grammatikfehler, den du bemerkst.',
+  o:['Du gehst inhaltlich darauf ein und sagst nichts zum Fehler.',
+     'Du verbesserst ihn freundlich, damit die Prüferin merkt, dass du es weißt.',
+     'Du wiederholst den Satz betont richtig.',
+     'Du machst eine kurze Pause, damit er sich selbst korrigieren kann.'],
+  h:'Wer ist in dieser Prüfung für die Sprache des Gegenübers zuständig?',
+  s:'Beurteilt wird jede Person für sich. Mitschülerinnen zu verbessern, stört das Gespräch und wirkt überheblich, Nutzen hat es keinen. Dein eigenes Englisch zeigst du, indem du inhaltlich gut weitermachst.'}
+]},
+
+{id:'phr',t:'Redemittel abrufen',d:'Ein Wort fehlt. In der Prüfung hast du keine Zeit zum Suchen, diese Wendungen müssen sitzen.',type:'txt',items:[
+ {q:'So, ______ we agree on the second option?',a:['shall'],h:'Ein Modalverb, mit dem man im britischen Englisch Vorschläge macht.',s:'„Shall we agree on …?“ ist die Standardwendung, um zur Entscheidung zu kommen. Merk dir den Satz als Ganzes, er rettet im Dialog die letzte Minute.'},
+ {q:'I’m not entirely ______, because the costs would be much higher.',a:['convinced','sure','certain'],h:'Höflicher Widerspruch, Partizip von „überzeugen“.',s:'„I’m not entirely convinced, because …“ ist der höflichste Weg, anderer Meinung zu sein: Du widersprichst nicht der Person, sondern sagst etwas über dich.'},
+ {q:'The most ______ figure in this chart is the one for paper.',a:['striking','surprising','interesting','important'],h:'Ein Adjektiv für „auffällig, ins Auge springend“.',s:'„The most striking figure“ ist die Standardwendung der Grafikbeschreibung. Sie signalisiert, dass du bewusst auswählst, statt alle Werte der Reihe nach vorzulesen.'},
+ {q:'This is probably ______ to the fact that most students take the bus.',a:['due'],h:'Zwei Buchstaben weniger als „because“, aber viel mehr Wirkung.',s:'„due to the fact that …“ leitet eine Ursache ein und ist formeller als „because“. Für den Monolog ist das genau der richtige Ton.'},
+ {q:'Sorry to ______, but can I say something about the timetable?',a:['interrupt'],h:'Das Verb für „unterbrechen“.',s:'„Sorry to interrupt, but …“ ist im Dialog ausdrücklich erwünscht. Wer nie unterbricht, kommt bei einem redseligen Gegenüber kaum zu Wort.'},
+ {q:'Let me now ______ to my second point.',a:['turn','move'],h:'Dasselbe Verb wie beim Umblättern einer Seite.',s:'„Let me now turn to …“ ist ein Signal für die Gliederung. Solche Übergänge zeigen Struktur und geben dir eine Sekunde zum Nachdenken.'},
+ {q:'All things ______, I would say the second option is better.',a:['considered'],h:'Eine Partizipialkonstruktion am Satzanfang, Bedeutung „alles in allem“.',s:'„All things considered, …“ ist ein eleganter Schlusssatz für den Monolog und zugleich eine Partizipialkonstruktion, also Punkte beim Kriterium Spektrum.'},
+ {q:'To ______ up, the main point for me is the lack of time.',a:['sum'],h:'Kurz zusammenfassen.',s:'„To sum up, …“ beendet den Monolog hörbar. Ohne so einen Satz bleibt offen, ob du fertig bist, und das wirkt unsicher.'},
+ {q:'It might be a good ______ to ask the parents first.',a:['idea'],h:'Die höfliche Art, einen Vorschlag zu machen.',s:'„It might be a good idea to …“ ist weicher als „we should“ und lädt zum Widerspruch ein, was im Dialog erwünscht ist.'},
+ {q:'That’s ______ what I was thinking.',a:['exactly','just','precisely'],h:'Volle Zustimmung in einem Wort.',s:'„That’s exactly what I was thinking.“ Zustimmen heißt nicht, nur „yes“ zu sagen. Mit so einem Satz nimmst du den Beitrag auf und zeigst Interaktion.'},
+ {q:'What ______ we spent half the money on books instead?',a:['if','about'],h:'Zwei Buchstaben, Bedeutung „wie wäre es, wenn“.',s:'„What if we …?“ eröffnet eine Alternative, ohne den bisherigen Vorschlag abzulehnen. Mit „How about …?“ funktioniert es genauso, dann aber mit der -ing-Form.'},
+ {q:'In the ______ we can see two girls sitting on a bench.',a:['foreground','background'],h:'Bildbeschreibung: vorne oder hinten.',s:'„In the foreground / in the background“ gehört zur Grundausstattung der Bildbeschreibung, dazu „on the left-hand side“, „at the top“ und „in the middle“.'}
+]}
+];
+
+const DRILLS=[
+ {p:'Describe your school day to someone who has never been to an Austrian school.',sec:60,c:['Du beginnst mit einem Rahmensatz, bevor du ins Detail gehst.','Du nennst mindestens drei konkrete Einzelheiten.','Du benützt mindestens einen Nebensatz mit „which“ oder „because“.','Du beendest die Minute mit einem abschließenden Satz, nicht mitten im Gedanken.']},
+ {p:'Compare learning a language at school with learning it abroad.',sec:60,c:['Du nennst beide Seiten, nicht nur eine.','Du benützt mindestens zwei Vergleichsformen („more … than“, „whereas“, „on the other hand“).','Du bringst ein Beispiel aus deinem eigenen Leben.','Du sagst am Ende, was für dich überwiegt.']},
+ {p:'Explain to a younger student why reading still matters in a world full of videos.',sec:60,c:['Du nennst mindestens zwei Gründe.','Du sprichst die Gegenposition wenigstens kurz an.','Du passt die Sprache an das jüngere Gegenüber an, bleibst aber vollständig in Sätzen.','Du schließt mit einer klaren Aussage ab.']},
+ {p:'Describe a photo you have on your phone, without showing it.',sec:45,c:['Du beginnst mit dem Gesamteindruck, bevor du Einzelheiten nennst.','Du benützt mindestens drei Ortsangaben („in the foreground“, „on the left“, „behind“).','Du deutest vorsichtig („it looks as if“, „they seem to“), statt zu behaupten.','Du sagst zum Schluss, warum dieses Bild dir etwas bedeutet.']},
+ {p:'Your friend wants to drop English as a subject. Talk them out of it.',sec:60,c:['Du gehst auf das mögliche Motiv des Gegenübers ein.','Du bringst mindestens zwei Argumente.','Du benützt einen Konditionalsatz („if you …, you would …“).','Du endest mit einem konkreten Vorschlag, nicht nur mit einer Meinung.']},
+ {p:'Argue that school should start two hours later. Then argue the opposite.',sec:90,c:['Beide Seiten bekommen etwa gleich viel Zeit.','Du markierst den Wechsel hörbar („Now let me look at the other side“).','Du benützt bei beiden Seiten mindestens ein Beispiel.','Du bleibst bei der Gegenposition ernsthaft, statt sie lächerlich zu machen.']},
+ {p:'Describe what you would change about your town if you had the money.',sec:60,c:['Du benützt durchgehend den Conditional II.','Du nennst mindestens zwei Veränderungen.','Du begründest wenigstens eine davon.','Du sprichst ohne längere Pause durch.']},
+ {p:'Tell the story of a day when everything went wrong.',sec:60,c:['Du erzählst in der Vergangenheit und bleibst in der Zeit.','Du benützt Zeitangaben zur Gliederung („first“, „after that“, „in the end“).','Du bringst mindestens eine wörtliche Rede oder einen Gedanken.','Du hast eine Pointe oder einen Schlusssatz.']},
+ {p:'Explain the rules of a game or sport you know well.',sec:60,c:['Du beginnst mit dem Ziel des Spiels, nicht mit Einzelregeln.','Du benützt Passiv oder unpersönliche Formen („the ball is passed“, „you are not allowed to“).','Du umschreibst Fachwörter, die dir fehlen, statt zu stocken.','Du prüfst am Ende, ob alles Wesentliche dabei war.']},
+ {p:'Someone says: „Young people today are lazy.“ Respond.',sec:60,c:['Du gehst zuerst auf die Behauptung ein, bevor du widersprichst.','Du bringst ein Gegenbeispiel.','Du gestehst einen wahren Kern zu, falls es einen gibt.','Du bleibst höflich in der Form und klar in der Sache.']},
+ {p:'Describe your ideal working day in ten years’ time.',sec:45,c:['Du benützt Zukunftsformen oder den Conditional.','Du nennst Ort, Tätigkeit und Menschen.','Du begründest mindestens eine Entscheidung.','Du schließt mit einem Satz ab, der die Beschreibung zusammenfasst.']},
+ {p:'Convince a group to choose your idea for the school project.',sec:60,c:['Du nennst zuerst den Nutzen für die anderen, nicht für dich.','Du räumst einen Nachteil ein und entkräftest ihn.','Du benützt mindestens zwei überzeugende Wendungen („the main advantage is“, „what really matters is“).','Du endest mit einer klaren Aufforderung.']}
+];
+
+/* ===== Engine Trainingszentrum ===== */
+const norm=s=>s.toLowerCase().replace(/[’ʼ]/g,"'").replace(/[.,;:!?"„“”()\[\]]/g,' ').replace(/\s+/g,' ').trim();
+const DONE={};TRAIN.forEach(b=>DONE[b.id]=new Set());
+
+function tabsHTML(){
+  return '<div class="tabs">'+TRAIN.map((b,i)=>'<button data-b="'+i+'"'+(i===0?' class="on"':'')+'>'+b.t+
+    ' <i id="c'+b.id+'">0/'+b.items.length+'</i></button>').join('')+
+    '<button data-b="drill">Sprechimpulse <i>'+DRILLS.length+'</i></button></div>';
+}
+function cnt(b){const e=document.getElementById('c'+b.id);if(e)e.textContent=DONE[b.id].size+'/'+b.items.length;
+  const t=document.getElementById('total');if(t){
+    const d=TRAIN.reduce((s,x)=>s+DONE[x.id].size,0),n=TRAIN.reduce((s,x)=>s+x.items.length,0);
+    t.textContent=d+' von '+n+' Aufgaben gelöst';}}
+
+function block(i){
+  const b=TRAIN[i];
+  $$('#tabhost .tabs button').forEach(x=>x.classList.toggle('on',x.dataset.b===String(i)));
+  $('#exhost').innerHTML='<p class="bd">'+b.d+'</p>'+b.items.map((it,k)=>{
+    const head='<div class="nr">'+b.t+' · '+(k+1)+' von '+b.items.length+'</div>';
+    if(b.type==='mc')
+      return '<div class="ex" data-k="'+k+'">'+head+'<div>'+it.q+'</div><div class="opts">'+
+        shuffle(it.o.map((o,n)=>[o,n])).map(([o,n])=>'<button class="opt" data-n="'+n+'">'+o+'</button>').join('')+
+        '</div><div class="fb"></div></div>';
+    return '<div class="ex" data-k="'+k+'">'+head+'<div class="qt">'+it.q+'</div>'+
+      '<div class="inrow"><input type="text" autocomplete="off" spellcheck="false" placeholder="deine Antwort"><button class="go">Prüfen</button><button class="ghost sol">Lösung</button></div><div class="fb"></div></div>';
+  }).join('');
+  $$('#exhost .ex').forEach(box=>{
+    const k=+box.dataset.k, it=b.items[k], fb=box.querySelector('.fb'); let tries=0;
+    const show=(c,h,t)=>{fb.className='fb show '+c;fb.innerHTML='<b class="h">'+h+'</b>'+t};
+    const fin=good=>{box.dataset.fin=1;box.classList.remove('no');box.classList.add(good?'ok':'no');
+      if(good)DONE[b.id].add(k);cnt(b)};
+    if(b.type==='mc'){
+      box.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{
+        if(box.dataset.fin)return;
+        if(+o.dataset.n===0){o.classList.add('right');fin(!tries);show('good',tries?'Jetzt stimmt es.':'Richtig!',it.s)}
+        else{o.classList.add('wrong');o.disabled=true;tries++;box.classList.add('no');
+          if(tries===1)show('hint','Noch nicht.','Tipp: '+it.h);
+          else{box.querySelector('.opt[data-n="0"]').classList.add('right');fin(false);show('bad','Die richtige Antwort ist markiert.',it.s)}}
+      });
+    }else{
+      const inp=box.querySelector('input');
+      const check=()=>{
+        if(box.dataset.fin)return;
+        const v=norm(inp.value);
+        if(!v){show('hint','Noch nichts eingegeben.','Schreib den ganzen Satz beziehungsweise das fehlende Wort auf.');return}
+        if(it.a.some(a=>norm(a)===v)){inp.classList.add('right');fin(!tries);show('good',tries?'Jetzt stimmt es.':'Richtig!',it.s)}
+        else{tries++;inp.classList.add('wrong');setTimeout(()=>inp.classList.remove('wrong'),900);
+          if(tries===1)show('hint','Noch nicht.','Tipp: '+it.h);
+          else{fin(false);inp.value=it.a[0];show('bad','Richtig wäre:',it.s)}}
+      };
+      box.querySelector('.go').onclick=check;
+      inp.onkeydown=e=>{if(e.key==='Enter')check()};
+      box.querySelector('.sol').onclick=()=>{if(box.dataset.fin)return;inp.value=it.a[0];fin(false);show('bad','Lösung:',it.s)};
+    }
+  });
+  cnt(b);
+}
+
+let lastDrill=-1;
+function drill(){
+  $$('#tabhost .tabs button').forEach(x=>x.classList.toggle('on',x.dataset.b==='drill'));
+  let n=lastDrill;while(n===lastDrill)n=Math.floor(Math.random()*DRILLS.length);
+  lastDrill=n;const d=DRILLS[n];
+  $('#exhost').innerHTML='<p class="bd">Ein Impuls, eine knappe Zeit, laut sprechen. Das ist die einzige Übung, die wirklich auf die Prüfung vorbereitet, weil nur hier gesprochen wird. Nimm dich auf und hör danach einmal hinein.</p>'+
+   '<div class="ex"><div class="nr">Sprechimpuls</div><p class="dp">'+d.p+'</p>'+
+   '<div class="timer"><div class="clock" id="dclk">'+fmt(d.sec)+'</div><div class="bar"><i id="dbar"></i></div>'+
+   '<button id="dstart">Start</button><button class="ghost" id="dnew">Nächster Impuls</button></div>'+
+   '<div id="dcheck"></div></div>';
+  let left=d.sec,t=null;
+  const u=()=>{$('#dclk').textContent=fmt(left);$('#dclk').classList.toggle('warn',left<=10);$('#dbar').style.width=(left/d.sec*100)+'%'};
+  $('#dstart').onclick=()=>{if(t)return;t=setInterval(()=>{left--;if(left<=0){left=0;clearInterval(t);t=null;done()}u()},1000)};
+  $('#dnew').onclick=()=>{if(t)clearInterval(t);drill()};
+  function done(){
+    $('#dcheck').innerHTML='<h4>Hast du das geschafft?</h4>'+
+      d.c.map(c=>'<label class="check"><input type="checkbox"><span>'+c+'</span></label>').join('')+
+      '<div class="note" style="margin-bottom:0"><b class="lab">Und jetzt noch einmal</b>Derselbe Impuls ein zweites Mal, mit dem, was dir beim ersten Mal gefehlt hat. Der zweite Durchgang ist der, aus dem du etwas mitnimmst.</div>';
+  }
+}
+
+$('#tabhost').innerHTML=tabsHTML();
+$$('#tabhost .tabs button').forEach(b=>b.onclick=()=>b.dataset.b==='drill'?drill():block(+b.dataset.b));
+block(0);
+
+const KRIT=[
+ ['Ich habe alle drei Unterpunkte des Monologs angesprochen, jeden mit mehr als einem Satz.','EA'],
+ ['Ich habe alle fünf Punkte des Dialogs angesprochen.','EA'],
+ ['Wir sind im Dialog zu einer klaren Entscheidung gekommen und haben sie ausgesprochen.','EA'],
+ ['Ich habe den Monolog mit einem Einleitungssatz begonnen und mit einem Schlusssatz beendet.','FLIN'],
+ ['Ich habe zusammenhängend gesprochen, ohne lange Pausen und ohne abzulesen.','FLIN'],
+ ['Ich habe mindestens dreimal eine echte Frage gestellt und auf Gesagtes Bezug genommen.','FLIN'],
+ ['Ich habe mindestens drei anspruchsvollere Strukturen verwendet (Conditional, Passiv, Relativsatz …).','SGS'],
+ ['Ich habe themenspezifische Wörter benützt statt immer derselben einfachen.','SGS'],
+ ['Ich habe mich selbst korrigiert, wenn mir ein Fehler aufgefallen ist, ohne neu anzusetzen.','RGS'],
+ ['Ich bin bei fehlenden Wörtern umschrieben, statt stehen zu bleiben oder Deutsch zu verwenden.','RGS']
+];
+const MODES=[['Vorbereitung',15*60],['Monolog',5*60],['Dialog',10*60]];
+let simT=null, simLeft=0, simMode=0;
+const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+function stopT(){if(simT){clearInterval(simT);simT=null}}
+
+function simStart(){
+  stopT();
+  const idx=shuffle(AUFGABEN.map((a,i)=>i)).slice(0,2);
+  $('#simhost').innerHTML='<div class="card"><h3 style="margin-top:0">Ziehung</h3><p>Du hast diese beiden Themenbereiche gezogen. Entscheide dich für einen.</p>'+
+   '<div class="row">'+idx.map(i=>'<button class="pick" data-i="'+i+'">'+AUFGABEN[i].tb+'</button>').join('')+'</div>'+
+   '<div class="row"><button class="ghost again">Neu ziehen</button></div></div>';
+  $$('#simhost .pick').forEach(b=>b.onclick=()=>simTask(+b.dataset.i));
+  $('#simhost .again').onclick=simStart;
+}
+function simTask(i){
+  const a=AUFGABEN[i], key='eng_mdl_notes_'+i;
+  let saved='';try{saved=localStorage.getItem(key)||''}catch(e){}
+  $('#simhost').innerHTML='<div class="card"><div style="font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Topic</div>'+
+   '<h3 style="margin:.2em 0 .6em">'+a.tb+'</h3>'+
+   '<div class="timer"><div class="clock" id="clk">15:00</div><div class="bar"><i id="bar"></i></div>'+
+     '<div class="modes">'+MODES.map((m,k)=>'<button data-m="'+k+'" class="'+(k===0?'on':'')+'">'+m[0]+'</button>').join('')+'</div>'+
+     '<button id="tstart">Start</button><button class="ghost" id="tstop">Pause</button></div>'+
+   '<div class="task"><h4><span class="tag t1">Part 1 · individual long turn</span></h4><p style="margin:.4em 0"><b>'+a.mTitle+'</b></p><p style="margin:.4em 0">'+a.mIntro+'</p>'+a.mImpulse+
+     '<p style="margin:.6em 0 .2em">Talk about the topic. You should:</p><ul>'+a.mBullets.map(b=>'<li class="en">'+b+'</li>').join('')+'</ul></div>'+
+   '<div class="task"><h4><span class="tag t2">Part 2 · interaction</span></h4><p style="margin:.4em 0">'+a.dContext+'</p>'+
+     '<p style="margin:.6em 0 .2em">Talk about:</p><ul>'+a.dPoints.map(b=>'<li class="en">'+b+'</li>').join('')+'</ul>'+
+     '<p style="margin:.6em 0 0"><b>'+a.dGoal+'</b></p></div>'+
+   '<h4>Deine Notizen</h4><textarea id="notes" placeholder="MONO (3): ① … ② … ③ …   Start: „…“   Words: …   DIALOG (5): ① … → Ziel: …">'+saved.replace(/</g,'&lt;')+'</textarea>'+
+   '<div class="row"><button id="reveal">Musterlösung und Redemittel anzeigen</button><button class="ghost" id="back">Neu ziehen</button></div>'+
+   '<div id="solhost"></div><div id="selfhost"></div></div>';
+  const ta=$('#notes');ta.oninput=()=>{try{localStorage.setItem(key,ta.value)}catch(e){}};
+  setMode(0);
+  function setMode(k){simMode=k;stopT();simLeft=MODES[k][1];$$('#simhost .modes button').forEach(b=>b.classList.toggle('on',+b.dataset.m===k));upd()}
+  function upd(){const c=$('#clk');if(!c)return;c.textContent=fmt(simLeft);c.classList.toggle('warn',simLeft<=60);$('#bar').style.width=(simLeft/MODES[simMode][1]*100)+'%'}
+  $$('#simhost .modes button').forEach(b=>b.onclick=()=>setMode(+b.dataset.m));
+  $('#tstart').onclick=()=>{stopT();simT=setInterval(()=>{simLeft--;if(simLeft<=0){simLeft=0;stopT()}upd()},1000)};
+  $('#tstop').onclick=stopT;
+  $('#back').onclick=()=>{stopT();simStart()};
+  $('#reveal').onclick=()=>{
+    $('#reveal').disabled=true;
+    $('#solhost').innerHTML='<h4>Useful language</h4><div class="phr"><p class="en">'+a.lang+'</p></div>'+
+      '<h4>So könnte der Monolog klingen</h4><div class="phr"><p>'+a.model+'</p></div>'+
+      '<div class="note"><b class="lab">Nicht auswendig lernen</b>Das ist ein Muster für Aufbau und Sprachniveau, kein Text zum Nachsprechen. Eine auswendig gelernte Rede hört man sofort, und sie wird ausdrücklich nicht erwartet.</div>';
+    self();
+  };
+  function self(){
+    $('#selfhost').innerHTML='<h4>Selbstbewertung</h4><p style="font-size:.95rem">Sprich beide Teile zuerst laut durch, am besten mit Aufnahme. Was du nicht laut gesagt hast, zählt nicht.</p>'+
+      KRIT.map(k=>'<label class="check"><input type="checkbox" data-c="'+k[1]+'"><span>'+k[0]+'<small>Kriterium '+k[1]+'</small></span></label>').join('')+
+      '<div class="row"><button class="lilac" id="eval">Auswerten</button><span class="score" id="sc"></span></div><div class="fb" id="final"></div>';
+    const u=()=>{$('#sc').textContent=$$('#selfhost input:checked').length+' von '+KRIT.length};
+    $$('#selfhost input').forEach(c=>c.onchange=u);u();
+    $('#eval').onclick=()=>{
+      const checked=$$('#selfhost input:checked'),n=checked.length,f=$('#final');
+      const ea=$$('#selfhost input[data-c="EA"]:checked').length;
+      let t='';
+      if(ea<3)t='<b>Achtung beim wichtigsten Kriterium:</b> Die Erfüllung der Aufgabenstellung muss in beiden Teilen positiv sein, sonst ist die Prüfung negativ, egal wie gut dein Englisch ist. Nimm dir für den nächsten Durchgang nur das eine vor: alle drei Punkte im Monolog, alle fünf im Dialog, und am Ende eine ausgesprochene Entscheidung. ';
+      if(n>=9)t+='Ansonsten ist das das Niveau, auf dem die Prüfung sehr gut gelingt. Wechsle den Themenbereich und sprich die nächste Aufgabe.';
+      else if(n>=7)t+='Insgesamt solide. Sieh dir an, welche Punkte offen sind, und nimm dir für den nächsten Durchgang genau zwei davon vor.';
+      else if(n>=5)t+='Der Rahmen steht. Am schnellsten verbesserst du dich bei Flüssigkeit und Interaktion: Einleitungssatz, Schlusssatz, drei echte Fragen. Dafür brauchst du keine einzige neue Vokabel.';
+      else t+='Nimm dir die Aufgabe noch einmal vor. Lies zuerst die Musterlösung, schreibe dann deine eigenen Stichworte und sprich erst danach, ruhig langsam. Es geht nicht um Tempo, sondern darum, jeden Punkt der Aufgabe anzusprechen.';
+      f.className='fb show '+(n>=7&&ea>=3?'good':'hint');f.innerHTML='<b class="h">'+n+' von '+KRIT.length+' Punkten</b>'+t;
+    };
+  }
+}
+simStart();
+
+const secs=$$('main section');
+window.addEventListener('scroll',()=>{
+  let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-90)cur=s.id});
+  $$('.topbar nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+});
+</script>
+</body>
+</html>
