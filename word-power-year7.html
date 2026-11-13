@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Power Training</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f1ec; --card:#ffffff; --ink:#111111; --soft:#4a4a55;
+  --blue:#2c4470; --blue-soft:#e3e8f2;
+  --petrol:#1c6b74; --petrol-soft:#dcecee;
+  --lilac:#5a4a7c; --lilac-soft:#eae6f2;
+  --wine:#8c3b4a; --wine-soft:#f4e3e6;
+  --line:#ddd8cf;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend',system-ui,sans-serif;font-size:19px;line-height:1.65;font-weight:400}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 80px}
+header.hero{background:linear-gradient(135deg,var(--blue),var(--lilac));color:#fff;border-radius:0 0 28px 28px;padding:40px 24px 34px;margin:0 -16px 26px}
+header.hero .inner{max-width:868px;margin:0 auto}
+header.hero h1{margin:0 0 8px;font-size:2.1rem;font-weight:700;line-height:1.2}
+header.hero p{margin:0;font-size:1.05rem;font-weight:300;max-width:640px;opacity:.95}
+nav.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+nav.tabs button{font:inherit;font-size:.95rem;font-weight:500;border:2px solid var(--line);background:var(--card);color:var(--ink);padding:10px 16px;border-radius:999px;cursor:pointer;transition:.15s}
+nav.tabs button:hover{border-color:var(--blue)}
+nav.tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff}
+nav.tabs button .cnt{font-weight:300;opacity:.8;margin-left:6px;font-size:.85rem}
+.intro{background:var(--lilac-soft);border-radius:20px;padding:20px 24px;margin-bottom:22px}
+.intro h2{margin:0 0 6px;font-size:1.45rem;color:var(--lilac);font-weight:600}
+.intro p{margin:0}
+.bar{height:10px;background:#e6e1d8;border-radius:99px;overflow:hidden;margin:14px 0 0}
+.bar span{display:block;height:100%;width:0;background:var(--petrol);border-radius:99px;transition:width .3s}
+.card{background:var(--card);border-radius:20px;padding:22px 24px;margin-bottom:18px;box-shadow:0 2px 10px rgba(40,40,70,.06)}
+.num{display:inline-block;font-size:.8rem;font-weight:600;color:var(--blue);background:var(--blue-soft);padding:2px 12px;border-radius:99px;margin-bottom:10px}
+.chip{display:inline-block;font-size:.85rem;font-weight:500;color:var(--lilac);background:var(--lilac-soft);padding:3px 13px;border-radius:99px;margin:0 0 10px 8px}
+.q{font-size:1.15rem;font-weight:500;margin:0 0 16px}
+.gap{display:inline-block;min-width:74px;border-bottom:3px solid var(--blue);margin:0 3px;transform:translateY(-3px)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.opts{grid-template-columns:1fr}body{font-size:18px}header.hero h1{font-size:1.7rem}}
+.opts button{font:inherit;text-align:left;background:#faf8f4;border:2px solid var(--line);border-radius:14px;padding:12px 16px;cursor:pointer;color:var(--ink);transition:.15s}
+.opts button:hover:not(:disabled){border-color:var(--blue);background:var(--blue-soft)}
+.opts button:disabled{cursor:default}
+.opts button.right{background:var(--petrol-soft);border-color:var(--petrol);font-weight:600}
+.opts button.wrong{background:var(--wine-soft);border-color:var(--wine)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row input{font:inherit;flex:1;min-width:200px;padding:12px 16px;border:2px solid var(--line);border-radius:14px;background:#faf8f4;color:var(--ink)}
+.row input:focus{outline:none;border-color:var(--blue)}
+.row input.right{background:var(--petrol-soft);border-color:var(--petrol)}
+.row input.wrong{background:var(--wine-soft);border-color:var(--wine)}
+.btn{font:inherit;font-weight:500;background:var(--blue);color:#fff;border:none;border-radius:14px;padding:12px 22px;cursor:pointer}
+.btn:hover{background:#22365a}
+.btn.ghost{background:var(--card);color:var(--blue);border:2px solid var(--blue)}
+.btn:disabled{opacity:.45;cursor:default}
+.fb{margin-top:14px;border-radius:14px;padding:14px 18px;font-size:1rem;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--petrol-soft);border-left:6px solid var(--petrol)}
+.fb.no{background:var(--wine-soft);border-left:6px solid var(--wine)}
+.fb.try{background:var(--blue-soft);border-left:6px solid var(--blue)}
+.fb b{font-weight:600}
+.summary{background:var(--blue-soft);border-radius:20px;padding:24px;text-align:center;display:none}
+.summary.show{display:block}
+.summary h3{margin:0 0 6px;color:var(--blue);font-size:1.4rem}
+.summary p{margin:0 0 16px}
+.summary .row{justify-content:center}
+footer{margin-top:40px;font-size:.85rem;color:var(--soft);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero"><div class="inner">
+  <h1>Word Power Training</h1>
+  <p>Six training areas on music, coincidences, travelling and animals. You don't just need to know a word here – you need to know how it behaves in a real sentence.</p>
+</div></header>
+
+<nav class="tabs" id="tabs"></nav>
+<div class="intro"><h2 id="secTitle"></h2><p id="secIntro"></p><div class="bar"><span id="barFill"></span></div></div>
+<div id="items"></div>
+<div class="summary" id="summary">
+  <h3 id="sumTitle"></h3><p id="sumText"></p>
+  <div class="row">
+    <button class="btn" id="btnMistakes">Practise my mistakes again</button>
+    <button class="btn ghost" id="btnRestart">Restart this area</button>
+    <button class="btn ghost" id="btnNext">Next area</button>
+  </div>
+</div>
+<footer>Explanations appear after every answer – they are the most important part of the training.</footer>
+</div>
+
+<script>
+// In every multiple-choice item the FIRST option is the correct one; options are shuffled on screen.
+const S = [
+{
+ title:"1 · The right word in context",
+ intro:"Four words, one sentence. All four are real words from your units – but only one fits the meaning and the grammar of the sentence.",
+ type:"mc",
+ items:[
+  {q:"When the singer walked onto the stage, the ___ started clapping and cheering.",o:["audience","queue","entrance","environment"],e:"<b>audience</b> = Publikum, also die Menschen, die bei einem Konzert oder einer Aufführung zuschauen. Eine <i>queue</i> ist die Warteschlange davor, <i>entrance</i> der Eingang."},
+  {q:"We were born on the same day in the same hospital – what a ___!",o:["coincidence","decision","experience","departure"],e:"<b>coincidence</b> = Zufall. Mit „What a …!“ drückt man Überraschung aus. Eine <i>decision</i> trifft man bewusst, ein Zufall passiert einfach."},
+  {q:"The climbers were too tired to ___ the top of the mountain, so they turned back.",o:["reach","achieve","land","become"],e:"Einen Ort <b>erreicht</b> man mit <b>reach</b>. <i>achieve</i> verwendet man für Ziele und Erfolge (achieve a goal), nicht für Orte."},
+  {q:"The twins look so similar that even their teachers ___ one for the other.",o:["mistake","suppose","accept","complain"],e:"<b>to mistake A for B</b> = A mit B verwechseln. Das Signal im Satz ist die Präposition <i>for</i>, die nur zu <i>mistake</i> passt."},
+  {q:"The snake's ___ is so strong that a single bite can kill a horse.",o:["poison","rabies","injury","death"],e:"<b>poison</b> = Gift. <i>rabies</i> (Tollwut) ist eine Krankheit, <i>injury</i> eine Verletzung – beides kann man nicht als „stark“ in diesem Sinn bezeichnen."},
+  {q:"It was ___ of me to leave my bike unlocked in front of the station.",o:["careless","awake","lonely","similar"],e:"<b>careless</b> = unvorsichtig, leichtsinnig. Das Muster <i>It was … of me to …</i> bewertet ein Verhalten; die anderen Adjektive beschreiben Zustände, kein Verhalten."},
+  {q:"Vets ___ people against feeding bread to swans.",o:["advise","complain","defend","inform"],e:"<b>to advise sb. against (doing) sth.</b> = jemandem von etwas abraten. Nur <i>advise</i> wird mit <i>against</i> in dieser Bedeutung verbunden."},
+  {q:"The fire ___ a lot of damage, but luckily nobody was hurt.",o:["caused","reached","wasted","defended"],e:"<b>to cause</b> = verursachen. Ein Feuer verursacht Schaden (cause damage) – eine sehr häufige Wortverbindung."},
+  {q:"___ the terrible weather, the holiday was perfect.",o:["Apart from","Even though","On average","Afterwards"],e:"<b>Apart from</b> + Nomen = abgesehen von. <i>Even though</i> braucht einen ganzen Satz mit Subjekt und Verb (Even though the weather was terrible, …)."},
+  {q:"___ it was raining heavily, the match went ahead as planned.",o:["Even though","Apart from","Afterwards","Unfortunately"],e:"<b>Even though</b> = obwohl; es leitet einen Nebensatz ein. <i>Apart from</i> steht nur vor einem Nomen, und die beiden Adverbien können zwei Sätze nicht verbinden."},
+  {q:"Teenagers spend, ___, about three hours a day on their phones.",o:["on average","on foot","not even","afterwards"],e:"<b>on average</b> = im Durchschnitt. Es steht typischerweise bei Zahlen und Statistiken."},
+  {q:"The police asked every ___ of the club where they had been that night.",o:["member","passenger","victim","politician"],e:"<b>member</b> = Mitglied (member of a club, of a team, of a family). <i>passenger</i> ist man nur in einem Verkehrsmittel."},
+  {q:"I ___ you're right, but I'm not completely sure.",o:["suppose","promise","recommend","advise"],e:"<b>to suppose</b> = vermuten, annehmen. Der zweite Satzteil (not completely sure) zeigt, dass es eine Vermutung ist und kein Versprechen."},
+  {q:"The ___ of the song are in Spanish, so I don't understand a word, but I love the tune.",o:["lyrics","records","speeches","critics"],e:"<b>lyrics</b> = Liedtext; das Wort steht im Englischen immer im Plural (the lyrics <i>are</i>). <i>tune</i> ist die Melodie."}
+ ]
+},
+{
+ title:"2 · Phrasal verbs & prepositions",
+ intro:"Small words, big difference: off, up, out, in, to … Choose the combination that gives the sentence the right meaning.",
+ type:"mc",
+ items:[
+  {q:"We ___ at six in the morning because the drive to the coast takes five hours.",o:["set off","got off","gave up","turned out"],e:"<b>to set off</b> = aufbrechen, losfahren. <i>get off</i> bedeutet aussteigen – also das Gegenteil vom Beginn einer Reise."},
+  {q:"The plane ___ forty minutes late because of the fog.",o:["took off","got off","got out","came along"],e:"<b>to take off</b> = abheben, starten (nur bei Flugzeugen). Das Gegenstück ist <i>to land</i>."},
+  {q:"You get ___ a bus, but you get ___ a taxi.",o:["on … into","into … on","in … onto","on … on"],e:"<b>get on</b> a bus / train / plane / ship (große Verkehrsmittel, in denen man gehen kann), aber <b>get into</b> a car / taxi. Beim Aussteigen entsprechend: <i>get off</i> the bus, <i>get out of</i> the car."},
+  {q:"When the taxi stopped, she paid the driver and ___.",o:["got out","got off","got on","landed"],e:"Aus einem Auto oder Taxi: <b>get out</b>. <i>get off</i> verwendet man bei Bus, Zug, Flugzeug und Fahrrad."},
+  {q:"That story isn't true – he ___ it ___ to impress his friends.",o:["made … up","gave … up","handed … in","tried … out"],e:"<b>to make sth. up</b> = etwas erfinden, sich ausdenken. Das Pronomen <i>it</i> steht zwischen Verb und Partikel: made <i>it</i> up."},
+  {q:"Please ___ your essays ___ by Friday at the latest.",o:["hand … in","give … up","lock … up","make … up"],e:"<b>to hand sth. in</b> = etwas abgeben, einreichen – zum Beispiel Hausübungen oder einen gefundenen Gegenstand."},
+  {q:"I'm really looking forward ___ my cousins again.",o:["to seeing","to see","for seeing","seeing"],e:"<b>to look forward to + -ing</b>. Das <i>to</i> ist hier eine Präposition und kein Teil des Infinitivs, deshalb folgt die -ing-Form: looking forward to <i>seeing</i>."},
+  {q:"The school concert will ___ in the gym on Friday evening.",o:["take place","take off","take care","come along"],e:"<b>to take place</b> = stattfinden. Achtung: Im Englischen sagt man nicht „find place“."},
+  {q:"She never ___, even when the training got really hard.",o:["gave up","made up","set off","turned out"],e:"<b>to give up</b> = aufgeben. <i>never gave up</i> = sie hat nie aufgegeben."},
+  {q:"The manager said she would ___ me by Monday with an answer.",o:["get back to","get to know","come along","meet up with"],e:"<b>to get back to sb.</b> = sich wieder bei jemandem melden, jemandem später antworten."},
+  {q:"Everyone thought the test would be easy, but it ___ to be really hard.",o:["turned out","made up","took place","came along"],e:"<b>to turn out (to be)</b> = sich herausstellen (als). Typisch ist der Gegensatz zwischen Erwartung und Ergebnis."},
+  {q:"Many climbers suffer ___ altitude sickness above 3,000 metres.",o:["from","of","with","by"],e:"<b>to suffer from</b> = an etwas leiden. Die Präposition ist fest und anders als im Deutschen („an“)."},
+  {q:"This old guitar belongs ___ my grandfather.",o:["to","of","for","by"],e:"<b>to belong to sb.</b> = jemandem gehören. Im Deutschen steht der Dativ ohne Präposition, im Englischen braucht man <i>to</i>."},
+  {q:"Before you buy the app, you can ___ it ___ for a week.",o:["try … out","hand … in","lock … up","chase … away"],e:"<b>to try sth. out</b> = etwas ausprobieren. (<i>try on</i> verwendet man nur für Kleidung und Brillen.)"},
+  {q:"We're going to the lake this afternoon – do you want to ___?",o:["come along","take place","turn out","hand in"],e:"<b>to come along</b> = mitkommen."}
+ ]
+},
+{
+ title:"3 · How words behave",
+ intro:"Many words need a special form after them: -ing, to + infinitive, or a fixed preposition. This is where good English begins.",
+ type:"mc",
+ items:[
+  {q:"I never get tired of ___ to this album.",o:["listening","listen","to listen","listened"],e:"Nach einer Präposition (hier <i>of</i>) steht immer die <b>-ing-Form</b>: get tired of listen<i>ing</i>."},
+  {q:"The doctor advised against ___ so soon after the injury.",o:["training","to train","train","trained"],e:"<b>advise against + -ing</b>, weil <i>against</i> eine Präposition ist."},
+  {q:"She seems ___ a lot about music.",o:["to know","knowing","know","that knows"],e:"<b>seem + to-Infinitiv</b>: She seems <i>to know</i> … = Sie scheint … zu wissen."},
+  {q:"He managed ___ the cat away from the bird's nest.",o:["to chase","chasing","chase","chased"],e:"<b>manage + to-Infinitiv</b> = es schaffen, etwas zu tun."},
+  {q:"Are you interested ___ a new instrument?",o:["in learning","to learn","for learning","at learning"],e:"<b>to be interested in + -ing</b>. Im Deutschen heißt es „an“, im Englischen <i>in</i>."},
+  {q:"“I can't stand queuing.” – “___”",o:["Me neither.","Me too.","Me also not.","I neither do."],e:"Auf eine <b>verneinte</b> Aussage antwortet man zustimmend mit <b>Me neither.</b> (= Ich auch nicht.) <i>Me too</i> passt nur zu bejahten Aussagen."},
+  {q:"I don't mind ___ the dishes, but I can't stand ironing.",o:["doing","to do","do","done"],e:"<b>don't mind + -ing</b> und <b>can't stand + -ing</b>: Beide Ausdrücke verlangen die -ing-Form."},
+  {q:"This bag ___ to my sister.",o:["belongs","is belonging","belong","is belonged"],e:"<b>belong</b> ist ein Zustandsverb (state verb) und steht nicht in der -ing-Zeitform. Mit <i>this bag</i> (3. Person Singular) braucht es das -s."},
+  {q:"It ___ me twenty minutes to get to school.",o:["takes","needs","lasts","spends"],e:"<b>It takes (me) + Zeit + to …</b> = Ich brauche … (Zeit), um … Im Englischen ist <i>it</i> das Subjekt, nicht die Person."},
+  {q:"The book was ___ successful ___ they made a film of it.",o:["so … that","such … that","too … that","very … that"],e:"<b>so + Adjektiv + that</b> = so …, dass. <i>such</i> stünde vor einem Nomen (such a successful book that …)."},
+  {q:"The teacher informed the parents ___ the changes.",o:["about","over","for","at"],e:"<b>to inform sb. about sth.</b> Das deutsche „über“ wird hier nicht mit <i>over</i> übersetzt."},
+  {q:"He promised ___ me as soon as he landed.",o:["to call","calling","call","that call"],e:"<b>promise + to-Infinitiv</b>: He promised <i>to call</i>."},
+  {q:"She read ___ book in one evening.",o:["the whole","whole the","all","the all"],e:"<b>the whole + Nomen im Singular</b> = der/die/das ganze. Der Artikel steht vor <i>whole</i>. (Mit <i>all</i> müsste es <i>all of the book</i> heißen.)"}
+ ]
+},
+{
+ title:"4 · Word building",
+ intro:"Change the word in the tag so that it fits the sentence – for example a verb into a noun, or an adjective into its opposite. Type your answer.",
+ type:"type",
+ items:[
+  {q:"Her first album was very ___ – it sold a million copies.",hint:"SUCCESS",a:["successful"],e:"success (Nomen) → <b>successful</b> (Adjektiv). Achte auf die Schreibung: zwei c, zwei s, ein l."},
+  {q:"Moving to another country was a difficult ___.",hint:"DECIDE",a:["decision"],e:"to decide → <b>decision</b> (Entscheidung). Man sagt: to <i>make</i> a decision."},
+  {q:"The injection wasn't ___ at all – I hardly felt it.",hint:"PAIN",a:["painful"],e:"pain → <b>painful</b> (schmerzhaft). Die Endung -ful hat nur ein l."},
+  {q:"One ___ mistake cost him first place.",hint:"CARE",a:["careless"],e:"care → <b>careless</b> (unvorsichtig). Die Endung -less bedeutet „ohne“. Das Gegenteil wäre <i>careful</i>."},
+  {q:"The film tells the story of the king's life and ___.",hint:"DIE",a:["death"],e:"to die (Verb) → <b>death</b> (Nomen: Tod). Das Adjektiv dazu heißt <i>dead</i>."},
+  {q:"The ___ spent two years mapping the river.",hint:"EXPLORE",a:["explorer"],e:"to explore → <b>explorer</b> (Entdecker/in). Die Endung -er bezeichnet die Person, die etwas tut."},
+  {q:"___, the last train had already left.",hint:"FORTUNATE",a:["unfortunately"],e:"fortunate → <b>unfortunately</b> (leider): Vorsilbe un- für das Gegenteil, Endung -ly für das Adverb."},
+  {q:"Without a map it was ___ to find the hut.",hint:"POSSIBLE",a:["impossible"],e:"possible → <b>impossible</b>. Vor p wird die Vorsilbe in- zu <b>im-</b>."},
+  {q:"Passengers should be at the gate thirty minutes before ___.",hint:"DEPART",a:["departure"],e:"to depart → <b>departure</b> (Abflug, Abfahrt). Das Gegenstück ist <i>arrival</i>."},
+  {q:"Our ___ to Dublin was cancelled because of the storm.",hint:"FLY",a:["flight"],e:"to fly → <b>flight</b> (Flug). Das Nomen wird unregelmäßig gebildet."},
+  {q:"He missed the final because of a knee ___.",hint:"INJURE",a:["injury"],e:"to injure → <b>injury</b> (Verletzung); Plural: injuries."},
+  {q:"She is a very ___ young pianist.",hint:"TALENT",a:["talented"],e:"talent → <b>talented</b> (talentiert, begabt)."},
+  {q:"I'd like to make a ___ for four people at eight o'clock.",hint:"RESERVE",a:["reservation"],e:"to reserve → <b>reservation</b>. Feste Verbindung: to <i>make</i> a reservation."},
+  {q:"It's easy to ___ others, but much harder to do it better yourself.",hint:"CRITIC",a:["criticise","criticize"],e:"critic (Person) → <b>to criticise</b> (britisch) bzw. <i>criticize</i> (amerikanisch) = kritisieren."}
+ ]
+},
+{
+ title:"5 · What does it really mean?",
+ intro:"Some words have more than one meaning, and some expressions don't mean what they seem to say. Read each sentence carefully.",
+ type:"mc",
+ items:[
+  {q:"“The film was <u>pretty</u> long.” – What does <i>pretty</i> mean here?",o:["ziemlich","hübsch","kaum","zu"],e:"Vor einem Adjektiv bedeutet <b>pretty</b> „ziemlich“. Die Bedeutung „hübsch“ hat es nur als Adjektiv vor einem Nomen oder nach <i>be</i> (a pretty garden)."},
+  {q:"“She paid with a twenty-pound <u>note</u>.” – What is a <i>note</i> here?",o:["ein Geldschein","eine Notiz","eine Musiknote","eine Schulnote"],e:"<b>note</b> kann Notiz, Musiknote oder <b>Geldschein</b> bedeuten – hier zeigt <i>twenty-pound</i> die Bedeutung. Eine Schulnote heißt <i>mark</i> oder <i>grade</i>."},
+  {q:"“Please <u>note</u> that the shop closes at five.” – What does the verb mean?",o:["beachten","aufschreiben","vergessen","fragen"],e:"<b>Please note that …</b> = Bitte beachten Sie, dass … Eine höfliche, eher formelle Wendung in Hinweisen."},
+  {q:"“She broke the school <u>record</u> in the 100 metres.” – What is a <i>record</i> here?",o:["ein Rekord","eine Schallplatte","eine Tonaufnahme","ein Zeugnis"],e:"<b>record</b> = Schallplatte oder <b>Rekord</b>. <i>to break a record</i> = einen Rekord brechen."},
+  {q:"“They <u>returned</u> from their holiday yesterday.” – What does the verb mean here?",o:["zurückkehren","zurückgeben","umdrehen","antworten"],e:"<b>to return</b> ohne Objekt = zurückkehren. Mit Objekt bedeutet es zurückgeben (return a book to the library)."},
+  {q:"“This is the best pizza in town.” – “I couldn't agree more.” – What does the second speaker mean?",o:["I agree completely.","I don't agree at all.","I can't decide.","I agree only a little."],e:"<b>I couldn't agree more</b> = „Mehr könnte ich gar nicht zustimmen“, also volle Zustimmung – obwohl der Satz verneint aussieht."},
+  {q:"“I don't mind waiting.” – What does the speaker mean?",o:["Waiting is no problem for me.","I hate waiting.","I don't remember waiting.","I refuse to wait."],e:"<b>I don't mind</b> = Ich habe nichts dagegen, es macht mir nichts aus."},
+  {q:"“She can't stand loud music.” – What does this mean?",o:["She really dislikes it.","She can't hear it.","She can't stay there.","She doesn't know it."],e:"<b>can't stand</b> = nicht ausstehen können. Mit dem Verb „stehen“ hat der Ausdruck nichts mehr zu tun."},
+  {q:"“This young actor is on the way up.” – What does this mean?",o:["He is becoming more and more successful.","He is climbing the stairs.","He is about to leave.","He is getting older."],e:"<b>to be on the way up</b> = auf dem Weg nach oben sein, also immer erfolgreicher werden."},
+  {q:"“She has got what it takes to be a pilot.” – What does this mean?",o:["She has the qualities you need for the job.","She has enough time for the job.","She has taken the pilot's place.","She has already got the job."],e:"<b>to have got what it takes</b> = das Zeug zu etwas haben, die nötigen Fähigkeiten mitbringen."},
+  {q:"“They didn't make it to the final.” – What does this mean?",o:["They didn't manage to get into the final.","They didn't organise the final.","They didn't want to play in the final.","They didn't watch the final."],e:"<b>to make it</b> = es schaffen. <i>make it to the final</i> = es ins Finale schaffen."},
+  {q:"“Hold on, I'll check the timetable.” – What does <i>Hold on</i> mean?",o:["Wait a moment.","Hold this for me.","Stop doing that.","Hurry up."],e:"<b>Hold on!</b> und <b>Hang on a minute.</b> bedeuten beide: Warte kurz, einen Augenblick."}
+ ]
+},
+{
+ title:"6 · From German to English",
+ intro:"The German word and the form you need are in the tag. Type the English word or phrase. Watch out for irregular verb forms!",
+ type:"type",
+ items:[
+  {q:"___, this is their best song so far.",hint:"meiner Meinung nach",a:["in my opinion"],e:"<b>In my opinion</b> – mit der Präposition <i>in</i>, nicht „after“ oder „to“."},
+  {q:"We ___ in the old town and had to ask for directions.",hint:"sich verirren · past simple",a:["got lost"],e:"to get lost → <b>got lost</b>. Im Englischen ohne Reflexivpronomen."},
+  {q:"The audition ___ in a small theatre.",hint:"stattfinden · past simple",a:["took place"],e:"to take place → <b>took place</b> (take – took – taken)."},
+  {q:"The guests ___ about the noise from the street.",hint:"sich beschweren · past simple",a:["complained"],e:"to complain → <b>complained</b>; wieder ohne Reflexivpronomen, und mit <i>about</i>."},
+  {q:"I've ___ started learning the flute.",hint:"vor Kurzem",a:["recently"],e:"<b>recently</b> = vor Kurzem; es steht oft mit dem present perfect."},
+  {q:"The station is only ten minutes away ___.",hint:"zu Fuß",a:["on foot"],e:"<b>on foot</b> – mit <i>on</i> und im Singular. (Aber: <i>by</i> bus, <i>by</i> train.)"},
+  {q:"Don't ___ your time on things you can't change.",hint:"verschwenden",a:["waste"],e:"<b>to waste</b> time / money = Zeit / Geld verschwenden."},
+  {q:"I ___ juice all over my homework.",hint:"verschütten · past simple",a:["spilled","spilt"],e:"to spill → <b>spilled</b> oder <b>spilt</b>; beide Formen sind richtig."},
+  {q:"Only a few plants ___ the cold winter.",hint:"überleben · past simple",a:["survived"],e:"to survive → <b>survived</b> (regelmäßig)."},
+  {q:"Someone has ___ my bike!",hint:"stehlen · past participle",a:["stolen"],e:"steal – stole – <b>stolen</b>. Nach <i>has</i> steht die dritte Form."},
+  {q:"The boat ___ in less than ten minutes.",hint:"sinken · past simple",a:["sank"],e:"sink – <b>sank</b> – sunk."},
+  {q:"The dog ___ the postman's leg.",hint:"beißen · past simple",a:["bit"],e:"bite – <b>bit</b> – bitten."},
+  {q:"His nose ___ for several minutes.",hint:"bluten · past simple",a:["bled"],e:"bleed – <b>bled</b> – bled."},
+  {q:"The police caught two ___ in the car park.",hint:"Dieb · Plural",a:["thieves"],e:"thief → <b>thieves</b>: Aus -f wird im Plural -ves (wie leaf – leaves, wolf – wolves)."},
+  {q:"I'd like to ___ my new classmates better.",hint:"näher kennenlernen",a:["get to know"],e:"<b>to get to know sb.</b> = jemanden (näher) kennenlernen."},
+  {q:"We had to ___ for an hour to get tickets.",hint:"sich anstellen",a:["queue","queue up"],e:"<b>to queue (up)</b> = sich anstellen. Die Schreibung ist ungewöhnlich: q-u-e-u-e."}
+ ]
+}];
+
+let cur=0, st={};
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const norm=s=>s.toLowerCase().replace(/[’‘`]/g,"'").replace(/[.!?,]+$/,"").replace(/\s+/g," ").trim();
+const gaps=q=>q.replace(/___/g,'<span class="gap"></span>');
+
+function tabs(){
+  $("tabs").innerHTML="";
+  S.forEach((s,i)=>{
+    const b=document.createElement("button");
+    const t=st[i];
+    b.innerHTML=s.title+(t?'<span class="cnt">'+t.right+"/"+t.total+"</span>":"");
+    if(i===cur)b.className="active";
+    b.onclick=()=>{cur=i;render(i,st[i]?null:undefined,true);};
+    $("tabs").appendChild(b);
+  });
+}
+function progress(){
+  const t=st[cur];
+  $("barFill").style.width=(t.done/t.list.length*100)+"%";
+  tabs();
+  if(t.done===t.list.length){
+    const wrong=t.list.filter(x=>x._ok===false).length;
+    $("sumTitle").textContent="Area finished";
+    $("sumText").innerHTML="You got <b>"+(t.list.length-wrong)+" of "+t.list.length+"</b> right at the first attempt."+(wrong?" Lies die Erklärungen bei den übrigen Aufgaben noch einmal durch und übe sie dann gezielt.":" Alle Aufgaben beim ersten Versuch gelöst.");
+    $("btnMistakes").style.display=wrong?"":"none";
+    $("btnNext").style.display=cur<S.length-1?"":"none";
+    $("summary").classList.add("show");
+  }
+}
+function finish(it,ok){
+  it._ok=ok; const t=st[cur]; t.done++;
+  if(!t.sub){ if(ok)t.right++; }
+  progress();
+}
+function render(i,subset,keep){
+  cur=i; const s=S[i];
+  if(keep && st[i] && subset===null){ /* re-show existing state by rebuilding fresh */ }
+  const list=(subset&&subset.length?subset:s.items);
+  list.forEach(x=>delete x._ok);
+  const sub=!!(subset&&subset.length);
+  st[i]={list,done:0,right:sub&&st[i]?st[i].right:0,total:s.items.length,sub};
+  $("secTitle").textContent=s.title; $("secIntro").textContent=s.intro;
+  $("summary").classList.remove("show");
+  const box=$("items"); box.innerHTML="";
+  list.forEach((it,n)=>{
+    const c=document.createElement("div"); c.className="card";
+    c.innerHTML='<span class="num">'+(n+1)+" / "+list.length+"</span>"+(it.hint?'<span class="chip">'+it.hint+"</span>":"")+'<p class="q">'+gaps(it.q)+"</p>";
+    const fb=document.createElement("div"); fb.className="fb";
+    if(s.type==="mc"){
+      const o=document.createElement("div"); o.className="opts";
+      shuffle(it.o).forEach(txt=>{
+        const b=document.createElement("button"); b.textContent=txt;
+        b.onclick=()=>{
+          const ok=txt===it.o[0];
+          o.querySelectorAll("button").forEach(x=>{x.disabled=true;if(x.textContent===it.o[0])x.classList.add("right");});
+          if(!ok)b.classList.add("wrong");
+          fb.className="fb show "+(ok?"ok":"no");
+          fb.innerHTML=(ok?"<b>Correct.</b> ":"<b>The correct answer is: "+it.o[0]+".</b> ")+it.e;
+          finish(it,ok);
+        };
+        o.appendChild(b);
+      });
+      c.appendChild(o);
+    }else{
+      const r=document.createElement("div"); r.className="row";
+      const inp=document.createElement("input"); inp.type="text"; inp.placeholder="Type your answer"; inp.autocomplete="off"; inp.autocapitalize="off"; inp.spellcheck=false;
+      const b=document.createElement("button"); b.className="btn"; b.textContent="Check";
+      let tries=0;
+      const check=()=>{
+        if(inp.disabled||!inp.value.trim())return;
+        const ok=it.a.map(norm).includes(norm(inp.value)); tries++;
+        if(ok){
+          inp.className="right"; inp.disabled=b.disabled=true;
+          fb.className="fb show ok"; fb.innerHTML="<b>Correct.</b> "+it.e; finish(it,tries===1);
+        }else if(tries<2){
+          inp.className="wrong";
+          fb.className="fb show try"; fb.innerHTML="<b>Not quite yet.</b> Überprüfe die verlangte Form und die Schreibung – du hast noch einen Versuch.";
+        }else{
+          inp.className="wrong"; inp.disabled=b.disabled=true;
+          fb.className="fb show no"; fb.innerHTML="<b>The correct answer is: "+it.a.join(" / ")+".</b> "+it.e; finish(it,false);
+        }
+      };
+      b.onclick=check; inp.onkeydown=e=>{if(e.key==="Enter")check();}; inp.oninput=()=>{if(!inp.disabled)inp.className="";};
+      r.appendChild(inp); r.appendChild(b); c.appendChild(r);
+    }
+    c.appendChild(fb); box.appendChild(c);
+  });
+  $("barFill").style.width="0"; tabs();
+  if(keep)window.scrollTo({top:0,behavior:"smooth"});
+}
+$("btnMistakes").onclick=()=>{render(cur,st[cur].list.filter(x=>x._ok===false),true);};
+$("btnRestart").onclick=()=>{delete st[cur];render(cur,undefined,true);};
+$("btnNext").onclick=()=>{render(cur+1,undefined,true);};
+render(0);
+</script>
+</body>
+</html>
