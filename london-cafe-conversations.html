@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>London Calling – Cafés, Conversations & Christmas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1EA; --card:#FFFFFF; --ink:#1B1B1F; --soft:#5A5866;
+  --sky:#3D5A88; --sky-l:#E4EAF4;
+  --petrol:#1F6B78; --petrol-l:#E0EEF0;
+  --lilac:#5A4878; --lilac-l:#ECE7F3;
+  --berry:#86384F; --berry-l:#F4E5E9;
+  --gold:#B08433; --gold-l:#F6EEDC;
+  --line:#E3DDD3;
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Lexend',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.6}
+header.hero{background:linear-gradient(135deg,#2E4470 0%,#4A3E6E 55%,#7A3550 100%);color:#fff;padding:48px 24px 40px;text-align:center}
+.hero h1{margin:0 0 8px;font-size:clamp(28px,5vw,46px);font-weight:600;letter-spacing:.3px}
+.hero p{margin:0 auto;max-width:720px;font-weight:300;font-size:19px;opacity:.95}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+.tbtn{font-family:inherit;font-size:15px;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.1);color:#fff;border-radius:999px;padding:8px 16px;cursor:pointer;transition:.2s}
+.tbtn:hover{background:rgba(255,255,255,.22)}
+.tbtn.on{background:#fff;color:#2E4470;border-color:#fff}
+.score{font-size:15px;margin-top:14px;opacity:.9}
+nav.chips{position:sticky;top:0;z-index:20;background:rgba(245,241,234,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:8px;overflow-x:auto;padding:12px 16px;scrollbar-width:thin}
+.chip{flex:0 0 auto;font-family:inherit;font-size:15px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 15px;cursor:pointer;white-space:nowrap;transition:.2s}
+.chip:hover{border-color:var(--sky)}
+.chip.active{background:var(--sky);border-color:var(--sky);color:#fff}
+main{max-width:980px;margin:0 auto;padding:28px 18px 80px}
+.mod-head{border-radius:var(--radius);padding:26px 28px;margin-bottom:22px;color:#fff}
+.mod-head h2{margin:0 0 4px;font-size:30px;font-weight:600}
+.mod-head p{margin:0;font-weight:300;font-size:18px;opacity:.95}
+.card{background:var(--card);border-radius:var(--radius);padding:24px 26px;margin-bottom:22px;box-shadow:0 2px 14px rgba(40,30,60,.06)}
+.card h3{margin:0 0 14px;font-size:22px;font-weight:600;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{font-size:13px;font-weight:500;border-radius:999px;padding:3px 11px;background:var(--sky-l);color:var(--sky)}
+.note{background:var(--gold-l);border-left:5px solid var(--gold);border-radius:14px;padding:16px 20px}
+.note h3{color:#6E5220}
+.note ul{margin:0;padding-left:20px}
+.note li{margin:6px 0}
+.dlg-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.dlg-scene{color:var(--soft);font-size:16px;margin:0 0 14px}
+.line{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line)}
+.line:last-child{border-bottom:none}
+.who{flex:0 0 92px;font-size:14px;font-weight:600;color:var(--petrol);padding-top:4px}
+.line.me .who{color:var(--berry)}
+.line.me .txt .en{font-weight:500}
+.txt{flex:1}
+.en{display:block}
+.de{display:none;color:var(--soft);font-size:16px;font-weight:300;margin-top:2px}
+body.show-de .de{display:block}
+.spk{flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--sky);background:var(--sky-l)}
+.spk.playing{background:var(--sky);border-color:var(--sky);color:#fff}
+.pbtn{font-family:inherit;font-size:15px;border:none;border-radius:999px;padding:8px 16px;cursor:pointer;background:var(--sky-l);color:var(--sky);font-weight:500}
+.pbtn:hover{background:#d5dff0}
+.phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.ph{border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+.ph .en{font-weight:500}
+.ph .de{display:block}
+.ph .why{font-size:14.5px;color:var(--lilac);margin-top:6px}
+.q{border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px}
+.q .qhead{display:flex;gap:10px;align-items:flex-start;margin-bottom:6px}
+.q .qtext{font-weight:500;flex:1}
+.q .ctx{font-size:15px;color:var(--soft);margin:0 0 12px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{font-family:inherit;font-size:17px;text-align:left;border:1.5px solid var(--line);background:#FBFAF7;border-radius:14px;padding:11px 15px;cursor:pointer;transition:.15s;color:var(--ink)}
+.opt:hover:not(:disabled){border-color:var(--sky);background:var(--sky-l)}
+.opt.right{background:var(--petrol-l);border-color:var(--petrol);color:#123f47;font-weight:500}
+.opt.wrong{background:var(--berry-l);border-color:var(--berry);color:#5c2234}
+.opt:disabled{cursor:default}
+.expl{display:none;margin-top:12px;background:var(--lilac-l);border-radius:12px;padding:12px 16px;font-size:16px}
+.expl.show{display:block}
+.expl b{color:var(--lilac)}
+.puzzle-pool,.puzzle-done{display:flex;flex-direction:column;gap:8px}
+.puzzle-done{margin-bottom:14px;min-height:20px}
+.pz{font-family:inherit;font-size:16.5px;text-align:left;border:1.5px solid var(--line);background:#FBFAF7;border-radius:14px;padding:10px 14px;cursor:pointer;color:var(--ink)}
+.pz:hover{border-color:var(--sky)}
+.pz.shake{animation:shake .35s;border-color:var(--berry);background:var(--berry-l)}
+.done-line{border-radius:14px;padding:10px 14px;background:var(--petrol-l);font-size:16.5px}
+.done-line small{color:var(--petrol);font-weight:600;margin-right:8px}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.hint{font-size:15px;color:var(--soft);margin:0 0 12px}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.flip{border-radius:16px;min-height:130px;cursor:pointer;perspective:900px}
+.flip-in{position:relative;width:100%;height:100%;min-height:130px;transition:transform .5s;transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:16px;padding:16px 18px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:center}
+.front{background:var(--sky-l);border:1.5px solid #cdd8ea}
+.front .en{font-weight:500;font-size:18px}
+.front small{color:var(--soft);font-size:13px;margin-top:8px}
+.back{background:var(--lilac);color:#fff;transform:rotateY(180deg);font-size:16px}
+.role{border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+.role b{color:var(--berry)}
+.role ul{margin:8px 0 0;padding-left:20px}
+.minis{font-size:15px;color:var(--soft)}
+.modscore{font-size:15px;color:var(--soft);text-align:right;margin-top:-8px}
+footer{text-align:center;color:var(--soft);font-size:14px;padding:30px}
+@media(max-width:600px){.who{flex-basis:70px;font-size:13px}.card{padding:20px 18px}body{font-size:17px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>London Calling</h1>
+  <p>Cafés, conversations, the Tube, shopping and Christmas in London – real situations, real British English.</p>
+  <div class="toolbar">
+    <button class="tbtn" id="btnDe">🇩🇪 Deutsch anzeigen</button>
+    <button class="tbtn on" id="btnNormal">🔈 Normal speed</button>
+    <button class="tbtn" id="btnSlow">🐢 Slow speed</button>
+    <button class="tbtn" id="btnStop">⏹ Stop</button>
+  </div>
+  <div class="score" id="totalScore"></div>
+</header>
+
+<nav class="chips" id="chips"></nav>
+<main id="main"></main>
+<footer>🔈 Audio only plays when you click a speaker button.</footer>
+
+<script>
+/* ================= CONTENT ================= */
+const MODULES = [
+/* ---------- 1 ---------- */
+{
+id:"counter", icon:"☕", title:"Coffee at the Counter", sub:"Ordering, finding a seat, small problems – all in a London café.", color:"var(--sky)",
+notes:[
+"In most London cafés you <b>order and pay at the counter</b>. Then they call your name or bring the order to your table.",
+"<b>Eat in or take away?</b> is British English. <b>For here or to go?</b> is American – in London you hear both.",
+"<b>Flat white</b> (strong coffee with a little silky milk) is a London favourite. <b>Oat milk</b> is the most common plant milk.",
+"Paying: almost everyone pays <b>contactless</b> (card or phone). Many cafés don't take cash at all.",
+"<b>Cheers!</b> often means simply <b>Thanks!</b> – nothing to do with drinking."
+],
+dialogues:[
+{title:"At the counter", scene:"A busy café in Soho, Saturday morning.", puzzle:true, lines:[
+["Barista","Hiya, what can I get you?","Hallo, was darf es sein?"],
+["You","Hi! Could I have a flat white with oat milk, please?","Hallo! Könnte ich einen Flat White mit Hafermilch haben?"],
+["Barista","Sure. Small or regular?","Klar. Klein oder normal?"],
+["You","Regular, please. And what would you recommend to eat? Something not too sweet.","Normal, bitte. Und was würden Sie zum Essen empfehlen? Etwas nicht zu Süßes."],
+["Barista","The cheese and chive scone is lovely. We can warm it up for you.","Der Käse-Schnittlauch-Scone ist herrlich. Wir können ihn Ihnen aufwärmen."],
+["You","Sounds perfect. I'll have one of those.","Klingt perfekt. Davon nehme ich einen."],
+["Barista","Eating in or taking away?","Hier essen oder zum Mitnehmen?"],
+["You","Eating in, please – if I can find a seat!","Hier, bitte – wenn ich einen Platz finde!"],
+["Barista","There's a table by the window. That's seven pounds eighty.","Am Fenster ist ein Tisch frei. Das macht 7,80 Pfund."],
+["You","Can I just tap my card?","Kann ich einfach mit Karte kontaktlos zahlen?"],
+["Barista","Yep, go ahead. Can I take a name for the order?","Ja, bitte. Welchen Namen darf ich für die Bestellung notieren?"],
+["You","It's Lin. L – I – N.","Lin. L – I – N."],
+["Barista","Lovely. We'll call you when it's ready.","Super. Wir rufen Sie, wenn es fertig ist."]
+]},
+{title:"Is this seat taken?", scene:"The café is full. One chair is free at a small table.", lines:[
+["You","Excuse me – is anyone sitting here?","Entschuldigung – sitzt hier jemand?"],
+["Stranger","No, go ahead. Let me just move my bag.","Nein, bitte. Ich nehme nur kurz meine Tasche weg."],
+["You","Thank you, that's very kind. It's packed in here today!","Danke, sehr nett. Heute ist es hier ja gerammelt voll!"],
+["Stranger","It's always like this when it rains. The whole of London hides in cafés.","So ist es immer, wenn es regnet. Ganz London versteckt sich in Cafés."],
+["You","Then today I'm a real Londoner.","Dann bin ich heute eine echte Londonerin."],
+["Stranger","Ha! You're getting the hang of it.","Ha! Sie haben den Dreh schon raus."],
+["You","Sorry, do you happen to know the Wi-Fi password?","Entschuldigung, wissen Sie zufällig das WLAN-Passwort?"],
+["Stranger","It's at the bottom of the receipt.","Das steht unten auf dem Kassenbon."]
+]},
+{title:"A small mistake", scene:"Your coffee arrives – but something isn't right.", lines:[
+["You","Sorry to bother you – I think this might be regular milk. I asked for oat.","Entschuldigen Sie die Störung – ich glaube, das ist normale Milch. Ich hatte Hafermilch bestellt."],
+["Barista","Oh, I'm so sorry! I'll make you a fresh one right away.","Oh, das tut mir so leid! Ich mache Ihnen sofort einen neuen."],
+["You","No worries at all. Thank you!","Kein Problem. Danke!"],
+["Barista","Here you go. Oat flat white – and sorry again.","Bitte sehr. Flat White mit Hafermilch – und nochmals Entschuldigung."],
+["You","Perfect. It happens – I run a restaurant, so I know how busy it gets.","Perfekt. Das passiert – ich führe selbst ein Restaurant, ich weiß, wie stressig es wird."],
+["Barista","Oh, you understand! Enjoy your coffee.","Oh, Sie verstehen das! Genießen Sie Ihren Kaffee."]
+]}
+],
+phrases:[
+["Could I get a … , please?","Könnte ich ein/e … bekommen?","Very common and polite when ordering."],
+["Could I have it extra hot, please?","Könnte ich ihn extra heiß haben?",""],
+["Just a splash of milk, please.","Nur einen Schuss Milch, bitte.",""],
+["Could I have a glass of tap water as well?","Könnte ich auch ein Glas Leitungswasser haben?","Tap water is free – you only need to ask."],
+["Do you have anything dairy-free?","Haben Sie etwas ohne Milchprodukte?",""],
+["Is there a loo I could use?","Gibt es eine Toilette, die ich benutzen könnte?","‘Loo’ = British, friendly word for toilet."],
+["Sorry, which one is mine?","Entschuldigung, welcher ist meiner?",""],
+["Could I have it in a mug, please?","Könnte ich ihn in einer Tasse haben?","Instead of a paper cup."],
+["Do you mind if I sit here?","Stört es Sie, wenn ich mich hierher setze?","Answer ‘No, not at all’ = Please sit!"],
+["Is anyone sitting here?","Sitzt hier jemand?",""]
+],
+quiz:[
+{q:"The barista asks: “Eating in or taking away?” You want to sit in the café. What do you say?",o:["Eating in, please.","Taking away, please.","Just a regular, please."],a:0,e:"<b>Eating in</b> = im Café bleiben. <b>Taking away</b> = mitnehmen. ‘Just a regular’ beantwortet die Frage nach der Größe – das wurde hier nicht gefragt."},
+{q:"Someone asks you: “Do you mind if I sit here?” The chair is free and you are happy to share. Which answer is correct?",o:["No, not at all.","Yes, of course.","Yes, I do."],a:0,e:"Achtung, Falle! ‘Do you mind…?’ heißt wörtlich ‘Stört es Sie…?’. Wer es erlauben will, sagt also <b>No</b> (= nein, es stört mich nicht). ‘Yes’ würde bedeuten: Ja, es stört mich."},
+{q:"Someone asks: “Is anyone sitting here?” The seat is free. What do you say?",o:["No, go ahead.","Yes, please sit down.","No, thank you."],a:0,e:"<b>No</b> = niemand sitzt hier; <b>go ahead</b> = bitte sehr. ‘Yes’ würde heißen, dass schon jemand dort sitzt. ‘No, thank you’ klingt wie eine Ablehnung."},
+{q:"What is a “builder's tea” in Britain?",o:["A strong black tea with milk","A large pot of green tea","A herbal tea with honey and lemon"],a:0,e:"<b>Builder's tea</b> ist kräftiger Schwarztee mit Milch (oft mit Zucker) – der britische Alltagstee schlechthin."},
+{q:"Your coffee has the wrong milk. Which sentence sounds the most natural and polite in London?",o:["Sorry, I think this might be regular milk – I asked for oat.","This is the wrong milk. Make a new one.","Sorry, can I have oat milk next time?"],a:0,e:"Briten verpacken Kritik gern weich: <b>Sorry, I think this might be…</b>. Der zweite Satz ist grammatikalisch korrekt, klingt aber sehr direkt und unhöflich. Der dritte löst das Problem nicht."},
+{q:"The barista hands you your coffee and says “Cheers!”. What does it mean here?",o:["Thanks!","Enjoy your drink, it's alcohol-free!","Please pay now."],a:0,e:"Im Alltag heißt <b>Cheers</b> sehr oft einfach <b>Danke</b> (oder auch Tschüss). Nur beim Anstoßen ist es ‘Prost’."},
+{q:"You want to pay with your phone. Which question fits?",o:["Can I pay contactless?","Can I pay in cash with my phone?","Can I pay by bill?"],a:0,e:"<b>Contactless</b> = kontaktlos (Karte oder Handy). ‘Bill’ ist die Rechnung im Restaurant, keine Zahlungsart."}
+]
+},
+/* ---------- 2 ---------- */
+{
+id:"friend", icon:"👯", title:"Meeting a Friend", sub:"Greetings, catching up, paying – a café date with a friend.", color:"var(--petrol)",
+notes:[
+"<b>You alright?</b> or <b>Hiya!</b> is a typical British hello. Nobody expects a long answer: <b>Yeah, good thanks – you?</b>",
+"<b>What have you been up to?</b> = Was hast du so gemacht in letzter Zeit? A perfect question to start a conversation.",
+"Paying: <b>It's on me.</b> / <b>Let me get this one.</b> = Ich lade dich ein. <b>Shall we split it?</b> = Teilen wir?",
+"Leaving: Brits often say goodbye in several steps: <b>Right, I'd better get going…</b> – then they chat for five more minutes."
+],
+dialogues:[
+{title:"There you are!", scene:"Your friend arrives at the café, a little late.", puzzle:true, lines:[
+["Friend","There you are! Sorry I'm late – the Tube was a nightmare.","Da bist du ja! Sorry für die Verspätung – die U-Bahn war ein Albtraum."],
+["You","Don't worry, I've only just got here myself. It's so good to see you!","Keine Sorge, ich bin selbst gerade erst gekommen. Schön, dich zu sehen!"],
+["Friend","You too! How was the flight?","Dich auch! Wie war der Flug?"],
+["You","Short and sweet. Two hours, and I slept through most of it.","Kurz und schmerzlos. Zwei Stunden, und ich habe fast alles verschlafen."],
+["Friend","Lucky you. So how long are you staying?","Du Glückliche. Wie lange bleibst du denn?"],
+["You","Five days. I want to see everything – and eat everything.","Fünf Tage. Ich will alles sehen – und alles essen."],
+["Friend","Of course you do. You're a restaurant owner – it's research!","Natürlich. Du bist Restaurantbesitzerin – das ist Recherche!"],
+["You","Exactly. It's basically a business trip.","Genau. Eigentlich ist es eine Geschäftsreise."]
+]},
+{title:"Catching up", scene:"Coffee and cake. Time to talk.", lines:[
+["Friend","So, what have you been up to? How's the restaurant?","Und, was hast du so gemacht? Wie läuft das Restaurant?"],
+["You","Busy, but in a good way. December is always crazy – everyone wants a table.","Viel los, aber positiv. Der Dezember ist immer verrückt – alle wollen einen Tisch."],
+["Friend","That's brilliant. Do you ever get a day off?","Super. Hast du überhaupt mal einen freien Tag?"],
+["You","Not often. That's why this trip is my little treat.","Nicht oft. Darum ist diese Reise mein kleines Geschenk an mich."],
+["Friend","You deserve it. And your English has got so much better!","Das hast du dir verdient. Und dein Englisch ist so viel besser geworden!"],
+["You","Thank you! I've been working on it. It's still a work in progress, but I'm getting there.","Danke! Ich arbeite daran. Es ist noch nicht fertig, aber ich komme voran."],
+["Friend","Honestly, you sound great.","Ehrlich, du klingst super."]
+]},
+{title:"Who pays?", scene:"The bill arrives.", lines:[
+["You","This one's on me.","Das geht auf mich."],
+["Friend","No way – you're the guest!","Auf keinen Fall – du bist der Gast!"],
+["You","In China we would fight over the bill for ten minutes. Shall we skip that part?","In China würden wir zehn Minuten um die Rechnung streiten. Wollen wir das überspringen?"],
+["Friend","Ha! Okay, let's split it – and the next one is yours.","Ha! Okay, wir teilen – und die nächste übernimmst du."],
+["You","Deal.","Abgemacht."],
+["Friend","Right, I'd better get going. Same time tomorrow?","So, ich muss langsam los. Morgen um die gleiche Zeit?"],
+["You","Definitely. It was so lovely to see you.","Auf jeden Fall. Es war so schön, dich zu sehen."]
+]}
+],
+phrases:[
+["It's been ages!","Ewig nicht gesehen!",""],
+["You haven't changed a bit.","Du hast dich kein bisschen verändert.","A warm compliment."],
+["What have you been up to?","Was hast du so gemacht?",""],
+["I'm so glad we could meet up.","Ich bin so froh, dass wir uns treffen konnten.",""],
+["How's work treating you?","Wie läuft's in der Arbeit?","Friendly, natural question."],
+["Let me get this one.","Lass mich das übernehmen.",""],
+["Shall we split it?","Sollen wir teilen?",""],
+["I'd better get going.","Ich sollte langsam los.","The polite first step of saying goodbye."],
+["Let's do this again soon.","Lass uns das bald wiederholen.",""],
+["Say hi to … from me.","Grüß … von mir.",""]
+],
+quiz:[
+{q:"A British friend says: “You alright?” What is the most natural answer?",o:["Yeah, good thanks – you?","No, I'm not alright.","Yes, I am alright, thank you very much for asking."],a:0,e:"<b>You alright?</b> ist eine Begrüßung wie ‘How are you?’. Man antwortet kurz und fragt zurück. Die dritte Antwort ist korrekt, aber viel zu förmlich und lang."},
+{q:"Your friend asks: “What have you been up to?” What does she want to know?",o:["What you have been doing recently","Where you are going next","Why you were late"],a:0,e:"<b>to be up to sth</b> = etwas machen/treiben. Die Frage bedeutet: Was hast du in letzter Zeit so gemacht?"},
+{q:"You want to invite your friend (you pay). Which sentence fits?",o:["It's on me.","Shall we split it?","It's on you."],a:0,e:"<b>It's on me</b> = Ich zahle. ‘Shall we split it?’ = Teilen wir? ‘It's on you’ = Du zahlst."},
+{q:"Your friend says: “Right, I'd better get going.” What does this mean?",o:["She is starting to say goodbye.","She wants to order something else.","She wants to go together with you."],a:0,e:"<b>I'd better get going</b> = Ich sollte langsam gehen. Das ist der höfliche Anfang einer Verabschiedung."},
+{q:"Your friend compliments your English. Which reply sounds modest AND confident?",o:["Thank you! It's still a work in progress, but I'm getting there.","No, no, my English is very bad.","Yes, I know."],a:0,e:"Die erste Antwort nimmt das Kompliment an und bleibt bescheiden – sehr britisch. Die zweite wertet sich selbst ab, die dritte wirkt arrogant."},
+{q:"Which word fits? “Don't worry, I've only just ___ here myself.”",o:["got","get","getting"],a:0,e:"Present Perfect: <b>I've (have) got here</b>. Nach ‘have’ steht das Partizip: get → got."}
+]
+},
+/* ---------- 3 ---------- */
+{
+id:"strangers", icon:"💬", title:"When Strangers Talk to You", sub:"Friendly chats, where you're from, and how to end a conversation politely.", color:"var(--lilac)",
+notes:[
+"On the Tube, Londoners usually don't talk. But in cafés, pubs, queues and at markets, people often start a little chat.",
+"Typical openers: a compliment (<b>I love your coat!</b>), a question (<b>Is this the queue?</b>) or the weather.",
+"<b>Where are you from?</b> A nice full answer: <b>I'm originally from China, but I've lived in Austria for years.</b>",
+"To end a chat politely: <b>It was really nice talking to you. Enjoy the rest of your day!</b>",
+"Street fundraisers ask: <b>Have you got a minute?</b> – a friendly <b>Sorry, not today!</b> is completely fine."
+],
+dialogues:[
+{title:"Where are you from?", scene:"A stranger at the next table starts talking.", puzzle:true, lines:[
+["Stranger","Sorry, I couldn't help noticing your scarf – it's gorgeous.","Entschuldigung, mir ist Ihr Schal aufgefallen – der ist wunderschön."],
+["You","Oh, thank you! I bought it yesterday in Covent Garden.","Oh, danke! Den habe ich gestern in Covent Garden gekauft."],
+["Stranger","Good choice. Are you here on holiday?","Gute Wahl. Sind Sie im Urlaub hier?"],
+["You","Yes, just for a few days. I'm originally from China, but I live in Austria – in Graz.","Ja, nur für ein paar Tage. Ich komme ursprünglich aus China, lebe aber in Österreich – in Graz."],
+["Stranger","Austria! I've always wanted to go. Is it like in The Sound of Music?","Österreich! Da wollte ich immer schon hin. Ist es wie in ‘The Sound of Music’?"],
+["You","Everybody asks that! Graz is a bit different – lots of students, old buildings and very good food.","Das fragen alle! Graz ist etwas anders – viele Studierende, alte Gebäude und sehr gutes Essen."]
+]},
+{title:"Any tips?", scene:"The conversation continues.", lines:[
+["You","Do you have any tips? What shouldn't I miss?","Haben Sie Tipps? Was sollte ich nicht verpassen?"],
+["Stranger","Borough Market, definitely. Go hungry.","Borough Market, unbedingt. Gehen Sie hungrig hin."],
+["You","I always go hungry. Food is my job – I own a restaurant.","Ich gehe immer hungrig. Essen ist mein Beruf – ich habe ein Restaurant."],
+["Stranger","No way! What kind of food?","Echt jetzt? Was für Essen?"],
+["You","Chinese. So I'm a very strict judge of Chinese food in London.","Chinesisch. Darum bin ich eine sehr strenge Richterin für chinesisches Essen in London."],
+["Stranger","Then you have to try Chinatown and tell me if it passes the test!","Dann müssen Sie Chinatown probieren und mir sagen, ob es den Test besteht!"],
+["You","I will. It was really nice talking to you.","Mache ich. Es war wirklich nett, mit Ihnen zu plaudern."],
+["Stranger","You too. Enjoy the rest of your trip!","Ebenso. Genießen Sie den Rest Ihrer Reise!"]
+]},
+{title:"Saying no – nicely", scene:"On the street, a fundraiser with a clipboard stops you.", lines:[
+["Fundraiser","Hi there! Have you got a minute for the children's hospital?","Hallo! Haben Sie eine Minute für das Kinderkrankenhaus?"],
+["You","Sorry, I'm in a bit of a rush. Good luck, though!","Tut mir leid, ich hab's ein bisschen eilig. Aber viel Erfolg!"],
+["Fundraiser","No problem. Have a lovely day!","Kein Problem. Schönen Tag noch!"],
+["You","You too!","Ebenso!"]
+]}
+],
+phrases:[
+["I'm originally from …, but I live in …","Ich komme ursprünglich aus …, lebe aber in …",""],
+["Austria – not Australia. No kangaroos, I promise.","Österreich – nicht Australien. Keine Kängurus, versprochen.","A little joke many Austrians use abroad."],
+["I'm just here for a few days.","Ich bin nur ein paar Tage hier.",""],
+["Do you live around here?","Wohnen Sie hier in der Gegend?",""],
+["What would you recommend?","Was würden Sie empfehlen?",""],
+["That's a great tip, thank you.","Das ist ein toller Tipp, danke.",""],
+["Sorry, I'm in a bit of a rush.","Tut mir leid, ich hab's etwas eilig.","Polite way to end a chat quickly."],
+["It was really nice talking to you.","Es war wirklich nett, mit Ihnen zu plaudern.",""],
+["Enjoy the rest of your day!","Genießen Sie den Rest des Tages!",""],
+["Sorry, not today – but thank you.","Heute leider nicht – aber danke.",""]
+],
+quiz:[
+{q:"A stranger says: “I love your scarf!” What is the most natural reaction?",o:["Oh, thank you! I bought it here in London.","Yes, it is very beautiful.","No, it is not special."],a:0,e:"Ein Kompliment nimmt man mit <b>Thank you</b> an und gibt gern eine kleine Info dazu – so geht das Gespräch weiter. ‘Yes, it is very beautiful’ klingt, als lobe man sich selbst; ‘No…’ weist das Kompliment zurück."},
+{q:"How do you best explain where you're from?",o:["I'm originally from China, but I've lived in Austria for years.","I'm originally from China, but I live in Austria since years.","I'm originally from China, but I'm living in Austria for years."],a:0,e:"Für ‘seit Jahren’ braucht man im Englischen das <b>Present Perfect</b>: <b>I've lived … for years</b>. ‘I live since years’ ist ein typischer Fehler aus dem Deutschen."},
+{q:"You want to end a nice chat politely. Which sentence fits best?",o:["It was really nice talking to you.","I must go now. Bye.","Please stop talking now."],a:0,e:"<b>It was really nice talking to you</b> beendet ein Gespräch warm und höflich. ‘I must go now. Bye.’ ist korrekt, klingt aber abrupt."},
+{q:"A fundraiser asks: “Have you got a minute?” You don't want to stop. What do you say?",o:["Sorry, I'm in a bit of a rush.","Yes, I have got a minute.","I don't have minutes."],a:0,e:"Freundlich und klar: <b>Sorry, I'm in a bit of a rush</b>. ‘Yes, I have got a minute’ würde bedeuten, dass Sie stehen bleiben."},
+{q:"Choose the correct question tag: “You're not from here, ___?”",o:["are you","aren't you","do you"],a:0,e:"Verneinter Satz → positives Tag: <b>You're not …, are you?</b>"}
+]
+},
+/* ---------- 4 ---------- */
+{
+id:"restaurant", icon:"🍽️", title:"Restaurant & Pub", sub:"Table, menu, ordering, the bill – and how a British pub works.", color:"var(--berry)",
+notes:[
+"In restaurants you often wait to be seated: <b>A table for two, please.</b> Booking ahead is wise in December.",
+"<b>Service charge</b>: many London restaurants add about 12.5 % to the bill. It is ‘discretionary’ (freiwillig). If it is already on the bill, you don't tip extra.",
+"In a <b>pub</b> there is usually no table service: you <b>order and pay at the bar</b>. Food orders often go with your <b>table number</b>.",
+"<b>Tap water</b> is free. ‘Still or sparkling?’ usually means bottled water – and that costs money.",
+"British English: <b>the bill</b> (US: the check), <b>starter</b> (Vorspeise), <b>main</b> (Hauptspeise), <b>pudding / dessert</b>."
+],
+dialogues:[
+{title:"A table for two", scene:"A busy restaurant in Covent Garden, Friday evening.", puzzle:true, lines:[
+["Waiter","Good evening! Have you got a reservation?","Guten Abend! Haben Sie reserviert?"],
+["You","Yes, a table for two at seven thirty. The name is Lin.","Ja, einen Tisch für zwei um halb acht. Auf den Namen Lin."],
+["Waiter","Perfect, follow me, please. Can I get you something to drink?","Perfekt, folgen Sie mir bitte. Darf ich Ihnen etwas zu trinken bringen?"],
+["You","Could we have a jug of tap water, please? And a glass of the house red.","Könnten wir einen Krug Leitungswasser haben? Und ein Glas Hauswein rot."],
+["Waiter","Of course. Are you ready to order, or do you need a few more minutes?","Natürlich. Möchten Sie bestellen, oder brauchen Sie noch ein paar Minuten?"],
+["You","A few more minutes, please. Everything looks so good.","Noch ein paar Minuten, bitte. Alles sieht so gut aus."]
+]},
+{title:"Ordering", scene:"The waiter comes back.", lines:[
+["Waiter","Have you decided?","Haben Sie sich entschieden?"],
+["You","Yes. Could I start with the soup of the day, and then the fish, please?","Ja. Könnte ich als Vorspeise die Tagessuppe haben und danach den Fisch?"],
+["Waiter","Great choice. The fish comes with chips or new potatoes.","Gute Wahl. Zum Fisch gibt es Pommes oder junge Kartoffeln."],
+["You","New potatoes, please. And does the sauce contain nuts?","Junge Kartoffeln, bitte. Und sind in der Soße Nüsse?"],
+["Waiter","No nuts, but there's a little cream in it.","Keine Nüsse, aber ein bisschen Sahne."],
+["You","That's fine. Thank you.","Das passt. Danke."],
+["Waiter","How is everything?","Schmeckt es Ihnen?"],
+["You","Delicious! Please give my compliments to the chef. As a chef myself, I'm impressed.","Köstlich! Bitte richten Sie dem Koch meine Komplimente aus. Als Köchin bin ich beeindruckt."]
+]},
+{title:"The bill", scene:"Dinner is finished.", lines:[
+["You","Excuse me, could we have the bill, please?","Entschuldigung, könnten wir bitte zahlen?"],
+["Waiter","Of course. Would you like to pay together or separately?","Natürlich. Zusammen oder getrennt?"],
+["You","Together, please. Is service included?","Zusammen, bitte. Ist das Trinkgeld inbegriffen?"],
+["Waiter","Yes, there's a twelve and a half percent service charge.","Ja, es gibt einen Servicezuschlag von 12,5 Prozent."],
+["You","Lovely. Everything was wonderful, thank you.","Wunderbar. Es war alles großartig, danke."]
+]},
+{title:"At the pub bar", scene:"A traditional pub. You go to the bar.", lines:[
+["Bartender","Hiya, what can I get you?","Hallo, was darf's sein?"],
+["You","Could I have half a pint of cider and a lemonade, please?","Könnte ich ein kleines Glas Cider und eine Limonade haben?"],
+["Bartender","Sure. Anything else?","Klar. Sonst noch was?"],
+["You","Are you still serving food?","Gibt es noch Essen?"],
+["Bartender","Kitchen's open till nine. Just order here and give me your table number.","Die Küche hat bis neun offen. Einfach hier bestellen und mir die Tischnummer sagen."],
+["You","Great. Then one fish and chips for table twelve, please.","Super. Dann einmal Fish and Chips für Tisch zwölf, bitte."],
+["Bartender","No problem. That's nineteen pounds fifty altogether.","Kein Problem. Das macht zusammen 19,50 Pfund."]
+]}
+],
+phrases:[
+["A table for two, please.","Einen Tisch für zwei, bitte.",""],
+["Could we have a few more minutes?","Könnten wir noch ein paar Minuten haben?",""],
+["What do you recommend?","Was empfehlen Sie?",""],
+["I'll go for the …","Ich nehme den/die/das …","Natural alternative to ‘I'll have…’."],
+["Does this contain nuts / gluten?","Enthält das Nüsse / Gluten?",""],
+["Could I have it without onions?","Könnte ich das ohne Zwiebeln haben?",""],
+["Please give my compliments to the chef.","Bitte richten Sie dem Koch meine Komplimente aus.","A classy compliment – perfect from a restaurant owner."],
+["Could we have the bill, please?","Könnten wir bitte die Rechnung haben?",""],
+["Is service included?","Ist das Trinkgeld inbegriffen?",""],
+["A pint / half a pint of …","Ein großes / kleines Glas …","A pint ≈ 0,57 l, half a pint ≈ 0,28 l."]
+],
+quiz:[
+{q:"You are in a typical London pub and want a drink. What do you do?",o:["Go to the bar, order and pay there.","Sit down and wait for the waiter.","Order at the bar and pay when you leave."],a:0,e:"Im Pub bestellt und zahlt man <b>direkt an der Bar</b>. Tischservice ist die Ausnahme. Später zahlen ist an der Bar nicht üblich."},
+{q:"The bill says: “Service charge 12.5 % (discretionary)”. What does this mean?",o:["The tip is already added, but you can ask to remove it.","You must add another 12.5 % in cash.","It is a tax that everyone has to pay."],a:0,e:"<b>Discretionary</b> = freiwillig. Das Trinkgeld ist schon auf der Rechnung; extra Trinkgeld ist nicht nötig."},
+{q:"The waiter asks: “Still or sparkling?” You want free water. What do you say?",o:["Just tap water, please.","Still, please.","Sparkling, please."],a:0,e:"‘Still or sparkling’ meint meist Flaschenwasser, das kostet. Für kostenloses Leitungswasser sagt man <b>tap water</b>."},
+{q:"In British English, what do you ask for at the end of a meal?",o:["the bill","the check","the account"],a:0,e:"<b>The bill</b> ist britisch. <b>The check</b> ist amerikanisch – man versteht es in London, aber es klingt amerikanisch."},
+{q:"The waiter asks: “Are you ready to order?” You need more time. What do you say?",o:["Could we have a few more minutes, please?","We are not ready to order.","Could you come later back?"],a:0,e:"<b>Could we have a few more minutes?</b> ist die natürliche, höfliche Antwort. Satz 2 ist korrekt, aber kühl. In Satz 3 ist die Wortstellung falsch: richtig wäre ‘come back later’."},
+{q:"Which word fits? “The fish comes ___ chips or new potatoes.”",o:["with","by","from"],a:0,e:"<b>comes with</b> = wird serviert mit / dazu gibt es."},
+{q:"How do you compliment the food in a stylish way?",o:["Please give my compliments to the chef.","Please tell the chef he cooks okay.","The chef is a good person."],a:0,e:"<b>Please give my compliments to the chef</b> ist die feste, elegante Formel. Die anderen Sätze klingen ungeschickt oder treffen nicht das Essen."}
+]
+},
+/* ---------- 5 ---------- */
+{
+id:"directions", icon:"🧭", title:"Asking the Way", sub:"Finding the café, the station, the market – and understanding the answer.", color:"var(--sky)",
+notes:[
+"Start politely: <b>Excuse me, sorry to bother you…</b> – Brits love a little ‘sorry’ before a question.",
+"Londoners often give directions with landmarks: <b>Turn left at the pub. It's opposite the bank.</b>",
+"<b>Round the corner</b> = gleich um die Ecke. <b>A ten-minute walk</b> = zehn Minuten zu Fuß.",
+"Repeat the directions to check: <b>So, straight on, then second left?</b> – that is smart, not rude.",
+"Underground stations are called <b>Tube stations</b>, not ‘metro’."
+],
+dialogues:[
+{title:"To King's Cross", scene:"You are on a street near the British Library.", puzzle:true, lines:[
+["You","Excuse me, sorry to bother you. Could you tell me how to get to King's Cross station?","Entschuldigung, darf ich kurz stören? Können Sie mir sagen, wie ich zum Bahnhof King's Cross komme?"],
+["Passer-by","Sure. Go straight down this road and take the second left.","Klar. Gehen Sie diese Straße geradeaus und nehmen Sie die zweite links."],
+["You","Straight on, then the second left. Okay.","Geradeaus, dann die zweite links. Okay."],
+["Passer-by","Then you'll see it at the end of the street. It's about a five-minute walk.","Dann sehen Sie ihn am Ende der Straße. Etwa fünf Minuten zu Fuß."],
+["You","Brilliant, thank you so much!","Super, vielen Dank!"],
+["Passer-by","No worries. You can't miss it.","Gern. Sie können ihn nicht verfehlen."]
+]},
+{title:"Where's that café?", scene:"You're looking for a café a friend recommended.", lines:[
+["You","Hi, sorry – I'm looking for a café called The Copper Kettle. Is it around here?","Hallo, Entschuldigung – ich suche ein Café namens The Copper Kettle. Ist das hier in der Nähe?"],
+["Local","The Copper Kettle… yes! It's just round the corner, opposite the bookshop.","The Copper Kettle… ja! Gleich um die Ecke, gegenüber der Buchhandlung."],
+["You","Opposite the bookshop. Is it on this side of the road?","Gegenüber der Buchhandlung. Auf dieser Straßenseite?"],
+["Local","No, the other side. If you get to the bus stop, you've gone too far.","Nein, auf der anderen. Wenn Sie zur Bushaltestelle kommen, sind Sie zu weit."],
+["You","Perfect. Thanks a lot!","Perfekt. Danke vielmals!"],
+["Local","Enjoy! Try the hot chocolate – it's famous.","Viel Spaß! Probieren Sie die heiße Schokolade – die ist berühmt."]
+]},
+{title:"When you don't understand", scene:"Someone explains very fast.", lines:[
+["Local","Yeah, so you go past the lights, hang a right, and it's just after the Tesco.","Ja, also an der Ampel vorbei, rechts rein, und gleich nach dem Tesco."],
+["You","Sorry, could you say that again a bit more slowly?","Entschuldigung, könnten Sie das etwas langsamer wiederholen?"],
+["Local","Of course! Go past the traffic lights. Then turn right. It's just after the supermarket.","Natürlich! An der Ampel vorbei. Dann rechts abbiegen. Gleich nach dem Supermarkt."],
+["You","Past the lights, turn right, after the supermarket. Got it – thank you!","An der Ampel vorbei, rechts, nach dem Supermarkt. Verstanden – danke!"]
+]}
+],
+phrases:[
+["Could you tell me how to get to …?","Können Sie mir sagen, wie ich zu … komme?",""],
+["Is it far from here?","Ist es weit von hier?",""],
+["Is it within walking distance?","Kann man da zu Fuß hingehen?",""],
+["Go straight on / straight ahead.","Gehen Sie geradeaus.",""],
+["Take the first / second left.","Nehmen Sie die erste / zweite links.",""],
+["It's opposite / next to / behind …","Es ist gegenüber / neben / hinter …",""],
+["at the end of the street","am Ende der Straße",""],
+["just round the corner","gleich um die Ecke",""],
+["Hang a right / a left.","Biegen Sie rechts / links ab.","Very informal British – good to understand."],
+["You've gone too far.","Sie sind zu weit gegangen.",""]
+],
+quiz:[
+{q:"Someone says: “It's opposite the bank.” Where is it?",o:["On the other side of the street, facing the bank","Next to the bank","Behind the bank"],a:0,e:"<b>Opposite</b> = gegenüber, also auf der anderen Straßenseite. Next to = neben, behind = hinter."},
+{q:"“It's just round the corner.” What does it mean?",o:["It's very close.","It's far away.","You have to turn around."],a:0,e:"<b>Just round the corner</b> = ganz nah, gleich um die Ecke."},
+{q:"You didn't understand the directions. Which sentence is best?",o:["Sorry, could you say that again a bit more slowly?","Sorry, I don't speak English.","Sorry, please speak not so fast."],a:0,e:"Satz 1 ist höflich und korrekt. Satz 2 stimmt nicht – Sie sprechen ja Englisch! In Satz 3 ist die Verneinung falsch: richtig wäre ‘please don't speak so fast’."},
+{q:"Which question is correct?",o:["Could you tell me where the station is?","Could you tell me where is the station?","Could you tell me where the station it is?"],a:0,e:"In einer indirekten Frage (‘Could you tell me…’) steht das Verb am Ende: <b>where the station is</b>."},
+{q:"The person says: “If you get to the bus stop, you've gone too far.” What should you do?",o:["Stop before you reach the bus stop.","Walk to the bus stop and wait.","Take the bus."],a:0,e:"<b>You've gone too far</b> = dann sind Sie zu weit. Das Café liegt also vor der Bushaltestelle."}
+]
+},
+/* ---------- 6 ---------- */
+{
+id:"smalltalk", icon:"🌦️", title:"Small Talk & the Weather", sub:"The British art of talking about nothing – and doing it well.", color:"var(--petrol)",
+notes:[
+"Talking about the weather in Britain is about being friendly, not about the weather itself.",
+"The perfect reply in 3 steps: <b>agree + add something + ask back</b>. ‘Freezing, isn't it?’ → ‘It really is! At least it's sunny, though. Is it always this cold in December?’",
+"Question tags make you sound very British: <b>Lovely day, isn't it?</b> / <b>You're not from here, are you?</b>",
+"British understatement: <b>a bit chilly</b> can mean really cold; <b>not bad at all</b> can mean very good."
+],
+dialogues:[
+{title:"In the queue", scene:"In a queue at a bakery on a cold morning.", puzzle:true, lines:[
+["Woman","Freezing today, isn't it?","Eiskalt heute, oder?"],
+["You","It really is! But at least it's not raining.","Allerdings! Aber wenigstens regnet es nicht."],
+["Woman","Give it an hour.","Warten Sie eine Stunde."],
+["You","Ha! Is it always like this in December?","Ha! Ist das im Dezember immer so?"],
+["Woman","Pretty much. Grey, cold, and then suddenly a beautiful afternoon.","Ziemlich. Grau, kalt, und dann plötzlich ein wunderschöner Nachmittag."],
+["You","That sounds like Austria, actually. I feel right at home.","Das klingt eigentlich wie Österreich. Ich fühle mich wie zu Hause."]
+]},
+{title:"Weekend plans", scene:"Chatting with the person next to you in a café.", lines:[
+["Man","Got any plans for the weekend?","Schon Pläne fürs Wochenende?"],
+["You","I'm going to a Christmas market on Saturday. And on Sunday, a lot of walking, I think.","Am Samstag gehe ich auf einen Weihnachtsmarkt. Und am Sonntag viel spazieren, glaube ich."],
+["Man","Sounds lovely. Which market?","Klingt schön. Welcher Markt?"],
+["You","The one on the Southbank. Have you been?","Der am Southbank. Waren Sie schon dort?"],
+["Man","Every year. Get the hot chestnuts – they're the best thing there.","Jedes Jahr. Holen Sie sich heiße Maroni – die sind das Beste dort."],
+["You","Chestnuts! We have those in Graz too. I'll compare.","Maroni! Die gibt's in Graz auch. Ich werde vergleichen."]
+]}
+],
+phrases:[
+["Lovely day, isn't it?","Schöner Tag, nicht wahr?",""],
+["It's a bit nippy today.","Heute ist es etwas frisch.","‘Nippy’ = British for cold."],
+["It's absolutely pouring!","Es schüttet richtig!",""],
+["At least it's not raining.","Wenigstens regnet es nicht.","The classic British optimism."],
+["Got any plans for the weekend?","Schon Pläne fürs Wochenende?",""],
+["Have you been here long?","Sind Sie schon lange hier?",""],
+["I know what you mean.","Ich weiß, was Sie meinen.",""],
+["Tell me about it!","Wem sagen Sie das!","Means: I agree completely."],
+["Fingers crossed!","Daumen drücken!","Brits cross fingers instead of pressing thumbs."],
+["That's the spirit!","So ist's richtig!",""]
+],
+quiz:[
+{q:"Someone says: “Freezing today, isn't it?” Which reply follows the 3-step rule (agree + add + ask)?",o:["It really is! At least it's sunny, though. Is it always this cold here?","Yes.","No, in Austria it is colder."],a:0,e:"Zustimmen + etwas ergänzen + zurückfragen hält das Gespräch am Laufen. ‘Yes.’ beendet es sofort; die dritte Antwort widerspricht – im Smalltalk eher ungeschickt."},
+{q:"Choose the correct question tag: “Lovely day, ___?”",o:["isn't it","is it","doesn't it"],a:0,e:"‘(It is a) lovely day’ ist positiv → negatives Tag: <b>isn't it?</b>"},
+{q:"Choose the correct question tag: “You've been to London before, ___?”",o:["haven't you","didn't you","don't you"],a:0,e:"Das Hilfsverb im Satz ist <b>have</b> (You've = You have) → <b>haven't you?</b>"},
+{q:"A Londoner says: “Tell me about it!” What does she mean?",o:["I completely agree with you.","Please explain it to me.","I don't believe you."],a:0,e:"<b>Tell me about it!</b> = Wem sagst du das! / Das kenne ich nur zu gut. Es ist keine Bitte um Erklärung."},
+{q:"A Brit says the film was “not bad at all”. What does he probably mean?",o:["He liked it quite a lot.","He didn't like it.","He hasn't seen it yet."],a:0,e:"Britisches <b>Understatement</b>: ‘not bad at all’ ist meist ein echtes Lob."},
+{q:"Someone says: “It's a bit nippy today.” What is the weather like?",o:["Quite cold","Very hot","Very windy and rainy"],a:0,e:"<b>Nippy</b> = frisch, kühl. Ein typisch britisches Alltagswort."}
+]
+},
+/* ---------- 7 ---------- */
+{
+id:"tube", icon:"🚇", title:"Getting Around: Tube & Bus", sub:"Tap in, tap out, mind the gap – moving around London like a local.", color:"var(--lilac)",
+notes:[
+"The Underground is called <b>the Tube</b>. You can pay with a <b>contactless card or phone</b> – no ticket needed.",
+"Tube: <b>tap in</b> at the start and <b>tap out</b> at the end – always with the <b>same card or phone</b>. If you forget to tap out, it can cost you much more.",
+"Buses: <b>tap in only</b> when you get on. <b>No cash</b> on buses.",
+"On escalators: <b>stand on the right</b>, walk on the left.",
+"<b>Mind the gap!</b> = Achtung, Spalt zwischen Zug und Bahnsteig.",
+"Christmas: on <b>25 December there is no Tube</b> and almost no public transport. On 26 December the service is limited. Plan ahead!"
+],
+dialogues:[
+{title:"At the station", scene:"You ask a member of staff at Oxford Circus.", puzzle:true, lines:[
+["You","Excuse me, which line do I need for Camden Town?","Entschuldigung, welche Linie brauche ich nach Camden Town?"],
+["Staff","The Northern line – but change at Warren Street. Take the Victoria line one stop north first.","Die Northern Line – aber Sie steigen in Warren Street um. Nehmen Sie zuerst die Victoria Line eine Station nach Norden."],
+["You","So, Victoria line to Warren Street, then change to the Northern line?","Also Victoria Line bis Warren Street, dann umsteigen in die Northern Line?"],
+["Staff","Exactly. And make sure you take a northbound train to Camden.","Genau. Und nehmen Sie einen Zug Richtung Norden nach Camden."],
+["You","Can I just use my card to pay?","Kann ich einfach mit meiner Karte zahlen?"],
+["Staff","Yes, just tap in here and tap out at the end with the same card.","Ja, hier einfach dranhalten und am Ende mit derselben Karte wieder raus."]
+]},
+{title:"On the bus", scene:"You get on a red double-decker bus.", lines:[
+["You","Hi, does this bus go to Trafalgar Square?","Hallo, fährt dieser Bus zum Trafalgar Square?"],
+["Driver","Yep. Just tap your card on the reader.","Ja. Halten Sie einfach Ihre Karte an das Lesegerät."],
+["You","Could you tell me when we get there, please?","Könnten Sie mir bitte sagen, wenn wir dort sind?"],
+["Driver","It'll be on the screen, love. About six stops.","Das steht auf dem Bildschirm, meine Liebe. Etwa sechs Haltestellen."],
+["You","Thank you! Can I sit upstairs?","Danke! Kann ich oben sitzen?"],
+["Driver","Of course – best view in London, right at the front.","Natürlich – ganz vorne ist der beste Ausblick von London."]
+]},
+{title:"A delay", scene:"An announcement on the platform – and a worried passenger.", lines:[
+["Announcement","We are sorry to announce minor delays on the Central line due to a signal failure.","Wir bedauern, auf der Central Line kleinere Verspätungen aufgrund einer Signalstörung bekanntgeben zu müssen."],
+["You","Sorry, what did they just say?","Entschuldigung, was wurde gerade gesagt?"],
+["Passenger","There's a small delay. Signal problems – it happens a lot.","Es gibt eine kleine Verspätung. Signalprobleme – das passiert oft."],
+["You","Is it quicker to take the bus?","Ist es mit dem Bus schneller?"],
+["Passenger","Not at this time of day. I'd just wait a few minutes.","Nicht um diese Uhrzeit. Ich würde einfach ein paar Minuten warten."]
+]}
+],
+phrases:[
+["Which line do I need for …?","Welche Linie brauche ich nach …?",""],
+["Where do I change for …?","Wo steige ich nach … um?",""],
+["Does this train stop at …?","Hält dieser Zug in …?",""],
+["Which platform for …?","Welcher Bahnsteig nach …?",""],
+["northbound / southbound","Richtung Norden / Süden","Written on the Tube signs."],
+["Is this the right way for …?","Ist das der richtige Weg nach …?",""],
+["Could you tell me when we get there?","Könnten Sie mir sagen, wenn wir dort sind?",""],
+["Is this seat free?","Ist dieser Platz frei?",""],
+["Mind the gap.","Achtung, Spalt zwischen Zug und Bahnsteig.",""],
+["Stand on the right.","Rechts stehen.","The golden rule on escalators."]
+],
+quiz:[
+{q:"On a London escalator, where do you stand if you don't want to walk?",o:["On the right","On the left","In the middle"],a:0,e:"<b>Stand on the right</b>, walk on the left – sonst wird es schnell unangenehm."},
+{q:"You use your phone to enter the Tube. What do you use to tap out?",o:["The same phone","Any bank card","Nothing – you don't have to tap out"],a:0,e:"Immer <b>dasselbe Gerät/dieselbe Karte</b> zum Ein- und Auschecken. Sonst wird ein höherer Preis berechnet."},
+{q:"Can you pay with cash on a London bus?",o:["No, only contactless or Oyster card","Yes, coins only","Yes, but only notes"],a:0,e:"Londoner Busse nehmen <b>kein Bargeld</b>. Man zahlt kontaktlos oder mit Oyster-Karte."},
+{q:"You plan a trip on Christmas Day (25 December). What do you need to know?",o:["There is no Tube service on that day.","The Tube is free on that day.","The Tube runs all night on that day."],a:0,e:"Am <b>25. Dezember</b> fährt in London keine U-Bahn. Gehen Sie zu Fuß oder planen Sie ein Taxi."},
+{q:"“Mind the gap” means …",o:["Be careful of the space between train and platform.","Please wait for the next train.","Keep your bag near you."],a:0,e:"<b>Gap</b> = Lücke, Spalt. Die Durchsage warnt vor dem Abstand zwischen Zug und Bahnsteig."},
+{q:"Which question is correct?",o:["Does this train stop at Green Park?","Does this train stops at Green Park?","Is this train stop at Green Park?"],a:0,e:"Frage mit <b>does</b> → Verb in der Grundform: <b>Does this train stop…?</b>"}
+]
+},
+/* ---------- 8 ---------- */
+{
+id:"shopping", icon:"🛍️", title:"Shopping: Cool Finds", sub:"Boutiques, vintage markets, sizes and paying – shopping with style.", color:"var(--berry)",
+notes:[
+"Cool areas: <b>Carnaby Street</b> and <b>Seven Dials</b> (fashion, independent brands), <b>Covent Garden</b>, <b>Brick Lane</b> and <b>Spitalfields</b> (vintage, design), <b>Camden Market</b> (alternative, street food), <b>Liberty</b> (a beautiful department store).",
+"UK clothes sizes for women (approx.): UK 8 ≈ EU 36, UK 10 ≈ EU 38, UK 12 ≈ EU 40. Shoes: UK 4 ≈ EU 37, UK 5 ≈ EU 38.",
+"<b>I'm just looking, thanks.</b> = Ich schaue nur – completely normal and polite.",
+"At markets you can sometimes ask for a better price – friendly and with a smile: <b>Is that your best price?</b>",
+"Bags usually cost extra: <b>Do you need a bag?</b>"
+],
+dialogues:[
+{title:"In a boutique", scene:"A small fashion shop near Carnaby Street.", puzzle:true, lines:[
+["Assistant","Hi there! Are you looking for anything in particular?","Hallo! Suchen Sie etwas Bestimmtes?"],
+["You","I'm just looking, thanks. Actually – do you have this jacket in black?","Ich schaue nur, danke. Eigentlich – haben Sie diese Jacke in Schwarz?"],
+["Assistant","We do. What size are you?","Ja. Welche Größe haben Sie?"],
+["You","Usually a UK eight, I think.","Normalerweise UK 8, glaube ich."],
+["Assistant","Here you go. The fitting rooms are just at the back.","Bitte sehr. Die Umkleiden sind gleich hinten."],
+["You","Thank you. Could I try it on?","Danke. Könnte ich sie anprobieren?"]
+]},
+{title:"In the fitting room", scene:"The jacket is almost perfect.", lines:[
+["Assistant","How's it going in there?","Wie läuft's da drin?"],
+["You","I love it, but it's a bit too big on the shoulders. Do you have a size six?","Ich liebe sie, aber an den Schultern ist sie etwas zu groß. Haben Sie Größe 6?"],
+["Assistant","Let me check… Yes, last one!","Ich schaue nach… Ja, die letzte!"],
+["You","Perfect – this one fits like a glove. I'll take it.","Perfekt – die passt wie angegossen. Ich nehme sie."],
+["Assistant","Great choice. It really suits you.","Tolle Wahl. Sie steht Ihnen wirklich gut."],
+["You","Thank you! Could I get a gift receipt as well? Just in case.","Danke! Könnte ich auch einen Geschenkbeleg bekommen? Nur für alle Fälle."]
+]},
+{title:"At the vintage market", scene:"A stall at Spitalfields with old silver jewellery.", lines:[
+["You","These earrings are beautiful. How much are they?","Diese Ohrringe sind wunderschön. Wie viel kosten sie?"],
+["Seller","Forty-five pounds. They're from the 1960s.","45 Pfund. Die sind aus den 1960ern."],
+["You","They're lovely. Is that your best price?","Sie sind herrlich. Ist das Ihr bester Preis?"],
+["Seller","For you, forty. And that's a good deal.","Für Sie 40. Und das ist ein gutes Angebot."],
+["You","Deal! Can I pay by card?","Abgemacht! Kann ich mit Karte zahlen?"],
+["Seller","Of course. Would you like a little box for them?","Natürlich. Möchten Sie eine kleine Schachtel dafür?"],
+["You","Yes, please. They're a present – for me!","Ja, bitte. Sie sind ein Geschenk – für mich!"]
+]}
+],
+phrases:[
+["I'm just looking, thanks.","Ich schaue nur, danke.",""],
+["Do you have this in a smaller / bigger size?","Haben Sie das eine Nummer kleiner / größer?",""],
+["Does it come in other colours?","Gibt es das in anderen Farben?",""],
+["Could I try it on?","Könnte ich das anprobieren?",""],
+["Where are the fitting rooms?","Wo sind die Umkleiden?",""],
+["It fits like a glove.","Es passt wie angegossen.",""],
+["It's a bit too tight / loose.","Es ist etwas zu eng / weit.",""],
+["It really suits you.","Das steht Ihnen wirklich gut.","Compliment you will hear – and can give!"],
+["Is that your best price?","Ist das Ihr bester Preis?","Only at markets, never in normal shops."],
+["Could I get a gift receipt?","Könnte ich einen Geschenkbeleg bekommen?",""]
+],
+quiz:[
+{q:"A shop assistant asks: “Can I help you?” You only want to look. What do you say?",o:["I'm just looking, thanks.","No, you can't help me.","I look only."],a:0,e:"<b>I'm just looking, thanks</b> ist die feste, freundliche Formel. ‘No, you can't help me’ klingt unhöflich; ‘I look only’ ist kein natürliches Englisch."},
+{q:"The assistant says: “That colour really suits you.” What does she mean?",o:["The colour looks good on you.","The colour is the right size.","The colour is on sale."],a:0,e:"<b>to suit somebody</b> = jemandem gut stehen. Für die Größe sagt man <b>it fits</b>."},
+{q:"Which sentence is about the SIZE?",o:["It fits perfectly.","It suits me perfectly.","It matches perfectly."],a:0,e:"<b>fit</b> = Größe/Passform. <b>suit</b> = steht mir gut (Farbe/Stil). <b>match</b> = passt zusammen (z. B. Schuhe zur Tasche)."},
+{q:"You normally wear EU size 38. Which UK size do you probably need?",o:["UK 10","UK 38","UK 6"],a:0,e:"Faustregel bei Damengrößen: EU minus 28 ≈ UK. 38 → <b>UK 10</b>."},
+{q:"Where is it normal to ask “Is that your best price?”",o:["At a market stall","At the checkout in a department store","In a supermarket"],a:0,e:"Handeln geht in London höchstens <b>auf Märkten</b> – freundlich und mit Lächeln. In normalen Geschäften nicht."},
+{q:"Which question is correct?",o:["Does it come in other colours?","Does it comes in other colours?","Is it come in other colours?"],a:0,e:"Nach <b>does</b> steht das Verb in der Grundform: <b>come</b>. ‘Colours’ ist die britische Schreibweise (US: colors)."}
+]
+},
+/* ---------- 9 ---------- */
+{
+id:"christmas", icon:"🎄", title:"Christmas in London", sub:"Markets, lights, mince pies and British Christmas traditions.", color:"var(--gold)",
+notes:[
+"Famous Christmas spots: the lights on <b>Oxford Street</b> and <b>Regent Street</b>, <b>Winter Wonderland</b> in Hyde Park (fair, ice skating, markets), the <b>Southbank</b> winter market, the giant tree in <b>Covent Garden</b>.",
+"<b>Mulled wine</b> = Glühwein. <b>Hot chestnuts</b> = Maroni.",
+"<b>Mince pies</b> are small sweet pies with dried fruit and spices – today usually no meat, despite the name.",
+"<b>Christmas crackers</b>: two people pull, it goes ‘bang’, inside: a paper crown, a small gift and a (very bad) joke.",
+"In Britain the big day is <b>25 December</b> (Christmas Day) with lunch. <b>26 December = Boxing Day</b>: big sales in the shops.",
+"Brits say both <b>Merry Christmas</b> and <b>Happy Christmas</b>."
+],
+dialogues:[
+{title:"At the Christmas market", scene:"A stall with hot drinks at the Southbank winter market.", puzzle:true, lines:[
+["Stallholder","Evening! What can I get you?","Guten Abend! Was darf's sein?"],
+["You","Two mulled wines, please. And are those mince pies?","Zwei Glühwein, bitte. Und sind das Mince Pies?"],
+["Stallholder","They are – homemade this morning.","Ja – heute Morgen selbst gemacht."],
+["You","Is there meat in them? I've heard the name, but I'm not sure.","Ist da Fleisch drin? Ich habe den Namen gehört, bin mir aber nicht sicher."],
+["Stallholder","No meat at all – just dried fruit and spices. Everyone asks!","Gar kein Fleisch – nur Trockenfrüchte und Gewürze. Das fragen alle!"],
+["You","Then I'll try one. When in London…","Dann probiere ich eine. Andere Länder, andere Sitten…"]
+]},
+{title:"Christmas plans", scene:"Your London friend asks about Christmas.", lines:[
+["Friend","So, what do you normally do for Christmas?","Und, was machst du normalerweise zu Weihnachten?"],
+["You","In Austria, the big evening is Christmas Eve – the twenty-fourth. That's when we open the presents.","In Österreich ist der große Abend der Heilige Abend – der 24. Da werden die Geschenke geöffnet."],
+["Friend","Really? Here it's the twenty-fifth – presents in the morning, then a huge lunch.","Wirklich? Hier ist es der 25. – Geschenke am Morgen, dann ein riesiges Mittagessen."],
+["You","And in China, Christmas is more about shopping and lights. Our big festival is Chinese New Year.","Und in China geht es zu Weihnachten eher um Shopping und Lichter. Unser großes Fest ist das chinesische Neujahr."],
+["Friend","So you get three different Christmases!","Du hast also drei verschiedene Weihnachten!"],
+["You","Exactly – and I celebrate all of them. Especially the food.","Genau – und ich feiere sie alle. Vor allem das Essen."]
+]},
+{title:"Pulling a cracker", scene:"Christmas dinner with friends. There's a cracker on your plate.", lines:[
+["Friend","Here – grab the other end and pull!","Hier – nimm das andere Ende und zieh!"],
+["You","Like this? Oh! It went bang!","So? Oh! Es hat geknallt!"],
+["Friend","You won! Now put on your paper crown – it's the rule.","Du hast gewonnen! Jetzt setz die Papierkrone auf – das ist Pflicht."],
+["You","Everybody looks like a king now. And what's this little paper?","Jetzt sehen alle aus wie Könige. Und was ist dieser kleine Zettel?"],
+["Friend","The joke. Read it out – it's always terrible.","Der Witz. Lies ihn vor – der ist immer furchtbar."],
+["You","“What do you call a cat on the beach at Christmas? Sandy Claws.”","„Wie nennt man eine Katze am Strand zu Weihnachten? Sandy Claws.“"],
+["Friend","See? Terrible. That's the tradition!","Siehst du? Furchtbar. Das ist die Tradition!"]
+]}
+],
+phrases:[
+["Merry Christmas! / Happy Christmas!","Frohe Weihnachten!",""],
+["Season's greetings!","Frohe Festtage!","Written in cards, a bit formal."],
+["Two mulled wines, please.","Zwei Glühwein, bitte.",""],
+["The lights are absolutely stunning.","Die Lichter sind absolut atemberaubend.",""],
+["It's so festive here!","Es ist so weihnachtlich hier!",""],
+["What are your plans for Christmas?","Was hast du zu Weihnachten vor?",""],
+["Are you doing anything nice for New Year's Eve?","Machst du etwas Schönes zu Silvester?",""],
+["Have a lovely Christmas!","Schöne Weihnachten!",""],
+["All the best for the new year!","Alles Gute fürs neue Jahr!",""],
+["the Boxing Day sales","der große Ausverkauf am 26. Dezember",""]
+],
+quiz:[
+{q:"What is inside a traditional mince pie today?",o:["Dried fruit and spices","Minced beef","Cheese and onions"],a:0,e:"Trotz des Namens enthalten <b>mince pies</b> heute meist kein Fleisch, sondern Trockenfrüchte und Gewürze."},
+{q:"What is Boxing Day?",o:["26 December – a public holiday with big sales","A boxing competition on Christmas Eve","The day you put presents into boxes"],a:0,e:"<b>Boxing Day</b> ist der 26. Dezember, ein Feiertag, an dem viele Geschäfte große Rabatte haben."},
+{q:"When do most British families open their Christmas presents?",o:["On the morning of 25 December","On the evening of 24 December","On 6 January"],a:0,e:"In Großbritannien öffnet man die Geschenke meist am <b>Morgen des 25. Dezember</b> – anders als in Österreich am 24. abends."},
+{q:"What do you find inside a Christmas cracker?",o:["A paper crown, a small gift and a joke","A small Christmas cake","Fireworks for New Year"],a:0,e:"Ein <b>cracker</b> knallt beim Ziehen. Drin: Papierkrone, kleines Geschenk und ein (bewusst schlechter) Witz."},
+{q:"Which word fits? “The lights on Regent Street are absolutely ___.”",o:["stunning","stunned","stun"],a:0,e:"<b>stunning</b> = atemberaubend (beschreibt die Sache). <b>stunned</b> = fassungslos (beschreibt das Gefühl einer Person)."},
+{q:"How do you ask a friend about New Year's Eve?",o:["Are you doing anything nice for New Year's Eve?","Do you make something nice for New Year's Eve?","Are you make anything nice for New Year's Eve?"],a:0,e:"Für Pläne nimmt man das <b>Present Continuous</b>: ‘Are you doing…?’. ‘Make’ passt hier nicht (machen = do bei Aktivitäten)."}
+]
+},
+/* ---------- 10 ---------- */
+{
+id:"shine", icon:"✨", title:"Shine with Your English", sub:"Elegant phrases that make people say: “Wow, your English is good!”", color:"var(--sky)",
+notes:[
+"A few elegant phrases, used at the right moment, make a big impression – more than long sentences.",
+"Rescue phrases are smart, not weak: <b>Bear with me, what's the word…?</b> sounds confident and very natural.",
+"A Chinese proverb in English is a beautiful way to start a deeper conversation – people love it."
+],
+dialogues:[
+{title:"Showing off – elegantly", scene:"A friend introduces you to a group of Londoners. Someone starts speaking Chinese to you to be nice.", lines:[
+["Guest","Nǐ hǎo! I learned a little Chinese at university.","Nǐ hǎo! Ich habe an der Uni ein bisschen Chinesisch gelernt."],
+["You","Oh, that's lovely! Your accent is really good. But please – let me practise my English tonight.","Oh, wie schön! Ihr Akzent ist wirklich gut. Aber bitte – lassen Sie mich heute Abend mein Englisch üben."],
+["Guest","Deal! How are you finding London?","Abgemacht! Wie gefällt Ihnen London?"],
+["You","I'm thoroughly enjoying myself. It's every bit as exciting as people say.","Ich genieße es in vollen Zügen. Es ist genauso aufregend, wie alle sagen."],
+["Guest","And the food? Be honest.","Und das Essen? Seien Sie ehrlich."],
+["You","Honestly? I'm spoilt for choice. Although I have to say – Chinatown was a bit too sweet for my taste.","Ehrlich? Ich habe die Qual der Wahl. Allerdings – Chinatown war mir etwas zu süß."],
+["Guest","Spoken like a true chef!","Gesprochen wie eine echte Köchin!"],
+["You","Well, we have a saying in Chinese: ‘When you drink water, remember the source.’ I always remember where real Chinese food comes from.","Nun, wir haben ein chinesisches Sprichwort: ‚Wenn du Wasser trinkst, denk an die Quelle.‘ Ich vergesse nie, woher echtes chinesisches Essen kommt."]
+]},
+{title:"Finding the word", scene:"You're telling a story and a word is missing.", lines:[
+["You","Yesterday I bought this beautiful… bear with me, what's the word… the thing you wear around your neck in winter?","Gestern habe ich diesen schönen… Moment, wie heißt das… das Ding, das man im Winter um den Hals trägt?"],
+["Friend","A scarf?","Einen Schal?"],
+["You","A scarf, exactly! Thank you. It was love at first sight.","Einen Schal, genau! Danke. Es war Liebe auf den ersten Blick."],
+["Friend","Your English is honestly brilliant.","Dein Englisch ist ehrlich brillant."],
+["You","That's very kind of you. I'm still finding my feet, but I'm getting there.","Das ist sehr lieb von dir. Ich bin noch dabei, mich zurechtzufinden, aber ich komme voran."]
+]}
+],
+phrases:[
+["I'm thoroughly enjoying myself.","Ich genieße es in vollen Zügen.","Much more elegant than ‘It's very nice’."],
+["It's every bit as good as people say.","Es ist genauso gut, wie alle sagen.",""],
+["I'm spoilt for choice.","Ich habe die Qual der Wahl.",""],
+["It's right up my street.","Das ist genau mein Ding.","Very British."],
+["I could get used to this.","Daran könnte ich mich gewöhnen.","Great with a smile, e.g. at afternoon tea."],
+["You've made my day!","Sie haben mir den Tag versüßt!",""],
+["That's music to my ears.","Das ist Musik in meinen Ohren.",""],
+["I couldn't agree more.","Da stimme ich voll und ganz zu.",""],
+["Bear with me – what's the word…?","Moment – wie heißt das Wort…?","The best rescue phrase there is."],
+["Sorry, I didn't quite catch that.","Entschuldigung, das habe ich nicht ganz verstanden.",""],
+["The pleasure is all mine.","Die Freude ist ganz meinerseits.",""],
+["It's not really my cup of tea.","Das ist nicht so ganz mein Fall.","Add with a smile: ‘And in China, we take tea very seriously.’"],
+["We have a saying in Chinese: …","Wir haben ein chinesisches Sprichwort: …",""],
+["A journey of a thousand miles begins with a single step.","Auch eine Reise von tausend Meilen beginnt mit dem ersten Schritt.","Laozi – known all over the world."],
+["When you drink water, remember the source.","Wenn du Wasser trinkst, denk an die Quelle.","饮水思源 – about gratitude."],
+["Let's keep in touch!","Lass uns in Kontakt bleiben!",""]
+],
+quiz:[
+{q:"Someone asks: “How are you finding London?” Which answer shines the most?",o:["I'm thoroughly enjoying myself.","London is good.","I find London with my phone."],a:0,e:"<b>How are you finding…?</b> = Wie gefällt dir…? Antwort 1 ist elegant und natürlich. Antwort 2 ist korrekt, aber sehr einfach. Antwort 3 missversteht ‘find’ wörtlich."},
+{q:"You can't remember a word in the middle of a sentence. What do you say?",o:["Bear with me – what's the word…?","Sorry, my English is finished.","Wait, I say it in Chinese."],a:0,e:"<b>Bear with me</b> = Haben Sie kurz Geduld mit mir. So gewinnt man Zeit und wirkt souverän."},
+{q:"“I'm spoilt for choice” means …",o:["There are so many good options that it's hard to choose.","I'm unhappy with the choice.","Somebody else chose for me."],a:0,e:"<b>spoilt for choice</b> = die Qual der Wahl haben – es gibt zu viele gute Möglichkeiten."},
+{q:"A new friend says: “It was so nice to meet you!” Which elegant reply fits?",o:["The pleasure is all mine.","Yes, it was nice for you.","The pleasure is all yours."],a:0,e:"<b>The pleasure is all mine</b> = Die Freude ist ganz meinerseits. ‘All yours’ würde bedeuten: Die Freude war nur Ihre."},
+{q:"Someone says: “Afternoon tea at the Ritz – it's right up your street!” What does it mean?",o:["It's exactly the kind of thing you like.","It's on the street where you live.","It's on your way home."],a:0,e:"<b>right up your street</b> = genau dein Ding. Eine bildhafte, sehr britische Wendung."},
+{q:"Someone talks fast and you missed it. Which sentence sounds best?",o:["Sorry, I didn't quite catch that.","Sorry, I didn't catch that quite.","Sorry, I don't catch quite that."],a:0,e:"Die feste Wendung ist <b>I didn't quite catch that</b> – ‘quite’ steht vor dem Verb."}
+]
+}
+];
+
+const DECODER = [
+["I'll bear it in mind.","Meistens: Ich werde es wahrscheinlich nicht tun."],
+["Quite good.","Oft: Na ja, ganz okay – nicht begeistert."],
+["Not bad at all!","Wirklich gut!"],
+["With the greatest respect…","Ich bin überhaupt nicht Ihrer Meinung."],
+["It's a bit chilly.","Es ist richtig kalt."],
+["That's an interesting idea.","Oft: Das halte ich für keine gute Idee."],
+["Sorry!","Kann alles heißen: Entschuldigung, Verzeihung, Darf ich durch?, Wie bitte?"],
+["You must come round for dinner sometime.","Freundlich gemeint – aber noch keine echte Einladung."],
+["I'm sure it's my fault.","Ich bin sicher, es ist Ihre Schuld."],
+["Just a quick one?","Ein Getränk – das selten nur eines bleibt."],
+["Fancy a cuppa?","Lust auf eine Tasse Tee?"],
+["Brilliant!","Super! – oder auch nur: Okay, danke."]
+];
+
+const ROLES = [
+["Café","You are in a busy café. Order a drink and something to eat, ask for tap water and find a seat.",["What can I get you?","Eat in or take away?","Small or regular?"]],
+["Wrong order","Your tea arrives with milk, but you wanted it black. Solve the problem politely.",["Sorry to bother you…","I think this might be…"]],
+["Meeting a friend","You meet an old friend in London after a long time. Catch up, talk about work and decide who pays.",["It's been ages!","What have you been up to?","This one's on me."]],
+["Stranger","A stranger at the next table compliments your bag and asks where you're from. Have a nice chat and end it politely.",["I'm originally from…","Any tips?","It was really nice talking to you."]],
+["Restaurant","You arrive without a reservation. Ask for a table, order a starter and a main, ask about an ingredient, ask for the bill.",["A table for two?","Does this contain…?","Is service included?"]],
+["Pub","Order drinks and food at the bar. You don't know how it works – ask.",["Do I order here?","Are you still serving food?","Table number…"]],
+["Directions","You are lost. Ask the way to a Tube station, repeat the directions to check.",["Excuse me, sorry to bother you…","So, straight on and then…?"]],
+["Small talk","In a queue, someone talks about the weather. Keep the conversation going for at least six lines.",["…, isn't it?","At least…","Is it always like this?"]],
+["Tube","You need to go from your hotel to Camden. Ask the station staff which line, where to change and how to pay.",["Which line do I need?","Where do I change?","Can I pay by card?"]],
+["Shopping","In a boutique: find a jacket, ask for another size and colour, try it on, buy it, ask for a gift receipt.",["Do you have this in…?","Could I try it on?","It fits like a glove."]],
+["Market","At a vintage market, ask the price of a necklace and negotiate in a friendly way.",["How much is it?","Is that your best price?"]],
+["Christmas","At a Christmas dinner, a British friend asks how Christmas works in Austria and China. Explain and ask back.",["In Austria…","In China…","What about you?"]],
+["Shine","At a party, someone speaks Chinese to you. Answer kindly in English and use at least three ‘shine’ phrases.",["I'm thoroughly enjoying myself.","Spoilt for choice","We have a saying…"]]
+];
+
+/* ================= AUDIO ================= */
+let rate = 0.95, voices = [], gbVoices = [], speaking = null;
+function loadVoices(){
+  try{
+    voices = speechSynthesis.getVoices();
+    gbVoices = voices.filter(v=>/en[-_]GB/i.test(v.lang));
+    if(!gbVoices.length) gbVoices = voices.filter(v=>/^en/i.test(v.lang));
+  }catch(e){}
+}
+if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+function clearPlaying(){ document.querySelectorAll('.spk.playing').forEach(b=>b.classList.remove('playing')); }
+function say(text, btn, voiceIdx=0, onend){
+  if(!('speechSynthesis' in window)) { alert('Audio is not supported in this browser.'); return; }
+  speechSynthesis.cancel(); clearPlaying();
+  const u = new SpeechSynthesisUtterance(text.replace(/[“”‘’]/g,"'"));
+  u.lang = 'en-GB'; u.rate = rate;
+  if(gbVoices.length) u.voice = gbVoices[voiceIdx % gbVoices.length];
+  if(btn) btn.classList.add('playing');
+  u.onend = ()=>{ if(btn) btn.classList.remove('playing'); if(onend) onend(); };
+  u.onerror = ()=>{ if(btn) btn.classList.remove('playing'); };
+  speechSynthesis.speak(u);
+}
+function playDialogue(lines, btns){
+  let i = 0; const speakers = [...new Set(lines.map(l=>l[0]))];
+  const next = ()=>{
+    if(i >= lines.length) return;
+    const idx = i++;
+    say(lines[idx][1], btns[idx], speakers.indexOf(lines[idx][0]), next);
+  };
+  next();
+}
+function spkBtn(text, vi=0){
+  const b = document.createElement('button');
+  b.className='spk'; b.type='button'; b.title='Listen'; b.textContent='🔈';
+  b.onclick = ()=>say(text,b,vi);
+  return b;
+}
+
+/* ================= HELPERS ================= */
+const el = (t,c,h)=>{const e=document.createElement(t); if(c) e.className=c; if(h!==undefined) e.innerHTML=h; return e;};
+const shuffle = a=>{a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a;};
+const scores = {};
+function updateTotal(){
+  let r=0,t=0; Object.values(scores).forEach(s=>{r+=s.r; t+=s.t;});
+  const all = MODULES.reduce((n,m)=>n+m.quiz.length,0);
+  document.getElementById('totalScore').textContent = `Quiz: ${r} correct out of ${t} answered · ${all} questions in total`;
+}
+
+/* ================= RENDER ================= */
+const main = document.getElementById('main'), chips = document.getElementById('chips');
+const sections = {};
+
+function renderModule(m){
+  const sec = el('section'); sec.id = m.id;
+  const head = el('div','mod-head',`<h2>${m.icon} ${m.title}</h2><p>${m.sub}</p>`);
+  head.style.background = m.color; sec.appendChild(head);
+
+  const n = el('div','card note','<h3>💡 Good to know</h3>');
+  const ul = el('ul'); m.notes.forEach(t=>ul.appendChild(el('li','',t))); n.appendChild(ul); sec.appendChild(n);
+
+  m.dialogues.forEach((d,di)=>{
+    const c = el('div','card');
+    const t = el('div','dlg-title');
+    t.appendChild(el('h3','',`🎧 ${d.title} <span class="tag">Dialogue ${di+1}</span>`));
+    const pb = el('button','pbtn','▶ Play whole dialogue'); t.appendChild(pb);
+    c.appendChild(t);
+    c.appendChild(el('p','dlg-scene',d.scene));
+    const speakers = [...new Set(d.lines.map(l=>l[0]))];
+    const btns = [];
+    d.lines.forEach(l=>{
+      const row = el('div','line'+(l[0]==='You'?' me':''));
+      row.appendChild(el('div','who',l[0]));
+      const tx = el('div','txt'); tx.appendChild(el('span','en',l[1])); tx.appendChild(el('span','de',l[2]));
+      row.appendChild(tx);
+      const b = spkBtn(l[1], speakers.indexOf(l[0])); btns.push(b); row.appendChild(b);
+      c.appendChild(row);
+    });
+    pb.onclick = ()=>playDialogue(d.lines,btns);
+    sec.appendChild(c);
+  });
+
+  // puzzle
+  const pd = m.dialogues.find(d=>d.puzzle);
+  if(pd){
+    const c = el('div','card');
+    c.appendChild(el('h3','',`🧩 Dialogue puzzle <span class="tag">Put the lines in order</span>`));
+    c.appendChild(el('p','hint','Click the lines in the right order. Try it from memory first – without scrolling up.'));
+    const done = el('div','puzzle-done'), pool = el('div','puzzle-pool');
+    const lines = pd.lines.slice(0,6);
+    let step = 0;
+    const reset = el('button','pbtn','↺ Start again');
+    function build(){
+      done.innerHTML=''; pool.innerHTML=''; step=0;
+      shuffle(lines.map((l,i)=>({l,i}))).forEach(o=>{
+        const b = el('button','pz',`<b>${o.l[0]}:</b> ${o.l[1]}`);
+        b.onclick = ()=>{
+          if(o.i===step){
+            step++; b.remove();
+            done.appendChild(el('div','done-line',`<small>${step}</small><b>${o.l[0]}:</b> ${o.l[1]}`));
+            if(step===lines.length) done.appendChild(el('div','expl show','<b>Well done!</b> The dialogue is complete. Now try to act it out with the other role.'));
+          } else { b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); }
+        };
+        pool.appendChild(b);
+      });
+    }
+    reset.onclick = build; build();
+    c.appendChild(done); c.appendChild(pool);
+    const rw = el('div'); rw.style.marginTop='14px'; rw.appendChild(reset); c.appendChild(rw);
+    sec.appendChild(c);
+  }
+
+  // phrases
+  const pc = el('div','card');
+  pc.appendChild(el('h3','',`🗝️ Key phrases <span class="tag">${m.phrases.length} phrases</span>`));
+  const grid = el('div','phrases');
+  m.phrases.forEach(p=>{
+    const ph = el('div','ph');
+    const tx = el('div','txt'); tx.appendChild(el('span','en',p[0])); tx.appendChild(el('span','de',p[1]));
+    if(p[2]) tx.appendChild(el('div','why',p[2]));
+    ph.appendChild(tx); ph.appendChild(spkBtn(p[0].replace(/…/g,'').replace(/ \/ /g,', or ')));
+    grid.appendChild(ph);
+  });
+  pc.appendChild(grid); sec.appendChild(pc);
+
+  // quiz
+  const qc = el('div','card');
+  qc.appendChild(el('h3','',`✅ Check yourself <span class="tag">${m.quiz.length} questions</span>`));
+  const ms = el('div','modscore'); qc.appendChild(ms);
+  scores[m.id] = {r:0,t:0};
+  const upd = ()=>{ ms.textContent = `${scores[m.id].r} / ${m.quiz.length} correct`; updateTotal(); };
+  m.quiz.forEach((q,qi)=>{
+    const box = el('div','q');
+    const qh = el('div','qhead'); qh.appendChild(el('div','qtext',`${qi+1}. ${q.q}`)); box.appendChild(qh);
+    const opts = el('div','opts'); const ex = el('div','expl');
+    shuffle(q.o.map((t,i)=>({t,i}))).forEach(o=>{
+      const b = el('button','opt'); b.textContent = o.t;
+      b.onclick = ()=>{
+        const all = opts.querySelectorAll('.opt'); all.forEach(x=>x.disabled=true);
+        scores[m.id].t++;
+        if(o.i===q.a){ b.classList.add('right'); scores[m.id].r++; ex.innerHTML = '<b>Right!</b> '+q.e; }
+        else { b.classList.add('wrong'); all.forEach(x=>{ if(x.textContent===q.o[q.a]) x.classList.add('right'); }); ex.innerHTML = '<b>Not quite.</b> '+q.e; }
+        ex.classList.add('show'); upd();
+      };
+      opts.appendChild(b);
+    });
+    box.appendChild(opts); box.appendChild(ex); qc.appendChild(box);
+  });
+  upd();
+  sec.appendChild(qc);
+  return sec;
+}
+
+function renderDecoder(){
+  const sec = el('section'); sec.id='decoder';
+  const head = el('div','mod-head','<h2>🕵️ The British Decoder</h2><p>What Brits say – and what they really mean. Click a card to turn it.</p>');
+  head.style.background='var(--lilac)'; sec.appendChild(head);
+  const c = el('div','card'); const g = el('div','flip-grid');
+  DECODER.forEach(d=>{
+    const f = el('div','flip'); const inn = el('div','flip-in');
+    const fr = el('div','face front'); fr.appendChild(el('span','en',`“${d[0]}”`)); fr.appendChild(el('small','','What it really means?'));
+    const bk = el('div','face back',d[1]);
+    inn.appendChild(fr); inn.appendChild(bk); f.appendChild(inn);
+    const sb = spkBtn(d[0]); sb.style.position='absolute'; sb.style.top='10px'; sb.style.right='10px';
+    sb.addEventListener('click',e=>e.stopPropagation()); fr.appendChild(sb);
+    f.onclick = ()=>f.classList.toggle('on');
+    g.appendChild(f);
+  });
+  c.appendChild(g); sec.appendChild(c);
+  const n = el('div','card note','<h3>💡 Good to know</h3><ul><li>Understatement is part of British humour – things are said more softly than they are meant.</li><li>When in doubt, look at the face and the tone of voice: a smile and ‘Brilliant!’ means real joy; a flat ‘brilliant’ can just mean ‘okay’.</li></ul>');
+  sec.appendChild(n);
+  return sec;
+}
+
+function renderRoles(){
+  const sec = el('section'); sec.id='roles';
+  const head = el('div','mod-head','<h2>🎭 Role-plays</h2><p>Act out the situations in class – your teacher plays the other person.</p>');
+  head.style.background='var(--berry)'; sec.appendChild(head);
+  const c = el('div','card');
+  ROLES.forEach((r,i)=>{
+    const b = el('div','role',`<b>${i+1}. ${r[0]}</b><br>${r[1]}`);
+    const ul = el('ul','minis'); r[2].forEach(p=>ul.appendChild(el('li','',p))); b.appendChild(ul);
+    c.appendChild(b);
+  });
+  sec.appendChild(c);
+  return sec;
+}
+
+const ALL = [...MODULES.map(m=>({id:m.id,label:m.icon+' '+m.title,render:()=>renderModule(m)})),
+  {id:'decoder',label:'🕵️ British Decoder',render:renderDecoder},
+  {id:'roles',label:'🎭 Role-plays',render:renderRoles}];
+
+ALL.forEach((a,i)=>{
+  const s = a.render(); s.style.display = i===0?'block':'none'; main.appendChild(s); sections[a.id]=s;
+  const ch = el('button','chip'+(i===0?' active':''),a.label);
+  ch.onclick = ()=>{
+    speechSynthesis && speechSynthesis.cancel(); clearPlaying();
+    Object.values(sections).forEach(x=>x.style.display='none'); s.style.display='block';
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); ch.classList.add('active');
+    ch.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+    window.scrollTo({top: document.querySelector('nav.chips').offsetTop, behavior:'smooth'});
+  };
+  chips.appendChild(ch);
+});
+updateTotal();
+
+/* toolbar */
+const bDe=document.getElementById('btnDe'), bN=document.getElementById('btnNormal'), bS=document.getElementById('btnSlow');
+bDe.onclick=()=>{document.body.classList.toggle('show-de'); bDe.classList.toggle('on'); bDe.textContent = document.body.classList.contains('show-de')?'🇩🇪 Deutsch ausblenden':'🇩🇪 Deutsch anzeigen';};
+bN.onclick=()=>{rate=0.95; bN.classList.add('on'); bS.classList.remove('on');};
+bS.onclick=()=>{rate=0.72; bS.classList.add('on'); bN.classList.remove('on');};
+document.getElementById('btnStop').onclick=()=>{ if('speechSynthesis' in window) speechSynthesis.cancel(); clearPlaying(); };
+</script>
+</body>
+</html>
